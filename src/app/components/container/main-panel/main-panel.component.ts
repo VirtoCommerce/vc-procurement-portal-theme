@@ -7,9 +7,8 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
   styleUrls: ['./main-panel.component.css']
 })
 export class MainPanelComponent implements OnInit {
+  @Input() path: string;
 
-
-  
   constructor() { }
 
   ngOnInit() {

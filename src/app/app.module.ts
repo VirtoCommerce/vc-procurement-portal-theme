@@ -23,8 +23,26 @@ import { CompanyComponent } from './components/company/company.component';
 import { ForApprovalComponent } from './components/forapproval/forapproval.component';
 import { LoginComponent } from './components/login/login.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+//import { MyInterceptor } from '../app/services/interceptors/interceptors';
+import { InMemoryDataService } from './services/in-memory-data.service';
+import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { CaruselComponent } from './components/catalog/carusel/carusel.component';
+import { ProductInformationComponent } from './components/catalog/product-information/product-information.component';
+import { ModifyCountProductComponent } from './components/catalog/modify-count-product/modify-count-product.component';
 
 
+
+
+import { DataService } from './services/data.service';
+
+import {
+    StoreRouterConnectingModule,
+    routerReducer,
+    RouterStateSerializer
+  } from '@ngrx/router-store';
+
+  
 const routes: Routes = [
     // basic routes
     { path: '', redirectTo: 'catalog', pathMatch: 'full' },
@@ -33,7 +51,7 @@ const routes: Routes = [
     { path: 'forapproval', component: ForApprovalComponent },
     { path: 'company', component: CompanyComponent },
     { path: 'account', component: AccountComponent },
-    { path: 'login', component: LoginComponent },
+    { path: 'login', component: LoginComponent }
 ];
 @NgModule({
     imports: [
@@ -41,7 +59,22 @@ const routes: Routes = [
         MaterialModule,
         BrowserAnimationsModule,
         FormsModule,
-        RouterModule.forRoot(routes)
+        HttpClientModule,
+        HttpClientXsrfModule
+            .withOptions({
+                cookieName: 'XSRF-TOKEN',
+                headerName: 'X-CSRF-TOKEN'
+            }),
+        HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+            dataEncapsulation: false
+        }),
+        InMemoryWebApiModule.forRoot(DataService),
+        RouterModule.forRoot(routes),
+
+    ],
+    providers: [
+        //{ provide: HTTP_INTERCEPTORS, useClass: MyInterceptor, multi: true },
+
     ],
     declarations: [
         AppComponent,
@@ -56,8 +89,12 @@ const routes: Routes = [
         CompanyComponent,
         ForApprovalComponent,
         LoginComponent,
-        OrdersComponent
+        OrdersComponent,
+        CaruselComponent,
+        ProductInformationComponent,
+        ModifyCountProductComponent
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    // providers: [ Globals ]
 })
 export class AppModule { }

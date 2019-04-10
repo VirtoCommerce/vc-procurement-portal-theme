@@ -14,7 +14,8 @@ module.exports = {
        filename: '[name].js'
    },
    devServer: {
-    historyApiFallback: true,
+    historyApiFallback: true
+    //port: 2082
   },
    resolve: {
     extensions: ['.ts', '.js']
