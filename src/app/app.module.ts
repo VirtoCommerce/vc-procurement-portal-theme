@@ -24,13 +24,17 @@ import { ForApprovalComponent } from './components/forapproval/forapproval.compo
 import { LoginComponent } from './components/login/login.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-//import { MyInterceptor } from '../app/services/interceptors/interceptors';
-import { InMemoryDataService } from './services/in-memory-data.service';
+import { ProcurementPortalInterceptor } from '../app/services/interceptors/interceptors';
+//import { InMemoryDataService } from './services/in-memory-data.service';
 import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { CaruselComponent } from './components/catalog/carusel/carusel.component';
 import { ProductInformationComponent } from './components/catalog/product-information/product-information.component';
-import { ModifyCountProductComponent } from './components/catalog/modify-count-product/modify-count-product.component';
+import { ProductPropertiesComponent } from './components/catalog/product-properties/product-properties.component';
 
+import { ModifyCountProductComponent } from './components/catalog/modify-count-product/modify-count-product.component';
+import { ActiveOrderComponent } from './components/active-order/active-order.component';
+import { ActiveOrderTotalComponent } from './components/active-order/active-order-total/active-order-total.component';
+import { AuthenticationService} from './services/index'
 
 
 
@@ -65,15 +69,16 @@ const routes: Routes = [
                 cookieName: 'XSRF-TOKEN',
                 headerName: 'X-CSRF-TOKEN'
             }),
-        HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
-            dataEncapsulation: false
-        }),
-        InMemoryWebApiModule.forRoot(DataService),
+        // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+        //     dataEncapsulation: false
+        // }),
+        //InMemoryWebApiModule.forRoot(DataService),
         RouterModule.forRoot(routes),
 
     ],
     providers: [
-        //{ provide: HTTP_INTERCEPTORS, useClass: MyInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ProcurementPortalInterceptor, multi: true },
+        AuthenticationService
 
     ],
     declarations: [
@@ -92,7 +97,10 @@ const routes: Routes = [
         OrdersComponent,
         CaruselComponent,
         ProductInformationComponent,
-        ModifyCountProductComponent
+        ProductPropertiesComponent,
+        ModifyCountProductComponent,
+        ActiveOrderComponent,
+        ActiveOrderTotalComponent
     ],
     bootstrap: [AppComponent],
     // providers: [ Globals ]

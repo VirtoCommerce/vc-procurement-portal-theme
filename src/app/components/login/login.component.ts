@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { AuthenticationService } from '../../services/authentication.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import {merge, Observable, of as observableOf} from 'rxjs';
-import { startWith, switchMap, map, catchError } from 'rxjs/operators';
+import { ActiveOrderService } from '../../services/active-order.service';
 
 @Component({
   selector: 'app-login',
@@ -10,71 +10,70 @@ import { startWith, switchMap, map, catchError } from 'rxjs/operators';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  displayedColumns: string[] = ['created', 'state', 'number', 'title'];
-  exampleDatabase: ExampleHttpDatabase | null;
-  data: GithubIssue[] = [];
+  model: any = {};
+  returnUrl: string;
 
-  resultsLength = 0;
-  isLoadingResults = true;
-  isRateLimitReached = false;
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
-  constructor(private http: HttpClient) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private http: HttpClient,
+    private authenticationService: AuthenticationService,
+    private activeOrderService: ActiveOrderService
+    ) { }
 
   ngOnInit() {
-    this.exampleDatabase = new ExampleHttpDatabase(this.http);
-
-    // If the user changes the sort order, reset back to the first page.
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-
-    merge(this.sort.sortChange, this.paginator.page)
-      .pipe(
-        startWith({}),
-        switchMap(() => {
-          this.isLoadingResults = true;
-          return this.exampleDatabase!.getRepoIssues(
-            this.sort.active, this.sort.direction, this.paginator.pageIndex);
-        }),
-        map(data => {
-          // Flip flag to show that loading has finished.
-          this.isLoadingResults = false;
-          this.isRateLimitReached = false;
-          this.resultsLength = data.total_count;
-
-          return data.items;
-        }),
-        catchError(() => {
-          this.isLoadingResults = false;
-          // Catch if the GitHub API has reached its rate limit. Return empty data.
-          this.isRateLimitReached = true;
-          return observableOf([]);
-        })
-      ).subscribe(data => this.data = data);    
-  }}
-
-export interface GithubApi {
-  items: GithubIssue[];
-  total_count: number;
-}
-
-export interface GithubIssue {
-  created_at: string;
-  number: string;
-  state: string;
-  title: string;
-}
-
-/** An example database that the data source uses to retrieve data for the table. */
-export class ExampleHttpDatabase {
-  constructor(private http: HttpClient) {}
-
-  getRepoIssues(sort: string, order: string, page: number): Observable<GithubApi> {
-    const href = 'http://api.github.com/search/issues';
-    const requestUrl =
-        `${href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page + 1}`;
-
-    return this.http.get<GithubApi>(requestUrl);
+    //this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
+
+  test(){
+   
+  }
+
+  login() {
+    const XSRF_TOKEN = getCookie('XSRF-TOKEN');
+    this.authenticationService.postLogin(this.model.username, this.model.password, XSRF_TOKEN)
+      .subscribe(
+        () => {
+          console.log('Successfully postLogin');
+          //this.router.navigate(['/catalog']);
+        },
+        (error: any) => {
+          console.log('error postLogin' + error);
+
+        }
+      );
+    // this.authenticationService.getLogin()
+    //   .subscribe(
+    //     (data: any) => {
+    //       console.log(data);
+    //       // const XSRF_TOKEN = getCookie('XSRF-TOKEN');
+    //       // this.authenticationService.postLogin(this.model.username, this.model.password, XSRF_TOKEN)
+    //       //   .subscribe(
+    //       //     (data: any) => {
+    //       //       this.router.navigate(['/catalog']);
+    //       //     },
+    //       //     (error: any) => console.log('error postLogin' + error)
+    //       //   );
+    //     },
+    //     (error: any) => {
+    //       console.log('error getLogin:' + error);
+    //     }
+    //   );
+  }
+}
+
+function getCookie(cname: string) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }

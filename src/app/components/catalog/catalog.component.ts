@@ -1,11 +1,16 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { Product } from '../../models/product';
 import { CatalogService } from '../../services';
+import { CatalogSearch } from '../../models/ProductSearch';
+import { Category, CategorySearch } from '../../models/category';
+import { CaruselComponent } from './carusel/carusel.component';
+import { ProductProperties } from '../../models/product-properties';
+import { ProductPrice } from '../../models/product-price';
 
 @Component({
   selector: 'app-catalog',
@@ -14,10 +19,10 @@ import { CatalogService } from '../../services';
 })
 export class CatalogComponent implements OnInit {
   products: Product[];
-
-  displayedColumns: string[] = ['sku', 'name', 'id',];
-  exampleDatabase: ExampleHttpDatabase | null;
-  data: GithubIssue[] = [];
+  categories: Category[];
+  displayedColumns: string[] = ['image', 'name', 'price',];
+  dataSource: MatTableDataSource<Product>;
+  filterByCategory: string;
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -26,106 +31,90 @@ export class CatalogComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  test: any;
+
   constructor(private http: HttpClient, private catalogService: CatalogService) {
-    // console.log('url: ' + window["BASE_URL"]);
-    // console.log('url: ' + window["BASE_URL2"]);
+
   }
 
   ngOnInit() {
-    this.catalogService.getAllProducts1()
-      .subscribe(products => this.products = products);
+    this.catalogService.getAllCategories()
+      .subscribe(
+        (data: CategorySearch) => {
+          this.categories = data.categories;
+        },
+        error => console.log(error)
+      );
+
+    this.catalogService.getAllProducts()
+      .subscribe(
+        (data: CatalogSearch) => {
+          this.products = new Array<Product>();
+          for (var i in data.products) {
+            let product = new Product();
+            let productProperties = new ProductProperties();
+            let priceProduct = new ProductPrice();
+            product.id = data.products[i].id;
+            product.sku = data.products[i].sku;
+            product.catalogId = data.products[i].catalogId;
+            product.categoryId = data.products[i].catalogId;
+            product.url = data.products[i].catalogId;
+            product.image = data.products[i].images[0].url;
+            productProperties.productId = data.products[i].id;
+            productProperties.name = data.products[i].name;
+            productProperties.sku = data.products[i].sku;
+            productProperties.nameProperty1 = data.products[i].properties[0].name;
+            productProperties.valueProperty1 = data.products[i].properties[0].value;
+            productProperties.nameProperty2 = data.products[i].properties[2].name;
+            productProperties.valueProperty2 = data.products[i].properties[2].value;
+            for (var j in this.categories) {
+              if (data.products[i].categoryId == this.categories[j].id) {
+                productProperties.category = this.categories[j].name;
+                break;
+              }
+            }
+            priceProduct.productId = product.id;
+            priceProduct.currency = data.products[i].price.currency.symbol;
+            priceProduct.price = data.products[i].price.salePrice.amount;
+            priceProduct.count = 0;
+
+            product.productProperties = productProperties;
+            product.productPrice = priceProduct;
+            this.products.push(product);
+          }
+          this.dataSource = new MatTableDataSource(this.products);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        },
+        error => console.log(error)
+      );
 
   }
 
-  GetAllProducts(sort: string, order: string, page: number) {
-
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    merge(this.sort.sortChange, this.paginator.page)
-      .pipe(
-        startWith({}),
-        switchMap(() => {
-          this.isLoadingResults = true;
-          return this.catalogService.getAllProducts(
-            this.sort.active, this.sort.direction, this.paginator.pageIndex);
-        }),
-        map(products => {
-          // Flip flag to show that loading has finished.
-          this.isLoadingResults = false;
-          this.isRateLimitReached = false;
-          this.resultsLength = 20;
-          return this.products;
-        }),
-        catchError(() => {
-          this.isLoadingResults = false;
-          // Catch if the GitHub API has reached its rate limit. Return empty data.
-          this.isRateLimitReached = true;
-          return observableOf([]);
-        })
-      ).subscribe(products => this.products = products);
-
+  setFilterByCategory(filterByCategory: string) {
+    //console.log(filterByCategory);
+    //this.dataSource.filter = filterByCategory;//.trim().toLowerCase();
   }
 
-  Test() {
-    this.exampleDatabase = new ExampleHttpDatabase(this.http);
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    // If the user changes the sort order, reset back to the first page.
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-
-    merge(this.sort.sortChange, this.paginator.page)
-      .pipe(
-        startWith({}),
-        switchMap(() => {
-          this.isLoadingResults = true;
-          return this.exampleDatabase!.getRepoIssues(
-            this.sort.active, this.sort.direction, this.paginator.pageIndex);
-        }),
-        map(data => {
-          // Flip flag to show that loading has finished.
-          this.isLoadingResults = false;
-          this.isRateLimitReached = false;
-          this.resultsLength = data.total_count;
-
-          return data.products;
-        }),
-        catchError(() => {
-          this.isLoadingResults = false;
-          // Catch if the GitHub API has reached its rate limit. Return empty data.
-          this.isRateLimitReached = true;
-          return observableOf([]);
-        })
-      ).subscribe(data => this.data = data);
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
-
 }
 
-export interface GithubApi {
-  products: GithubIssue[];
-  total_count: number;
-}
+// function createNewUser(id: number): Product {
+//   // const name =
+//   //     NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
+//   //     NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
 
-export interface GithubIssue {
-  // image: string;
-  id: string;
-  sku: string;
-  name: string;
-}
+//   return {
+//     id: id.toString(),
+//     name: name,
+//     progress: Math.round(Math.random() * 100).toString(),
+//     color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
+//   };
+// }
 
-/** An example database that the data source uses to retrieve data for the table. */
-export class ExampleHttpDatabase {
-  url: string;
-  constructor(private http: HttpClient) { }
-  getRepoIssues(sort: string, order: string, page: number): Observable<GithubApi> {
-    this.url = window.location.origin;
-    const body = { keyword: "", start: "0", isFuzzySearch: true, pageSize: "" };
-
-    const requestUrl = `${this.url}/B2B-store/storefrontapi/catalog/search`;
-
-    // return this.http.post<GithubApi>(requestUrl,body,{
-    //   //headers:  { 'Content-Type': 'application/x-www-form-urlencoded' },
-    //   withCredentials: true,
-    //   // responseType: "arraybuffer",
-    // });
-    return this.http.post<GithubApi>(requestUrl, body);
-  }
-
-}
