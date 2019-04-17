@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <base href="/">
+        <title>Angular и Webpack</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script>
+            var BASE_URL = 'base_url_test';
+        </script>
+    
+    </head>
+    <body>
+        <app-root [path]="document.innerHTML(BASE_URL)">Loading...</app-root>
+        <!-- <app-root [path]="TEST">Loading...</app-root> -->
+    <script type="text/javascript" src="/polyfills.js"></script><script type="text/javascript" src="/script.js"></script></body>
+</html>
