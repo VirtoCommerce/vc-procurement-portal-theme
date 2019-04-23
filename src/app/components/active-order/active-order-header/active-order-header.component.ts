@@ -8,6 +8,7 @@ import { ActiveOrderService } from '../../../services/active-order.service';
   styleUrls: ['./active-order-header.component.css']
 })
 export class ActiveOrderHeaderComponent implements OnInit {
+  @Input() isSummary: boolean = false;
   @Input() userName: string;
   @Input() orderId: string;
   constructor(

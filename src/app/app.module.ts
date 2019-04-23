@@ -32,7 +32,10 @@ import { ActiveOrderComponent } from './components/active-order/active-order.com
 import { ActiveOrderTotalComponent } from './components/active-order/active-order-total/active-order-total.component';
 import { ActiveOrderHeaderComponent } from './components/active-order/active-order-header/active-order-header.component';
 import { ActiveOrderDetailComponent } from './components/active-order/active-order-detail/active-order-detail.component';
+import { ActiveOrderSummaryComponent } from './components/active-order/active-order-summary/active-order-summary.component';
+
 // import { ProductInformationComponent } from './components/catalog/product-information/product-information.component';
+
 import { ProductPropertiesComponent } from './components/catalog/product-properties/product-properties.component';
 
 import { ModifyCountProductComponent } from './components/catalog/modify-count-product/modify-count-product.component';
@@ -59,7 +62,8 @@ const routes: Routes = [
     { path: 'forapproval', component: ForApprovalComponent },
     { path: 'company', component: CompanyComponent },
     { path: 'account', component: AccountComponent },
-    { path: 'login', component: LoginComponent }
+    { path: 'login', component: LoginComponent },
+    { path: 'activeorder', component: ActiveOrderSummaryComponent }
 ];
 @NgModule({
     imports: [
@@ -99,6 +103,7 @@ const routes: Routes = [
         ActiveOrderTotalComponent,
         ActiveOrderHeaderComponent,
         ActiveOrderDetailComponent,
+        ActiveOrderSummaryComponent,
         CatalogComponent,
         AccountComponent,
         CompanyComponent,

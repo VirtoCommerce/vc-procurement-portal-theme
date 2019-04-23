@@ -8,11 +8,12 @@ import { ActiveOrderService } from '../../../services/active-order.service';
   styleUrls: ['./active-order-total.component.css']
 })
 export class ActiveOrderTotalComponent implements OnInit {
+  @Input() isSummary: boolean = false;
   @Input() countItems: string;
   @Input() subTotal: string;
   @Input() shipping: string;
   @Input() total: string;
-  
+
   constructor(
     private activeOrderService: ActiveOrderService
   ) { }

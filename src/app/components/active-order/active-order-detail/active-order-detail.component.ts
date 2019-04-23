@@ -9,6 +9,7 @@ import { Product } from '../../../models/product';
   styleUrls: ['./active-order-detail.component.css']
 })
 export class ActiveOrderDetailComponent implements OnInit {
+  @Input() isSummary: boolean = false;
   @Input() products: Product[];
   constructor(
     private activeOrderService: ActiveOrderService

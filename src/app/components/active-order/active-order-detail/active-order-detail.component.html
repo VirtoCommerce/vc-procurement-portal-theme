@@ -1,14 +1,36 @@
-<table border="1">
+<div *ngIf="isSummary; else notSummary">
     <div *ngFor='let item of products; let i=index'>
-        <tr>
-            <td>
-                <app-product-properties [productProperties]='item.productProperties'>
-                </app-product-properties>
-            </td>
-            <td class="column-count">
-                <app-modify-count-product [productPrice]='item.productPrice'>
-                </app-modify-count-product>
-            </td>
-        </tr>
+        <table width="100%" cellspacing="0" cellpadding="4">
+            <tr>
+                <td>
+                    <img src="{{item.productProperties.image}}" alt="no image">
+                </td>
+                <td colspan="2">
+                    <app-product-properties [productProperties]='item.productProperties'>
+                    </app-product-properties>
+                </td>
+                <td >
+                    <app-modify-count-product [productPrice]='item.productPrice'>
+                    </app-modify-count-product>
+                </td>
+            </tr>
+        </table>
     </div>
-</table>
+    <mat-divider></mat-divider>
+</div>
+<ng-template #notSummary>
+    <table border="1">
+        <div *ngFor='let item of products; let i=index'>
+            <tr>
+                <td>
+                    <app-product-properties [productProperties]='item.productProperties'>
+                    </app-product-properties>
+                </td>
+                <td class="column-count">
+                    <app-modify-count-product [productPrice]='item.productPrice'>
+                    </app-modify-count-product>
+                </td>
+            </tr>
+        </div>
+    </table>
+</ng-template>

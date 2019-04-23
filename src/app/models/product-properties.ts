@@ -1,5 +1,6 @@
 export class ProductProperties {
     productId: string;
+    image: string;
     name: string;
     category: string;
     sku: string;
