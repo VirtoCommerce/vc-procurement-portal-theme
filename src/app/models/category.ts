@@ -6,3 +6,5 @@ export class Category {
 export class CategorySearch {
     categories: Category[];
 }
+
+

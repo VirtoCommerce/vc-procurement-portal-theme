@@ -33,7 +33,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header class=".td-properties">
           <h1>Name</h1>
         </th>
-        <td mat-cell *matCellDef="let row"  class=".td-properties">
+        <td mat-cell *matCellDef="let row" class=".td-properties">
           <app-product-properties [productProperties]='row.productProperties'>
           </app-product-properties>
 
@@ -44,8 +44,8 @@
         <th mat-header-cell *matHeaderCellDef disableClear mat-sort-header class=".td-count">
           <h1>Price</h1>
         </th>
-        <td mat-cell *matCellDef="let row"  class=".td-count">
-            <app-modify-count-product [productPrice]='row.productPrice'></app-modify-count-product>
+        <td mat-cell *matCellDef="let row" class=".td-count">
+          <app-modify-count-product [productPrice]='row.productPrice'></app-modify-count-product>
         </td>
       </ng-container>
 
@@ -68,7 +68,7 @@
 
 <td width="30%" class="active-order">
   <div>
-    <app-active-order></app-active-order>
+    <app-active-order [categories]='categories'></app-active-order>
   </div>
 </td>
 </tr>

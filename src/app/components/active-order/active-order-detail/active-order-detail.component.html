@@ -1,0 +1,14 @@
+<table border="1">
+    <div *ngFor='let item of products; let i=index'>
+        <tr>
+            <td>
+                <app-product-properties [productProperties]='item.productProperties'>
+                </app-product-properties>
+            </td>
+            <td class="column-count">
+                <app-modify-count-product [productPrice]='item.productPrice'>
+                </app-modify-count-product>
+            </td>
+        </tr>
+    </div>
+</table>

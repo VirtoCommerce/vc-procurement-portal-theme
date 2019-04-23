@@ -28,14 +28,17 @@ import { ProcurementPortalInterceptor } from '../app/services/interceptors/inter
 //import { InMemoryDataService } from './services/in-memory-data.service';
 import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { CaruselComponent } from './components/catalog/carusel/carusel.component';
-import { ProductInformationComponent } from './components/catalog/product-information/product-information.component';
+import { ActiveOrderComponent } from './components/active-order/active-order.component';
+import { ActiveOrderTotalComponent } from './components/active-order/active-order-total/active-order-total.component';
+import { ActiveOrderHeaderComponent } from './components/active-order/active-order-header/active-order-header.component';
+import { ActiveOrderDetailComponent } from './components/active-order/active-order-detail/active-order-detail.component';
+// import { ProductInformationComponent } from './components/catalog/product-information/product-information.component';
 import { ProductPropertiesComponent } from './components/catalog/product-properties/product-properties.component';
 
 import { ModifyCountProductComponent } from './components/catalog/modify-count-product/modify-count-product.component';
-import { ActiveOrderComponent } from './components/active-order/active-order.component';
-import { ActiveOrderTotalComponent } from './components/active-order/active-order-total/active-order-total.component';
 import { AuthenticationService} from './services/index'
-
+import { HttpModule } from '@angular/http'; 
+import 'rxjs';
 
 
 import { DataService } from './services/data.service';
@@ -45,6 +48,7 @@ import {
     routerReducer,
     RouterStateSerializer
   } from '@ngrx/router-store';
+import { SharedService } from './services/shared-service';
 
   
 const routes: Routes = [
@@ -59,6 +63,7 @@ const routes: Routes = [
 ];
 @NgModule({
     imports: [
+        HttpModule,
         BrowserModule,
         MaterialModule,
         BrowserAnimationsModule,
@@ -89,6 +94,10 @@ const routes: Routes = [
         LeftPanelComponent,
         RightPanelComponent,
         MenuComponent,
+        ActiveOrderComponent,
+        ActiveOrderTotalComponent,
+        ActiveOrderHeaderComponent,
+        ActiveOrderDetailComponent,
         CatalogComponent,
         AccountComponent,
         CompanyComponent,
@@ -96,11 +105,9 @@ const routes: Routes = [
         LoginComponent,
         OrdersComponent,
         CaruselComponent,
-        ProductInformationComponent,
+        // ProductInformationComponent,
         ProductPropertiesComponent,
-        ModifyCountProductComponent,
-        ActiveOrderComponent,
-        ActiveOrderTotalComponent
+        ModifyCountProductComponent
     ],
     bootstrap: [AppComponent],
     // providers: [ Globals ]

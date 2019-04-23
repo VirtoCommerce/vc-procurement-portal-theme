@@ -8,7 +8,7 @@
     </div>
     <ng-template #showEdit>
         <input #inputCount matInput type="text" [(ngModel)]="inputCountProduct" (blur)="FocusOut(inputCount.value)"
-            (keyup.enter)="Save(inputCount.value)">
+            (keyup.enter)="Change(inputCount.value)">
         {{ inputCount.focus() }}
 
         <br />

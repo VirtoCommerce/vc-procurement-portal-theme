@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { merge, Observable, of as observableOf } from 'rxjs';
+import {  Observable} from 'rxjs';
+import { merge } from 'rxjs/observable/merge';
+import { of as observableOf } from 'rxjs/observable/of';
 //import { map } from 'rxjs/operators';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 

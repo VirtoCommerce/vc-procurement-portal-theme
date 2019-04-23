@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActiveOrderService } from '../../../services/active-order.service';
 
 
@@ -8,19 +8,16 @@ import { ActiveOrderService } from '../../../services/active-order.service';
   styleUrls: ['./active-order-total.component.css']
 })
 export class ActiveOrderTotalComponent implements OnInit {
-  countItems: number;
+  @Input() countItems: string;
+  @Input() subTotal: string;
+  @Input() shipping: string;
+  @Input() total: string;
+  
   constructor(
     private activeOrderService: ActiveOrderService
-  ) {  }
+  ) { }
 
   ngOnInit() {
-    this.activeOrderService.getCountItems()
-      .subscribe(
-        (data: any) => {
-          //var myObj = JSON.parse(data);
-          this.countItems = data;
-        }
-      );
 
   }
 }
