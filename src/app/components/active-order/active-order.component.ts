@@ -7,6 +7,7 @@ import { Category } from '../../models/category';
 import { Post } from '../../models/Post';
 import { User } from '../../models/user';
 import { AddedProduct } from '../../models/added-product';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 
 @Component({
@@ -15,9 +16,10 @@ import { AddedProduct } from '../../models/added-product';
   styleUrls: ['./active-order.component.css']
 })
 export class ActiveOrderComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
   @Input() categories: Category[];
   userName: string = "";
-  orderId: string ="unknown";
+  orderId: string = "unknown";
   countItems: number = 0;
   currencySymbol: string = "";
   subTotal: string = "";
@@ -38,35 +40,36 @@ export class ActiveOrderComponent implements OnInit {
   ngOnInit() {
     this.getUserName();
     this.getActiveOrder("");
-    this.activeOrderService.removeForActiveOrder.subscribe((onRemove: boolean) => {
-      this.onRemove = onRemove;
-      console.log('!!!onRemove!!! ' + onRemove);
-      //this.getUserName();
-      //this.getActiveOrder(Date.now().toString());
-      this.getActiveOrder("");
-      //console.log('Remove getActiveOrder.');
-    })
-
-    //this.getActiveOrder("");
+    this.activeOrderService.removeForActiveOrder.
+      subscribe((onRemove: boolean) => {
+        this.onRemove = onRemove;
+        console.log('!!!onRemove!!! ' + onRemove);
+        this.getActiveOrder("");
+      },
+        (error: string) => {
+          console.log("Error getUserName: " + error)
+        }
+      )
   }
 
   getUserName() {
+    this.blockUI.start("Get username...");
     this.activeOrderService.getUserName()
       .subscribe(
         (data: any) => {
           this.userName = data.userName;
-          //this.result = data.username;
-          //let test =  JSON.stringify(data.response.userName);
           console.log("Result getUserName: " + data.userName)
+          this.blockUI.stop();
         },
-        error => console.log("Error getUserName: " + error)
-        // (data: any) => {
-        //   this.userName = data.userName;
-        // }
+        error => {
+          console.log("Error getUserName: " + error)
+          this.blockUI.stop();
+        }
       );
   }
 
   getActiveOrder(t: string) {
+    this.blockUI.start("Get total active order...");
     this.activeOrderService.getTotal(t)
       .subscribe(
         (data: any) => {
@@ -81,17 +84,23 @@ export class ActiveOrderComponent implements OnInit {
               this.shipping = data.shippingPrice.currency.symbol + data.shippingPrice.amount;
             }
             this.total = data.total.currency.symbol + data.total.amount;
+            this.blockUI.stop();
             this.fillProducts(data);
           }
           catch (e) {
+            this.blockUI.stop();
             console.log('Hook getActiveOrder:' + e);
           }
         },
-        error => console.log("Error getActiveOrder: " + error)
+        error => {
+          this.blockUI.stop();
+          console.log("Error getActiveOrder: " + error);
+        }
       );
   }
 
   fillProducts(data: any) {
+    this.blockUI.start("Get details of active order...");
     if (data == null) {
       console.log('null catch')
     }
@@ -124,10 +133,14 @@ export class ActiveOrderComponent implements OnInit {
         this.products.push(product);
       }
       console.log('fill: ' + this.products.length);
+      
       this.activeOrderService.afterLoad(_addedProducts);
+      this.blockUI.stop();
     } catch (e) {
       console.log('catch works!!!');
+      
       this.activeOrderService.afterRemovedForTable();
+      this.blockUI.stop();
     }
     // this.activeOrderService.afterRemovedForTable();
   }

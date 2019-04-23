@@ -15,6 +15,7 @@ import { ProductProperties } from '../../models/product-properties';
 import { ProductPrice } from '../../models/product-price';
 import { AddedProduct } from '../../models/added-product';
 import { ActiveOrderService } from '../../services/active-order.service';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-catalog',
@@ -22,6 +23,7 @@ import { ActiveOrderService } from '../../services/active-order.service';
   styleUrls: ['./catalog.component.css']
 })
 export class CatalogComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
   products: Product[];
   categories: Category[];
   displayedColumns: string[] = ['image', 'name', 'price',];
@@ -48,12 +50,17 @@ export class CatalogComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.blockUI.start("Loading categories...");
     this.catalogService.getAllCategories()
       .subscribe(
         (data: CategorySearch) => {
           this.categories = data.categories;
+          this.blockUI.stop();
         },
-        error => console.log(error)
+        error => {
+          console.log(error);
+          this.blockUI.stop();
+        }
       );
     this.activeOrderService.removeForTable.subscribe(() => {
       console.log('catalog remove');
@@ -114,10 +121,12 @@ export class CatalogComponent implements OnInit {
       //console.log('exec load: count: ' + onLoad.count);
     })
     this.activeOrderService.load.subscribe((onLoad: AddedProduct[]) => {
+      this.blockUI.start("Loading products...");
       this.catalogService.getAllProducts()
         .subscribe(
           (data: CatalogSearch) => {
-            console.log('Catalog component, data:' + data);
+            this.blockUI.stop();
+            //console.log('Catalog component, data:' + data);
             this.products = new Array<Product>();
             for (var i in data.products) {
               let product = new Product();
@@ -165,7 +174,10 @@ export class CatalogComponent implements OnInit {
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
           },
-          error => console.log(error)
+          error => {
+            this.blockUI.stop();
+            console.log(error);
+          }
         );
 
     })

@@ -19,8 +19,8 @@
 
 	
 <app-root>Loading...</app-root>
-<script type="text/javascript" src="{{ 'bundle/polyfills.js' | static_asset_url }}">  </script>
-<script type="text/javascript" src="{{ 'bundle/script.js' | static_asset_url  }}">  </script>
+<script type="text/javascript" src="{{ 'bundle/polyfills.js' | static_asset_url  | append_version}}">  </script>
+<script type="text/javascript" src="{{ 'bundle/script.js' | static_asset_url   | append_version}}">  </script>
 
 </body>
 </html>

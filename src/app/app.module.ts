@@ -36,10 +36,10 @@ import { ActiveOrderDetailComponent } from './components/active-order/active-ord
 import { ProductPropertiesComponent } from './components/catalog/product-properties/product-properties.component';
 
 import { ModifyCountProductComponent } from './components/catalog/modify-count-product/modify-count-product.component';
-import { AuthenticationService} from './services/index'
-import { HttpModule } from '@angular/http'; 
+import { AuthenticationService } from './services/index'
+import { HttpModule } from '@angular/http';
 import 'rxjs';
-
+import { BlockUIModule } from 'ng-block-ui';
 
 import { DataService } from './services/data.service';
 
@@ -47,10 +47,10 @@ import {
     StoreRouterConnectingModule,
     routerReducer,
     RouterStateSerializer
-  } from '@ngrx/router-store';
+} from '@ngrx/router-store';
 import { SharedService } from './services/shared-service';
 
-  
+
 const routes: Routes = [
     // basic routes
     { path: '', redirectTo: 'catalog', pathMatch: 'full' },
@@ -74,6 +74,7 @@ const routes: Routes = [
                 cookieName: 'XSRF-TOKEN',
                 headerName: 'X-CSRF-TOKEN'
             }),
+        BlockUIModule.forRoot(),
         // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
         //     dataEncapsulation: false
         // }),

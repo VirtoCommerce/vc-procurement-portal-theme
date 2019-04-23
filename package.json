@@ -25,6 +25,7 @@
     "@ngrx/store": "^7.4.0",
     "angular-in-memory-web-api": "^0.7.0",
     "core-js": "^2.5.7",
+    "ng-block-ui": "^2.1.3",
     "ngrx-store-freeze": "^0.2.4",
     "rxjs": "^6.1.0",
     "rxjs-compat": "^6.4.0",

@@ -3,6 +3,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ActiveOrderService } from '../../services/active-order.service';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { ActiveOrderService } from '../../services/active-order.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
   model: any = {};
   returnUrl: string;
   userName: string = "";
@@ -25,6 +27,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     //this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
+  toggleBlocking() {
+    console.log('toogle works!');
+    this.blockUI.start("Loading...");
+
+    setTimeout(() => {
+      this.blockUI.stop();
+    }, 2500);
+
   }
 
   test() {
