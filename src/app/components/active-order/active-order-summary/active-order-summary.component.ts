@@ -8,7 +8,9 @@ import { Post } from '../../../models/Post';
 import { User } from '../../../models/user';
 import { AddedProduct } from '../../../models/added-product';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
+import { ICreateOrder } from '../../../models/create-order';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-active-order-summary',
@@ -16,6 +18,7 @@ import {Location} from '@angular/common';
   styleUrls: ['./active-order-summary.component.css']
 })
 export class ActiveOrderSummaryComponent implements OnInit {
+  urlDownloadInvoice: string;
   @BlockUI() blockUI: NgBlockUI;
   @Input() categories: Category[];
   userName: string = "";
@@ -30,10 +33,12 @@ export class ActiveOrderSummaryComponent implements OnInit {
   result: any;
   onRemove = false;
   onAdd = false;
-
+  createOrder: any;
+  isSuccessfully: boolean = false;
   constructor(
     private activeOrderService: ActiveOrderService,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) {
     this.countItems = 0;
   }
@@ -112,7 +117,7 @@ export class ActiveOrderSummaryComponent implements OnInit {
         let product = new Product();
         let productProperties = new ProductProperties();
         let priceProduct = new ProductPrice();
-        productProperties.image= data.items[i].imageUrl;
+        productProperties.image = data.items[i].imageUrl;
         productProperties.productId = data.items[i].productId;
         productProperties.name = data.items[i].name;
         productProperties.sku = data.items[i].sku;
@@ -148,6 +153,29 @@ export class ActiveOrderSummaryComponent implements OnInit {
 
   close() {
     this.location.back();
+  }
+
+  checkout() {
+    this.blockUI.start("Creating order...");
+    this.activeOrderService.createOrder()
+      .subscribe(
+        (data: ICreateOrder) => {
+          this.createOrder = data.order;
+          console.log("Result checkout: " + this.createOrder.number)
+          this.blockUI.stop();
+          this.isSuccessfully = true;
+          this.urlDownloadInvoice = "storefrontapi/orders/" + this.createOrder.number + "/invoice";
+          this.ngOnInit();
+          //this.activeOrderService.afterRemovedForTable();
+        },
+        (error: string) => {
+          console.log("Error checkout: " + error)
+          this.blockUI.stop();
+          //this.activeOrderService.afterRemovedForTable();
+        }
+      );
+    this.blockUI.stop();
+    //this.activeOrderService.afterRemovedForTable();
   }
 
 }

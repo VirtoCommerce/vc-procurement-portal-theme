@@ -1,0 +1,101 @@
+<h1>Your order processed successfully</h1>
+<br />
+<mat-divider></mat-divider>
+<a href="{{urlDownloadInvoice}}" target="_blank">Download</a>
+
+<table width="100%" cellspacing="0" cellpadding="4">
+    <tr>
+        <td>
+            <b>Invoice Details:</b>
+        </td>
+        <td>
+            {{number}}
+        </td>
+        <td>
+            <b>Status:</b>
+        </td>
+        <td>
+            {{status}}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Order Date</b>
+        </td>
+        <td>
+            <b>Order Number</b>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{modifiedDate}}
+        </td>
+        <td>
+            {{number}}
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <b>Details:</b>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>#</b>
+        </td>
+        <td>
+            <b>
+                Item Description
+            </b>
+        </td>
+        <td>
+            <b>
+                Unit Price
+            </b>
+        </td>
+        <td>
+            <b>
+                Invoice Qty
+            </b>
+        </td>
+        <td>
+            <b>
+                Line Price
+            </b>
+        </td>
+    </tr>
+    <div *ngFor='let item of items; let i=index'>
+        <tr>
+            <td>
+                {{i+1}}
+            </td>
+            <td>
+                {{item.name}}
+            </td>
+            <td>
+                {{item.placedPrice}}
+            </td>
+            <td>
+                {{item.quantity}}
+            </td>
+            <td>
+                {{item.placedPrice}
+            </td>
+        </tr>
+    </div>
+    <tr>
+        <td colspan="2" align="center">
+            <a routerLink="/catalog" routerLinkActive="catalog">
+                <button mat-button>Back to catalog</button>
+            </a>
+</td>
+</tr>
+</table>
