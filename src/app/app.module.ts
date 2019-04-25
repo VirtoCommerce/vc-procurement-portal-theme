@@ -34,6 +34,7 @@ import { ActiveOrderHeaderComponent } from './components/active-order/active-ord
 import { ActiveOrderDetailComponent } from './components/active-order/active-order-detail/active-order-detail.component';
 import { ActiveOrderSummaryComponent } from './components/active-order/active-order-summary/active-order-summary.component';
 import { ActiveOrderPostCheckoutComponent } from './components/active-order/active-order-post-checkout/active-order-post-checkout.component';
+import { BulkOrderComponent } from './components/bulk-order/bulk-order.component';
 
 // import { ProductInformationComponent } from './components/catalog/product-information/product-information.component';
 
@@ -65,7 +66,8 @@ const routes: Routes = [
     { path: 'account', component: AccountComponent },
     { path: 'login', component: LoginComponent },
     { path: 'activeorder', component: ActiveOrderSummaryComponent },
-    { path: 'invoice', component: ActiveOrderPostCheckoutComponent }
+    { path: 'invoice', component: ActiveOrderPostCheckoutComponent },
+    { path: 'bulkorder', component: BulkOrderComponent }
 
 ];
 @NgModule({
@@ -116,7 +118,8 @@ const routes: Routes = [
         CaruselComponent,
         ActiveOrderPostCheckoutComponent,
         ProductPropertiesComponent,
-        ModifyCountProductComponent
+        ModifyCountProductComponent,
+        BulkOrderComponent
     ],
     bootstrap: [AppComponent],
     // providers: [ Globals ]
