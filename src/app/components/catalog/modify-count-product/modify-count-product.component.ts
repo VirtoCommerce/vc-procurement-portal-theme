@@ -54,9 +54,6 @@ export class ModifyCountProductComponent implements OnInit {
     catch (e) {
       console.log('Exception' + e);
     }
-    // console.log('afterRemovedForActiveOrder 2');
-    // this.activeOrderService.afterRemovedForActiveOrder();
-    // this.ngOnInit();
   }
 
 
