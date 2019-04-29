@@ -50,23 +50,21 @@ export class CatalogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.blockUI.start("Loading categories...");
+    // console.log("START! Catalog component, ngOnInit");
+    this.blockUI.start("Loading...");
     this.catalogService.getAllCategories()
       .subscribe(
         (data: CategorySearch) => {
           this.categories = data.categories;
-          this.blockUI.stop();
+          //console.log("STOP! Catlog component, ngOnInit getAllCategories");
+          //this.blockUI.stop();
         },
         error => {
-          console.log(error);
+          console.log("Catalog component, error:" + error);
           this.blockUI.stop();
         }
       );
     this.activeOrderService.removeForTable.subscribe(() => {
-      console.log('catalog remove');
-      // this.onLoad = onLoad;
-      // console.log('!!!onLoad id=!!! ' + onLoad.id);
-      // console.log('!!!onLoad count=!!! ' + onLoad.count);
       this.catalogService.getAllProducts()
         .subscribe(
           (data: CatalogSearch) => {
@@ -76,8 +74,6 @@ export class CatalogComponent implements OnInit {
               let productProperties = new ProductProperties();
               let priceProduct = new ProductPrice();
               product.id = data.products[i].id;
-              // onLoad.id = product.id;
-              //onLoad.count = 0;
               product.sku = data.products[i].sku;
               product.catalogId = data.products[i].catalogId;
               product.categoryId = data.products[i].categoryId;
@@ -101,13 +97,7 @@ export class CatalogComponent implements OnInit {
               priceProduct.currency = data.products[i].price.currency.symbol;
               priceProduct.price = data.products[i].price.salePrice.amount;
               priceProduct.count = 0;
-              // if (onLoad.id == product.id) {
-              //   priceProduct.count = onLoad.count;
-              // }
-
               product.price = data.products[i].price.salePrice.amount;
-
-
               product.productProperties = productProperties;
               product.productPrice = priceProduct;
               this.products.push(product);
@@ -118,15 +108,15 @@ export class CatalogComponent implements OnInit {
           },
           error => console.log(error)
         );
-      //console.log('exec load: count: ' + onLoad.count);
     })
     this.activeOrderService.load.subscribe((onLoad: AddedProduct[]) => {
-      this.blockUI.start("Loading products...");
+      //console.log("START! Catalog component, ngOnInit - load");
+      //this.blockUI.start("Loading products...");
       this.catalogService.getAllProducts()
         .subscribe(
           (data: CatalogSearch) => {
+            // console.log("STOP! Catlog component, ngOnInit getAllProducts");
             this.blockUI.stop();
-            //console.log('Catalog component, data:' + data);
             this.products = new Array<Product>();
             for (var i in data.products) {
               let product = new Product();

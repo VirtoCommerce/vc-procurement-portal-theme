@@ -17,7 +17,6 @@ export class CaruselComponent implements OnInit {
   }
 
   setFilterByCategory(filterByCategory:string) {
-    console.log('Clicked by ' + filterByCategory);
     this.filterByCategory.emit(filterByCategory);
   }
 }

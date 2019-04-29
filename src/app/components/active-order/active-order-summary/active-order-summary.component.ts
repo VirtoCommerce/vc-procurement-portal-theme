@@ -49,7 +49,6 @@ export class ActiveOrderSummaryComponent implements OnInit {
     this.activeOrderService.removeForActiveOrder.
       subscribe((onRemove: boolean) => {
         this.onRemove = onRemove;
-        console.log('!!!onRemove!!! ' + onRemove);
         this.getActiveOrder("");
       },
         (error: string) => {
@@ -59,12 +58,13 @@ export class ActiveOrderSummaryComponent implements OnInit {
   }
 
   getUserName() {
+    // console.log("START! Active order summary, getUserName");
     this.blockUI.start("Get username...");
     this.activeOrderService.getUserName()
       .subscribe(
         (data: any) => {
           this.userName = data.userName;
-          console.log("Result getUserName: " + data.userName)
+          // console.log("STOP! Active order summary, getUserName");
           this.blockUI.stop();
         },
         (error: string) => {
@@ -75,12 +75,13 @@ export class ActiveOrderSummaryComponent implements OnInit {
   }
 
   getActiveOrder(t: string) {
+    // console.log("START! Active order  summary, getActiveOrder");
     this.blockUI.start("Get total active order...");
+    console.log('active-order-summary');
     this.activeOrderService.getTotal(t)
       .subscribe(
         (data: any) => {
           try {
-            console.log('OK getActiveOrder:' + data);
             this.countItems = data.itemsCount;
             this.currencySymbol = data.currency.symbol;
             this.subTotal = data.subTotal.currency.symbol + data.subTotal.amount;
@@ -90,12 +91,13 @@ export class ActiveOrderSummaryComponent implements OnInit {
               this.shipping = data.shippingPrice.currency.symbol + data.shippingPrice.amount;
             }
             this.total = data.total.currency.symbol + data.total.amount;
+            // console.log("STOP! Active order summary, getTotal");
             this.blockUI.stop();
             this.fillProducts(data);
           }
           catch (e) {
             this.blockUI.stop();
-            console.log('Hook getActiveOrder:' + e);
+            console.log('Error(Catch) getActiveOrder:' + e);
           }
         },
         error => {
@@ -106,48 +108,39 @@ export class ActiveOrderSummaryComponent implements OnInit {
   }
 
   fillProducts(data: any) {
+    // console.log("START! Active order summary, fillProducts");
     this.blockUI.start("Get details of active order...");
-    if (data == null) {
-      console.log('null catch')
-    }
-    try {
-      this.products = new Array<Product>();
-      let _addedProducts = new Array<AddedProduct>();
-      for (var i in data.items) {
-        let product = new Product();
-        let productProperties = new ProductProperties();
-        let priceProduct = new ProductPrice();
-        productProperties.image = data.items[i].imageUrl;
-        productProperties.productId = data.items[i].productId;
-        productProperties.name = data.items[i].name;
-        productProperties.sku = data.items[i].sku;
-        for (var j in this.categories) {
-          if (data.items[i].categoryId == this.categories[j].id) {
-            productProperties.category = this.categories[j].name;
-            break;
-          }
+    this.products = new Array<Product>();
+    let _addedProducts = new Array<AddedProduct>();
+    for (var i in data.items) {
+      let product = new Product();
+      let productProperties = new ProductProperties();
+      let priceProduct = new ProductPrice();
+      productProperties.image = data.items[i].imageUrl;
+      productProperties.productId = data.items[i].productId;
+      productProperties.name = data.items[i].name;
+      productProperties.sku = data.items[i].sku;
+      for (var j in this.categories) {
+        if (data.items[i].categoryId == this.categories[j].id) {
+          productProperties.category = this.categories[j].name;
+          break;
         }
-        priceProduct.id = data.items[i].id;
-        priceProduct.productId = data.items[i].productId;
-        priceProduct.currency = data.items[i].salePrice.currency.symbol;
-        priceProduct.price = data.items[i].salePrice.amount;
-        priceProduct.count = data.items[i].quantity;
-        product.productProperties = productProperties;
-        product.productPrice = priceProduct;
-        let item = new AddedProduct(priceProduct.id, priceProduct.productId, priceProduct.count);
-        _addedProducts.push(item);
-        this.products.push(product);
       }
-      console.log('fill: ' + this.products.length);
-
-      this.activeOrderService.afterLoad(_addedProducts);
-      this.blockUI.stop();
-    } catch (e) {
-      console.log('catch works!!!');
-
-      this.activeOrderService.afterRemovedForTable();
-      this.blockUI.stop();
+      priceProduct.id = data.items[i].id;
+      priceProduct.productId = data.items[i].productId;
+      priceProduct.currency = data.items[i].salePrice.currency.symbol;
+      priceProduct.price = data.items[i].salePrice.amount;
+      priceProduct.count = data.items[i].quantity;
+      product.productProperties = productProperties;
+      product.productPrice = priceProduct;
+      let item = new AddedProduct(priceProduct.id, priceProduct.productId, priceProduct.count);
+      _addedProducts.push(item);
+      this.products.push(product);
     }
+
+    this.activeOrderService.afterLoad(_addedProducts);
+    // console.log("STOP! Active order summary, fillProduct()");
+    this.blockUI.stop();
     // this.activeOrderService.afterRemovedForTable();
   }
 
@@ -156,12 +149,13 @@ export class ActiveOrderSummaryComponent implements OnInit {
   }
 
   checkout() {
+    // console.log("START! Active order summary, checkout");
     this.blockUI.start("Creating order...");
     this.activeOrderService.createOrder()
       .subscribe(
         (data: ICreateOrder) => {
           this.createOrder = data.order;
-          console.log("Result checkout: " + this.createOrder.number)
+          // console.log("STOP! Active order summary, checkout");
           this.blockUI.stop();
           this.isSuccessfully = true;
           this.urlDownloadInvoice = "storefrontapi/orders/" + this.createOrder.number + "/invoice";

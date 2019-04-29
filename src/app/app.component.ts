@@ -8,9 +8,6 @@ import { Router } from '@angular/router';
 export class AppComponent {
     @Input() path: string;
     constructor(private router: Router) {
-        // console.log('url: ' + window.location.href + '/' + this.router.url);
-        // base_url=this.path;
-        // console.log('url: ' + globals.url);
     }
 
 }

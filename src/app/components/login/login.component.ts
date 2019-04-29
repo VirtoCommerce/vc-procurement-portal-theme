@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     //this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
   toggleBlocking() {
-    console.log('toogle works!');
+    // console.log("START! Login component, toggleBlocking");
     this.blockUI.start("Loading...");
 
     setTimeout(() => {

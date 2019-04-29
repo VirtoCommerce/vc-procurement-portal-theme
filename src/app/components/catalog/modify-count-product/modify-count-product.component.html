@@ -7,7 +7,7 @@
         {{productPrice.count}}
     </div>
     <ng-template #showEdit>
-        <input #inputCount matInput type="text" [(ngModel)]="inputCountProduct" (blur)="FocusOut(inputCount.value)"
+        <input #inputCount matInput type="text" [(ngModel)]="inputCountProduct" 
             (keyup.enter)="Change(inputCount.value)">
         {{ inputCount.focus() }}
 

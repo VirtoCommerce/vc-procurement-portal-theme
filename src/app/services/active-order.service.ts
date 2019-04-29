@@ -45,18 +45,23 @@ export class ActiveOrderService {
   }
 
   afterRemovedForTable() {
+    console.log("afterRemovedForTable");
     this.onRemoveForTable = !this.onRemoveForTable;
     this.removeForTable.emit(this.onRemoveForTable)
   }
 
   afterAdded() {
+    console.log("afterAdded");
     this.onAdd = !this.onAdd;
     this.add.emit(this.onAdd);
   }
 
   afterLoad(addedProduct: AddedProduct[]) {
+    console.log("afterLoad");
     this.onLoad = addedProduct;
-    console.log('Active order service: ' + addedProduct.length);
+    //console.log('Active order service: ' + addedProduct.length);
+    // console.log("STOP! Catlog component, ngOnInit getAllProducts");
+    // this.blockUI.stop();
     this.load.emit(this.onLoad);
   }
 
@@ -67,11 +72,13 @@ export class ActiveOrderService {
 
 
   getUserName() {
+    console.log("getUserName");
     const url = window["BASE_URL"] + 'storefrontapi/account';
     return this.http.get<Post>(url);
   }
 
   getTotal(t: string) {
+    console.log("getTotal t=" + t);
     let url = window["BASE_URL"] + 'storefrontapi/cart/itemscount?t=' + Date.now();
     this.http.get<any>(url).subscribe(
       (data: any) => {
@@ -103,39 +110,38 @@ export class ActiveOrderService {
   }
 
   createOrder() {
+    console.log("createOrder");
     const body = {};
     const url = window["BASE_URL"] + 'storefrontapi/cart/createorder';
     return this.http.post<any>(url, body);
   }
 
   Clear() {
+    console.log("Clear");
     const url = window["BASE_URL"] + 'storefrontapi/cart/clear';
     const body = "{}";
     return this.http.post<any>(url, body);
   }
 
   Add(productId: string) {
+    console.log("Add");
     const body = { id: productId, quantity: 1 };
     const url = window["BASE_URL"] + 'storefrontapi/cart/items';
     return this.http.post<Post>(url, body);
   }
 
   Remove(productId: string) {
+    console.log("Remove");
     const url = window["BASE_URL"] + 'storefrontapi/cart/items?lineItemId=' + productId;
     return this.http.delete(url);
   }
 
-
-  private extractData(res: Response) {
-    let body = res.json();
-    return body;
-  }
-
   Change(id: string, quantity: number) {
+    console.log("Change");
     if (id === "undefined") {
-      console.log("1) Change id=" + id);
+      //console.log("1) Change id=" + id);
     } else {
-      console.log("2) Change id=" + id);
+      //console.log("2) Change id=" + id);
       const url = window["BASE_URL"] + 'storefrontapi/cart/items';
       const body = '{"lineItemId":"' + id + '","Quantity":"' + quantity + '"}';
       return this.http.put<Post>(url, body);

@@ -36,11 +36,13 @@ export class BulkOrderComponent implements OnInit {
   }
 
   ngOnInit() {
+    // console.log("START! Bulk order, ngOnInit");
     this.blockUI.start("Loading categories...");
     this.catalogService.getAllCategories()
       .subscribe(
         (data: CategorySearch) => {
           this.categories = data.categories;
+          // console.log("STOP! Bulk  order , ngOnInit");
           this.blockUI.stop();
         },
         error => {

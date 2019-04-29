@@ -4,6 +4,7 @@ import { ActiveOrderService } from '../../../services/active-order.service';
 import { Post } from '../../../models/Post';
 import { AddedProduct } from '../../../models/added-product';
 import { Product } from '../../../models/product';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-modify-count-product',
@@ -11,6 +12,7 @@ import { Product } from '../../../models/product';
   styleUrls: ['./modify-count-product.component.css']
 })
 export class ModifyCountProductComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
   @Input() productPrice: ProductPrice;
   hideEdit: boolean = true;
   //@Input() editable: boolean = true;
@@ -33,14 +35,16 @@ export class ModifyCountProductComponent implements OnInit {
   }
 
   Add() {
+    this.blockUI.start("Loading...");
     this.productPrice.count = 1;
     this.inputCountProduct = this.productPrice.count;
     this.hideEdit = false;
-    console.log('before add');
+    // console.log('before add');
     try {
       this.activeOrderService.Add(this.productPrice.productId)
         .subscribe(
           (data: Post) => {
+            console.log('afterRemovedForActiveOrder 1');
             this.activeOrderService.afterRemovedForActiveOrder();
           },
           error => console.log("Post:" + error)
@@ -50,59 +54,43 @@ export class ModifyCountProductComponent implements OnInit {
     catch (e) {
       console.log('Exception' + e);
     }
-    console.log('after add');
-    this.activeOrderService.afterRemovedForActiveOrder();
-    this.ngOnInit();
+    // console.log('afterRemovedForActiveOrder 2');
+    // this.activeOrderService.afterRemovedForActiveOrder();
+    // this.ngOnInit();
   }
 
 
 
 
   Remove() {
+    this.blockUI.start("Loading...");
     this.productPrice.count = 0;
-    console.log(' Remove productId=' + this.productPrice.id);
-    try {
-      this.activeOrderService.Remove(this.productPrice.id)
-        .subscribe(
-          (data: Post) => {
-            console.log("Result remove successfully!");
-            this.ngOnInit();
-          },
-          error => console.log("Remove: " + error)
-        );
-      ;
-    }
-    catch (e) {
-      console.log('Exception' + e);
-    }
-    this.activeOrderService.afterRemovedForActiveOrder();
+    // console.log(' Remove productId=' + this.productPrice.id);
+    this.activeOrderService.Remove(this.productPrice.id)
+      .subscribe(
+        (data: Post) => {
+          // console.log("Result remove successfully!");
+          //this.ngOnInit();
+          this.activeOrderService.afterRemovedForActiveOrder();
+        },
+        error => console.log("Remove: " + error)
+      );
   }
 
   Change(count: number) {
-    console.log('Change:' + count);
+    this.blockUI.start("Loading...");
     this.productPrice.count = 1;
     this.inputCountProduct = this.productPrice.count;
     this.hideEdit = false;
-    try {
-      this.activeOrderService.Change(this.productPrice.id, count)
-        .subscribe(
-          (data: Post) => {
-          },
-          error => console.log("Post:" + error)
-        );
-      ;
-    }
-    catch (e) {
-      console.log('Exception' + e);
-    }
-    this.activeOrderService.afterRemovedForActiveOrder();
-    this.ngOnInit();
-  }
-
-  FocusOut(count: number) {
-    // this.productPrice.count = count;
-    // this.hideEdit = true;
-    // this.Change(count);
-    // this.ngOnInit();
+    this.activeOrderService.Change(this.productPrice.id, count)
+      .subscribe(
+        (data: Post) => {
+          this.activeOrderService.afterRemovedForActiveOrder();
+        },
+        error => console.log("Post:" + error)
+      );
+    ;
   }
 }
+
+
