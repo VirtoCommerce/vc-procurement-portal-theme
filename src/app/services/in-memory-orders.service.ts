@@ -1,21 +1,8 @@
 
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
-export class InMemoryDataService implements InMemoryDbService {
+export class InMemoryOrdersService implements InMemoryDbService {
   createDb() {
-
-    const heroes = [
-      { id: 11, name: 'Mr. Nice', nick: "mr. nick" },
-      { id: 12, name: 'Narco', nick: "nick narco" },
-      { id: 13, name: 'Bombasto', nick: "nick bombast" },
-      { id: 14, name: 'Celeritas', nick: "celes nick celes" },
-      { id: 15, name: 'Magneta', nick: "nick mag nick" },
-      { id: 16, name: 'RubberMan', nick: "Ivanov" },
-      { id: 17, name: 'Dynama', nick: "petrov" },
-      { id: 18, name: 'Dr IQ', nick: "doctor" },
-      { id: 19, name: 'Magma', nick: "test" },
-      { id: 20, name: 'Tornado', nick: "test" },
-    ];
 
     const orders = [
       {
@@ -35,7 +22,7 @@ export class InMemoryDataService implements InMemoryDbService {
               }
             ],
             number: 'CO190424-00001', status: "Completed", createdDate: "2019-04-24T11:20:47.087Z", createdBy: "testppa",
-            assignedTo: "testppa1", total: "$18.35", toRole: "Role1"
+            assignedTo: "testppa1", total: "$18.35"
           },
           {
             id: "9b0a3eb6999d481a894792cad4446019",
@@ -75,35 +62,6 @@ export class InMemoryDataService implements InMemoryDbService {
         ]
       }
     ];
-
-    const users =[
-      {id:"1",  username: "users1", password: "user1", role: ""},
-      {id:"2",  username: "users2", password: "user2", role: "Role2"},
-      {id:"3",  username: "users3", password: "user3", role: "Role3"},
-      {id:"4",  username: "users4", password: "user4", role: "Role4"},
-    ];
-
-    const approveWorkflow = [
-      {
-        id: "9b0a3eb6999d481a894792cad4446019",
-        roles: [
-          {
-            id: "01c16e783c0f433583c7197f5315798b",
-            name: "Role1",
-          },
-          {
-            id: "83e1d2a4948240db840a0f1e21102520",
-            name: "Role2",
-          },
-          {
-            id: "8926a0b066d243909f86b60054dc8ab2",
-            name: "Role3",
-          }
-
-        ]
-      }
-    ]
-    
-    return { orders , users};
+    return { orders };
   }
 }

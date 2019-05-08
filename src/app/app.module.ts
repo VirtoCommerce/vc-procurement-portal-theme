@@ -4,7 +4,7 @@ import {
 } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
@@ -25,7 +25,7 @@ import { LoginComponent } from './components/login/login.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProcurementPortalInterceptor } from '../app/services/interceptors/interceptors';
-//import { InMemoryDataService } from './services/in-memory-data.service';
+import { InMemoryDataService } from './services/in-memory-data.service';
 import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { CaruselComponent } from './components/catalog/carusel/carusel.component';
 import { ActiveOrderComponent } from './components/active-order/active-order.component';
@@ -47,6 +47,7 @@ import 'rxjs';
 import { BlockUIModule } from 'ng-block-ui';
 
 import { DataService } from './services/data.service';
+
 
 import {
     StoreRouterConnectingModule,
@@ -77,6 +78,7 @@ const routes: Routes = [
         MaterialModule,
         BrowserAnimationsModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpClientModule,
         HttpClientXsrfModule
             .withOptions({
@@ -84,10 +86,10 @@ const routes: Routes = [
                 headerName: 'X-CSRF-TOKEN'
             }),
         BlockUIModule.forRoot(),
-        // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
-        //     dataEncapsulation: false
-        // }),
-        //InMemoryWebApiModule.forRoot(DataService),
+        HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+            dataEncapsulation: false
+        }),
+        InMemoryWebApiModule.forRoot(DataService),
         RouterModule.forRoot(routes),
 
     ],

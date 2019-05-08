@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { IOrder } from '../../models/iorder';
+import { User } from '../../models/user';
+import { OrdersService } from '../../services/orders.service';
 
 @Component({
   selector: 'app-forapproval',
@@ -6,8 +9,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./forapproval.component.css']
 })
 export class ForApprovalComponent implements OnInit {
-
-  constructor() { }
+  constructor(
+  ) { }
 
   ngOnInit() {
   }
