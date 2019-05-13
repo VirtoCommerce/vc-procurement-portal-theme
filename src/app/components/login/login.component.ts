@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+//import { AuthService } from '../../services/auth.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ActiveOrderService } from '../../services/active-order.service';
-import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { Observable } from 'rxjs';
+
+
 
 
 @Component({
@@ -12,59 +15,65 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  @BlockUI() blockUI: NgBlockUI;
   model: any = {};
-  returnUrl: string;
-  userName: string = "";
+  loading = false;
+  error = '';
+  http: any;
+  token: string;
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient,
     private authenticationService: AuthenticationService,
-    private activeOrderService: ActiveOrderService
   ) { }
 
   ngOnInit() {
-    //this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.authenticationService.logout();
   }
-  toggleBlocking() {
-    // console.log("START! Login component, toggleBlocking");
-    this.blockUI.start("Loading...");
 
-    setTimeout(() => {
-      this.blockUI.stop();
-    }, 2500);
-
-  }
 
   test() {
-    this.activeOrderService.createOrder()
-      .subscribe(
-        () => {
-          //console.log('Successfully postLogin');
 
-        },
-        (error: any) => {
-          console.log('error createOrder' + error);
-
-        }
-      );
   }
 
+  fakeLogin( username: string, password: string ) {
+    // return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
+    //     .map((response: Response) => {
+    //         // login successful if there's a jwt token in the response
+    //         let token = response.json() && response.json().token;
+    //         if (token) {
+    //             // set token property
+    //             this.token = token;
+
+    //             // store username and jwt token in local storage to keep user logged in between page refreshes
+    //             localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+
+    //             // return true to indicate successful login
+    //             return true;
+    //         } else {
+    //             // return false to indicate failed login
+    //             return false;
+    //         }
+    //     });
+}
+
+fakeLogout(): void {
+    // clear token remove user from local storage to log user out
+    this.token = null;
+    localStorage.removeItem('currentUser');
+}
   login() {
-    const XSRF_TOKEN = getCookie('XSRF-TOKEN');
-    this.authenticationService.postLogin(this.model.username, this.model.password, XSRF_TOKEN)
-      .subscribe(
-        () => {
-          //console.log('Successfully postLogin');
+    // const XSRF_TOKEN = getCookie('XSRF-TOKEN');
+    // this.authenticationService.postLogin(this.model.username, this.model.password, XSRF_TOKEN)
+    //   .subscribe(
+    //     () => {
+    //       //console.log('Successfully postLogin');
 
-        },
-        (error: any) => {
-          console.log('error postLogin' + error);
+    //     },
+    //     (error: any) => {
+    //       console.log('error postLogin' + error);
 
-        }
-      );
+    //     }
+    //   );
   }
 }
 

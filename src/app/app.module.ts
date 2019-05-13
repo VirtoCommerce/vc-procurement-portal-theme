@@ -1,6 +1,7 @@
 import {
     RouterModule,
-    Routes
+    Routes,
+    CanActivate
 } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -41,13 +42,15 @@ import { BulkOrderComponent } from './components/bulk-order/bulk-order.component
 import { ProductPropertiesComponent } from './components/catalog/product-properties/product-properties.component';
 
 import { ModifyCountProductComponent } from './components/catalog/modify-count-product/modify-count-product.component';
-import { AuthenticationService } from './services/index'
+import { AuthenticationService } from './services/authentication.service';
 import { HttpModule } from '@angular/http';
 import 'rxjs';
 import { BlockUIModule } from 'ng-block-ui';
 
 import { DataService } from './services/data.service';
-
+import { 
+    AuthGuardService as AuthGuard 
+  } from './services/auth-guard.service';
 
 import {
     StoreRouterConnectingModule,
@@ -62,7 +65,9 @@ const routes: Routes = [
     { path: '', redirectTo: 'catalog', pathMatch: 'full' },
     { path: 'catalog', component: CatalogComponent },
     { path: 'orders', component: OrdersComponent },
-    { path: 'forapproval', component: ForApprovalComponent },
+    { path: 'forapproval', component: ForApprovalComponent,
+        canActivate: [AuthGuard] 
+ },
     { path: 'company', component: CompanyComponent },
     { path: 'account', component: AccountComponent },
     { path: 'login', component: LoginComponent },
