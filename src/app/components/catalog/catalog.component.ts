@@ -7,7 +7,7 @@ import { merge, Observable, of as observableOf } from 'rxjs';
 
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { Product } from '../../models/product';
-import { CatalogService } from '../../services';
+import { CatalogService, AuthenticationService } from '../../services';
 import { CatalogSearch } from '../../models/ProductSearch';
 import { Category, CategorySearch } from '../../models/category';
 import { CaruselComponent } from './carusel/carusel.component';
@@ -16,6 +16,9 @@ import { ProductPrice } from '../../models/product-price';
 import { AddedProduct } from '../../models/added-product';
 import { ActiveOrderService } from '../../services/active-order.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { UserService } from '../../services/user.service';
+import { User } from '../../models/user';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-catalog',
@@ -41,16 +44,26 @@ export class CatalogComponent implements OnInit {
 
   onLoad: AddedProduct;
 
+  currentUser: User;
+  userFromApi: User;
+
   constructor(
     private http: HttpClient,
     private catalogService: CatalogService,
-    private activeOrderService: ActiveOrderService
-  ) {
+    private activeOrderService: ActiveOrderService,
+    private userService: UserService,
+    private authenticationService: AuthenticationService
 
+  ) {
+    this.currentUser = this.authenticationService.currentUserValue;
   }
 
   ngOnInit() {
-    // console.log("START! Catalog component, ngOnInit");
+    this.userService.getById(this.currentUser.id).pipe(first()).subscribe(user => {
+      this.userFromApi = user;
+    });
+
+     console.log("START! Catalog component, ngOnInit");
     this.blockUI.start("Loading...");
     this.catalogService.getAllCategories()
       .subscribe(

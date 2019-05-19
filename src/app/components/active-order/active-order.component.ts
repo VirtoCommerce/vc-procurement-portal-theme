@@ -4,11 +4,12 @@ import { Product } from '../../models/product';
 import { ProductProperties } from '../../models/product-properties';
 import { ProductPrice } from '../../models/product-price';
 import { Category } from '../../models/category';
-import { Post } from '../../models/Post';
 import { User } from '../../models/user';
 import { AddedProduct } from '../../models/added-product';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-
+import { UserService } from '../../services/user.service';
+import { AuthenticationService } from '../../services';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-active-order',
@@ -30,14 +31,25 @@ export class ActiveOrderComponent implements OnInit {
   result: any;
   onRemove = false;
   onAdd = false;
+  currentUser: User;
+  userFromApi: User;
 
   constructor(
-    private activeOrderService: ActiveOrderService
+    private activeOrderService: ActiveOrderService,
+    private userService: UserService,
+    private authenticationService: AuthenticationService
+
   ) {
     this.countItems = 0;
+    this.currentUser = this.authenticationService.currentUserValue;
   }
 
   ngOnInit() {
+    this.userService.getById(this.currentUser.id).pipe(first()).subscribe(user => {
+      this.userFromApi = user;
+      this.userName= user.username;
+    });
+
     this.getUserName();
     this.getActiveOrder("");
     this.activeOrderService.removeForActiveOrder.

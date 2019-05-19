@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, Renderer, ViewChildren } from '@angular/core';
 import { ProductPrice } from '../../../models/product-price';
 import { ActiveOrderService } from '../../../services/active-order.service';
-import { Post } from '../../../models/Post';
 import { AddedProduct } from '../../../models/added-product';
 import { Product } from '../../../models/product';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { Post } from '../../../models/Post';
 
 @Component({
   selector: 'app-modify-count-product',

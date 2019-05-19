@@ -12,6 +12,7 @@ import { Order } from '../../models/order';
 import { User } from '../../models/user';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -25,7 +26,7 @@ export class OrdersComponent implements OnInit {
 
   orders: IOrder[] = [];
   users: User[] = [];
-  displayedColumns: string[] = ['orderid', 'status', 'date','items', 'createdBy', 'assignedTo', 'total'];
+  displayedColumns: string[] = ['orderid', 'status', 'date', 'items', 'createdBy', 'assignedTo', 'total'];
   dataSource: MatTableDataSource<IOrder>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -35,29 +36,25 @@ export class OrdersComponent implements OnInit {
   @Input() isForApprove: boolean = false;
 
   constructor(
-    private ordersService: OrdersService
+    private ordersService: OrdersService,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    
+    console.log("orders component. getOrders");
     this.ordersService.getOrders().subscribe((data: any) => {
-      //console.log(data);
       this.orders = data[1].results as IOrder[];
-      console.log(this.orders[1].items.length);
-      if (this.isForApprove){
-        this.orders = this.orders.filter(order=>order.status==='Awaiting Approve')
+      if (this.isForApprove) {
+        this.orders = this.orders.filter(order => order.status === 'Awaiting Approve')
       }
       this.dataSource = new MatTableDataSource(this.orders);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-
     });
+  }
 
-    // this.ordersService.getUsers().subscribe((data: any) => {
-    //   console.log(data);
-    //   this.users = data as User[];
-    // });
-
+  Details(id: string) {
+    this.router.navigate(['/order-details', id]);
   }
 }
 
@@ -70,6 +67,7 @@ export class OrderError implements OnInit {
     console.log(payload);
   }
 }
+
 export class GetOrdersSuccess implements OnInit {
   ngOnInit() {
   }

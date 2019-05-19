@@ -8,7 +8,6 @@ import { IOrders } from "../models/iorders";
 
 
 @Injectable({ providedIn: 'root' })
-//@Injectable()
 export class OrdersService {
     private heroesUrl = 'api/heroes';
     private ordersUrl = 'api/orders';
@@ -47,12 +46,8 @@ export class OrdersService {
             catchError(this.handleError('ordersUrl', []))
         );
     }
-    /**
-  * Handle Http operation that failed.
-  * Let the app continue.
-  * @param operation - name of the operation that failed
-  * @param result - optional value to return as the observable result
-  */
+
+    
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
             // TODO: send the error to remote logging infrastructure
@@ -66,7 +61,7 @@ export class OrdersService {
         };
     }
 
-    /** Log a HeroService message with the MessageService */
+    
     private log(message: string) {
         console.log('Orders service: ' + message);
     }

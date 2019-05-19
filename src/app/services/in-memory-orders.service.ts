@@ -21,8 +21,27 @@ export class InMemoryOrdersService implements InMemoryDbService {
                 imageUrl: "//localhost/admin/assets/catalog/7829d/22A447/22A458.jpg",
               }
             ],
-            number: 'CO190424-00001', status: "Completed", createdDate: "2019-04-24T11:20:47.087Z", createdBy: "testppa",
-            assignedTo: "testppa1", total: "$18.35"
+            number: 'CO190424-00001',
+            status: "Completed",
+            createdDate: "2019-04-24T11:20:47.087Z",
+            createdBy: "testppa",
+            assignedTo: "testppa1",
+            total: "$18.35",
+            toRole: "",
+            comments: [
+              {
+                id: "01c16e783c0f433583c7197f53157981",
+                userId: "508d2a0584ad4e0e9811577f00b735c8",
+                username: "Author 1",
+                text: "its good!",
+              },
+              {
+                id: "01c16e783c0f433583c7197f53157982",
+                userId: "508d2a0584ad4e0e9811577f00b735c8",
+                username: "Author 2",
+                text: "its bad!",
+              }
+            ]
           },
           {
             id: "9b0a3eb6999d481a894792cad4446019",
@@ -56,8 +75,21 @@ export class InMemoryOrdersService implements InMemoryDbService {
                 imageUrl: "//localhost/admin/assets/catalog/7829d/4GVA7/4GVA7_AS01.jpg",
               },
             ],
-            number: 'CO190422-00001', status: "Awaiting Approve", createdDate: "2019-04-22T07:22:25.337Z", createdBy: "testppa",
-            assignedTo: "testppa1", total: "$4,245.65"
+            number: 'CO190422-00001',
+            status: "Awaiting Approve",
+            createdDate: "2019-04-22T07:22:25.337Z",
+            createdBy: "testppa",
+            assignedTo: "testppa1",
+            total: "$4,245.65",
+            toRole: "Approver1",
+            comments: [
+              {
+                id: "01c16e783c0f433583c7197f53157981",
+                userId: "508d2a0584ad4e0e9811577f00b735c8",
+                username: "Author 1",
+                text: "its good!",
+              }
+            ]
           },
         ]
       }

@@ -17,10 +17,9 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
-
-import { Post } from '../models/Post';
 import { AddedProduct } from '../models/added-product';
 import { Product } from '../models/product';
+import { Post } from '../models/Post';
 
 @Injectable({ providedIn: 'root' })
 export class ActiveOrderService {

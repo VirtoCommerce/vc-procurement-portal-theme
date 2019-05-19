@@ -1,3 +1,5 @@
+import { ICurrency } from "./icurrency";
+
 export interface IOrder {
     id: string;
     items: IOrderItem[];
@@ -6,7 +8,11 @@ export interface IOrder {
     createdDate: string;
     createdBy: string;
     assignedTo: string;
-    total: string;
+    total: IOrderTotal;
+    subtotal: IOrderSubtotal;
+    shipping: IOrderShipping;
+    toRole: string;
+    comments: IOrderComment[];
 }
 
 export interface IOrderItem {
@@ -15,4 +21,50 @@ export interface IOrderItem {
     productId: string;
     name: string;
     imageUrl: string;
+}
+
+export interface IOrderComment {
+    id: string;
+    userId: string;
+    username: string;
+    text: string;
+}
+
+export interface IOrderTotal {
+    internalAmount: number;
+    amount: number;
+    truncatedAmount: number;
+    formattedAmount: string;
+    formattedAmountWithoutPoint: number;
+    formattedAmountWithoutPointAndCurrency: number;
+    currency: ICurrency;
+    decimalDigits: number;
+}
+
+export interface IOrderSubtotal {
+    internalAmount: number;
+    amount: number;
+    truncatedAmount: number;
+    formattedAmount: string;
+    formattedAmountWithoutPoint: number;
+    formattedAmountWithoutPointAndCurrency: number;
+    currency: ICurrency;
+    decimalDigits: number;
+}
+
+export interface IOrderShipping {
+    internalAmount: number;
+    amount: number;
+    truncatedAmount: number;
+    formattedAmount: string;
+    formattedAmountWithoutPoint: string;
+    formattedAmountWithoutPointAndCurrency: string;
+    currency: {
+        code: string;
+        cultureName: string;
+        symbol: string;
+        englishName: string;
+        exchangeRate: number;
+    },
+    decimalDigits: 2
 }

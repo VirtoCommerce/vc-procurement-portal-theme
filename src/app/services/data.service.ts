@@ -20,7 +20,7 @@ export class DataService implements InMemoryDbService {
             { id: 19, name: 'Magma' },
             { id: 20, name: 'Tornado' }
         ];
-        
+
         const products_old = [
             {
                 sku: "53MF87",
@@ -12130,8 +12130,76 @@ export class DataService implements InMemoryDbService {
                                 imageUrl: "//localhost/admin/assets/catalog/7829d/22A447/22A458.jpg",
                             }
                         ],
-                        number: 'CO190424-00001', status: "Completed", createdDate: "2019-04-24T11:20:47.087Z", createdBy: "testppa",
-                        assignedTo: "testppa1", total: "$18.35", toRole: "Role1"
+                        number: 'CO190424-00001',
+                        status: "Completed",
+                        createdDate: "2019-04-24T11:20:47.087Z",
+                        createdBy: "testppa",
+                        assignedTo: "testppa1",
+                        total: {
+                            internalAmount: 55.3,
+                            amount: 55.3,
+                            truncatedAmount: 55.3,
+                            formattedAmount: "$55.30",
+                            formattedAmountWithoutPoint: "$55",
+                            formattedAmountWithoutPointAndCurrency: "55",
+                            currency: {
+                                code: "USD",
+                                cultureName: "en-US",
+                                symbol: "$",
+                                englishName: "US dollar",
+                                exchangeRate: 1.0
+                            },
+                            decimalDigits: 2
+                        },
+                        subTotal: {
+                            internalAmount: 55.3,
+                            amount: 55.3,
+                            truncatedAmount: 55.3,
+                            formattedAmount: "$55.30",
+                            formattedAmountWithoutPoint: "$55",
+                            formattedAmountWithoutPointAndCurrency: "55",
+                            currency: {
+                                code: "USD",
+                                cultureName: "en-US",
+                                symbol: "$",
+                                englishName: "US dollar",
+                                exchangeRate: 1.0
+                            },
+                            decimalDigits: 2
+                        },
+                        shippingTotal: {
+                            internalAmount: 0.0,
+                            amount: 0.0,
+                            truncatedAmount: 0.0,
+                            formattedAmount: "$0.00",
+                            formattedAmountWithoutPoint: "$0",
+                            formattedAmountWithoutPointAndCurrency: "0",
+                            currency: {
+                                code: "USD",
+                                cultureName: "en-US",
+                                symbol: "$",
+                                englishName: "US dollar",
+                                exchangeRate: 1.0
+                            },
+                            decimalDigits: 2
+                        },
+                        toRole: "Approver1",
+                        comments: [
+                            {
+                                id: "01c16e783c0f433583c7197f53157981",
+                                createdDate: "2019-04-24T11:20:47.087Z",
+                                userId: "508d2a0584ad4e0e9811577f00b735c8",
+                                username: "Author 1",
+                                text: "its good!",
+                            },
+                            {
+                                id: "01c16e783c0f433583c7197f53157982",
+                                createdDate: "2019-04-25T11:20:47.087Z",
+                                userId: "508d2a0584ad4e0e9811577f00b735c8",
+                                username: "Author 2",
+                                text: "its bad!",
+                            }
+                        ]
                     },
                     {
                         id: "9b0a3eb6999d481a894792cad4446019",
@@ -12165,8 +12233,23 @@ export class DataService implements InMemoryDbService {
                                 imageUrl: "//localhost/admin/assets/catalog/7829d/4GVA7/4GVA7_AS01.jpg",
                             },
                         ],
-                        number: 'CO190422-00001', status: "Awaiting Approve", createdDate: "2019-04-22T07:22:25.337Z", createdBy: "testppa",
-                        assignedTo: "testppa1", total: "$4,245.65", toRole: "Role2"
+                        number: 'CO190422-00001',
+                        status: "Awaiting Approve",
+                        createdDate: "2019-04-22T07:22:25.337Z",
+                        createdBy: "testppa",
+                        assignedTo: "testppa1",
+                        total: "$4,245.65",
+                        toRole: "Approver1",
+                        comments: [
+                            {
+                                id: "01c16e783c0f433583c7197f53157981",
+                                createdDate: "2019-04-26T11:20:47.087Z",
+                                userId: "508d2a0584ad4e0e9811577f00b735c8",
+                                username: "Author 1",
+                                text: "its good!",
+                            }
+                        ]
+
                     },
                 ]
             }
@@ -12178,29 +12261,29 @@ export class DataService implements InMemoryDbService {
             { id: "3", username: "users3", password: "user3", role: "Role3" },
             { id: "4", username: "users4", password: "user4", role: "Role4" },
         ];
-        
+
         const approveWorkflow = [
             {
-              id: "9b0a3eb6999d481a894792cad4446019",
-              roles: [
-                {
-                  id: "01c16e783c0f433583c7197f5315798b",
-                  name: "Role1",
-                },
-                {
-                  id: "83e1d2a4948240db840a0f1e21102520",
-                  name: "Role2",
-                },
-                {
-                  id: "8926a0b066d243909f86b60054dc8ab2",
-                  name: "Role3",
-                }
-      
-              ]
+                id: "9b0a3eb6999d481a894792cad4446019",
+                roles: [
+                    {
+                        id: "01c16e783c0f433583c7197f5315798b",
+                        name: "Role1",
+                    },
+                    {
+                        id: "83e1d2a4948240db840a0f1e21102520",
+                        name: "Role2",
+                    },
+                    {
+                        id: "8926a0b066d243909f86b60054dc8ab2",
+                        name: "Role3",
+                    }
+
+                ]
             }
-          ]
-          
-          
+        ]
+
+
 
         return { heroes, products, orders, users, approveWorkflow };
     }

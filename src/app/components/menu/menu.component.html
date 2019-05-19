@@ -8,7 +8,7 @@
             <a [routerLink]="['/forapproval']" mat-button>For approval</a>
             <a [routerLink]="['/company']" mat-button>Company</a>
             <a [routerLink]="['/account']" mat-button>My account</a>
-            <a [routerLink]="['/login']" mat-button>Login</a>
+            <a [routerLink]="['']" (click)="logout()" mat-button>Logout</a>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>

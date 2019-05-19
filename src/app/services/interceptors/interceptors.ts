@@ -2,11 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpResponse, HttpXsrfTokenExtractor } from '@angular/common/http';
 import { HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 
-/*
-  OLD:
-  import {Observable} from 'rxjs/Observable';
-  import 'rxjs/add/operator/do';
- */
+
 import { Observable, of } from 'rxjs';
 //import { of } from 'rxjs/observable/of';
 import { tap, catchError } from 'rxjs/operators';

@@ -1,51 +1,41 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable } from 'rxjs';
-import { Http, Response } from '@angular/http';
-//import 'rxjs/add/operator/map'
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-@Injectable()
+import { User } from '../models/user';
+
+@Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  public token: string;
-  constructor(public jwtHelper: JwtHelperService,
-    private http: Http
-  ) {
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.token = currentUser && currentUser.token;
-  }
+    private currentUserSubject: BehaviorSubject<User>;
+    public currentUser: Observable<User>;
 
-  public isAuthenticated(): boolean {
-    const token = localStorage.getItem('token');
-    // Check whether the token is expired and return
-    // true or false
-    return !this.jwtHelper.isTokenExpired(token);
-  }
+    constructor(private http: HttpClient) {
+        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+        this.currentUser = this.currentUserSubject.asObservable();
+    }
 
-  login(username: string, password: string): Observable<boolean> {
-    return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
-      .map((response: Response) => {
-        // login successful if there's a jwt token in the response
-        let token = response.json() && response.json().token;
-        if (token) {
-          // set token property
-          this.token = token;
+    public get currentUserValue(): User {
+        return this.currentUserSubject.value;
+    }
 
-          // store username and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+    login(username: string, password: string) {
+        return this.http.post<any>(`/users/authenticate`, { username, password })
+            .pipe(map(user => {
+                // login successful if there's a jwt token in the response
+                if (user && user.token) {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    this.currentUserSubject.next(user);
+                }
 
-          // return true to indicate successful login
-          return true;
-        } else {
-          // return false to indicate failed login
-          return false;
-        }
-      });
-  }
+                return user;
+            }));
+    }
 
-  logout(): void {
-    // clear token remove user from local storage to log user out
-    this.token = null;
-    localStorage.removeItem('currentUser');
-  }
+    logout() {
+        // remove user from local storage to log user out
+        localStorage.removeItem('currentUser');
+        this.currentUserSubject.next(null);
+    }
 }

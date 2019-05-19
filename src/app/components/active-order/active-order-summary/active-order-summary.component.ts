@@ -4,7 +4,6 @@ import { Product } from '../../../models/product';
 import { ProductProperties } from '../../../models/product-properties';
 import { ProductPrice } from '../../../models/product-price';
 import { Category } from '../../../models/category';
-import { Post } from '../../../models/Post';
 import { User } from '../../../models/user';
 import { AddedProduct } from '../../../models/added-product';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';

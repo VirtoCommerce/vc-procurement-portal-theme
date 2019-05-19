@@ -34,8 +34,27 @@ export class InMemoryDataService implements InMemoryDbService {
                 imageUrl: "//localhost/admin/assets/catalog/7829d/22A447/22A458.jpg",
               }
             ],
-            number: 'CO190424-00001', status: "Completed", createdDate: "2019-04-24T11:20:47.087Z", createdBy: "testppa",
-            assignedTo: "testppa1", total: "$18.35", toRole: "Role1"
+            number: 'CO190424-00001',
+            status: "Completed",
+            createdDate: "2019-04-24T11:20:47.087Z",
+            createdBy: "testppa",
+            assignedTo: "testppa1",
+            total: "$18.35",
+            toRole: "Approver1",
+            comments: [
+              {
+                id: "01c16e783c0f433583c7197f53157981",
+                userId: "508d2a0584ad4e0e9811577f00b735c8",
+                username: "Author 1",
+                text: "its good!",
+              },
+              {
+                id: "01c16e783c0f433583c7197f53157982",
+                userId: "508d2a0584ad4e0e9811577f00b735c8",
+                username: "Author 2",
+                text: "its bad!",
+              }
+            ]
           },
           {
             id: "9b0a3eb6999d481a894792cad4446019",
@@ -69,19 +88,32 @@ export class InMemoryDataService implements InMemoryDbService {
                 imageUrl: "//localhost/admin/assets/catalog/7829d/4GVA7/4GVA7_AS01.jpg",
               },
             ],
-            number: 'CO190422-00001', status: "Awaiting Approve", createdDate: "2019-04-22T07:22:25.337Z", createdBy: "testppa",
-            assignedTo: "testppa1", total: "$4,245.65"
+            number: 'CO190422-00001',
+            status: "Awaiting Approve",
+            createdDate: "2019-04-22T07:22:25.337Z",
+            createdBy: "testppa",
+            assignedTo: "testppa1",
+            total: "$4,245.65",
+            toRole: "Approver1",
+            comments: [
+              {
+                id: "01c16e783c0f433583c7197f53157981",
+                userId: "508d2a0584ad4e0e9811577f00b735c8",
+                username: "Author 1",
+                text: "its good!",
+              }
+            ]
           },
         ]
       }
     ];
 
-    const users =[
-      {id:"1",  username: "users1", password: "user1", role: ""},
-      {id:"2",  username: "users2", password: "user2", role: "Role2"},
-      {id:"3",  username: "users3", password: "user3", role: "Role3"},
-      {id:"4",  username: "users4", password: "user4", role: "Role4"},
-    ];
+    // const users =[
+    //   {id:"1",  username: "users1", password: "user1", role: ""},
+    //   {id:"2",  username: "users2", password: "user2", role: "Role2"},
+    //   {id:"3",  username: "users3", password: "user3", role: "Role3"},
+    //   {id:"4",  username: "users4", password: "user4", role: "Role4"},
+    // ];
 
     const approveWorkflow = [
       {
@@ -89,21 +121,21 @@ export class InMemoryDataService implements InMemoryDbService {
         roles: [
           {
             id: "01c16e783c0f433583c7197f5315798b",
-            name: "Role1",
+            name: "Role11",
           },
           {
             id: "83e1d2a4948240db840a0f1e21102520",
-            name: "Role2",
+            name: "Role22",
           },
           {
             id: "8926a0b066d243909f86b60054dc8ab2",
-            name: "Role3",
+            name: "Role33",
           }
 
         ]
       }
     ]
-    
-    return { orders , users};
+
+    return { orders };
   }
 }
