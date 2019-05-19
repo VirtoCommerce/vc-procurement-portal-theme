@@ -38,6 +38,7 @@ import { OrderDetailsComponent } from './components/orders/order-details/order-d
 import { OrderTotalComponent } from './components/order-total/order-total.component';
 import { OrderItemsComponent } from './components/order-items/order-items.component';
 import { OrderCommentsComponent } from './components/order-comments/order-comments.component';
+import { ForApprovalDetailsComponent } from './components/forapproval/forapproval-details/forapproval-details.component';
 
 
 // import { ProductInformationComponent } from './components/catalog/product-information/product-information.component';
@@ -77,7 +78,8 @@ const routes: Routes = [
     { path: 'activeorder', component: ActiveOrderSummaryComponent, canActivate: [AuthGuard] },
     { path: 'invoice', component: ActiveOrderPostCheckoutComponent, canActivate: [AuthGuard] },
     { path: 'bulkorder', component: BulkOrderComponent, canActivate: [AuthGuard] },
-    { path: 'order-details/:id', component: OrderDetailsComponent, canActivate: [AuthGuard] }
+    { path: 'order-details/:id', component: OrderDetailsComponent, canActivate: [AuthGuard] },
+    { path: 'forapproval-details/:id', component: ForApprovalDetailsComponent, canActivate: [AuthGuard] }
 
     // { path: '', redirectTo: 'catalog', pathMatch: 'full'},
     // { path: 'catalog', component: CatalogComponent},
@@ -149,6 +151,7 @@ const routes: Routes = [
         OrderTotalComponent,
         OrderItemsComponent,
         OrderCommentsComponent,
+        ForApprovalDetailsComponent
     ],
     bootstrap: [AppComponent],
     // providers: [ Globals ]

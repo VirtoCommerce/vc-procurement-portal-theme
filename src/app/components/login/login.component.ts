@@ -75,6 +75,7 @@ export class LoginComponent implements OnInit {
           this.loading = false;
         });
   }
+  
   fakeLogin(username: string, password: string) {
     // return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
     //     .map((response: Response) => {

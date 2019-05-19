@@ -36,9 +36,9 @@ export class OrderItemsComponent implements OnInit {
 
   ngOnInit() {
     // this.items = this.order.items as IOrderItem[];
-    // console.log("items: "+ this.items.length);
-    this.dataSource = new MatTableDataSource(this.items);
-    this.dataSource.paginator = this.paginator;
+    console.log("items: "+ this.items.length);
+    // this.dataSource = new MatTableDataSource(this.items);
+    // this.dataSource.paginator = this.paginator;
 
     // this.ordersService.getOrders().subscribe((data: any) => {
     //   let orders = data[1].results as IOrder[];

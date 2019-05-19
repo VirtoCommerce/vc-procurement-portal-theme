@@ -54,7 +54,12 @@ export class OrdersComponent implements OnInit {
   }
 
   Details(id: string) {
-    this.router.navigate(['/order-details', id]);
+    if (this.isForApprove) {
+      this.router.navigate(['/forapproval-details', id]);
+    } else {
+      this.router.navigate(['/order-details', id]);
+    }
+
   }
 }
 

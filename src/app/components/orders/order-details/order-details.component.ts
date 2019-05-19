@@ -23,13 +23,15 @@ export class OrderDetailsComponent implements OnInit {
   order: IOrder;
   items: IOrderItem[];
   comments: IOrderComment[];
-  
+
 
   constructor(
     private ordersService: OrdersService,
     private activateRoute: ActivatedRoute
   ) {
     this.id = activateRoute.snapshot.params['id'];
+    let test = activateRoute.snapshot.params['isApproval'];
+    console.log("Test: " + test);
   }
 
   ngOnInit() {
@@ -40,7 +42,8 @@ export class OrderDetailsComponent implements OnInit {
       this.order = orders[0] as IOrder;
       this.items = orders[0].items as IOrderItem[];
       this.comments = orders[0].comments as IOrderComment[];
-      // console.log("Order items: " + this.order.items.length);
+      //console.log("Order items: " + this.order.items.length);
+      console.log("Order items: " + this.items.length);
       // console.log("Order role: " + this.order.toRole);
       // console.log("Order comments: " + this.order.comments.length);
     });
