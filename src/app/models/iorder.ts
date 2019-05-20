@@ -30,6 +30,22 @@ export interface IOrderComment {
     text: string;
 }
 
+export class OrderComment implements IOrderComment{
+    id: string;
+    userId: string;
+    username: string;
+    text: string;
+    constructor(
+        userId:string,
+        username: string,
+        text: string){
+            this.id="AAA";
+            this.userId= userId;
+            this.username = username;
+            this.text = text;
+            }
+}
+
 export interface IOrderTotal {
     internalAmount: number;
     amount: number;

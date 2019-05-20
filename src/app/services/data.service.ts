@@ -49763,7 +49763,7 @@ export class DataService implements InMemoryDbService {
             }
         ]
 
-        const activeOrder = [
+        const activeorder = [
             {
                 name: "default",
                 storeId: "B2B-store",
@@ -53333,176 +53333,983 @@ export class DataService implements InMemoryDbService {
 
         const orders = [
             {
-                totalCount: 2
+                id: "827243bf0a9d4287b87b547568f85a45",
+                items: [
+                    {
+                        id: "01c16e783c0f433583c7197f5315798b",
+                        quantity: 1,
+                        productId: "508d2a0584ad4e0e9811577f00b735c8",
+                        name: "1\" Steel Hex Flange Bolt, Grade 8, Plain Finish, 1/2\"-20 Dia/Thread Size, 25 PK",
+                        imageUrl: "//localhost/admin/assets/catalog/7829d/22A447/22A458.jpg",
+                    }
+                ],
+                number: 'CO190424-00001',
+                status: "Completed",
+                createdDate: "2019-04-24T11:20:47.087Z",
+                createdBy: "testppa",
+                assignedTo: "testppa1",
+                total: {
+                    internalAmount: 55.3,
+                    amount: 55.3,
+                    truncatedAmount: 55.3,
+                    formattedAmount: "$55.30",
+                    formattedAmountWithoutPoint: "$55",
+                    formattedAmountWithoutPointAndCurrency: "55",
+                    currency: {
+                        code: "USD",
+                        cultureName: "en-US",
+                        symbol: "$",
+                        englishName: "US dollar",
+                        exchangeRate: 1.0
+                    },
+                    decimalDigits: 2
+                },
+                subTotal: {
+                    internalAmount: 55.3,
+                    amount: 55.3,
+                    truncatedAmount: 55.3,
+                    formattedAmount: "$55.30",
+                    formattedAmountWithoutPoint: "$55",
+                    formattedAmountWithoutPointAndCurrency: "55",
+                    currency: {
+                        code: "USD",
+                        cultureName: "en-US",
+                        symbol: "$",
+                        englishName: "US dollar",
+                        exchangeRate: 1.0
+                    },
+                    decimalDigits: 2
+                },
+                shippingTotal: {
+                    internalAmount: 0.0,
+                    amount: 0.0,
+                    truncatedAmount: 0.0,
+                    formattedAmount: "$0.00",
+                    formattedAmountWithoutPoint: "$0",
+                    formattedAmountWithoutPointAndCurrency: "0",
+                    currency: {
+                        code: "USD",
+                        cultureName: "en-US",
+                        symbol: "$",
+                        englishName: "US dollar",
+                        exchangeRate: 1.0
+                    },
+                    decimalDigits: 2
+                },
+                toRole: "Approver 1",
+                comments: [
+                    {
+                        id: "01c16e783c0f433583c7197f53157981",
+                        createdDate: "2019-04-24T11:20:47.087Z",
+                        userId: "508d2a0584ad4e0e9811577f00b735c8",
+                        username: "Author 1",
+                        text: "its good!",
+                    },
+                    {
+                        id: "01c16e783c0f433583c7197f53157982",
+                        createdDate: "2019-04-25T11:20:47.087Z",
+                        userId: "508d2a0584ad4e0e9811577f00b735c8",
+                        username: "Author 2",
+                        text: "its bad!",
+                    }
+                ]
             },
             {
-                results: [
+                id: "9b0a3eb6999d481a894792cad4446019",
+                items: [
                     {
-                        id: "827243bf0a9d4287b87b547568f85a45",
-                        items: [
-                            {
-                                id: "01c16e783c0f433583c7197f5315798b",
-                                quantity: 1,
-                                productId: "508d2a0584ad4e0e9811577f00b735c8",
-                                name: "1\" Steel Hex Flange Bolt, Grade 8, Plain Finish, 1/2\"-20 Dia/Thread Size, 25 PK",
-                                imageUrl: "//localhost/admin/assets/catalog/7829d/22A447/22A458.jpg",
-                            }
-                        ],
-                        number: 'CO190424-00001',
-                        status: "Completed",
-                        createdDate: "2019-04-24T11:20:47.087Z",
-                        createdBy: "testppa",
-                        assignedTo: "testppa1",
-                        total: {
-                            internalAmount: 55.3,
-                            amount: 55.3,
-                            truncatedAmount: 55.3,
-                            formattedAmount: "$55.30",
-                            formattedAmountWithoutPoint: "$55",
-                            formattedAmountWithoutPointAndCurrency: "55",
-                            currency: {
-                                code: "USD",
-                                cultureName: "en-US",
-                                symbol: "$",
-                                englishName: "US dollar",
-                                exchangeRate: 1.0
-                            },
-                            decimalDigits: 2
-                        },
-                        subTotal: {
-                            internalAmount: 55.3,
-                            amount: 55.3,
-                            truncatedAmount: 55.3,
-                            formattedAmount: "$55.30",
-                            formattedAmountWithoutPoint: "$55",
-                            formattedAmountWithoutPointAndCurrency: "55",
-                            currency: {
-                                code: "USD",
-                                cultureName: "en-US",
-                                symbol: "$",
-                                englishName: "US dollar",
-                                exchangeRate: 1.0
-                            },
-                            decimalDigits: 2
-                        },
-                        shippingTotal: {
-                            internalAmount: 0.0,
-                            amount: 0.0,
-                            truncatedAmount: 0.0,
-                            formattedAmount: "$0.00",
-                            formattedAmountWithoutPoint: "$0",
-                            formattedAmountWithoutPointAndCurrency: "0",
-                            currency: {
-                                code: "USD",
-                                cultureName: "en-US",
-                                symbol: "$",
-                                englishName: "US dollar",
-                                exchangeRate: 1.0
-                            },
-                            decimalDigits: 2
-                        },
-                        toRole: "Approver1",
-                        comments: [
-                            {
-                                id: "01c16e783c0f433583c7197f53157981",
-                                createdDate: "2019-04-24T11:20:47.087Z",
-                                userId: "508d2a0584ad4e0e9811577f00b735c8",
-                                username: "Author 1",
-                                text: "its good!",
-                            },
-                            {
-                                id: "01c16e783c0f433583c7197f53157982",
-                                createdDate: "2019-04-25T11:20:47.087Z",
-                                userId: "508d2a0584ad4e0e9811577f00b735c8",
-                                username: "Author 2",
-                                text: "its bad!",
-                            }
-                        ]
+                        id: "83e1d2a4948240db840a0f1e21102520",
+                        quantity: 1,
+                        productId: "7829d35f417e4dd98851f51322f32c23",
+                        name: "1\" Stainless Steel Carriage Bolt, 18-8, NL-19(SM) Finish, 1/4\"-20 Dia/Thread Size, 50 PK",
+                        imageUrl: "//localhost/admin/assets/catalog/7829d/53MF87/53MF87.jpg",
                     },
                     {
-                        id: "9b0a3eb6999d481a894792cad4446019",
-                        items: [
-                            {
-                                id: "83e1d2a4948240db840a0f1e21102520",
-                                quantity: 1,
-                                productId: "7829d35f417e4dd98851f51322f32c23",
-                                name: "1\" Stainless Steel Carriage Bolt, 18-8, NL-19(SM) Finish, 1/4\"-20 Dia/Thread Size, 50 PK",
-                                imageUrl: "//localhost/admin/assets/catalog/7829d/53MF87/53MF87.jpg",
-                            },
-                            {
-                                id: "8cc11d16ed9f4fff949c422f49fe4eed",
-                                quantity: 3,
-                                productId: "ec235043d51848249e90ef170c371a1c",
-                                name: "1\" Steel Carriage Bolt, Grade 5, Zinc Plated Finish, 1/4\"-20 Dia/Thread Size, 100 PK",
-                                imageUrl: "//localhost/admin/assets/catalog/7829d/5ZMR1/5ZMR1.jpg",
-                            },
-                            {
-                                id: "309d43873f554780bf3dff053bccd99b",
-                                quantity: 11,
-                                productId: "dae730451bc745bfa642870bdf22f150",
-                                name: "1\" Steel Carriage Bolt, Grade A, Hot Dipped Galvanized Finish, 1/4\"-20 Dia/Thread Size, 1300 PK",
-                                imageUrl: "//localhost/admin/assets/catalog/7829d/164W15/164W15.jpg",
-                            },
-                            {
-                                id: "8926a0b066d243909f86b60054dc8ab2",
-                                quantity: 3,
-                                productId: "e9de38b73c424db19f319c9538184d03",
-                                name: "1\" Steel Carriage Bolt, Grade 5, Chrome Plated Finish, 1/4\"-20 Dia/Thread Size, 5 PK",
-                                imageUrl: "//localhost/admin/assets/catalog/7829d/4GVA7/4GVA7_AS01.jpg",
-                            },
-                        ],
-                        number: 'CO190422-00001',
-                        status: "Awaiting Approve",
-                        createdDate: "2019-04-22T07:22:25.337Z",
-                        createdBy: "testppa",
-                        assignedTo: "testppa1",
-                        total: "$4,245.65",
-                        toRole: "Approver1",
-                        comments: [
-                            {
-                                id: "01c16e783c0f433583c7197f53157981",
-                                createdDate: "2019-04-26T11:20:47.087Z",
-                                userId: "508d2a0584ad4e0e9811577f00b735c8",
-                                username: "Author 1",
-                                text: "its good!",
-                            }
-                        ]
-
+                        id: "8cc11d16ed9f4fff949c422f49fe4eed",
+                        quantity: 3,
+                        productId: "ec235043d51848249e90ef170c371a1c",
+                        name: "1\" Steel Carriage Bolt, Grade 5, Zinc Plated Finish, 1/4\"-20 Dia/Thread Size, 100 PK",
+                        imageUrl: "//localhost/admin/assets/catalog/7829d/5ZMR1/5ZMR1.jpg",
                     },
+                    {
+                        id: "309d43873f554780bf3dff053bccd99b",
+                        quantity: 11,
+                        productId: "dae730451bc745bfa642870bdf22f150",
+                        name: "1\" Steel Carriage Bolt, Grade A, Hot Dipped Galvanized Finish, 1/4\"-20 Dia/Thread Size, 1300 PK",
+                        imageUrl: "//localhost/admin/assets/catalog/7829d/164W15/164W15.jpg",
+                    },
+                    {
+                        id: "8926a0b066d243909f86b60054dc8ab2",
+                        quantity: 3,
+                        productId: "e9de38b73c424db19f319c9538184d03",
+                        name: "1\" Steel Carriage Bolt, Grade 5, Chrome Plated Finish, 1/4\"-20 Dia/Thread Size, 5 PK",
+                        imageUrl: "//localhost/admin/assets/catalog/7829d/4GVA7/4GVA7_AS01.jpg",
+                    },
+                ],
+                number: 'CO190422-00001',
+                status: "Awaiting Approve",
+                createdDate: "2019-04-22T07:22:25.337Z",
+                createdBy: "testppa",
+                assignedTo: "testppa1",
+                total: "$4,245.65",
+                toRole: "Approver 1",
+                comments: [
+                    {
+                        id: "01c16e783c0f433583c7197f53157981",
+                        createdDate: "2019-04-26T11:20:47.087Z",
+                        userId: "508d2a0584ad4e0e9811577f00b735c8",
+                        username: "Author 1",
+                        text: "its good!",
+                    }
                 ]
-            }
+
+            },
         ];
 
-        const users = [
-            { id: "1", username: "users1", password: "user1", role: "" },
-            { id: "2", username: "users2", password: "user2", role: "Role2" },
-            { id: "3", username: "users3", password: "user3", role: "Role3" },
-            { id: "4", username: "users4", password: "user4", role: "Role4" },
-        ];
-
-        const approveWorkflow = [
+        const approvalWorkflow = [
             {
                 id: "9b0a3eb6999d481a894792cad4446019",
                 roles: [
                     {
                         id: "01c16e783c0f433583c7197f5315798b",
-                        name: "Role1",
+                        step: 1,
+                        name: "Approver 1",
                     },
                     {
                         id: "83e1d2a4948240db840a0f1e21102520",
-                        name: "Role2",
+                        step: 2,
+                        name: "Approver 2",
                     },
                     {
                         id: "8926a0b066d243909f86b60054dc8ab2",
-                        name: "Role3",
+                        step: 3,
+                        name: "Approver 3",
+                    },
+                    {
+                        id: "8926a0b066d243909f86b60054dc8ab2",
+                        step: 4,
+                        name: "Approver 4",
                     }
 
                 ]
             }
         ]
 
+        const categories = [
+            {
+                catalogId: "fc596540864a41bf8ab78734ee7353a3",
+                //   parents: [],
+                code: "cd931",
+                name: "Bolts",
+                outline: "02fe37dcaeb2458a831011abe43fd335",
+                seoPath: "bolts",
+                url: "/B2B-store/bolts",
+                seoInfo: {
+                    slug: "bolts",
+                    language: {
+                        isInvariant: false,
+                        cultureName: "en-US",
+                        nativeName: "English (United States)",
+                        threeLeterLanguageName: "eng",
+                        twoLetterLanguageName: "en",
+                        twoLetterRegionName: "US",
+                        threeLetterRegionName: "USA"
+                    }
+                },
+                //   images: [],
+                //   categories: [],
+                //   properties: [],
+                id: "02fe37dcaeb2458a831011abe43fd335"
+            },
+            {
+                catalogId: "7829d35f417e4dd98851f51322f32c23",
+                parents: [
+                    {
+                        catalogId: "fc596540864a41bf8ab78734ee7353a3",
+                        //parents: [],
+                        code: "cd931",
+                        name: "Bolts",
+                        outline: "02fe37dcaeb2458a831011abe43fd335",
+                        seoPath: "bolts",
+                        url: "~/bolts",
+                        seoInfo: {
+                            slug: "bolts",
+                            language: {
+                                isInvariant: false,
+                                cultureName: "en-US",
+                                nativeName: "English (United States)",
+                                threeLeterLanguageName: "eng",
+                                twoLetterLanguageName: "en",
+                                twoLetterRegionName: "US",
+                                threeLetterRegionName: "USA"
+                            }
+                        },
+                        //   images: [],
+                        //   categories: [],
+                        //   properties: [],
+                        id: "02fe37dcaeb2458a831011abe43fd335"
+                    }
+                ],
+                code: "9a2bd",
+                name: "Carriage Bolts",
+                outline: "02fe37dcaeb2458a831011abe43fd335/4fbaca886f014767a52f3f38b9df648f",
+                seoPath: "bolts/carriage-bolts",
+                url: "/B2B-store/bolts/carriage-bolts",
+                seoInfo: {
+                    slug: "carriage-bolts",
+                    language: {
+                        isInvariant: false,
+                        cultureName: "en-US",
+                        nativeName: "English (United States)",
+                        threeLeterLanguageName: "eng",
+                        twoLetterLanguageName: "en",
+                        twoLetterRegionName: "US",
+                        threeLetterRegionName: "USA"
+                    }
+                },
+                primaryImage: {
+                    url: "//localhost/admin/assets/catalog/7829d/9a2bd/2XA26_AS01.jpg",
+                    sortOrder: 1,
+                    group: "images"
+                },
+                images: [
+                    {
+                        url: "//localhost/admin/assets/catalog/7829d/9a2bd/2XA26_AS01.jpg",
+                        sortOrder: 1,
+                        group: "images"
+                    }
+                ],
+                //   categories: [],
+                //   properties: [],
+                id: "4fbaca886f014767a52f3f38b9df648f"
+            },
+            {
+                catalogId: "7829d35f417e4dd98851f51322f32c23",
+                parents: [
+                    {
+                        catalogId: "fc596540864a41bf8ab78734ee7353a3",
+                        //parents: [],
+                        code: "cd931",
+                        name: "Bolts",
+                        outline: "02fe37dcaeb2458a831011abe43fd335",
+                        seoPath: "bolts",
+                        url: "~/bolts",
+                        seoInfo: {
+                            slug: "bolts",
+                            language: {
+                                isInvariant: false,
+                                cultureName: "en-US",
+                                nativeName: "English (United States)",
+                                threeLeterLanguageName: "eng",
+                                twoLetterLanguageName: "en",
+                                twoLetterRegionName: "US",
+                                threeLetterRegionName: "USA"
+                            }
+                        },
+                        //   images: [],
+                        //   categories: [],
+                        //   properties: [],
+                        id: "02fe37dcaeb2458a831011abe43fd335"
+                    }
+                ],
+                code: "e935e",
+                name: "Eyebolts",
+                outline: "02fe37dcaeb2458a831011abe43fd335/364e07799fa24acf95241e7dd5c33b1e",
+                seoPath: "bolts/eyebolts",
+                url: "/B2B-store/bolts/eyebolts",
+                seoInfo: {
+                    slug: "eyebolts",
+                    language: {
+                        isInvariant: false,
+                        cultureName: "en-US",
+                        nativeName: "English (United States)",
+                        threeLeterLanguageName: "eng",
+                        twoLetterLanguageName: "en",
+                        twoLetterRegionName: "US",
+                        threeLetterRegionName: "USA"
+                    }
+                },
+                primaryImage: {
+                    url: "//localhost/admin/assets/catalog/7829d/e935e/5ZA21_AS01.jpg",
+                    sortOrder: 1,
+                    group: "images"
+                },
+                images: [
+                    {
+                        url: "//localhost/admin/assets/catalog/7829d/e935e/5ZA21_AS01.jpg",
+                        sortOrder: 1,
+                        group: "images"
+                    }
+                ],
+                //   categories: [],
+                //   properties: [],
+                id: "364e07799fa24acf95241e7dd5c33b1e"
+            },
+            {
+                catalogId: "7829d35f417e4dd98851f51322f32c23",
+                parents: [
+                    {
+                        catalogId: "fc596540864a41bf8ab78734ee7353a3",
+                        //   parents: [],
+                        code: "cd931",
+                        name: "Bolts",
+                        outline: "02fe37dcaeb2458a831011abe43fd335",
+                        seoPath: "bolts",
+                        url: "~/bolts",
+                        seoInfo: {
+                            slug: "bolts",
+                            language: {
+                                isInvariant: false,
+                                cultureName: "en-US",
+                                nativeName: "English (United States)",
+                                threeLeterLanguageName: "eng",
+                                twoLetterLanguageName: "en",
+                                twoLetterRegionName: "US",
+                                threeLetterRegionName: "USA"
+                            }
+                        },
+                        //   images: [],
+                        //   categories: [],
+                        //   properties: [],
+                        id: "02fe37dcaeb2458a831011abe43fd335"
+                    }
+                ],
+                code: "12d4f",
+                name: "Flange Bolts",
+                outline: "02fe37dcaeb2458a831011abe43fd335/3db665f7c95e46c3890c4a208d8af73d",
+                seoPath: "bolts/flange-bolts",
+                url: "/B2B-store/bolts/flange-bolts",
+                seoInfo: {
+                    slug: "flange-bolts",
+                    language: {
+                        isInvariant: false,
+                        cultureName: "en-US",
+                        nativeName: "English (United States)",
+                        threeLeterLanguageName: "eng",
+                        twoLetterLanguageName: "en",
+                        twoLetterRegionName: "US",
+                        threeLetterRegionName: "USA"
+                    }
+                },
+                primaryImage: {
+                    url: "//localhost/admin/assets/catalog/7829d/12d4f/41MX89_AL01.jpg",
+                    sortOrder: 1,
+                    group: "images"
+                },
+                images: [
+                    {
+                        url: "//localhost/admin/assets/catalog/7829d/12d4f/41MX89_AL01.jpg",
+                        sortOrder: 1,
+                        group: "images"
+                    }
+                ],
+                //   categories: [],
+                //   properties: [],
+                id: "3db665f7c95e46c3890c4a208d8af73d"
+            },
+            {
+                catalogId: "7829d35f417e4dd98851f51322f32c23",
+                parents: [
+                    {
+                        catalogId: "fc596540864a41bf8ab78734ee7353a3",
+                        //parents: [],
+                        code: "cd931",
+                        name: "Bolts",
+                        outline: "02fe37dcaeb2458a831011abe43fd335",
+                        seoPath: "bolts",
+                        url: "~/bolts",
+                        seoInfo: {
+                            slug: "bolts",
+                            language: {
+                                isInvariant: false,
+                                cultureName: "en-US",
+                                nativeName: "English (United States)",
+                                threeLeterLanguageName: "eng",
+                                twoLetterLanguageName: "en",
+                                twoLetterRegionName: "US",
+                                threeLetterRegionName: "USA"
+                            }
+                        },
+                        //   images: [],
+                        //   categories: [],
+                        //   properties: [],
+                        id: "02fe37dcaeb2458a831011abe43fd335"
+                    }
+                ],
+                code: "4f79c",
+                name: "Freight Car Bolts",
+                outline: "02fe37dcaeb2458a831011abe43fd335/18b6de58c365495181d03375a20ff8d5",
+                seoPath: "bolts/freight-car-bolts",
+                url: "/B2B-store/bolts/freight-car-bolts",
+                seoInfo: {
+                    slug: "freight-car-bolts",
+                    language: {
+                        isInvariant: false,
+                        cultureName: "en-US",
+                        nativeName: "English (United States)",
+                        threeLeterLanguageName: "eng",
+                        twoLetterLanguageName: "en",
+                        twoLetterRegionName: "US",
+                        threeLetterRegionName: "USA"
+                    }
+                },
+                primaryImage: {
+                    url: "//localhost/admin/assets/catalog/7829d/4f79c/20J009_AS01.jpg",
+                    sortOrder: 1,
+                    group: "images"
+                },
+                images: [
+                    {
+                        url: "//localhost/admin/assets/catalog/7829d/4f79c/20J009_AS01.jpg",
+                        sortOrder: 1,
+                        group: "images"
+                    }
+                ],
+                //   categories: [],
+                //   properties: [],
+                id: "18b6de58c365495181d03375a20ff8d5"
+            },
+            {
+                catalogId: "5aa50aaea01544529a6b6d576a668439",
+                parents: [
+                    {
+                        catalogId: "fc596540864a41bf8ab78734ee7353a3",
+                        parents: [],
+                        code: "b76cb",
+                        name: "Printers",
+                        outline: "d6019d4d27e44854a58ebbd5428b873b",
+                        seoPath: "printers",
+                        url: "~/printers",
+                        seoInfo: {
+                            slug: "printers",
+                            language: {
+                                isInvariant: false,
+                                cultureName: "en-US",
+                                nativeName: "English (United States)",
+                                threeLeterLanguageName: "eng",
+                                twoLetterLanguageName: "en",
+                                twoLetterRegionName: "US",
+                                threeLetterRegionName: "USA"
+                            }
+                        },
+                        //   images: [],
+                        //   categories: [],
+                        //   properties: [],
+                        id: "d6019d4d27e44854a58ebbd5428b873b"
+                    },
+                    {
+                        catalogId: "5aa50aaea01544529a6b6d576a668439",
+                        parents: [
+                            {
+                                catalogId: "fc596540864a41bf8ab78734ee7353a3",
+                                //parents: [],
+                                code: "b76cb",
+                                name: "Printers",
+                                outline: "d6019d4d27e44854a58ebbd5428b873b",
+                                seoPath: "printers",
+                                url: "~/printers",
+                                seoInfo: {
+                                    slug: "printers",
+                                    language: {
+                                        isInvariant: false,
+                                        cultureName: "en-US",
+                                        nativeName: "English (United States)",
+                                        threeLeterLanguageName: "eng",
+                                        twoLetterLanguageName: "en",
+                                        twoLetterRegionName: "US",
+                                        threeLetterRegionName: "USA"
+                                    }
+                                },
+                                //   images: [],
+                                //   categories: [],
+                                //   properties: [],
+                                id: "d6019d4d27e44854a58ebbd5428b873b"
+                            }
+                        ],
+                        code: "23d38",
+                        name: "Inkjet Printers",
+                        outline: "d6019d4d27e44854a58ebbd5428b873b/1affd18a671041a2a498940dea6ce45e",
+                        seoPath: "printers/all-in-one",
+                        url: "~/printers/all-in-one",
+                        seoInfo: {
+                            slug: "all-in-one",
+                            language: {
+                                isInvariant: false,
+                                cultureName: "en-US",
+                                nativeName: "English (United States)",
+                                threeLeterLanguageName: "eng",
+                                twoLetterLanguageName: "en",
+                                twoLetterRegionName: "US",
+                                threeLetterRegionName: "USA"
+                            }
+                        },
+                        //   images: [],
+                        //   categories: [],
+                        //   properties: [],
+                        id: "1affd18a671041a2a498940dea6ce45e"
+                    }
+                ],
+                parentId: "1affd18a671041a2a498940dea6ce45e",
+                code: "7c6f9",
+                name: "Inkjet Color",
+                outline: "d6019d4d27e44854a58ebbd5428b873b/1affd18a671041a2a498940dea6ce45e/d997f5ba9bd64a9a8e84ec0933fb1c08",
+                seoPath: "printers/all-in-one/inkjet-color",
+                url: "/B2B-store/printers/all-in-one/inkjet-color",
+                seoInfo: {
+                    slug: "inkjet-color",
+                    language: {
+                        isInvariant: false,
+                        cultureName: "en-US",
+                        nativeName: "English (United States)",
+                        threeLeterLanguageName: "eng",
+                        twoLetterLanguageName: "en",
+                        twoLetterRegionName: "US",
+                        threeLetterRegionName: "USA"
+                    }
+                },
+                //   images: [],
+                //   categories: [],
+                //   properties: [],
+                id: "d997f5ba9bd64a9a8e84ec0933fb1c08"
+            },
+            {
+                catalogId: "5aa50aaea01544529a6b6d576a668439",
+                parents: [
+                    {
+                        catalogId: "fc596540864a41bf8ab78734ee7353a3",
+                        //   parents: [],
+                        code: "b76cb",
+                        name: "Printers",
+                        outline: "d6019d4d27e44854a58ebbd5428b873b",
+                        seoPath: "printers",
+                        url: "~/printers",
+                        seoInfo: {
+                            slug: "printers",
+                            language: {
+                                isInvariant: false,
+                                cultureName: "en-US",
+                                nativeName: "English (United States)",
+                                threeLeterLanguageName: "eng",
+                                twoLetterLanguageName: "en",
+                                twoLetterRegionName: "US",
+                                threeLetterRegionName: "USA"
+                            }
+                        },
+                        //   images: [],
+                        //   categories: [],
+                        //   properties: [],
+                        id: "d6019d4d27e44854a58ebbd5428b873b"
+                    },
+                    {
+                        catalogId: "5aa50aaea01544529a6b6d576a668439",
+                        parents: [
+                            {
+                                catalogId: "fc596540864a41bf8ab78734ee7353a3",
+                                //   parents: [],
+                                code: "b76cb",
+                                name: "Printers",
+                                outline: "d6019d4d27e44854a58ebbd5428b873b",
+                                seoPath: "printers",
+                                url: "~/printers",
+                                seoInfo: {
+                                    slug: "printers",
+                                    language: {
+                                        isInvariant: false,
+                                        cultureName: "en-US",
+                                        nativeName: "English (United States)",
+                                        threeLeterLanguageName: "eng",
+                                        twoLetterLanguageName: "en",
+                                        twoLetterRegionName: "US",
+                                        threeLetterRegionName: "USA"
+                                    }
+                                },
+                                //   images: [],
+                                //   categories: [],
+                                //   properties: [],
+                                id: "d6019d4d27e44854a58ebbd5428b873b"
+                            }
+                        ],
+                        code: "23d38",
+                        name: "Inkjet Printers",
+                        outline: "d6019d4d27e44854a58ebbd5428b873b/1affd18a671041a2a498940dea6ce45e",
+                        seoPath: "printers/all-in-one",
+                        url: "~/printers/all-in-one",
+                        seoInfo: {
+                            slug: "all-in-one",
+                            language: {
+                                isInvariant: false,
+                                cultureName: "en-US",
+                                nativeName: "English (United States)",
+                                threeLeterLanguageName: "eng",
+                                twoLetterLanguageName: "en",
+                                twoLetterRegionName: "US",
+                                threeLetterRegionName: "USA"
+                            }
+                        },
+                        //   images: [],
+                        //   categories: [],
+                        //   properties: [],
+                        id: "1affd18a671041a2a498940dea6ce45e"
+                    }
+                ],
+                parentId: "1affd18a671041a2a498940dea6ce45e",
+                code: "73a36",
+                name: "Inkjet Monochrome",
+                outline: "d6019d4d27e44854a58ebbd5428b873b/1affd18a671041a2a498940dea6ce45e/aee290a90806433482ec51c61e8fc131",
+                seoPath: "printers/all-in-one/inkjet-monochrome",
+                url: "/B2B-store/printers/all-in-one/inkjet-monochrome",
+                seoInfo: {
+                    slug: "inkjet-monochrome",
+                    language: {
+                        isInvariant: false,
+                        cultureName: "en-US",
+                        nativeName: "English (United States)",
+                        threeLeterLanguageName: "eng",
+                        twoLetterLanguageName: "en",
+                        twoLetterRegionName: "US",
+                        threeLetterRegionName: "USA"
+                    }
+                },
+                //   images: [],
+                //   categories: [],
+                //   properties: [],
+                id: "aee290a90806433482ec51c61e8fc131"
+            },
+            {
+                catalogId: "5aa50aaea01544529a6b6d576a668439",
+                parents: [
+                    {
+                        catalogId: "fc596540864a41bf8ab78734ee7353a3",
+                        //parents: [],
+                        code: "b76cb",
+                        name: "Printers",
+                        outline: "d6019d4d27e44854a58ebbd5428b873b",
+                        seoPath: "printers",
+                        url: "~/printers",
+                        seoInfo: {
+                            slug: "printers",
+                            language: {
+                                isInvariant: false,
+                                cultureName: "en-US",
+                                nativeName: "English (United States)",
+                                threeLeterLanguageName: "eng",
+                                twoLetterLanguageName: "en",
+                                twoLetterRegionName: "US",
+                                threeLetterRegionName: "USA"
+                            }
+                        },
+                        //   images: [],
+                        //   categories: [],
+                        //   properties: [],
+                        id: "d6019d4d27e44854a58ebbd5428b873b"
+                    }
+                ],
+                code: "23d38",
+                name: "Inkjet Printers",
+                outline: "d6019d4d27e44854a58ebbd5428b873b/1affd18a671041a2a498940dea6ce45e",
+                seoPath: "printers/all-in-one",
+                url: "/B2B-store/printers/all-in-one",
+                seoInfo: {
+                    slug: "all-in-one",
+                    language: {
+                        isInvariant: false,
+                        cultureName: "en-US",
+                        nativeName: "English (United States)",
+                        threeLeterLanguageName: "eng",
+                        twoLetterLanguageName: "en",
+                        twoLetterRegionName: "US",
+                        threeLetterRegionName: "USA"
+                    }
+                },
+                //   images: [],
+                //   categories: [],
+                //   properties: [],
+                id: "1affd18a671041a2a498940dea6ce45e"
+            },
+            {
+                catalogId: "5aa50aaea01544529a6b6d576a668439",
+                parents: [
+                    {
+                        catalogId: "fc596540864a41bf8ab78734ee7353a3",
+                        //parents: [],
+                        code: "b76cb",
+                        name: "Printers",
+                        outline: "d6019d4d27e44854a58ebbd5428b873b",
+                        seoPath: "printers",
+                        url: "~/printers",
+                        seoInfo: {
+                            slug: "printers",
+                            language: {
+                                isInvariant: false,
+                                cultureName: "en-US",
+                                nativeName: "English (United States)",
+                                threeLeterLanguageName: "eng",
+                                twoLetterLanguageName: "en",
+                                twoLetterRegionName: "US",
+                                threeLetterRegionName: "USA"
+                            }
+                        },
+                        //   images: [],
+                        //   categories: [],
+                        //   properties: [],
+                        id: "d6019d4d27e44854a58ebbd5428b873b"
+                    },
+                    {
+                        catalogId: "5aa50aaea01544529a6b6d576a668439",
+                        parents: [
+                            {
+                                catalogId: "fc596540864a41bf8ab78734ee7353a3",
+                                //parents: [],
+                                code: "b76cb",
+                                name: "Printers",
+                                outline: "d6019d4d27e44854a58ebbd5428b873b",
+                                seoPath: "printers",
+                                url: "~/printers",
+                                seoInfo: {
+                                    slug: "printers",
+                                    language: {
+                                        isInvariant: false,
+                                        cultureName: "en-US",
+                                        nativeName: "English (United States)",
+                                        threeLeterLanguageName: "eng",
+                                        twoLetterLanguageName: "en",
+                                        twoLetterRegionName: "US",
+                                        threeLetterRegionName: "USA"
+                                    }
+                                },
+                                //   images: [],
+                                //   categories: [],
+                                //   properties: [],
+                                id: "d6019d4d27e44854a58ebbd5428b873b"
+                            }
+                        ],
+                        code: "eaed3",
+                        name: "Laser Printers",
+                        outline: "d6019d4d27e44854a58ebbd5428b873b/8ce26885a05b412e9e5230c9721529ed",
+                        seoPath: "printers/multifunction-printers",
+                        url: "~/printers/multifunction-printers",
+                        seoInfo: {
+                            slug: "multifunction-printers",
+                            language: {
+                                isInvariant: false,
+                                cultureName: "en-US",
+                                nativeName: "English (United States)",
+                                threeLeterLanguageName: "eng",
+                                twoLetterLanguageName: "en",
+                                twoLetterRegionName: "US",
+                                threeLetterRegionName: "USA"
+                            }
+                        },
+                        //   images: [],
+                        //   categories: [],
+                        //   properties: [],
+                        id: "8ce26885a05b412e9e5230c9721529ed"
+                    }
+                ],
+                parentId: "8ce26885a05b412e9e5230c9721529ed",
+                code: "3cc01",
+                name: "Laser Color",
+                outline: "d6019d4d27e44854a58ebbd5428b873b/8ce26885a05b412e9e5230c9721529ed/4455edb7972d4f81a219dc65f58bace1",
+                seoPath: "printers/multifunction-printers/laser-color",
+                url: "/B2B-store/printers/multifunction-printers/laser-color",
+                seoInfo: {
+                    slug: "laser-color",
+                    language: {
+                        isInvariant: false,
+                        cultureName: "en-US",
+                        nativeName: "English (United States)",
+                        threeLeterLanguageName: "eng",
+                        twoLetterLanguageName: "en",
+                        twoLetterRegionName: "US",
+                        threeLetterRegionName: "USA"
+                    }
+                },
+                //   images: [],
+                //   categories: [],
+                //   properties: [],
+                id: "4455edb7972d4f81a219dc65f58bace1"
+            },
+            {
+                catalogId: "5aa50aaea01544529a6b6d576a668439",
+                parents: [
+                    {
+                        catalogId: "fc596540864a41bf8ab78734ee7353a3",
+                        //parents: [],
+                        code: "b76cb",
+                        name: "Printers",
+                        outline: "d6019d4d27e44854a58ebbd5428b873b",
+                        seoPath: "printers",
+                        url: "~/printers",
+                        seoInfo: {
+                            slug: "printers",
+                            language: {
+                                isInvariant: false,
+                                cultureName: "en-US",
+                                nativeName: "English (United States)",
+                                threeLeterLanguageName: "eng",
+                                twoLetterLanguageName: "en",
+                                twoLetterRegionName: "US",
+                                threeLetterRegionName: "USA"
+                            }
+                        },
+                        //   images: [],
+                        //   categories: [],
+                        //   properties: [],
+                        id: "d6019d4d27e44854a58ebbd5428b873b"
+                    },
+                    {
+                        catalogId: "5aa50aaea01544529a6b6d576a668439",
+                        parents: [
+                            {
+                                catalogId: "fc596540864a41bf8ab78734ee7353a3",
+                                //parents: [],
+                                code: "b76cb",
+                                name: "Printers",
+                                outline: "d6019d4d27e44854a58ebbd5428b873b",
+                                seoPath: "printers",
+                                url: "~/printers",
+                                seoInfo: {
+                                    slug: "printers",
+                                    language: {
+                                        isInvariant: false,
+                                        cultureName: "en-US",
+                                        nativeName: "English (United States)",
+                                        threeLeterLanguageName: "eng",
+                                        twoLetterLanguageName: "en",
+                                        twoLetterRegionName: "US",
+                                        threeLetterRegionName: "USA"
+                                    }
+                                },
+                                //   images: [],
+                                //   categories: [],
+                                //   properties: [],
+                                id: "d6019d4d27e44854a58ebbd5428b873b"
+                            }
+                        ],
+                        code: "eaed3",
+                        name: "Laser Printers",
+                        outline: "d6019d4d27e44854a58ebbd5428b873b/8ce26885a05b412e9e5230c9721529ed",
+                        seoPath: "printers/multifunction-printers",
+                        url: "~/printers/multifunction-printers",
+                        seoInfo: {
+                            slug: "multifunction-printers",
+                            language: {
+                                isInvariant: false,
+                                cultureName: "en-US",
+                                nativeName: "English (United States)",
+                                threeLeterLanguageName: "eng",
+                                twoLetterLanguageName: "en",
+                                twoLetterRegionName: "US",
+                                threeLetterRegionName: "USA"
+                            }
+                        },
+                        //   images: [],
+                        //   categories: [],
+                        //   properties: [],
+                        id: "8ce26885a05b412e9e5230c9721529ed"
+                    }
+                ],
+                parentId: "8ce26885a05b412e9e5230c9721529ed",
+                code: "e3ee9",
+                name: "Laser Monochrome",
+                outline: "d6019d4d27e44854a58ebbd5428b873b/8ce26885a05b412e9e5230c9721529ed/e6762b4c4ea04aa29ed428434acccd9f",
+                seoPath: "printers/multifunction-printers/laser-monochrome",
+                url: "/B2B-store/printers/multifunction-printers/laser-monochrome",
+                seoInfo: {
+                    slug: "laser-monochrome",
+                    language: {
+                        isInvariant: false,
+                        cultureName: "en-US",
+                        nativeName: "English (United States)",
+                        threeLeterLanguageName: "eng",
+                        twoLetterLanguageName: "en",
+                        twoLetterRegionName: "US",
+                        threeLetterRegionName: "USA"
+                    }
+                },
+                //   images: [],
+                //   categories: [],
+                //   properties: [],
+                id: "e6762b4c4ea04aa29ed428434acccd9f"
+            },
+            {
+                catalogId: "5aa50aaea01544529a6b6d576a668439",
+                parents: [
+                    {
+                        catalogId: "fc596540864a41bf8ab78734ee7353a3",
+                        //   parents: [],
+                        code: "b76cb",
+                        name: "Printers",
+                        outline: "d6019d4d27e44854a58ebbd5428b873b",
+                        seoPath: "printers",
+                        url: "~/printers",
+                        seoInfo: {
+                            slug: "printers",
+                            language: {
+                                isInvariant: false,
+                                cultureName: "en-US",
+                                nativeName: "English (United States)",
+                                threeLeterLanguageName: "eng",
+                                twoLetterLanguageName: "en",
+                                twoLetterRegionName: "US",
+                                threeLetterRegionName: "USA"
+                            }
+                        },
+                        //   images: [],
+                        //   categories: [],
+                        //   properties: [],
+                        id: "d6019d4d27e44854a58ebbd5428b873b"
+                    }
+                ],
+                code: "eaed3",
+                name: "Laser Printers",
+                outline: "d6019d4d27e44854a58ebbd5428b873b/8ce26885a05b412e9e5230c9721529ed",
+                seoPath: "printers/multifunction-printers",
+                url: "/B2B-store/printers/multifunction-printers",
+                seoInfo: {
+                    slug: "multifunction-printers",
+                    language: {
+                        isInvariant: false,
+                        cultureName: "en-US",
+                        nativeName: "English (United States)",
+                        threeLeterLanguageName: "eng",
+                        twoLetterLanguageName: "en",
+                        twoLetterRegionName: "US",
+                        threeLetterRegionName: "USA"
+                    }
+                },
+                //   images: [],
+                //   categories: [],
+                //   properties: [],
+                id: "8ce26885a05b412e9e5230c9721529ed"
+            },
+            {
+                catalogId: "fc596540864a41bf8ab78734ee7353a3",
+                //parents: [],
+                code: "b76cb",
+                name: "Printers",
+                outline: "d6019d4d27e44854a58ebbd5428b873b",
+                seoPath: "printers",
+                url: "/B2B-store/printers",
+                seoInfo: {
+                    slug: "printers",
+                    language: {
+                        isInvariant: false,
+                        cultureName: "en-US",
+                        nativeName: "English (United States)",
+                        threeLeterLanguageName: "eng",
+                        twoLetterLanguageName: "en",
+                        twoLetterRegionName: "US",
+                        threeLetterRegionName: "USA"
+                    }
+                },
+                //   images: [],
+                //   categories: [],
+                //   properties: [],
+                id: "d6019d4d27e44854a58ebbd5428b873b"
+            }
+        ]
 
-
-        return { heroes, products, orders, users, approveWorkflow, activeOrder };
+        return { heroes, products, orders, approvalWorkflow, activeorder, categories };
     }
 }

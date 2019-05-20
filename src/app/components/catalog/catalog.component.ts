@@ -59,11 +59,10 @@ export class CatalogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getById(this.currentUser.id).pipe(first()).subscribe(user => {
-      this.userFromApi = user;
-    });
+    this.LoadFakeData();
+  }
 
-     console.log("START! Catalog component, ngOnInit");
+  LoadData() {
     this.blockUI.start("Loading...");
     this.catalogService.getAllCategories()
       .subscribe(
@@ -77,6 +76,7 @@ export class CatalogComponent implements OnInit {
           this.blockUI.stop();
         }
       );
+
     this.activeOrderService.removeForTable.subscribe(() => {
       this.catalogService.getAllProducts()
         .subscribe(
@@ -122,6 +122,7 @@ export class CatalogComponent implements OnInit {
           error => console.log(error)
         );
     })
+
     this.activeOrderService.load.subscribe((onLoad: AddedProduct[]) => {
       //console.log("START! Catalog component, ngOnInit - load");
       //this.blockUI.start("Loading products...");
@@ -184,6 +185,114 @@ export class CatalogComponent implements OnInit {
         );
 
     })
+  }
+
+  LoadFakeData() {
+    this.userService.getById(this.currentUser.id).pipe(first()).subscribe(user => {
+      this.userFromApi = user;
+    });
+
+    this.catalogService.getFakeCategories().subscribe((data: any) => {
+      this.categories = data;
+    });
+
+    this.activeOrderService.removeForTable.subscribe(() => {
+      this.catalogService.getFakeProducts()
+        .subscribe(
+          (data: CatalogSearch) => {
+            console.log('Fake 1');
+            this.products = new Array<Product>();
+            for (var i in data.products) {
+              let product = new Product();
+              let productProperties = new ProductProperties();
+              let priceProduct = new ProductPrice();
+              product.id = data[i].id;
+              product.sku = data[i].sku;
+              product.catalogId = data[i].catalogId;
+              product.categoryId = data[i].categoryId;
+              product.url = data[i].catalogId;
+              product.image = data[i].images[0].url;
+              productProperties.productId = data[i].id;
+              productProperties.name = data[i].name;
+              product.name = data[i].name;
+              productProperties.sku = data[i].sku;
+              productProperties.nameProperty1 = data[i].properties[0].name;
+              productProperties.valueProperty1 = data[i].properties[0].value;
+              productProperties.nameProperty2 = data[i].properties[2].name;
+              productProperties.valueProperty2 = data[i].properties[2].value;
+              for (var j in this.categories) {
+                if (data[i].categoryId == this.categories[j].id) {
+                  productProperties.category = this.categories[j].name;
+                  break;
+                }
+              }
+              priceProduct.productId = product.id;
+              priceProduct.currency = data[i].price.currency.symbol;
+              priceProduct.price = data[i].price.salePrice.amount;
+              priceProduct.count = 0;
+              product.price = data[i].price.salePrice.amount;
+              product.productProperties = productProperties;
+              product.productPrice = priceProduct;
+              this.products.push(product);
+            }
+            this.dataSource = new MatTableDataSource(this.products);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          },
+          error => console.log(error)
+        );
+    });
+    
+    this.activeOrderService.load.subscribe((onLoad: AddedProduct[]) => {
+      this.catalogService.getFakeProducts()
+        .subscribe(
+          (data: any) => {
+            console.log('Fake 2');
+            this.products = new Array<Product>();
+            for (var i in data) {
+              let product = new Product();
+              let productProperties = new ProductProperties();
+              let priceProduct = new ProductPrice();
+              product.id = data[i].id;
+              product.sku = data[i].sku;
+              product.catalogId = data[i].catalogId;
+              product.categoryId = data[i].categoryId;
+              product.url = data[i].catalogId;
+              //product.image = data[i].images[0].url;
+              productProperties.productId = data[i].id;
+              productProperties.name = data[i].name;
+              product.name = data[i].name;
+              productProperties.sku = data[i].sku;
+              priceProduct.productId = product.id;
+              priceProduct.currency = data[i].price.currency.symbol;
+              priceProduct.price = data[i].price.salePrice.amount;
+              priceProduct.count = 0;
+              for (let _product of onLoad) {
+                if (_product.productid === product.id) {
+                  priceProduct.count = _product.count;
+                  priceProduct.id = _product.id;
+                }
+              }
+
+              product.price = data[i].price.salePrice.amount;
+
+
+              product.productProperties = productProperties;
+              product.productPrice = priceProduct;
+              this.products.push(product);
+            }
+            console.log("this.products: " + this.products.length);
+            this.dataSource = new MatTableDataSource(this.products);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          },
+          error => {
+            this.blockUI.stop();
+            console.log(error);
+          }
+        );
+    });
+
   }
 
   setFilterByCategory(filterByCategory: string) {

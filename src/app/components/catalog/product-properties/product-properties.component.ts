@@ -9,6 +9,7 @@ import { ActiveOrderService } from '../../../services/active-order.service';
 })
 export class ProductPropertiesComponent implements OnInit {
   @Input() productProperties: ProductProperties;
+  @Input() productName: string = "";
   // @Input() nameProduct: string;
   // @Input() categoryProduct: string;
   // @Input() sku: string;

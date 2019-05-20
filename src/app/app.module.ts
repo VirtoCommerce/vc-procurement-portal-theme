@@ -62,7 +62,7 @@ import {
 import { AuthGuard } from './guards';
 import { fakeBackendProvider } from './helpers';
 import { JwtInterceptor, ErrorInterceptor } from './helpers';
-import { InMemoryDataService } from './services/in-memory-data.service';
+
 import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 
@@ -108,9 +108,6 @@ const routes: Routes = [
                 headerName: 'X-CSRF-TOKEN'
             }),
         BlockUIModule.forRoot(),
-        HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
-            dataEncapsulation: false
-        }),
         InMemoryWebApiModule.forRoot(DataService),
         RouterModule.forRoot(routes),
 

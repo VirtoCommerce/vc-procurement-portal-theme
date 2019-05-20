@@ -5,3 +5,19 @@
 <mat-divider></mat-divider>
 <app-order-comments [comments]="comments"></app-order-comments>
 <mat-divider></mat-divider>
+
+<table width="100%" cellspacing="0" cellpadding="4">
+    <tr colspan="4" align="center">
+        <mat-label>Your comment</mat-label>
+        <br>
+        <input matInput width="300" #inputComment>
+    </tr>
+    <tr>
+        <td colspan="2" align="center">
+            <button mat-button (click)="Decline()">Decline</button>
+        </td>
+        <td colspan="2" align="center">
+            <button mat-button (click)="Approve(inputComment.value)">Approve</button>
+        </td>
+    </tr>
+</table>

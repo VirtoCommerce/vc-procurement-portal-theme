@@ -10,6 +10,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { UserService } from '../../services/user.service';
 import { AuthenticationService } from '../../services';
 import { first } from 'rxjs/operators';
+import { IActiveOrder, IActiveOrderCurrency } from '../../models/iactive-order';
 
 @Component({
   selector: 'app-active-order',
@@ -23,6 +24,7 @@ export class ActiveOrderComponent implements OnInit {
   orderId: string = "unknown";
   countItems: number = 0;
   currencySymbol: string = "";
+  // currencySymbol:   IActiveOrderCurrency;
   subTotal: string = "";
   shipping: string = "";
   total: string = "";
@@ -33,6 +35,7 @@ export class ActiveOrderComponent implements OnInit {
   onAdd = false;
   currentUser: User;
   userFromApi: User;
+  activeOrder: IActiveOrder;
 
   constructor(
     private activeOrderService: ActiveOrderService,
@@ -45,11 +48,11 @@ export class ActiveOrderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getById(this.currentUser.id).pipe(first()).subscribe(user => {
-      this.userFromApi = user;
-      this.userName= user.username;
-    });
 
+    this.FakeInit();
+  }
+
+  Init() {
     this.getUserName();
     this.getActiveOrder("");
     this.activeOrderService.removeForActiveOrder.
@@ -61,6 +64,18 @@ export class ActiveOrderComponent implements OnInit {
           console.log("Active order component. Error 'removeForActiveOrder': " + error)
         }
       )
+  }
+
+  FakeInit() {
+    this.getFakeUserName();
+    this.getFakeActiveOrder("");
+  }
+
+  getFakeUserName() {
+    this.userService.getById(this.currentUser.id).pipe(first()).subscribe(user => {
+      this.userFromApi = user;
+      this.userName = user.username;
+    });
   }
 
   getUserName() {
@@ -76,8 +91,29 @@ export class ActiveOrderComponent implements OnInit {
       );
   }
 
+  getFakeActiveOrder(t: string) {
+    this.activeOrderService.getFakeTotal()
+      .subscribe(
+        (data: any) => {
+          this.activeOrder = data[0] as IActiveOrder;
+          this.countItems = this.activeOrder.itemsCount;
+          this.subTotal = this.activeOrder.subTotal.formattedAmount;
+          this.shipping = this.activeOrder.shippingPrice.formattedAmount;
+          this.total = this.activeOrder.total.formattedAmount;
+          this.fillProducts(this.activeOrder);
+
+          // let _addedProducts = new Array<AddedProduct>();
+          // this.activeOrderService.afterLoad(_addedProducts);
+        },
+        error => {
+          this.blockUI.stop();
+          console.log("Active order component. Error 'getTotal': " + error);
+        }
+      );
+
+  }
+
   getActiveOrder(t: string) {
-    console.log('active-order');
     this.activeOrderService.getTotal(t)
       .subscribe(
         (data: any) => {
@@ -101,13 +137,8 @@ export class ActiveOrderComponent implements OnInit {
       );
   }
 
-  fillProducts2(data: any) {
-    this.products = data.items;
-  }
-
   fillProducts(data: any) {
     console.log("fillProducts count: " + data.items.length);
-    //this.blockUI.start("Get details of active order...");
     this.products = new Array<Product>();
     let _addedProducts = new Array<AddedProduct>();
     for (var i in data.items) {
@@ -135,12 +166,7 @@ export class ActiveOrderComponent implements OnInit {
       _addedProducts.push(item);
       this.products.push(product);
     }
-    // console.log('fill: ' + this.products.length);
-
     this.activeOrderService.afterLoad(_addedProducts);
-    //console.log("STOP! Active order , fillProducts");
-    //this.blockUI.stop();
-    // this.activeOrderService.afterRemovedForTable();
   }
 
   clear() {

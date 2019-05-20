@@ -4,7 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
+
+import { tap, catchError, map, startWith, switchMap } from 'rxjs/operators';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 
@@ -20,14 +21,16 @@ import 'rxjs/add/operator/switchMap';
 import { AddedProduct } from '../models/added-product';
 import { Product } from '../models/product';
 import { Post } from '../models/Post';
+import { IActiveOrder } from '../models/iactive-order';
 
 @Injectable({ providedIn: 'root' })
 export class ActiveOrderService {
+  
 
   headers: HttpHeaders;
   options: RequestOptions;
 
-  private catalogUrl = 'api/activeOrder';  // URL to web api
+  private fakeActiveOrderUrl = 'api/activeorder';  // URL to web api
 
   onRemoveForActiveOrder = false;
   onRemoveForTable = false;
@@ -58,10 +61,11 @@ export class ActiveOrderService {
   afterLoad(addedProduct: AddedProduct[]) {
     console.log("afterLoad");
     this.onLoad = addedProduct;
-    //console.log('Active order service: ' + addedProduct.length);
-    // console.log("STOP! Catlog component, ngOnInit getAllProducts");
-    // this.blockUI.stop();
     this.load.emit(this.onLoad);
+  }
+
+  refresh(products: IActiveOrder){
+
   }
 
   constructor(
@@ -76,8 +80,18 @@ export class ActiveOrderService {
     return this.http.get<Post>(url);
   }
 
+  getFakeTotal(){
+    return this.http.get(this.fakeActiveOrderUrl).pipe(
+      tap(
+        activeOrder => {
+          console.log(`fetched categoriesUrl:` + activeOrder);
+        })
+      //catchError(this.handleError('categoriesUrl'))
+    );
+
+  }
+  
   getTotal(t: string) {
-    console.log("getTotal t=" + t);
     let url = window["BASE_URL"] + 'storefrontapi/cart/itemscount?t=' + Date.now();
     this.http.get<any>(url).subscribe(
       (data: any) => {

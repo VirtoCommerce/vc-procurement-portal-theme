@@ -13,6 +13,7 @@ import { User } from '../../models/user';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../services';
 
 @Component({
   selector: 'app-orders',
@@ -34,18 +35,21 @@ export class OrdersComponent implements OnInit {
   isLoadingResults = true;
   isRateLimitReached = false;
   @Input() isForApprove: boolean = false;
+  @Input() role: string;
 
   constructor(
     private ordersService: OrdersService,
-    private router: Router
+    private router: Router,
+    private authenticationService: AuthenticationService
   ) { }
 
   ngOnInit() {
     console.log("orders component. getOrders");
-    this.ordersService.getOrders().subscribe((data: any) => {
-      this.orders = data[1].results as IOrder[];
+    this.ordersService.fakeGetOrders().subscribe((data: any) => {
+      this.orders = data as IOrder[];
       if (this.isForApprove) {
-        this.orders = this.orders.filter(order => order.status === 'Awaiting Approve')
+        console.log("current user:",this.authenticationService.currentUserValue);
+        this.orders = this.orders.filter(order => order.status === 'Awaiting Approve' && order.toRole === this.authenticationService.currentUserValue.workflowRole)
       }
       this.dataSource = new MatTableDataSource(this.orders);
       this.dataSource.paginator = this.paginator;

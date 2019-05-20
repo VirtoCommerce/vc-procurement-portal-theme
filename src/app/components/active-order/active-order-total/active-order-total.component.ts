@@ -11,7 +11,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 export class ActiveOrderTotalComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   @Input() isSummary: boolean = false;
-  @Input() countItems: string;
+  @Input() countItems: number;
   @Input() subTotal: string;
   @Input() shipping: string;
   @Input() total: string;

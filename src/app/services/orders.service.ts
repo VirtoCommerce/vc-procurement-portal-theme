@@ -12,20 +12,10 @@ export class OrdersService {
     private heroesUrl = 'api/heroes';
     private ordersUrl = 'api/orders';
     private usersUrl = 'api/users';
-    private approveWorkflowUrl = 'api/approveWorkflow';
+    private approvalWorkflowUrl = 'api/approvalWorkflow';
 
     constructor(
         private http: HttpClient) { }
-
-    getApproveWorkflow() {
-        return this.http.get(this.approveWorkflowUrl).pipe(
-            tap(
-                approveWorkflow => {
-                    this.log(`fetched approveWorkflowUrl:` + approveWorkflow);
-                }),
-            catchError(this.handleError('approveWorkflowUrl', []))
-        );
-    }
 
     getUsers() {
         return this.http.get(this.usersUrl).pipe(
@@ -37,7 +27,7 @@ export class OrdersService {
         );
     }
 
-    getOrders() {
+    fakeGetOrders() {
         return this.http.get(this.ordersUrl).pipe(
             tap(
                 orders => {
@@ -47,7 +37,22 @@ export class OrdersService {
         );
     }
 
-    
+    fakeUpdateOrder(order: IOrder): Observable<IOrder> {
+        let _order;
+        return this.http.post<IOrder>(this.ordersUrl, order);
+    }
+
+    fakeGetApprovalWorkflow() {
+        return this.http.get(this.approvalWorkflowUrl).pipe(
+            tap(
+                workflow => {
+                    this.log(`fetched approvalWorkflowUrl:` + workflow);
+                }),
+            catchError(this.handleError('Error approvalWorkflowUrl', []))
+        );
+
+    }
+
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
             // TODO: send the error to remote logging infrastructure
@@ -61,7 +66,7 @@ export class OrdersService {
         };
     }
 
-    
+
     private log(message: string) {
         console.log('Orders service: ' + message);
     }
