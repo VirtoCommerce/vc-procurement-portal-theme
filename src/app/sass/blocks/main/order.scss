@@ -1,0 +1,108 @@
+.order
+{
+	&__info
+	{
+		border-bottom: 1px solid $gray-200;
+		padding: 1.25rem .9375rem 0;
+	}
+
+	&__item
+	{
+		border-bottom: 1px solid $gray-200;
+		border-top: 1px solid $gray-200;
+		font-size: .875rem;
+		padding: 1.25rem .9375rem;
+		position: relative;
+
+		&-name
+		{
+			font-weight: bold;
+		}
+
+		&-brand
+		{
+			color: $gray-400;
+			margin: .5rem 0;
+		}
+
+		&-descr
+		{
+			color: $gray-500;
+			margin-top: .25rem;
+		}
+
+		&-other
+		{
+			align-items: center;
+			display: flex;
+			margin-top: 1rem;
+		}
+
+		&-remove
+		{
+			background: url('/src/assets/icons/trash.svg') no-repeat scroll 0 0;
+			font-size: 0;
+			height: 1.25rem;
+			position: absolute;
+			right: .9375rem;
+			top: 1.25rem;
+			width: 1rem;
+		}
+	}
+
+	&__actions
+	{
+		margin-top: 1.25rem;
+		padding: 0 .9375rem;
+		text-align: right;
+	}
+
+	&__link
+	{
+		color: $red;
+		font-size: .875rem;
+	}
+
+	&__t
+	{
+		font-size: 1.25rem;
+		font-weight: bold;
+	}
+
+	&__text
+	{
+		color: $gray-300;
+		font-size: .875rem;
+		margin-top: .5rem;
+	}
+
+	.list--total
+	{
+		margin-top: .5rem;
+
+		.list__item
+		{
+			align-items: center;
+			color: $gray-300;
+			display: flex;
+			font-size: .875rem;
+			padding: .625rem 0;
+
+			& ~ .list__item
+			{
+				border-top: 1px solid $gray-200;
+			}
+		}
+
+		.list__count
+		{
+			color: $gray-700;
+			margin-left: auto;
+
+			&.free
+			{
+				color: $green;
+			}
+		}
+	}
+}

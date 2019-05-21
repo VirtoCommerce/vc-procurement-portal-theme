@@ -1,0 +1,73 @@
+ @import '../../sass/main.scss';
+.nav
+{
+    display: flex;
+    list-style: none;
+
+    &__link
+    {
+        color: inherit;
+    }
+
+    &--category,
+    &--sub
+    {
+      flex-direction: column;
+    }
+
+    &--category
+    {
+      .nav__item
+      {
+        border-bottom: 1px solid $gray-200;
+      }
+
+      .nav__link
+      {
+        align-items: center;
+        display: flex;
+        height: 3.125rem;
+        padding: 0 1.875rem;
+        position: relative;
+
+        &--active
+        {
+          color: $green;
+          
+          &::after
+          {
+            background: $green;
+            bottom: 0;
+            content: ' ';
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: .1875rem;
+          }
+
+                & ~ .nav--sub
+                {
+                    display: block;
+                }
+        }
+      }
+    }
+
+    &--sub
+    {
+        display: none;
+      padding-bottom: 1rem;
+      padding-left: 2.5rem;
+
+      .nav__item
+      {
+        border: none;
+      }
+
+      .nav__link
+      {
+        height: auto;
+        padding: .25rem 0;
+      }
+    }
+}
