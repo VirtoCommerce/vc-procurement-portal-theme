@@ -55,11 +55,12 @@ export class CatalogComponent implements OnInit {
     private authenticationService: AuthenticationService
 
   ) {
-    this.currentUser = this.authenticationService.currentUserValue;
+    // this.currentUser = this.authenticationService.currentUserValue;
   }
 
   ngOnInit() {
-    this.LoadFakeData();
+     this.LoadFakeData();
+    //  this.LoadData();
   }
 
   LoadData() {

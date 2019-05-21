@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, isDevMode } from '@angular/core';
 import { ActiveOrderService } from '../../services/active-order.service';
 import { Product } from '../../models/product';
 import { ProductProperties } from '../../models/product-properties';
@@ -44,12 +44,12 @@ export class ActiveOrderComponent implements OnInit {
 
   ) {
     this.countItems = 0;
-    this.currentUser = this.authenticationService.currentUserValue;
+    // this.currentUser = this.authenticationService.currentUserValue;
   }
 
   ngOnInit() {
-
     this.FakeInit();
+    //this.Init();
   }
 
   Init() {

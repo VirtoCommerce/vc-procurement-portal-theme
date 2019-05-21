@@ -5,10 +5,10 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-// const extractSass = new ExtractTextPlugin({
-//   filename: "bundle.css",
-//   disable: process.env.NODE_ENV === "development"
-// });
+const extractSass = new ExtractTextPlugin({
+  filename: "bundle.css",
+  disable: process.env.NODE_ENV === "development"
+});
 
 module.exports = {
   entry: {
@@ -61,12 +61,19 @@ module.exports = {
           },
           {
             loader: "sass-loader",
-            options: {
-              includePaths: ["absolute/path/a", "absolute/path/b"]
-            }
+            // options: {
+            //   includePaths: ["absolute/path/a", "absolute/path/b"]
+            // }
           }
         ]
       },
+      // {
+      //   test: /\.scss$/,
+      //   use: ExtractTextPlugin.extract({
+      //     fallback: 'style-loader',
+      //     use: ['css-loader', 'sass-loader', 'to-string-loader']
+      //   })
+      // },
       {
         test: /\.css$/,
         exclude: path.resolve(__dirname, 'src/app'),
@@ -77,21 +84,14 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        include: path.resolve(__dirname, 'src/app'),
+         include: path.resolve(__dirname, 'src/app'),
         loader: 'raw-loader'
-      },
-      // {
-      //   test: /\.(css|scss)$/,
-      //   loaders: ['to-string-loader'].concat(ExtractTextPlugin.extract({
-      //     fallback: "style-loader",
-      //     use: ['css-loader?sourceMap', 'scss-loader?sourceMap']
-      //   }))
-      // }
+      }
     ],
     exprContextCritical: false
   },
   plugins: [
-    // extractSass,
+    new ExtractTextPlugin('bundle.css'),
     new webpack.ContextReplacementPlugin(
       /angular(\|\/)core/,
       path.resolve(__dirname, 'src'), // каталог с исходными файлами
@@ -109,6 +109,7 @@ module.exports = {
       htmlLoader: {
         minimize: false
       }
-    })
+    }),
+    extractSass
   ]
 }

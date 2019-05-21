@@ -91,7 +91,8 @@ const routes: Routes = [
     // { path: 'activeorder', component: ActiveOrderSummaryComponent},
     // { path: 'invoice', component: ActiveOrderPostCheckoutComponent},
     // { path: 'bulkorder', component: BulkOrderComponent},
-    // { path: 'order-details/:id', component: OrderDetailsComponent }
+    // { path: 'order-details/:id', component: OrderDetailsComponent },
+    // { path: 'forapproval-details/:id', component: ForApprovalDetailsComponent}
 ];
 @NgModule({
     imports: [
