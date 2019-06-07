@@ -59,8 +59,8 @@ export class CatalogComponent implements OnInit {
   }
 
   ngOnInit() {
-     this.LoadFakeData();
-    //  this.LoadData();
+     //this.LoadFakeData();
+     this.LoadData();
   }
 
   LoadData() {

@@ -58,41 +58,41 @@ import {
     routerReducer,
     RouterStateSerializer
 } from '@ngrx/router-store';
-// import { SharedService } from './services/shared-service';
-import { AuthGuard } from './guards';
+//import { SharedService } from './services/shared-service';
+//import { AuthGuard } from './guards';
 import { fakeBackendProvider } from './helpers';
 import { JwtInterceptor, ErrorInterceptor } from './helpers';
 
-import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
+//import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 
 const routes: Routes = [
     // basic routes
-    { path: '', redirectTo: 'catalog', pathMatch: 'full', canActivate: [AuthGuard] },
-    { path: 'catalog', component: CatalogComponent, canActivate: [AuthGuard] },
-    { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
-    { path: 'forapproval', component: ForApprovalComponent, canActivate: [AuthGuard] },
-    { path: 'company', component: CompanyComponent, canActivate: [AuthGuard] },
-    { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
-    { path: 'login', component: LoginComponent },
-    { path: 'activeorder', component: ActiveOrderSummaryComponent, canActivate: [AuthGuard] },
-    { path: 'invoice', component: ActiveOrderPostCheckoutComponent, canActivate: [AuthGuard] },
-    { path: 'bulkorder', component: BulkOrderComponent, canActivate: [AuthGuard] },
-    { path: 'order-details/:id', component: OrderDetailsComponent, canActivate: [AuthGuard] },
-    { path: 'forapproval-details/:id', component: ForApprovalDetailsComponent, canActivate: [AuthGuard] }
+    //{ path: '', redirectTo: 'catalog', pathMatch: 'full', canActivate: [AuthGuard] },
+    //{ path: 'catalog', component: CatalogComponent, canActivate: [AuthGuard] },
+    //{ path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
+    //{ path: 'forapproval', component: ForApprovalComponent, canActivate: [AuthGuard] },
+    //{ path: 'company', component: CompanyComponent, canActivate: [AuthGuard] },
+    //{ path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
+    //{ path: 'login', component: LoginComponent },
+    //{ path: 'activeorder', component: ActiveOrderSummaryComponent, canActivate: [AuthGuard] },
+    //{ path: 'invoice', component: ActiveOrderPostCheckoutComponent, canActivate: [AuthGuard] },
+    //{ path: 'bulkorder', component: BulkOrderComponent, canActivate: [AuthGuard] },
+    //{ path: 'order-details/:id', component: OrderDetailsComponent, canActivate: [AuthGuard] },
+    //{ path: 'forapproval-details/:id', component: ForApprovalDetailsComponent, canActivate: [AuthGuard] }
 
-    // { path: '', redirectTo: 'catalog', pathMatch: 'full'},
-    // { path: 'catalog', component: CatalogComponent},
-    // { path: 'orders', component: OrdersComponent},
-    // { path: 'forapproval', component: ForApprovalComponent},
-    // { path: 'company', component: CompanyComponent},
-    // { path: 'account', component: AccountComponent},
-    // { path: 'login', component: LoginComponent },
-    // { path: 'activeorder', component: ActiveOrderSummaryComponent},
-    // { path: 'invoice', component: ActiveOrderPostCheckoutComponent},
-    // { path: 'bulkorder', component: BulkOrderComponent},
-    // { path: 'order-details/:id', component: OrderDetailsComponent },
-    // { path: 'forapproval-details/:id', component: ForApprovalDetailsComponent}
+     { path: '', redirectTo: 'catalog', pathMatch: 'full'},
+     { path: 'catalog', component: CatalogComponent},
+     { path: 'orders', component: OrdersComponent},
+     { path: 'forapproval', component: ForApprovalComponent},
+     { path: 'company', component: CompanyComponent},
+     { path: 'account', component: AccountComponent},
+     { path: 'login', component: LoginComponent },
+     { path: 'activeorder', component: ActiveOrderSummaryComponent},
+     { path: 'invoice', component: ActiveOrderPostCheckoutComponent},
+     { path: 'bulkorder', component: BulkOrderComponent},
+     { path: 'order-details/:id', component: OrderDetailsComponent },
+     { path: 'forapproval-details/:id', component: ForApprovalDetailsComponent}
 ];
 @NgModule({
     imports: [
@@ -109,15 +109,15 @@ const routes: Routes = [
                 headerName: 'X-CSRF-TOKEN'
             }),
         BlockUIModule.forRoot(),
-        InMemoryWebApiModule.forRoot(DataService),
+        //InMemoryWebApiModule.forRoot(DataService),
         RouterModule.forRoot(routes),
 
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: ProcurementPortalInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-        fakeBackendProvider,
+        //{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        //fakeBackendProvider,
         AuthenticationService
 
     ],

@@ -48,8 +48,8 @@ export class ActiveOrderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.FakeInit();
-    //this.Init();
+    //this.FakeInit();
+    this.Init();
   }
 
   Init() {
