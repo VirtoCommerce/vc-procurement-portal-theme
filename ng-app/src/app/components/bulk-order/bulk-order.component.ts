@@ -3,9 +3,8 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 
 import { merge, Observable, of as observableOf } from 'rxjs';
-// import { merge } from 'rxjs/observable/merge';
-
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+
 import { Product } from '../../models/product';
 import { CatalogService } from '../../services';
 import { CatalogSearch } from '../../models/ProductSearch';
@@ -28,7 +27,6 @@ export class BulkOrderComponent implements OnInit {
   onLoad: AddedProduct;
 
   constructor(
-    private http: HttpClient,
     private catalogService: CatalogService,
     private activeOrderService: ActiveOrderService
   ) {

@@ -20,14 +20,14 @@ import { IActiveOrder, IActiveOrderCurrency } from '../../models/iactive-order';
 export class ActiveOrderComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   @Input() categories: Category[];
-  userName: string = "";
-  orderId: string = "unknown";
-  countItems: number = 0;
-  currencySymbol: string = "";
+  userName = '';
+  orderId = 'unknown';
+  countItems = 0;
+  currencySymbol = '';
   // currencySymbol:   IActiveOrderCurrency;
-  subTotal: string = '';
-  shipping: string = '';
-  total: string = '';
+  subTotal = '';
+  shipping = '';
+  total = '';
   items: any;
   products: Product[];
   result: any;
@@ -48,7 +48,6 @@ export class ActiveOrderComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.FakeInit();
     this.Init();
   }
 
@@ -66,19 +65,7 @@ export class ActiveOrderComponent implements OnInit {
       );
   }
 
-  FakeInit() {
-    this.getFakeUserName();
-    this.getFakeActiveOrder('');
-  }
-
-  getFakeUserName() {
-    this.userService.getById(this.currentUser.id).pipe(first()).subscribe(user => {
-      this.userFromApi = user;
-      this.userName = user.username;
-    });
-  }
-
-  getUserName() {
+  private getUserName() {
     this.activeOrderService.getUserName()
       .subscribe(
         (data: any) => {
@@ -89,28 +76,6 @@ export class ActiveOrderComponent implements OnInit {
           this.blockUI.stop();
         }
       );
-  }
-
-  getFakeActiveOrder(t: string) {
-    this.activeOrderService.getFakeTotal()
-      .subscribe(
-        (data: any) => {
-          this.activeOrder = data[0] as IActiveOrder;
-          this.countItems = this.activeOrder.itemsCount;
-          this.subTotal = this.activeOrder.subTotal.formattedAmount;
-          this.shipping = this.activeOrder.shippingPrice.formattedAmount;
-          this.total = this.activeOrder.total.formattedAmount;
-          this.fillProducts(this.activeOrder);
-
-          // let _addedProducts = new Array<AddedProduct>();
-          // this.activeOrderService.afterLoad(_addedProducts);
-        },
-        error => {
-          this.blockUI.stop();
-          console.log('Active order component. Error \'getTotal\': ' + error);
-        }
-      );
-
   }
 
   getActiveOrder(t: string) {
@@ -137,29 +102,29 @@ export class ActiveOrderComponent implements OnInit {
       );
   }
 
-  fillProducts(data: any) {
+  private fillProducts(data: any) {
     console.log('fillProducts count: ' + data.items.length);
     this.products = new Array<Product>();
     let _addedProducts = new Array<AddedProduct>();
-    for (var i in data.items) {
-      let product = new Product();
-      let productProperties = new ProductProperties();
-      let priceProduct = new ProductPrice();
+    for (const i of data.items) {
+      const product = new Product();
+      const productProperties = new ProductProperties();
+      const priceProduct = new ProductPrice();
 
-      productProperties.productId = data.items[i].productId;
-      productProperties.name = data.items[i].name;
-      productProperties.sku = data.items[i].sku;
-      for (var j in this.categories) {
-        if (data.items[i].categoryId == this.categories[j].id) {
-          productProperties.category = this.categories[j].name;
+      productProperties.productId = i.productId;
+      productProperties.name = i.name;
+      productProperties.sku = i.sku;
+      for (const cat of this.categories) {
+        if (i.categoryId === cat.id) {
+          productProperties.category = cat.name;
           break;
         }
       }
-      priceProduct.id = data.items[i].id;
-      priceProduct.productId = data.items[i].productId;
-      priceProduct.currency = data.items[i].salePrice.currency.symbol;
-      priceProduct.price = data.items[i].salePrice.amount;
-      priceProduct.count = data.items[i].quantity;
+      priceProduct.id = i.id;
+      priceProduct.productId = i.productId;
+      priceProduct.currency = i.salePrice.currency.symbol;
+      priceProduct.price = i.salePrice.amount;
+      priceProduct.count = i.quantity;
       product.productProperties = productProperties;
       product.productPrice = priceProduct;
       let item = new AddedProduct(priceProduct.id, priceProduct.productId, priceProduct.count);

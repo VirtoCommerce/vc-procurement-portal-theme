@@ -1,25 +1,10 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-// import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
-
-// import { Observable } from 'rxjs';
-
 import { tap, catchError, map, startWith, switchMap } from 'rxjs/operators';
-// import 'rxjs/add/observable/of';
-// import 'rxjs/add/observable/throw';
 
-// Observable operators
-// import 'rxjs/add/operator/catch';
-// import 'rxjs/add/operator/debounceTime';
-// import 'rxjs/add/operator/distinctUntilChanged';
-// import 'rxjs/add/operator/do';
-// import 'rxjs/add/operator/filter';
-// import 'rxjs/add/operator/map';
-// import 'rxjs/add/operator/switchMap';
 
 import { AddedProduct } from '../models/added-product';
-import { Product } from '../models/product';
 import { Post } from '../models/Post';
 import { IActiveOrder } from '../models/iactive-order';
 
@@ -28,9 +13,6 @@ export class ActiveOrderService {
 
 
   headers: HttpHeaders;
-  //options: RequestOptions;
-
-  private fakeActiveOrderUrl = 'api/activeorder';  // URL to web api
 
   onRemoveForActiveOrder = false;
   onRemoveForTable = false;
@@ -72,23 +54,10 @@ export class ActiveOrderService {
     private http: HttpClient) {
   }
 
-
-
   getUserName() {
     console.log('getUserName');
     const url = window['BASE_URL'] + 'storefrontapi/account';
     return this.http.get<Post>(url);
-  }
-
-  getFakeTotal() {
-    return this.http.get(this.fakeActiveOrderUrl).pipe(
-      tap(
-        activeOrder => {
-          console.log(`fetched categoriesUrl:` + activeOrder);
-        })
-      //catchError(this.handleError('categoriesUrl'))
-    );
-
   }
 
   getTotal(t: string) {

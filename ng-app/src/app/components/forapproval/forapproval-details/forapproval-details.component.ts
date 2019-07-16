@@ -38,7 +38,7 @@ export class ForApprovalDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ordersService.fakeGetOrders().subscribe((data: any) => {
+    this.ordersService.getOrders().subscribe((data: any) => {
       let orders = data as IOrder[];
       orders = orders.filter(order => order.id === this.id);
       this.order = orders[0];
@@ -53,7 +53,7 @@ export class ForApprovalDetailsComponent implements OnInit {
   }
 
   Approve(comment: any) {
-    this.ordersService.fakeGetApprovalWorkflow().subscribe((data: any) => {
+    this.ordersService.getApprovalWorkflow().subscribe((data: any) => {
       this.approvalWorkFlow = data[0] as IApprovalWorkFlow;
       this.roles = data[0].roles as IApprovalWorkFlowStep[];
       this.roles.sort((leftSide, rightSide): number => {
@@ -68,7 +68,7 @@ export class ForApprovalDetailsComponent implements OnInit {
       if (nextRole.length > 0) {
         this.order.toRole = nextRole[0].name;
         this.order.comments.push(new OrderComment("userId", "username", comment));
-        this.ordersService.fakeUpdateOrder(this.order).subscribe((data: IOrder) => {
+        this.ordersService.updateOrder(this.order).subscribe((data: IOrder) => {
           if (this.roles.filter(role => role.step === currentRole[0].step + 1).length > 0) {
             this.router.navigate(['/forapproval']);
           } else {

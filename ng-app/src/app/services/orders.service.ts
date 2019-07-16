@@ -26,7 +26,7 @@ export class OrdersService {
         );
     }
 
-    fakeGetOrders() {
+    getOrders() {
         return this.http.get(this.ordersUrl).pipe(
             tap(
                 orders => {
@@ -36,12 +36,11 @@ export class OrdersService {
         );
     }
 
-    fakeUpdateOrder(order: IOrder): Observable<IOrder> {
-        let _order;
+    updateOrder(order: IOrder): Observable<IOrder> {
         return this.http.post<IOrder>(this.ordersUrl, order);
     }
 
-    fakeGetApprovalWorkflow() {
+    getApprovalWorkflow() {
         return this.http.get(this.approvalWorkflowUrl).pipe(
             tap(
                 workflow => {

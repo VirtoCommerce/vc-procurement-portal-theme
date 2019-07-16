@@ -33,7 +33,7 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ordersService.fakeGetOrders().subscribe((data: any) => {
+    this.ordersService.getOrders().subscribe((data: any) => {
       let orders = data as IOrder[];
       orders = orders.filter(order => order.id === this.id);
       this.order = orders[0] as IOrder;

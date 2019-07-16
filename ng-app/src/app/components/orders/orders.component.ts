@@ -44,7 +44,7 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit() {
     console.log('orders component. getOrders');
-    this.ordersService.fakeGetOrders().subscribe((data: any) => {
+    this.ordersService.getOrders().subscribe((data: any) => {
       this.orders = data as IOrder[];
       if (this.isForApprove) {
         console.log('current user:',this.authenticationService.currentUserValue);
