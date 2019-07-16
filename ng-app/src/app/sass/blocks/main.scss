@@ -1,0 +1,112 @@
+$sidebar-width: 18.75rem;
+
+#layout
+{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100%;
+}
+
+.container
+{
+    height: inherit;
+}
+
+.main
+{
+    display: flex;
+    flex: 1 0 0;
+    flex-wrap: wrap;
+}
+
+.overlay,
+.dropdown-overlay
+{
+    background: rgba(248,148,6,.3);
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 2500;
+}
+
+.overlay
+{
+    z-index: 9000;
+}
+
+// Sidebar
+.sidebar
+{
+    border-left: 1px solid $gray-200;
+    border-right: 1px solid $gray-200;
+    flex: 0 0 $sidebar-width;
+    max-width: $sidebar-width;
+
+    &:nth-of-type(3)
+    {
+        background: #fafafa;
+    }
+
+    &__block
+    {
+        border-bottom: 1px solid $gray-200;
+        padding: .9375rem 1.875rem;
+    }
+
+    &__inner
+    {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    &__body
+    {
+        flex: 1 0 0;
+    }
+
+    &__footer
+    {
+        margin-top: auto;
+        padding: .9375rem 1.25rem;
+    }
+}
+
+// Content
+.content
+{
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+
+    @include media-breakpoint-down(lg) {
+        border-left: 1px solid $gray-200;
+    }
+
+    @include media-breakpoint-down(md) {
+        border-right: 1px solid $gray-200;
+    }
+
+    @include media-breakpoint-down(sm) {
+        margin: 0 -.9375rem;
+    }
+
+    @include media-breakpoint-down(xs) {
+        border: none;
+    }
+}
+
+// Search
+@import "main/search";
+
+// Product list
+@import "main/product-list";
+
+// Order
+@import "main/order";
+
+// Page nav
+@import "main/page-nav";

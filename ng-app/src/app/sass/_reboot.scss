@@ -1,0 +1,104 @@
+*
+{
+    outline: none;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body
+{
+    height: 100%;
+}
+
+html
+{
+    font-size: 1rem;
+}
+
+body
+{
+    color: $body-color;
+    font-family: $font-family-base;
+    line-height: 1.4;
+
+    &.swipe-open
+    {
+        overflow: hidden;
+    }
+}
+
+a
+{
+    color: $green;
+    text-decoration: none;
+
+    &:hover
+    {
+        color: $green;
+    }
+}
+
+// Headings
+h2
+{
+    font-weight: bold;
+}
+
+h3
+{
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-bottom: 1.25rem;
+}
+
+h1,
+h2
+{
+    margin-bottom: 1.875rem;
+}
+
+blockquote
+{
+    background: $gray-100;
+    border-left: .375rem solid $gray-400;
+    font-size: .875rem;
+    line-height: 1.7;
+    padding: 1.875rem;
+}
+
+@include media-breakpoint-down(sm) {
+    h1
+    {
+        font-size: 2rem;
+    }
+
+    h2
+    {
+        font-size: 1.75rem;
+    }
+}
+
+@include media-breakpoint-up(md) {
+    h1
+    {
+        font-size: 2.625rem;
+    }
+
+    h2
+    {
+        font-size: 2rem;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    h1
+    {
+        font-size: 3rem;
+    }
+
+    h2
+    {
+        font-size: 2.5rem;
+    }
+}

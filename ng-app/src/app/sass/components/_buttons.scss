@@ -1,0 +1,46 @@
+.btn
+{
+    align-items: center;
+    background: $green;
+    border-radius: .25rem;
+    box-sizing: border-box;
+    color: $white;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: .875rem;
+    height: 2.5rem;
+    padding: 0 1.875rem;
+
+    &:hover
+    {
+        background: darken($green, 2%);
+        color: $white;
+    }
+
+    &--block
+    {
+        justify-content: center;
+        width: 100%;
+    }
+
+    &--white
+    {
+        background: $white;
+        color: $gray-700;
+
+        &:hover
+        {
+            background: darken($white, 2%);
+        }
+    }
+
+    &--light-green
+    {
+        background: $light-green;
+
+        &:hover
+        {
+            background: darken($light-green, 2%);
+        }
+    }
+}

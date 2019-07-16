@@ -1,0 +1,30 @@
+<div *ngIf="isSuccessfully; else notSuccessfully">
+  <app-active-order-post-checkout
+  [number]="createOrder.number"
+  [status]="createOrder.status"
+  [modifiedDate]="createOrder.modifiedDate"
+  [items]="createOrder.items"
+  [urlDownloadInvoice]="urlDownloadInvoice"
+  ></app-active-order-post-checkout>
+</div>
+<ng-template #notSuccessfully>
+  <app-active-order-total [countItems]="countItems" [subTotal]="subTotal" [shipping]="shipping" [total]="total"
+      [isSummary]="true"></app-active-order-total>
+  <app-active-order-header [userName]="userName" [orderId]="orderId" [isSummary]="true"></app-active-order-header>
+  <app-active-order-detail [products]="products" [isSummary]="true"></app-active-order-detail>
+  <mat-toolbar>
+      <mat-toolbar-row>
+          <span class="menu-spacer"></span>
+      </mat-toolbar-row>
+  </mat-toolbar>
+  <table width="100%" cellspacing="0" cellpadding="4">
+      <tr>
+          <td colspan="2" align="center">
+              <button mat-button (click)="close()">CLOSE</button>
+          </td>
+          <td colspan="2" align="center">
+              <button mat-button (click)="checkout()">CHECKOUT</button>
+          </td>
+      </tr>
+  </table>
+</ng-template>
