@@ -13,14 +13,19 @@
     </script>
 
 </head>
-<body>
-
-    
-
+<body mat-app-background>
 	
 <app-root>Loading...</app-root>
-<script type="text/javascript" src="{{ 'bundle/polyfills.js' | static_asset_url  | append_version}}">  </script>
-<script type="text/javascript" src="{{ 'bundle/script.js' | static_asset_url   | append_version}}">  </script>
+<script src="{{ 'runtime-es2015.js' | static_asset_url }}" type="module"></script>
+<script src="{{ 'polyfills-es2015.js' | static_asset_url }}" type="module"></script>
+<script src="{{ 'runtime-es5.js' | static_asset_url }}" nomodule></script>
+<script src="{{ 'polyfills-es5.js' | static_asset_url }}" nomodule></script>
+<script src="{{ 'styles-es2015.js' | static_asset_url }}" type="module"></script>
+<script src="{{ 'styles-es5.js' | static_asset_url }}" nomodule></script>
+<script src="{{ 'vendor-es2015.js' | static_asset_url }}" type="module"></script>
+<script src="{{ 'main-es2015.js' | static_asset_url }}" type="module"></script>
+<script src="{{ 'vendor-es5.js' | static_asset_url }}" nomodule></script>
+<script src="{{ 'main-es5.js' | static_asset_url }}" nomodule></script></body>
 
 </body>
 </html>
