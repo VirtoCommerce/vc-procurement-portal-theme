@@ -95,10 +95,10 @@ export class CatalogComponent implements OnInit {
               productProperties.name = i.name;
               product.name = i.name;
               productProperties.sku = i.sku;
-              productProperties.nameProperty1 = i.properties[0].name;
-              productProperties.valueProperty1 = i.properties[0].value;
-              productProperties.nameProperty2 = i.properties[2].name;
-              productProperties.valueProperty2 = i.properties[2].value;
+              // productProperties.nameProperty1 = i.properties[0].name;
+              // productProperties.valueProperty1 = i.properties[0].value;
+              // productProperties.nameProperty2 = i.properties[2].name;
+              // productProperties.valueProperty2 = i.properties[2].value;
               for (const cat of this.categories) {
                 if (i.categoryId === cat.id) {
                   productProperties.category = cat.name;
@@ -145,10 +145,10 @@ export class CatalogComponent implements OnInit {
               productProperties.name = p.name;
               product.name = p.name;
               productProperties.sku = p.sku;
-              productProperties.nameProperty1 = p.properties[0].name;
-              productProperties.valueProperty1 = p.properties[0].value;
-              productProperties.nameProperty2 = p.properties[2].name;
-              productProperties.valueProperty2 = p.properties[2].value;
+              // productProperties.nameProperty1 = p.properties[0].name;
+              // productProperties.valueProperty1 = p.properties[0].value;
+              // productProperties.nameProperty2 = p.properties[2].name;
+              // productProperties.valueProperty2 = p.properties[2].value;
               for (const cat of this.categories) {
                 if (p.categoryId === cat.id) {
                   productProperties.category = cat.name;
