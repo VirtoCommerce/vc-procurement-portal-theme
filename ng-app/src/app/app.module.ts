@@ -34,7 +34,6 @@ import { CaruselComponent } from './components/catalog/carusel/carusel.component
 import { ModifyCountProductComponent } from './components/catalog/modify-count-product/modify-count-product.component';
 import { ProductPropertiesComponent } from './components/catalog/product-properties/product-properties.component';
 import { CompanyComponent } from './components/company/company.component';
-import { LoginComponent } from './components/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { OrderCommentsComponent } from './components/order-comments/order-comments.component';
 import { OrderItemsComponent } from './components/order-items/order-items.component';
