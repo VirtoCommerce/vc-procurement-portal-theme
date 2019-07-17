@@ -1,0 +1,33 @@
+.page-nav
+{
+	font-size: .875rem;
+	padding: .9375rem;
+
+	&__total
+	{
+		font-weight: bold;
+		margin-bottom: .625rem;
+	}
+
+	&__count
+	{
+		align-items: center;
+		display: flex;
+
+		.dropdown
+		{
+			margin: 0 .9375rem;
+		}
+	}
+
+	@media (max-width: 24.4375rem) {
+		.pagination
+		{
+			margin-bottom: 1rem;
+		}
+	}
+
+	@include media-breakpoint-up(lg) {
+		margin-top: auto;
+	}
+}

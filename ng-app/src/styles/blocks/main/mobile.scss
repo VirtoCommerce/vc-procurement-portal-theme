@@ -1,0 +1,123 @@
+.mobile-navbar
+{
+	border-bottom: 1px solid $gray-200;
+	height: 3.75rem;
+	position: relative;
+
+	.search
+	{
+		background: $white;
+		border: none;
+		bottom: 0;
+		box-sizing: border-box;
+		display: none;
+		padding: .625rem 3.75rem .625rem .9375rem;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+
+		&__close
+		{
+			background: url('assets/icons/close.svg') no-repeat scroll 0 0;
+			cursor: pointer;
+			height: 1.25rem;
+			position: absolute;
+			right: 1.25rem;
+			top: 1.25rem;
+			width: 1.25rem;
+		}
+
+		&.opened
+		{
+			display: block;
+		}
+	}
+
+	.list
+	{
+		display: flex;
+		height: inherit;
+
+		&__item
+		{
+			align-items: center;
+			color: inherit;
+			cursor: pointer;
+			display: flex;
+			flex: 1 0 0;
+			justify-content: center;
+			padding: .9375rem 1.875rem;
+
+			&:nth-child(n+2)
+			{
+				border-left: 1px solid $gray-200;
+			}
+
+			&:hover
+			{
+				color: $green;
+			}
+
+			&--active
+			{
+				.list__ico
+				{
+					color: $green;
+
+					.fill
+					{
+						fill: $green;
+					}
+				}
+			}
+		}
+
+		&__ico
+		{
+			margin-right: .5rem;
+
+			.fill
+			{
+				fill: $gray-700;
+			}
+		}
+	}
+}
+
+.mobile-order
+{
+	align-items: center;
+	background: $white;
+	box-shadow: 0 -1px .5rem 0 rgba(214,214,214,.7);
+	cursor: pointer;
+	display: flex;
+	height: 3.125rem;
+	padding: 0 .9375rem;
+
+	&__ico
+	{
+		background: url('assets/icons/cart.svg') no-repeat scroll 0 0;
+		height: 1.75rem;
+		margin-right: 1rem;
+		width: 1.75rem;
+	}
+
+	&__t
+	{
+		font-size: .875rem;
+		font-weight: bold;
+	}
+
+	&__descr
+	{
+		color: $gray-300;
+		font-size: .75rem;
+	}
+
+	&__price
+	{
+		font-size: .75rem;
+		font-weight: bold;
+	}
+}

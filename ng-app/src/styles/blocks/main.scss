@@ -1,0 +1,179 @@
+$sidebar-width: 18.75rem;
+
+#layout
+{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100%;
+}
+
+.container
+{
+    height: inherit;
+}
+
+.main
+{
+    display: flex;
+
+    flex-wrap: wrap;
+
+    > .content:first-child
+    {
+        border-left: 1px solid $gray-200;
+    }
+
+    > .order,
+    > .account
+    {
+        margin: 0 auto;
+        max-width: 52.5rem;
+        width: 100%;
+
+        h1
+        {
+            padding: 2.5rem 0;
+        }
+
+        @include media-breakpoint-down(sm) {
+            h1
+            {
+                font-size: 1.25rem;
+                margin-left: .9375rem;
+                padding: 1.25rem 0;
+            }
+        }
+
+        .page-nav
+        {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    > .account
+    {
+        .btn-group .btn
+        {
+            min-width: 6.25rem;
+        }
+    }
+
+    > .page
+    {
+        padding: 0 1rem 0 1.875rem;
+
+        @include media-breakpoint-down(sm) {
+            padding: 0;
+
+            h1
+            {
+                font-size: 1.25rem;
+                padding: 1.25rem 0;
+            }
+        }
+    }
+}
+
+.overlay
+{
+    background: rgba(0,0,0,.25);
+    bottom: 0;
+    display: none;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 9000;
+
+    @include media-breakpoint-down(lg) {
+        display: block;
+    }
+}
+
+// Sidebar
+.sidebar
+{
+    border-left: 1px solid $gray-200;
+    border-right: 1px solid $gray-200;
+    flex: 0 0 $sidebar-width;
+    max-width: $sidebar-width;
+
+    &--bg-gray
+    {
+        background: #fafafa;
+    }
+
+    &__block
+    {
+        border-bottom: 1px solid $gray-200;
+        padding: .9375rem 1.875rem;
+    }
+
+    &__inner
+    {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    &__body
+    {
+        flex: 1 0 0;
+    }
+
+    &__footer
+    {
+        margin-top: auto;
+        padding: .9375rem 1.25rem;
+    }
+}
+
+// Content
+.content
+{
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+
+    @include media-breakpoint-down(lg) {
+        border-left: 1px solid $gray-200;
+    }
+
+    @include media-breakpoint-down(md) {
+        border-right: 1px solid $gray-200;
+    }
+
+    @include media-breakpoint-down(sm) {
+        margin: 0 -.9375rem;
+    }
+
+    @include media-breakpoint-down(xs) {
+        border: none;
+    }
+}
+
+// Search
+@import "main/search";
+
+// Product list
+@import "main/product-list";
+
+// Order
+@import "main/order";
+
+// Page nav
+@import "main/page-nav";
+
+// Mobile navbar
+@import "main/mobile";
+
+// Bulk order
+@import "main/bulk-order";
+
+// Product
+@import "main/product";
+
+// Page
+@import "main/page";

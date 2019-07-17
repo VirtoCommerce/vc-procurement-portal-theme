@@ -1,0 +1,186 @@
+.swipe
+{
+	background: $white;
+	bottom: 0;
+	display: none;
+	flex-direction: column;
+	flex: 0 0 18.75rem;
+	position: fixed;
+	top: 0;
+	transition: all .15s;
+	width: 18.75rem;
+	z-index: 10000;
+
+	&__header
+	{
+		align-items: center;
+		background: $black;
+		border-bottom: 1px solid $gray-200;
+		box-sizing: content-box;
+		display: flex;
+		flex: 0 0 3.75rem;
+		height: 3.75rem;
+		padding: 0 .9375rem;
+
+		&-t
+		{
+			align-items: center;
+			color: $white;
+			display: flex;
+			font-weight: bold;
+			width: 100%;
+		}
+
+		&-link
+		{
+			color: $red;
+			font-size: .875rem;
+			font-weight: normal;
+			margin-left: auto;
+			margin-right: 1.25rem;
+		}
+	}
+
+	&__close
+	{
+		background: url('assets/icons/close-white.svg') no-repeat scroll 0 0;
+		cursor: pointer;
+		height: 1.25rem;
+		width: 1.25rem;
+	}
+
+	&__body
+	{
+		flex: 1 0 0;
+		overflow-y: auto;
+
+		.btn
+		{
+			border-radius: 0;
+		}
+	}
+
+	.nav
+	{
+		flex-direction: column;
+	}
+
+	.nav,
+	.nav--category
+	{
+		.nav__item
+		{
+			border-bottom: 1px solid $gray-200;
+			margin: 0 .9375rem;
+		}
+
+		.nav__link
+		{
+			align-items: center;
+			display: flex;
+			font-size: .875rem;
+			height: 2.5rem;
+			padding: 0;
+
+			&--active::after
+			{
+				display: none;
+			}
+		}
+	}
+
+	.nav--sub
+	{
+		padding-left: 0;
+
+		.nav__item
+		{
+			border: none;
+		}
+
+		.nav__link
+		{
+			height: auto;
+			padding: .25rem 0;
+		}
+	}
+
+	.order
+	{
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		
+		.list--total
+		{
+			margin: 0;
+		}
+
+		.order__actions
+		{
+			margin-bottom: 1.25rem;
+
+			& ~ .btn
+			{
+				border-radius: 0;
+				flex: 0 0 3.125rem;
+				height: 3.125rem;
+				font-size: 1rem;
+				font-weight: bold;
+				justify-content: center;
+			}
+		}
+	}
+
+	.order__info
+	{
+		border: none;
+		padding-top: 0;
+	}
+
+	.order__item
+	{
+		background: #fafafa;
+	}
+
+	@media (max-width: 26.25rem) {
+		width: 100%;
+	}
+}
+
+// Swipe category
+@include media-breakpoint-down(lg) {
+	.swipe--category
+	{
+		display: flex;
+		left: 0;
+		transform: translateX(-100%);
+	}
+
+	.swipe
+	{
+		&--opened
+		{
+			transform: translateX(0);
+		}
+	}
+}
+
+// Swipe menu and order
+@include media-breakpoint-down(md) {
+	.swipe--menu,
+	.swipe--order
+	{
+		display: flex;
+		right: 0;
+		transform: translateX(100%);
+	}
+
+	.swipe
+	{
+		&--opened
+		{
+			transform: translateX(0);
+		}
+	}
+}

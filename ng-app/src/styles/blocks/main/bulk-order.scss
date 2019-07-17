@@ -1,0 +1,277 @@
+.bulk-order
+{
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+
+	// Actions
+	&__actions
+	{
+		border-bottom: 1px solid $gray-200;
+		border-top: 1px solid $gray-200;
+		margin: 0;
+
+		&-item
+		{
+			align-items: center;
+			display: flex;
+			height: 4.375rem;
+			padding: 0 1.875rem;
+
+			@include media-breakpoint-up(md) {
+				& ~ .bulk-order__actions-item
+				{
+					border-left: 1px solid $gray-200;
+				}
+			}
+
+			@include media-breakpoint-down(sm) {
+				height: 3.75rem;
+				padding: 0 .9375rem;
+
+				& ~ .bulk-order__actions-item
+				{
+					border-top: 1px solid $gray-200;
+				}
+			}
+		}
+
+		@include media-breakpoint-up(lg) {
+			.btn
+			{
+				padding: 0;
+				min-width: 13.75rem;
+			}
+		}
+
+		@include media-breakpoint-down(sm) {
+			.btn
+			{
+				width: 100%;
+			}
+		}
+	}
+
+	// New item
+	&__new
+	{
+		border-bottom: 1px solid $gray-200;
+		padding: 0 .9375rem;
+
+		.row
+		{
+			margin-left: 0;
+			margin-right: 0;
+
+			[class*="col-"]
+			{
+				padding-left: .5rem;
+				padding-right: .5rem;
+			}
+
+			.row [class*="col-"]
+			{
+				padding-bottom: .9375rem;
+			}
+		}
+	}
+
+	// List items in orders
+	&__list
+	{
+		h2
+		{
+			color: $gray-300;
+			font-weight: normal;
+			padding: 1.875rem 0;
+		}
+
+		.row
+		{
+			margin-left: 0;
+			margin-right: 0;
+
+			[class*="col-"]
+			{
+				padding-left: .5rem;
+				padding-right: .5rem;
+			}
+
+			.row [class*="col-"]
+			{
+				padding-bottom: .9375rem;
+			}
+		}
+
+		.list
+		{
+			border-bottom: 1px solid $gray-200;
+			border-top: 1px solid $gray-200;
+
+			.list__item
+			{
+				padding: .9375rem .9375rem 0;
+
+				& ~ .list__item
+				{
+					border-top: 1px solid $gray-200;
+				}
+
+				@include media-breakpoint-down(sm) {
+					&:nth-child(2n)
+					{
+						background: #f8f8f8;
+					}
+				}
+			}
+		}
+	}
+
+	&__new,
+	&__list
+	{
+		@include media-breakpoint-down(lg) {
+			.input-group--qty .btn
+			{
+				border-radius: 2.125rem;
+				height: 2.125rem;
+				width: 2.125rem;
+
+				&__ico
+				{
+					height: 1rem;
+        			width: 1rem;
+
+        			&--trash-gray
+			        {
+			            height: 1.25rem;
+			            width: 1rem;
+			        }
+				}
+			}
+		}
+	}
+
+	@include media-breakpoint-down(sm) {
+		&__new,
+		&__list .list .list__item
+		{
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+
+	&__add-order
+	{
+		display: flex;
+		padding: .9375rem;
+
+		@include media-breakpoint-up(lg) {
+			border-top: 1px solid $gray-200;
+			margin-top: auto;
+
+			.btn
+			{
+				min-width: 12.5rem;
+			}
+		}
+
+		@include media-breakpoint-down(sm) {
+			.btn
+			{
+				width: 100%;
+			}
+		}
+	}
+
+	// Copy
+	&__copy
+	{
+		padding: 1.875rem;
+
+		p
+		{
+			font-size: .875rem;
+			margin-bottom: 1.875rem;
+		}
+
+		.btn
+		{
+			min-width: 9.375rem;
+		}
+
+		&-field
+		{
+			border: 1px solid $gray-200;
+			border-radius: $border-radius;
+			font-size: .875rem;
+			display: block;
+			height: 100%;
+			line-height: 1.6;
+			margin-bottom: 1.125rem;
+			min-height: 10rem;
+			padding: .9375rem;
+		}
+
+		&-errors
+		{
+			color: $red;
+			display: flex;
+			flex-direction: column;
+			font-size: .875rem;
+			height: calc(100% - 1.25rem);
+
+			p
+			{
+				margin: 0 0 .9375rem;
+				padding: 0;
+			}
+
+			.all-errors
+			{
+				margin-top: auto;
+			}
+		}
+
+		@include media-breakpoint-down(sm) {
+			padding: 1.25rem;
+
+			p
+			{
+				margin-bottom: 1.25rem;
+			}
+
+			.btn
+			{
+				width: 100%;
+			}
+
+			&-field
+			{
+				height: auto;
+				margin-bottom: .9375rem;
+			}
+		}
+	}
+
+	// Content tab for bulk order
+	&__content
+	{
+		display: none;
+
+		&--active
+		{
+			display: block;
+		}
+	}
+
+	h1,
+	h2
+	{
+		margin-left: 1.875rem;
+
+	    @include media-breakpoint-down(sm) {
+	        margin-left: .9375rem;
+	    }
+	}
+}

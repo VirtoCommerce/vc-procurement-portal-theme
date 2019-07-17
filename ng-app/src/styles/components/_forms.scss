@@ -17,6 +17,44 @@ textarea
     padding: .625rem;
 }
 
+fieldset
+{
+    border: none;
+
+    legend
+    {
+        font-size: 1.125rem;
+        font-weight: bold;
+        margin-bottom: 1.25rem;
+    }
+}
+
+label
+{
+    color: $gray-600;
+    display: block;
+    font-size: .875rem;
+    margin-bottom: .625rem;
+}
+
+.form-row
+{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -.5rem;
+    margin-right: -.5rem;
+
+    [class*="col-"]
+    {
+        padding-left: .5rem;
+        padding-right: .5rem;
+
+        @include media-breakpoint-down(sm) {
+            margin-bottom: .9375rem;
+        }
+    }
+}
+
 .form-group
 {
     margin-bottom: 1.875rem;
@@ -26,7 +64,7 @@ textarea
 {
     border: solid 1px $gray-400;
     border-radius: .25rem;
-    color: $gray-400;
+    color: $black;
     font-size: .875rem;
     font-weight: normal;
     height: 2.5rem;
@@ -39,6 +77,25 @@ textarea
     {
         border-color: darken($gray-400, 15%);
     }
+
+    &--error
+    {
+        border-color: $red;
+        color: $red;
+    }
+
+    @include media-breakpoint-up(md) {
+        &--code
+        {
+            width: 6.25rem;
+        }
+    }
+}
+
+.form-error
+{
+    color: $red;
+    font-size: .875rem;
 }
 
 .input-group
@@ -52,46 +109,13 @@ textarea
         .btn
         {
             align-items: center;
+            border: none;
             border-radius: 2.125rem;
             display: flex;
             justify-content: center;
             height: 2.125rem;
             padding: 0;
             width: 2.125rem;
-
-            &__ico
-            {
-                background-size: contain;
-                height: .875rem;
-                width: .875rem;
-
-                &--plus
-                {
-                    background-image: url('../../assets/icons/plus.svg');
-                }
-
-                &--plus-white
-                {
-                    background-image: url('../../assets/icons/plus-white.svg');
-                }
-
-                &--minus
-                {
-                    background-image: url('../../assets/icons/minus.svg');
-                    height: .125rem;
-                }
-
-                &--minus-white
-                {
-                    background-image: url('../../assets/icons/minus-white.svg');
-                    height: .125rem;
-                }
-            }
-
-            &--white
-            {
-                box-shadow: 0 .125rem .25rem 0 rgba(0,0,0,.12);
-            }
         }
 
         .input-group__input
@@ -107,6 +131,16 @@ textarea
         {
             margin-right: 1.25rem;
             margin-top: 0;
+        }
+
+        .form-control--qty
+        {
+            margin-right: .9375rem;
+            width: 6.25rem;
+
+            @include media-breakpoint-down(sm) {
+                width: calc(100% - 3.1rem);
+            }
         }
 
         @include media-breakpoint-down(lg) {
@@ -164,14 +198,76 @@ textarea
             {
                 &--plus
                 {
-                    background-image: url('../../assets/icons/plus-gray.svg');
+                    background-image: url('assets/icons/plus-gray.svg');
                 }
 
                 &--minus
                 {
-                    background-image: url('../../assets/icons/minus-gray.svg');
+                    background-image: url('assets/icons/minus-gray.svg');
                 }
             }
         }
+    }
+}
+
+.form-switch
+{
+    align-items: center;
+    display: inline-block;
+    padding-left: 3.125rem;
+    position: relative;
+
+    &__input
+    {
+        left: 0;
+        position: absolute;
+        top: 0;
+        visibility: hidden;
+    }
+
+    &__label
+    {
+        cursor: pointer;
+        display: inline-block;
+        margin: 0;
+
+        &::after,
+        &::before
+        {
+            content: ' ';
+            position: absolute;
+            transition: all .35s;
+        }
+
+        &::before
+        {
+            background: $gray-200;
+            border-radius: .625rem;
+            box-shadow: inset 0 1px 1px 0 rgba(0,0,0,.2);
+            height: 1.25rem;
+            left: 0;
+            top: 0;
+            width: 2.25rem;
+        }
+
+        &::after
+        {
+            background-color: $white;
+            border-radius: .75rem;
+            height: .75rem;
+            left: 1.25rem;
+            top: .25rem;
+            width: .75rem;
+        }
+    }
+
+    &__input:checked ~ .form-switch__label::after
+    {
+        left: .25rem;
+    }
+
+    &__input:checked ~ .form-switch__label::before
+    {
+        background-color: $green;
     }
 }

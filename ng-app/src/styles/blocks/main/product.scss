@@ -1,0 +1,186 @@
+.product
+{
+	padding: 3.125rem 1.875rem;
+
+	h1
+	{
+		margin-left: 0;
+		padding: 0 0 1.25rem;
+	}
+
+	&__gallery
+	{
+		&-img
+		{
+			flex: 0 0 25rem;
+			margin-bottom: 1.25rem;
+			position: relative;
+			width: 25rem;
+
+			&::after
+			{
+				background: $gray-100;
+				border-radius: $border-radius;
+				content: ' ';
+				display: block;
+				padding-top: 100%;
+			}
+		}
+
+		.list--gallery
+		{
+			display: flex;
+
+			.list__item
+			{
+				flex: 0 0 4.375rem;
+				height: 4.375rem;
+				margin-bottom: 1.25rem;
+				margin-right: 1.25rem;
+				width: 4.375rem;
+
+				&:last-child
+				{
+					margin-right: 0;
+				}
+			}
+
+			.list__img
+			{
+				height: 100%;
+				position: relative;
+				width: 100%;
+
+				&::after
+				{
+					background: $gray-100;
+					border-radius: $border-radius;
+					content: ' ';
+					height: 100%;
+					left: 0;
+					position: absolute;
+					top: 0;
+					width: 100%;
+					z-index: -1;
+				}
+			}
+
+			.list__pic
+			{
+				border-radius: $border-radius;
+				display: block;
+				max-width: 100%;
+			}
+		}
+
+		@include media-breakpoint-down(lg) {
+			&-img
+			{
+				flex: 0 0 16rem;
+				margin-bottom: .625rem;
+				width: 16rem;
+			}
+
+			.list--gallery .list__item
+			{
+				flex: 0 0 3.75rem;
+				height: 3.75rem;
+				margin-bottom: .625rem;
+				margin-right: .625rem;
+				width: 3.75rem;
+			}
+		}
+	}
+
+	&__info
+	{
+		align-self: flex-start;
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	&__general
+	{
+		flex: 1 0 0;
+	}
+
+	&__other
+	{
+		margin-left: auto;
+		text-align: right;
+	}
+
+	&__brand,
+	&__descr
+	{
+		color: $gray-400;
+		font-size: .875rem;
+	}
+
+	&__descr
+	{
+		color: $gray-500;
+	}
+
+	&__model
+	{
+		color: $black;
+		font-size: .875rem;
+		margin-top: 1.25rem;
+
+		.sku
+		{
+			display: block;
+		}
+	}
+
+	&__price
+	{
+		font-size: 1.5rem;
+		margin-bottom: 1.25rem;
+	}
+
+	&__text
+	{
+		font-size: .875rem;
+		margin-top: 1.25rem;
+		width: 100%;
+	}
+
+	@include media-breakpoint-down(sm) {
+		padding: .9375rem;
+
+		&__info
+		{
+			flex-direction: column;
+		}
+
+		&__other
+		{
+			align-items: center;
+			display: flex;
+			margin-bottom: 1rem;
+			margin-left: 0;
+			margin-top: 1.25rem;
+			order: -1;
+			text-align: left;
+		}
+
+		&__price
+		{
+			margin: 0;
+		}
+
+		&__qty
+		{
+			margin-left: auto;
+		}
+	}
+
+	@include media-breakpoint-down(xs) {
+		&__gallery-img
+		{
+			width: 100%;
+		}
+	}
+}

@@ -1,0 +1,98 @@
+.page
+{
+	&__sort
+	{
+		font-size: .875rem;
+		margin-bottom: 1.25rem;
+
+		&-date,
+		&-filter
+		{
+			align-items: center;
+			display: flex;
+
+			.dropdown,
+			.form-control
+			{
+				margin: 0 .9375rem;
+			}
+		}
+
+		&-date
+		{
+			.form-control
+			{
+				width: 8rem;
+
+				&:last-child
+				{
+					margin-right: 0;
+				}
+			}
+		}
+
+		&-filter
+		{
+			.dropdown
+			{
+				margin-right: 0;
+				width: 12.5rem;
+			}
+		}
+
+		@include media-breakpoint-down(md) {
+			&-filter
+			{
+				.dropdown
+				{
+					width: 9rem;
+				}
+			}
+		}
+
+		@include media-breakpoint-down(sm) {
+			&-date,
+			&-filter
+			{
+				height: 3.75rem;
+
+				.form-control,
+				.dropdown
+				{
+					margin: 0 .625rem;
+					width: calc(50% - 2.5rem);
+				}
+			}
+
+			&-date
+			{
+				.form-control:last-child
+				{
+					margin-right: 0;
+				}
+			}
+
+			&-filter
+			{
+				.dropdown
+				{
+					margin-right: 0;
+					width: calc(100% - 6.45rem);
+				}
+			}
+		}
+
+		@include media-breakpoint-down(xs) {
+			&-date
+			{
+				border-bottom: 1px solid $gray-200;
+				border-top: 1px solid $gray-200;
+			}
+
+			&-filter
+			{
+				border-bottom: 1px solid $gray-200;
+			}
+		}
+	}
+}

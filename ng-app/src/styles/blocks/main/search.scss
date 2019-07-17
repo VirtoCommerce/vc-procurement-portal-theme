@@ -1,0 +1,12 @@
+.search
+{
+	border-bottom: 1px solid $gray-200;
+	padding: .9375rem 1.875rem;
+
+	.form-control
+	{
+		background: $gray-100;
+		border-color: $gray-100;
+		color: $gray-300;
+	}
+}
