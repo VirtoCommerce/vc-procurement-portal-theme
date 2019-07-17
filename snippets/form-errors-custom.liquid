@@ -1,23 +1,23 @@
-﻿{% if form.errors %}
-<div class="alert alert-danger">
-    <p>{{ 'general.forms.post_error' | t }}</p>
+{% if form.errors %}
+  <div class="form-error mb-2">
+      <p>Sorry, looks like something went wrong. Please correct the following and submit again</p>
 
-    <ul class="disc">
-        {% assign message = 'contact.form.message' | t %}
-        {% for field in form.errors %}
+    <ul class="disc mb-0">
+      {% assign message = 'contact.form.message' | t %}
+      {% for field in form.errors %}
 
         {% if field == 'form' %}
-        <li>
+          <li>
             {{ form.errors.messages[field] }}
-        </li>
+          </li>
         {% else %}
-        <li>
+          <li>
             {% assign field_name = field | replace: 'body', message %}
             {{ 'general.forms.post_field_error_html' | t: field: field_name, error: form.errors.messages[field] }}
-        </li>
+          </li>
         {% endif %}
 
-        {% endfor %}
-    </ul>
-</div>
+      {% endfor %}
+     </ul>
+  </div>
 {% endif %}

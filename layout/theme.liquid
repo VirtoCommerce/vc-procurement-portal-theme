@@ -14,7 +14,8 @@
 </head>
 <body mat-app-background>
 	
-<app-root>Loading...</app-root>
+  {{ content_for_layout }}
+
 <script src="{{ 'runtime-es2015.js' | static_asset_url }}" type="module"></script>
 <script src="{{ 'polyfills-es2015.js' | static_asset_url }}" type="module"></script>
 <script src="{{ 'runtime-es5.js' | static_asset_url }}" nomodule></script>
