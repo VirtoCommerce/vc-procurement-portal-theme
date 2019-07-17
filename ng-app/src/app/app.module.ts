@@ -70,7 +70,6 @@ import { ProcurementPortalInterceptor } from './services/interceptors/intercepto
     ModifyCountProductComponent,
     ProductPropertiesComponent,
     CompanyComponent,
-    LoginComponent,
     MenuComponent,
     OrderCommentsComponent,
     OrderItemsComponent,
