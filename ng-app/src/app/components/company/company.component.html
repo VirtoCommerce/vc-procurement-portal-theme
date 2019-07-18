@@ -1,206 +1,273 @@
-<div class="account">
-  <h1>Company</h1>
+<main class="main container">
+  <div class="account">
+    <h1>Company</h1>
 
-  <!-- Tabs work not js only css -->
-  <div class="tabs">
-      <input class="tabs__input" type="radio" name="tabs" id="tab-1" checked>
+    <!-- Tabs work not js only css -->
+    <div class="tabs">
+      <input class="tabs__input" type="radio" name="tabs" id="tab-1" checked />
       <label for="tab-1" class="tabs__item">
-          Company Details
-          <span class="mobile-name">Details</span>
+        Company Details
+        <span class="mobile-name">Details</span>
       </label>
 
-      <input class="tabs__input" type="radio" name="tabs" id="tab-2">
+      <input class="tabs__input" type="radio" name="tabs" id="tab-2" />
       <label for="tab-2" class="tabs__item">
-          User Management
-          <span class="mobile-name">Users</span>
+        User Management
+        <span class="mobile-name">Users</span>
       </label>
 
-      <input class="tabs__input" type="radio" name="tabs" id="tab-3">
+      <input class="tabs__input" type="radio" name="tabs" id="tab-3" />
       <label for="tab-3" class="tabs__item">
-          Role Management
-          <span class="mobile-name">Roles</span>
+        Role Management
+        <span class="mobile-name">Roles</span>
       </label>
 
       <div class="tabs__content">
-          <fieldset>
-              <legend>Legal information</legend>
-              <div class="form-row form-group">
-                  <div class="col-md">
-                      <label for="name">Company Name</label>
-                      <input type="text" class="form-control" id="name">
-                  </div>
-                  <div class="col-md">
-                      <label for="number">Tax Number</label>
-                      <input type="text" class="form-control" id="number">
-                  </div>
-                  <div class="col-md">
-                      <label for="reg-number">Company Registration Number</label>
-                      <input type="text" class="form-control" id="reg-number">
-                  </div>
+        <fieldset>
+          <legend>Legal information</legend>
+          <div class="form-row form-group">
+            <div class="col-md">
+              <label for="name">Company Name</label>
+              <input type="text" class="form-control" id="name" />
+            </div>
+            <div class="col-md">
+              <label for="number">Tax Number</label>
+              <input type="text" class="form-control" id="number" />
+            </div>
+            <div class="col-md">
+              <label for="reg-number">Company Registration Number</label>
+              <input type="text" class="form-control" id="reg-number" />
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Procurements service contact</legend>
+          <div class="form-row form-group">
+            <div class="col-md">
+              <label for="phone">Phone</label>
+              <input
+                placeholder="Enter phone"
+                type="text"
+                class="form-control"
+                id="phone"
+              />
+            </div>
+            <div class="col-md">
+              <label for="email">Email</label>
+              <input
+                placeholder="Enter email"
+                type="text"
+                class="form-control"
+                id="email"
+              />
+            </div>
+            <div class="col-md">
+              <label for="person">Contact Person</label>
+              <input
+                placeholder="Enter name"
+                type="text"
+                class="form-control"
+                id="person"
+              />
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Billing address</legend>
+          <div class="form-row form-group">
+            <div class="col-md-6">
+              <div class="form-row">
+                <div class="col-md">
+                  <label for="billing-country">Country</label>
+                  <input
+                    placeholder="Enter country"
+                    type="text"
+                    class="form-control"
+                    id="billing-country"
+                  />
+                </div>
+                <div class="col-md">
+                  <label for="billing-city">City</label>
+                  <input
+                    placeholder="Enter city"
+                    type="text"
+                    class="form-control"
+                    id="billing-city"
+                  />
+                </div>
+                <div class="col-md-auto">
+                  <label for="billing-code">Postal Code</label>
+                  <input
+                    placeholder="Code..."
+                    type="text"
+                    class="form-control form-control--code"
+                    id="billing-code"
+                  />
+                </div>
               </div>
-          </fieldset>
-          <fieldset>
-              <legend>Procurements service contact</legend>
-              <div class="form-row form-group">
-                  <div class="col-md">
-                      <label for="phone">Phone</label>
-                      <input placeholder="Enter phone" type="text" class="form-control" id="phone">
-                  </div>
-                  <div class="col-md">
-                      <label for="email">Email</label>
-                      <input placeholder="Enter email" type="text" class="form-control" id="email">
-                  </div>
-                  <div class="col-md">
-                      <label for="person">Contact Person</label>
-                      <input placeholder="Enter name" type="text" class="form-control" id="person">
-                  </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-row">
+                <div class="col-md">
+                  <label for="billing-address">Address 1</label>
+                  <input
+                    placeholder="Enter name"
+                    type="text"
+                    class="form-control"
+                    id="billing-address"
+                  />
+                </div>
+                <div class="col-md">
+                  <label for="billing-address-2">Address 2</label>
+                  <input
+                    placeholder="Enter name"
+                    type="text"
+                    class="form-control"
+                    id="billing-address-2"
+                  />
+                </div>
               </div>
-          </fieldset>
-          <fieldset>
-              <legend>Billing address</legend>
-              <div class="form-row form-group">
-                  <div class="col-md-6">
-                      <div class="form-row">
-                          <div class="col-md">
-                              <label for="billing-country">Country</label>
-                              <input placeholder="Enter country" type="text" class="form-control" id="billing-country">
-                          </div>
-                          <div class="col-md">
-                              <label for="billing-city">City</label>
-                              <input placeholder="Enter city" type="text" class="form-control" id="billing-city">
-                          </div>
-                          <div class="col-md-auto">
-                              <label for="billing-code">Postal Code</label>
-                              <input placeholder="Code..." type="text" class="form-control form-control--code" id="billing-code">
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-md-6">
-                      <div class="form-row">
-                          <div class="col-md">
-                              <label for="billing-address">Address 1</label>
-                              <input placeholder="Enter name" type="text" class="form-control" id="billing-address">
-                          </div>
-                          <div class="col-md">
-                              <label for="billing-address-2">Address 2</label>
-                              <input placeholder="Enter name" type="text" class="form-control" id="billing-address-2">
-                          </div>
-                      </div>
-                  </div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Shipping address</legend>
+          <div class="form-row form-group">
+            <div class="col-md-6">
+              <div class="form-row">
+                <div class="col-md">
+                  <label for="shipping-country">Country</label>
+                  <input
+                    placeholder="Enter country"
+                    type="text"
+                    class="form-control"
+                    id="shipping-country"
+                  />
+                </div>
+                <div class="col-md">
+                  <label for="shipping-city">City</label>
+                  <input
+                    placeholder="Enter city"
+                    type="text"
+                    class="form-control"
+                    id="shipping-city"
+                  />
+                </div>
+                <div class="col-md-auto">
+                  <label for="shipping-code">Postal Code</label>
+                  <input
+                    placeholder="Code..."
+                    type="text"
+                    class="form-control form-control--code"
+                    id="shipping-code"
+                  />
+                </div>
               </div>
-          </fieldset>
-          <fieldset>
-              <legend>Shipping address</legend>
-              <div class="form-row form-group">
-                  <div class="col-md-6">
-                      <div class="form-row">
-                          <div class="col-md">
-                              <label for="shipping-country">Country</label>
-                              <input placeholder="Enter country" type="text" class="form-control" id="shipping-country">
-                          </div>
-                          <div class="col-md">
-                              <label for="shipping-city">City</label>
-                              <input placeholder="Enter city" type="text" class="form-control" id="shipping-city">
-                          </div>
-                          <div class="col-md-auto">
-                              <label for="shipping-code">Postal Code</label>
-                              <input placeholder="Code..." type="text" class="form-control form-control--code" id="shipping-code">
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-md-6">
-                      <div class="form-row">
-                          <div class="col-md">
-                              <label for="shipping-address">Address 1</label>
-                              <input placeholder="Enter name" type="text" class="form-control" id="shipping-address">
-                          </div>
-                          <div class="col-md">
-                              <label for="shipping-address-2">Address 2</label>
-                              <input placeholder="Enter name" type="text" class="form-control" id="shipping-address-2">
-                          </div>
-                      </div>
-                  </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-row">
+                <div class="col-md">
+                  <label for="shipping-address">Address 1</label>
+                  <input
+                    placeholder="Enter name"
+                    type="text"
+                    class="form-control"
+                    id="shipping-address"
+                  />
+                </div>
+                <div class="col-md">
+                  <label for="shipping-address-2">Address 2</label>
+                  <input
+                    placeholder="Enter name"
+                    type="text"
+                    class="form-control"
+                    id="shipping-address-2"
+                  />
+                </div>
               </div>
-          </fieldset>
-          <fieldset>
-              <legend>Return Invalid orders to creator</legend>
-              <div class="btn-group btn-group--uppercase">
-                  <a class="btn btn--outline">Yes</a>
-                  <a class="btn btn--outline btn--active">No</a>
-              </div>
-          </fieldset>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Return Invalid orders to creator</legend>
+          <div class="btn-group btn-group--uppercase">
+            <a class="btn btn--outline">Yes</a>
+            <a class="btn btn--outline btn--active">No</a>
+          </div>
+        </fieldset>
       </div>
       <div class="tabs__content">
-          <a href="#" class="btn btn--green mb-4">Add new User</a>
-          <div class="table-responsive">
-              <table class="table">
-                  <colgroup>
-                      <col class="col-w-120">
-                      <col class="col-w-120">
-                      <col class="col-w-120">
-                      <col class="col-w-120">
-                      <col class="col-w-120">
-                      <col class="col-w-140">
-                      <col class="col-w-140">
-                      <col class="col-w-120">
-                  </colgroup>
-                  <thead>
-                      <tr>
-                          <th>Account</th>
-                          <th>First name</th>
-                          <th>Last name</th>
-                          <th>Workflow Role</th>
-                          <th>System Role</th>
-                          <th>Email</th>
-                          <th>Phone</th>
-                          <th>Action</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <td>PetrovD</td>
-                          <td>Dmitry</td>
-                          <td>Petrov</td>
-                          <td>Agent</td>
-                          <td>Admin</td>
-                          <td>PetrovD@gmail.com</td>
-                          <td>+7 911 111 11 11</td>
-                          <td>
-                              <a href="#" class="text--red">Remove user</a>
-                          </td>
-                      </tr>
-                  </tbody>
-              </table>
-          </div>
+        <a href="#" class="btn btn--green mb-4">Add new User</a>
+        <div class="table-responsive">
+          <table class="table">
+            <colgroup>
+              <col class="col-w-120" />
+              <col class="col-w-120" />
+              <col class="col-w-120" />
+              <col class="col-w-120" />
+              <col class="col-w-120" />
+              <col class="col-w-140" />
+              <col class="col-w-140" />
+              <col class="col-w-120" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Account</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Workflow Role</th>
+                <th>System Role</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PetrovD</td>
+                <td>Dmitry</td>
+                <td>Petrov</td>
+                <td>Agent</td>
+                <td>Admin</td>
+                <td>PetrovD@gmail.com</td>
+                <td>+7 911 111 11 11</td>
+                <td>
+                  <a href="#" class="text--red">Remove user</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="tabs__content">
-          <a href="#" class="btn btn--green mb-4">Add new Role</a>
-          <div class="table-responsive">
-              <table class="table">
-                  <colgroup>
-                      <col class="col-w-340">
-                      <col class="col-w-140">
-                      <col class="col-w-140">
-                      <col class="col-w-260">
-                  </colgroup>
-                  <thead>
-                      <tr>
-                          <th>Role Name</th>
-                          <th>Role ID</th>
-                          <th>Creation Date</th>
-                          <th>Created By</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <td>Agent Provocateur</td>
-                          <td>0329032</td>
-                          <td>Tue, 05/03</td>
-                          <td>Ivanov Peotr</td>
-                      </tr>
-                  </tbody>
-              </table>
-          </div>
+        <a href="#" class="btn btn--green mb-4">Add new Role</a>
+        <div class="table-responsive">
+          <table class="table">
+            <colgroup>
+              <col class="col-w-340" />
+              <col class="col-w-140" />
+              <col class="col-w-140" />
+              <col class="col-w-260" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Role Name</th>
+                <th>Role ID</th>
+                <th>Creation Date</th>
+                <th>Created By</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Agent Provocateur</td>
+                <td>0329032</td>
+                <td>Tue, 05/03</td>
+                <td>Ivanov Peotr</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
+    </div>
   </div>
-</div>
+</main>
