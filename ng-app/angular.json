@@ -31,9 +31,12 @@
             ],
             "styles": [
               "src/styles.scss",
-              {"input": "src/styles/login/login-page.scss", "bundleName": "login-page", "inject": false}
+              {"input": "src/styles/login/login-page.scss", "bundleName": "login-page"}
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "src/js/styles.js"
+            ]
           },
           "configurations": {
             "production": {

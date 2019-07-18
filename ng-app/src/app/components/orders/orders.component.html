@@ -1,130 +1,177 @@
-<p>orders works!</p>
-<div class="mat-app-background basic-container">
-  <table border="1" cellpadding="10" width="100%">
-    <tr>
-      <td >
-        <div>
-          <h1>Orders</h1>
-        </div>
-        <br />
-        <br />
-        <div>
-          <mat-form-field>
-            <b>From:</b>
-            <input matInput [matDatepicker]="picker1" placeholder="" [formControl]="date">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-          </mat-form-field>
-
-          <mat-form-field>
-            <b>to:</b>
-            <input matInput [matDatepicker]="picker2" placeholder="" [formControl]="serializedDate">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-          </mat-form-field>
-          <div *ngIf="!isForApprove">
-          <h4>Filter by status</h4>
-          <mat-form-field>
-            <select matNativeControl required>
-              <option value="all">All</option>
-              <option value="completed">Completed</option>
-              <option value="awaitingApproval">Awaiting Approval</option>
-            </select>
-          </mat-form-field>
-        </div>
-        </div>
-        <div>
-
-        </div>
-        <div>
-          <div class="example-container mat-elevation-z8">
-            <div class="example-table-container">
-              <table cellpadding="10" width="100%" mat-table [dataSource]="dataSource" class="example-table" matSort matSortActive="date"
-                matSortDisableClear matSortDirection="desc">
-                <ng-container matColumnDef="orderid">
-      <th mat-header-cell *matHeaderCellDef class=".td-properties">
-        <b>Order id</b>
-      </th>
-      <td mat-cell *matCellDef="let row" (click)="Details(row.id)">
-          <div *ngIf="isForApprove; else elseBlock">
-
+<main class="main container">
+  <div class="order">
+    <h1>Orders</h1>
+    <div class="row page__sort">
+      <div class="col-md-auto page__sort-date">
+        From
+        <input type="text" class="form-control" />
+        To
+        <input type="text" class="form-control" />
+      </div>
+      <div class="col-md-auto page__sort-filter">
+        Filter by status
+        <div class="dropdown">
+          <div class="dropdown__toggle">All</div>
+          <div class="dropdown__menu dropdown__menu--up">
+            <a href="#" class="dropdown__menu-item">All</a>
+            <a href="#" class="dropdown__menu-item">Completed</a>
+            <a href="#" class="dropdown__menu-item">Awaiting approwal</a>
           </div>
-          <ng-template #elseBlock>Content to render when value is null.</ng-template>
-
-          <a [routerLink]="['order-details', row.id]">{{row.number}}</a>
-      </td>
-      </ng-container>
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef class=".td-properties">
-          <b>Status</b>
-        </th>
-        <td mat-cell *matCellDef="let row" (click)="Details(row.id)">{{row.status}}
-
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef class=".td-properties">
-          <b>Date</b>
-        </th>
-        <td mat-cell *matCellDef="let row" (click)="Details(row.id)">{{row.createdDate | slice:0:10}}
-
-        </td>
-
-      </ng-container>
-
-      <ng-container matColumnDef="items">
-        <th mat-header-cell *matHeaderCellDef class=".td-properties">
-          <b>#Items</b>
-        </th>
-        <td mat-cell *matCellDef="let row" (click)="Details(row.id)">{{row.items.length}}
-
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="createdBy">
-        <th mat-header-cell *matHeaderCellDef class=".td-properties">
-          <b>Created by</b>
-        </th>
-        <td mat-cell *matCellDef="let row" (click)="Details(row.id)">{{row.createdBy}}
-
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="assignedTo">
-        <th mat-header-cell *matHeaderCellDef class=".td-properties">
-          <b>Assigned to</b>
-        </th>
-        <td mat-cell *matCellDef="let row" (click)="Details(row.id)">{{row.assignedTo}}
-
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef class=".td-properties">
-          <b>Total</b>
-        </th>
-        <td mat-cell *matCellDef="let row" (click)="Details(row.id)">{{row.total}}
-
-        </td>
-      </ng-container>
-
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-    <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
-      <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+        </div>
+      </div>
     </div>
-
-  </table>
-
-
-</div>
-</div>
-</div>
-</td>
-</tr>
-<tr>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
-</tr>
-</table>
-</div>
+    <div class="table-responsive">
+      <table class="table">
+        <colgroup>
+          <col class="col-w-160" />
+          <col class="col-w-140" />
+          <col class="col-w-100" />
+          <col class="col-w-80" />
+          <col class="col-w-140" />
+          <col class="col-w-130" />
+          <col class="col-w-130" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>#Items</th>
+            <th>Created by</th>
+            <th>Assignet to</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>348763429</td>
+            <td>Completed</td>
+            <td>Tue, 05/03</td>
+            <td>4</td>
+            <td>Pavlov Pavel</td>
+            <td>Ivanov Peotr</td>
+            <td>$ 2.100.999,00</td>
+          </tr>
+          <tr>
+            <td>348763429</td>
+            <td>Completed</td>
+            <td>Tue, 05/03</td>
+            <td>4</td>
+            <td>Pavlov Pavel</td>
+            <td>Ivanov Peotr</td>
+            <td>$ 2.100.999,00</td>
+          </tr>
+          <tr>
+            <td>348763429</td>
+            <td>Completed</td>
+            <td>Tue, 05/03</td>
+            <td>4</td>
+            <td>Pavlov Pavel</td>
+            <td>Ivanov Peotr</td>
+            <td>$ 2.100.999,00</td>
+          </tr>
+          <tr>
+            <td>348763429</td>
+            <td>Completed</td>
+            <td>Tue, 05/03</td>
+            <td>4</td>
+            <td>Pavlov Pavel</td>
+            <td>Ivanov Peotr</td>
+            <td>$ 2.100.999,00</td>
+          </tr>
+          <tr>
+            <td>348763429</td>
+            <td>Completed</td>
+            <td>Tue, 05/03</td>
+            <td>4</td>
+            <td>Pavlov Pavel</td>
+            <td>Ivanov Peotr</td>
+            <td>$ 2.100.999,00</td>
+          </tr>
+          <tr>
+            <td>348763429</td>
+            <td>Completed</td>
+            <td>Tue, 05/03</td>
+            <td>4</td>
+            <td>Pavlov Pavel</td>
+            <td>Ivanov Peotr</td>
+            <td>$ 2.100.999,00</td>
+          </tr>
+          <tr>
+            <td>348763429</td>
+            <td>Completed</td>
+            <td>Tue, 05/03</td>
+            <td>4</td>
+            <td>Pavlov Pavel</td>
+            <td>Ivanov Peotr</td>
+            <td>$ 2.100.999,00</td>
+          </tr>
+          <tr>
+            <td>348763429</td>
+            <td>Completed</td>
+            <td>Tue, 05/03</td>
+            <td>4</td>
+            <td>Pavlov Pavel</td>
+            <td>Ivanov Peotr</td>
+            <td>$ 2.100.999,00</td>
+          </tr>
+          <tr>
+            <td>348763429</td>
+            <td>Completed</td>
+            <td>Tue, 05/03</td>
+            <td>4</td>
+            <td>Pavlov Pavel</td>
+            <td>Ivanov Peotr</td>
+            <td>$ 2.100.999,00</td>
+          </tr>
+          <tr>
+            <td>348763429</td>
+            <td>Completed</td>
+            <td>Tue, 05/03</td>
+            <td>4</td>
+            <td>Pavlov Pavel</td>
+            <td>Ivanov Peotr</td>
+            <td>$ 2.100.999,00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="page-nav">
+      <div class="row align-items-end justify-content-center">
+        <div class="col-auto">
+          <div class="page-nav__total">You've viewed 72 of 101 products</div>
+          <div class="pagination">
+            <div class="pagination__item">
+              <a href="#" class="pagination__link pagination__link--active"
+                >1</a
+              >
+            </div>
+            <div class="pagination__item">
+              <a href="#" class="pagination__link">2</a>
+            </div>
+            <div class="pagination__item">
+              <a href="#" class="pagination__link">3</a>
+            </div>
+            <div class="pagination__item pagination__item--next">
+              <a href="#" class="pagination__link">Next</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto ml-sm-auto">
+          <div class="page-nav__count">
+            Show
+            <div class="dropdown">
+              <div class="dropdown__toggle">30</div>
+              <div class="dropdown__menu dropdown__menu--up">
+                <a href="#" class="dropdown__menu-item">10</a>
+                <a href="#" class="dropdown__menu-item">20</a>
+                <a href="#" class="dropdown__menu-item">30</a>
+              </div>
+            </div>
+            Entries
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

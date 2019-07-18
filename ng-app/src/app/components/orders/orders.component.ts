@@ -47,7 +47,7 @@ export class OrdersComponent implements OnInit {
     this.ordersService.getOrders().subscribe((data: any) => {
       this.orders = data as IOrder[];
       if (this.isForApprove) {
-        console.log('current user:',this.authenticationService.currentUserValue);
+        console.log('current user:' + this.authenticationService.currentUserValue);
         this.orders = this.orders.filter(order => order.status === 'Awaiting Approve' && order.toRole === this.authenticationService.currentUserValue.workflowRole);
       }
       this.dataSource = new MatTableDataSource(this.orders);

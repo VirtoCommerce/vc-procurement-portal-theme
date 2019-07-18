@@ -1,76 +1,281 @@
-<div class="mat-app-background basic-container">
-  <table border="1" cellpadding="5" width="100%">
-    <tr>
-      <td width="70%">
-        <div>
-          <a [routerLink]="['/bulkorder']">Bulk order</a>
+<main class="main container">
+  <app-carusel [categories]="categories"></app-carusel>
+  <div class="content">
+    <form class="search d-none d-xl-block">
+      <input
+        placeholder="Search (e.g. «DORT»)"
+        type="text"
+        class="form-control"
+      />
+    </form>
+    <div class="mobile-navbar d-block d-xl-none">
+      <form class="search">
+        <input
+          placeholder="Search (e.g. «DORT»)"
+          type="text"
+          class="form-control"
+        />
+        <a href="#" class="search__close"></a>
+      </form>
+      <div class="list">
+        <a class="list__item" data-name="mobile-category">
+          <svg
+            class="list__ico"
+            width="20px"
+            height="20px"
+            viewBox="0 0 20 20"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <g
+              id="Version-2"
+              stroke="none"
+              stroke-width="1"
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <g
+                id="Catalog-(mobile)-CATEGORY"
+                transform="translate(-47.000000, -71.000000)"
+                class="fill"
+              >
+                <g id="Group-3" transform="translate(47.000000, 71.000000)">
+                  <g id="Group-5">
+                    <path
+                      d="M2,7 L2,2 L7,2 L7.001,7 L2,7 Z M7,0 L2,0 C0.897,0 0,0.897 0,2 L0,7 C0,8.103 0.897,9 2,9 L7,9 C8.103,9 9,8.103 9,7 L9,2 C9,0.897 8.103,0 7,0 L7,0 Z"
+                      id="Fill-1"
+                    ></path>
+                    <path
+                      d="M13,7 L13,2 L18,2 L18.001,7 L13,7 Z M18,0 L13,0 C11.897,0 11,0.897 11,2 L11,7 C11,8.103 11.897,9 13,9 L18,9 C19.103,9 20,8.103 20,7 L20,2 C20,0.897 19.103,0 18,0 L18,0 Z"
+                      id="Fill-3"
+                    ></path>
+                    <path
+                      d="M2,18 L2,13 L7,13 L7.001,18 L2,18 Z M7,11 L2,11 C0.897,11 0,11.897 0,13 L0,18 C0,19.103 0.897,20 2,20 L7,20 C8.103,20 9,19.103 9,18 L9,13 C9,11.897 8.103,11 7,11 L7,11 Z"
+                      id="Fill-5"
+                    ></path>
+                    <path
+                      d="M13,18 L13,13 L18,13 L18.002,18 L13,18 Z M18,11 L13,11 C11.897,11 11,11.897 11,13 L11,18 C11,19.103 11.897,20 13,20 L18,20 C19.103,20 20,19.103 20,18 L20,13 C20,11.897 19.103,11 18,11 L18,11 Z"
+                      id="Fill-7"
+                    ></path>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+          Category
+        </a>
+        <a class="list__item" data-name="mobile-search">
+          <svg
+            class="list__ico"
+            width="20px"
+            height="20px"
+            viewBox="0 0 20 20"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <g
+              id="Version-2"
+              stroke="none"
+              stroke-width="1"
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <g
+                id="Catalog-(mobile)-CATEGORY"
+                transform="translate(-243.000000, -71.000000)"
+                class="fill"
+              >
+                <g id="Group-2" transform="translate(243.000000, 71.000000)">
+                  <path
+                    d="M2,7.5 C2,4.467 4.467,2 7.5,2 C10.533,2 13,4.467 13,7.5 C13,10.533 10.533,13 7.5,13 C4.467,13 2,10.533 2,7.5 M19.707,18.293 L13.455,12.041 C14.42,10.779 15,9.208 15,7.5 C15,3.364 11.636,0 7.5,0 C3.364,0 2.48689958e-14,3.364 2.48689958e-14,7.5 C2.48689958e-14,11.636 3.364,15 7.5,15 C9.208,15 10.779,14.42 12.041,13.455 L18.293,19.707 C18.488,19.902 18.744,20 19,20 C19.256,20 19.512,19.902 19.707,19.707 C20.098,19.316 20.098,18.684 19.707,18.293"
+                    id="Fill-1"
+                  ></path>
+                </g>
+              </g>
+            </g>
+          </svg>
+          Search
+        </a>
+        <div class="list__item d-none d-lg-block">
+          <a href="#" class="btn btn--blue btn--sm btn--block">Bulk Order</a>
         </div>
-        <br />
-        <br />
-        <div>
-          <mat-form-field>
-            Search product:
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="" class="inputSearch">
-          </mat-form-field>
+      </div>
+    </div>
+    <div class="list product--list">
+      <div class="list__item">
+        <div class="list__img list__img--placeholder">
+          <img src="" alt="" class="list__pic" />
         </div>
-        <div>
-          <app-carusel [categories]="categories" (filterByCategory)="setFilterByCategory($event)"></app-carusel>
+        <div class="list__info">
+          <a class="list__name" href="#">Dynarex Dental Impression Trays</a>
+          <div class="list__brand">Impression Tray</div>
+          <div class="list__model">
+            Model: 2120 <span class="divider">|</span>SKU: 2039082
+          </div>
+          <div class="list__descr">Case of 10 Bags with 12 per Bag</div>
         </div>
-        <div>
-          <div class="example-container mat-elevation-z8">
-            <div class="example-table-container">
-              <table mat-table [dataSource]="dataSource" class="example-table" matSort matSortActive="name"
-                matSortDisableClear matSortDirection="asc">
-
-                <ng-container matColumnDef="image">
-                  <th mat-header-cell *matHeaderCellDef class=".td-image"></th>
-                  <td mat-cell *matCellDef="let row" class=".td-image">
-                    <img src="{{row.image}}" alt="no image">
-                  </td>
-                </ng-container>
-
-                <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header class=".td-properties">
-                    <h1>Name</h1>
-                  </th>
-                  <td mat-cell *matCellDef="let row" class=".td-properties">
-                    <app-product-properties [productProperties]='row.productProperties'>
-                    </app-product-properties>
-
-                  </td>
-                </ng-container>
-
-                <ng-container matColumnDef="price">
-                  <th mat-header-cell *matHeaderCellDef disableClear mat-sort-header class=".td-count">
-                    <h1>Price</h1>
-                  </th>
-                  <td mat-cell *matCellDef="let row" class=".td-count">
-                    <app-modify-count-product [productPrice]='row.productPrice'></app-modify-count-product>
-                  </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-                <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
-                  <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-                </div>
-                <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
-                  Problem by loading of products...
-                </div>
-              </table>
-
-              <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+        <div class="list__other">
+          <div class="list__price">$20.00</div>
+          <div class="input-group input-group--qty mt-auto">
+            <a href="#" class="btn btn--blue">
+              <span class="btn__ico btn__ico--plus-white"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="list__item">
+        <div class="list__img list__img--placeholder">
+          <img src="" alt="" class="list__pic" />
+        </div>
+        <div class="list__info">
+          <a class="list__name" href="#">Dynarex Dental Impression Trays</a>
+          <div class="list__brand">Impression Tray</div>
+          <div class="list__model">
+            Model: 2120 <span class="divider">|</span>SKU: 2039082
+          </div>
+          <div class="list__descr">Case of 10 Bags with 12 per Bag</div>
+        </div>
+        <div class="list__other">
+          <div class="list__price">$38.400,00</div>
+          <div class="input-group input-group--qty mt-auto">
+            <a href="#" class="btn btn--green">
+              <span class="btn__ico btn__ico--minus-white"></span>
+            </a>
+            <input type="text" class="input-group__input" value="1920" />
+            <a href="#" class="btn btn--green">
+              <span class="btn__ico btn__ico--plus-white"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="list__item">
+        <div class="list__img list__img--placeholder">
+          <img src="" alt="" class="list__pic" />
+        </div>
+        <div class="list__info">
+          <a class="list__name" href="#">Dynarex Dental Impression Trays</a>
+          <div class="list__brand">Impression Tray</div>
+          <div class="list__model">
+            Model: 2120 <span class="divider">|</span>SKU: 2039082
+          </div>
+          <div class="list__descr">Case of 10 Bags with 12 per Bag</div>
+        </div>
+        <div class="list__other">
+          <div class="list__price">$18.180,00</div>
+          <div class="input-group input-group--qty disabled mt-auto">
+            <span class="d-none d-xxl-block list__notify"
+              >There is no such quantity in stock</span
+            >
+            <a href="#" class="btn btn--light-green">
+              <span class="btn__ico btn__ico--minus"></span>
+            </a>
+            <input type="text" class="input-group__input" value="909" />
+            <a href="#" class="btn btn--light-green">
+              <span class="btn__ico btn__ico--plus"></span>
+            </a>
+          </div>
+        </div>
+        <div class="list__divider"></div>
+        <div class="d-block d-xxl-none list__notify">
+          There is no such quantity in stock
+        </div>
+      </div>
+    </div>
+    <div class="page-nav">
+      <div class="row align-items-end justify-content-center">
+        <div class="col-auto">
+          <div class="page-nav__total">You've viewed 72 of 101 products</div>
+          <div class="pagination">
+            <div class="pagination__item">
+              <a href="#" class="pagination__link pagination__link--active"
+                >1</a
+              >
+            </div>
+            <div class="pagination__item">
+              <a href="#" class="pagination__link">2</a>
+            </div>
+            <div class="pagination__item">
+              <a href="#" class="pagination__link">3</a>
+            </div>
+            <div class="pagination__item pagination__item--next">
+              <a href="#" class="pagination__link">Next</a>
             </div>
           </div>
         </div>
-</td>
-
-<td width="30%" class="active-order">
-  <div>
-    <app-active-order [categories]='categories'></app-active-order>
+        <div class="col-auto ml-sm-auto">
+          <div class="page-nav__count">
+            Show
+            <div class="dropdown">
+              <div class="dropdown__toggle">30</div>
+              <div class="dropdown__menu dropdown__menu--up">
+                <a href="#" class="dropdown__menu-item">10</a>
+                <a href="#" class="dropdown__menu-item">20</a>
+                <a href="#" class="dropdown__menu-item">30</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-block d-lg-none mt-auto">
+      <div class="mobile-order" data-name="mobile-order">
+        <div class="mobile-order__ico"></div>
+        <div class="mobile-order__info">
+          <div class="mobile-order__t">Your Order</div>
+          <div class="mobile-order__descr">You have 1 items in your order</div>
+        </div>
+        <div class="mobile-order__price ml-auto">$1,500.00</div>
+      </div>
+    </div>
   </div>
-</td>
-</tr>
-</table>
-</div>
+  <div class="sidebar sidebar--bg-gray d-none d-lg-block">
+    <div class="sidebar__inner">
+      <div class="sidebar__body order">
+        <div class="order__info">
+          <div class="order__t">
+            Your Order
+            <a href="#" class="order__t-link">Remove all</a>
+          </div>
+          <div class="order__text">You have 1 items in your order</div>
+          <div class="list list--total">
+            <div class="list__item">
+              Subtotal <span class="list__count">$1,500.00</span>
+            </div>
+            <div class="list__item">
+              Shipping <span class="list__count free">Free</span>
+            </div>
+            <div class="list__item">
+              Total <span class="list__count">$1.500,00</span>
+            </div>
+          </div>
+        </div>
+        <div class="order__item">
+          <a class="order__item-remove" href="#">Remove item</a>
+          <div class="order__item-name">G61-50T38</div>
+          <div class="order__item-brand">Brand name</div>
+          <div class="order__item-model">
+            Model: 0000 <span class="divider">|</span>SKU: 0000000
+          </div>
+          <div class="order__item-descr">Description item</div>
+          <div class="order__item-other">
+            <div class="order__item-price">$1,500.00</div>
+            <div class="input-group input-group--qty input-group--sm ml-auto">
+              <a href="#" class="btn btn--white">
+                <span class="btn__ico btn__ico--minus"></span>
+              </a>
+              <input type="text" class="input-group__input" value="2" />
+              <a href="#" class="btn btn--white">
+                <span class="btn__ico btn__ico--plus"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar__footer">
+        <a href="#" class="btn btn--green btn--block">Checkout</a>
+      </div>
+    </div>
+  </div>
+</main>

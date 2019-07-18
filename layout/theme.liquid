@@ -27,17 +27,16 @@
   </script>
 
 </head>
-<body class="mat-app-background">
+<body>
 	
   {{ content_for_layout }}
 
 <script src="{{ 'runtime.js' | static_asset_url }}"></script>
 <script src="{{ 'polyfills-es5.js' | static_asset_url }}" nomodule></script>
 <script src="{{ 'polyfills.js' | static_asset_url }}"></script>
+<script src="{{ 'scripts.js' | static_asset_url }}"></script>
 <script src="{{ 'vendor.js' | static_asset_url }}"></script>
 <script src="{{ 'main.js' | static_asset_url }}"></script>
-
-<script src="{{ 'bundle/assets/js/styles.js' | static_asset_url }}" ></script>
 
 </body>
 </html>

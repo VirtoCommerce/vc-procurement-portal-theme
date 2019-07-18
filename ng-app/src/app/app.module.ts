@@ -16,8 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HeaderPanelComponent } from './components/container/header-panel/header-panel.component';
 import { MainPanelComponent } from './components/container/main-panel/main-panel.component';
 import { FooterPanelComponent } from './components/container/footer-panel/footer-panel.component';
-import { LeftPanelComponent } from './components/container/left-panel/left-panel.component';
-import { RightPanelComponent } from './components/container/right-panel/right-panel.component';
+
 
 // smart
 import { AppComponent } from './app.component';
@@ -45,13 +44,16 @@ import { ForApprovalDetailsComponent } from './components/forapproval/forapprova
 import { AuthenticationService } from './services';
 
 // services modules
-//import { SharedService } from './services/shared-service';
-//import { AuthGuard } from './guards';
+// import { SharedService } from './services/shared-service';
+// import { AuthGuard } from './guards';
 import { fakeBackendProvider } from './helpers';
 import { JwtInterceptor, ErrorInterceptor } from './helpers';
 import { ProcurementPortalInterceptor } from './services/interceptors/interceptors';
 
-//import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
+// directives
+import { RemoveWrapperDirective } from './directives/remove-wrapper.directive';
+
+// import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 
 @NgModule({
@@ -82,8 +84,8 @@ import { ProcurementPortalInterceptor } from './services/interceptors/intercepto
     HeaderPanelComponent,
     MainPanelComponent,
     FooterPanelComponent,
-    LeftPanelComponent,
-    RightPanelComponent
+    // directives
+    RemoveWrapperDirective
   ],
   imports: [
     BrowserModule,

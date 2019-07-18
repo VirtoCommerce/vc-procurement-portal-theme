@@ -21,7 +21,7 @@
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href=" {{ 'bundle/assets/css/bootstrap.min.css' | static_asset_url }}">
-  {{ 'login-page.css' | static_asset_url | stylesheet_tag }}
+  {{ 'bundle/login-page.css' | static_asset_url | stylesheet_tag }}
 
   <script>
       var BASE_URL = '{{ "/" | full_url }}';		

@@ -3,7 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap, catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { MessageService } from './message.service';
-import { CategorySearch } from '../models/category';
+import { SearchCategoriesResult, Category } from '../models/category';
+
 //import { IProductSearch, ICatalogSearch } from '../models/ProductSearch';
 
 const httpOptions = {
@@ -29,19 +30,19 @@ export class CatalogService {
     return this.http.post<CatalogSearch>(url, body);
   }
 
-  getAllCategories() {
-    const body = { keyword: "", start: "0", isFuzzySearch: true, pageSize: "1000" };
-    const url = window["BASE_URL"] + 'storefrontapi/categories/search';
-    return this.http.post<CategorySearch>(url, body);
+  getAllCategories(): Observable<Category[]> {
+    const searchCriteria = { keyword: "", start: "0", isFuzzySearch: true, pageSize: "1000" };
+    const url = 'storefrontapi/categories/search';
+    return this.http.post<SearchCategoriesResult>(url, searchCriteria).pipe(map(x => x.categories));
   }
 
 
 }
 
 
-export interface CatalogSearch {
-  products: ProductSearch[];
-}
+ export interface CatalogSearch {
+   products: ProductSearch[];
+ }
 
 export interface ProductSearch {
   id: string;

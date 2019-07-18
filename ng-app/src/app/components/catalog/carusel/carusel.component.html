@@ -1,10 +1,11 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-      <span class="menu-spacer"></span>
-      <div *ngFor="let category of categories" fxShow="true" fxHide.lt-md>
-          <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-          <a [routerLink]="['/catalog']" mat-button (click)=setFilterByCategory(category.id)>{{category.name}}</a>
-      </div>
-  </mat-toolbar-row>
-</mat-toolbar>
 
+<div class="sidebar d-none d-xl-block">
+  <div class="sidebar__block">
+      <a href="#" class="btn btn--blue btn--block">Bulk Order</a>
+  </div>
+  <ul class="nav nav--category">
+      <li class="nav__item" *ngFor="let category of categories | async">
+          <a class="nav__link" (click)="setFilterByCategory(category.id)" >{{category.name}}</a>
+      </li>     
+  </ul>
+</div>
