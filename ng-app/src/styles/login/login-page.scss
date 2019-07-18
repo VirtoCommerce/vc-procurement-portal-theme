@@ -1,0 +1,54 @@
+/*
+    ===   LoginPage Style File   ===
+*/
+
+@import "partial/_variables";
+@import "partial/custom";
+@import "partial/controls";
+
+body {
+    height: 100%;
+    background: url("/themes/assets/static/bundle/assets/images/login_bg.jpg") no-repeat;
+    background-size: cover;
+}
+
+main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,.2);
+}
+
+.window {
+    border: 1px solid var(--cGray);
+    padding: 25px 35px;
+    border-radius: 10px;
+    box-shadow: 7px 7px 3px rgba(0,0,0,.3);
+    background: rgba(255,255,255, .9);
+    max-width: 400px;
+    animation: fadeIn 1s ease-in both;
+    opacity: 0;
+
+    .material-input {
+        width: 100%;
+    }
+
+    .forgot-link {
+        font-size: 14px;
+        text-decoration: underline;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

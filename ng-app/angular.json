@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "extractCss": true,
             "outputPath": "../assets/static/bundle",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -25,10 +26,12 @@
             "aot": false,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+               { "glob": "bootstrap.min.css", "input": "node_modules/bootstrap/dist/css/", "output": "assets/css"}
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              {"input": "src/styles/login/login-page.scss", "bundleName": "login-page", "inject": false}
             ],
             "scripts": []
           },

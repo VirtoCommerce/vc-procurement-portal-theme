@@ -20,6 +20,8 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="{{ 'styles.css' | static_asset_url }}"></head>
+
   <script>
       var BASE_URL = '{{ "/" | full_url }}';		
   </script>
@@ -29,16 +31,13 @@
 	
   {{ content_for_layout }}
 
-<script src="{{ 'runtime-es2015.js' | static_asset_url }}" type="module"></script>
-<script src="{{ 'polyfills-es2015.js' | static_asset_url }}" type="module"></script>
-<script src="{{ 'runtime-es5.js' | static_asset_url }}" nomodule></script>
+<script src="{{ 'runtime.js' | static_asset_url }}"></script>
 <script src="{{ 'polyfills-es5.js' | static_asset_url }}" nomodule></script>
-<script src="{{ 'styles-es2015.js' | static_asset_url }}" type="module"></script>
-<script src="{{ 'styles-es5.js' | static_asset_url }}" nomodule></script>
-<script src="{{ 'vendor-es2015.js' | static_asset_url }}" type="module"></script>
-<script src="{{ 'main-es2015.js' | static_asset_url }}" type="module"></script>
-<script src="{{ 'vendor-es5.js' | static_asset_url }}" nomodule></script>
-<script src="{{ 'main-es5.js' | static_asset_url }}" nomodule></script></body>
+<script src="{{ 'polyfills.js' | static_asset_url }}"></script>
+<script src="{{ 'vendor.js' | static_asset_url }}"></script>
+<script src="{{ 'main.js' | static_asset_url }}"></script>
+
+<script src="{{ 'bundle/assets/js/styles.js' | static_asset_url }}" ></script>
 
 </body>
 </html>
