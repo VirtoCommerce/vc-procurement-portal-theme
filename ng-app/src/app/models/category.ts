@@ -1,3 +1,6 @@
+import { PagedSearchCriteria } from './common/paged-search-criteria';
+import { Language } from './common/language';
+import { Image } from './common/image';
 
 export interface SearchCategoriesResult {
   categories: Category[];
@@ -39,23 +42,34 @@ export interface Category {
   image?: Image;
 }
 
-interface Image {
-  url: string;
-  sortOrder: number;
-  group: string;
-}
+
 
 interface SeoInfo {
   slug: string;
   language: Language;
 }
 
-interface Language {
-  isInvariant: boolean;
-  cultureName: string;
-  nativeName: string;
-  threeLeterLanguageName: string;
-  twoLetterLanguageName: string;
-  twoLetterRegionName: string;
-  threeLetterRegionName: string;
+
+
+export class CategorySearchCriteria extends PagedSearchCriteria {
+    responseGroup: CategoryResponseGroup;
+    outline: string;
+    language: Language;
+    keyword: string;
+    sortBy: string;
+    isFuzzySearch = true;
+}
+
+
+export enum CategoryResponseGroup {
+    None = 0,
+    Info = 1,
+    WithImages = 1 << 1,
+    WithProperties = 1 << 2,
+    WithLinks = 1 << 3,
+    WithSeo = 1 << 4,
+    WithParents = 1 << 5,
+    WithOutlines = 1 << 6,
+    Small = Info | WithImages | WithSeo | WithOutlines,
+    Full = Info | WithImages | WithProperties | WithLinks | WithSeo | WithParents | WithOutlines
 }

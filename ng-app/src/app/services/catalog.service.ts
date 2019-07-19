@@ -3,7 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap, catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { MessageService } from './message.service';
-import { SearchCategoriesResult, Category } from '../models/category';
+import { SearchCategoriesResult, Category, CategorySearchCriteria, CategoryResponseGroup } from '../models/category';
+import { ProductSearchCriteria } from '../models/product';
 
 //import { IProductSearch, ICatalogSearch } from '../models/ProductSearch';
 
@@ -25,13 +26,18 @@ export class CatalogService {
 
   getAllProducts() {
     //const url = window.location.origin;
-    const body = { keyword: "", start: "0", isFuzzySearch: true, pageSize: "1000" };
-    const url = window["BASE_URL"] + 'storefrontapi/catalog/search';
-    return this.http.post<CatalogSearch>(url, body);
+    //const body = { keyword: "", start: "0", isFuzzySearch: true, pageSize: "1000" };
+    const searchCriteria = new ProductSearchCriteria();
+    searchCriteria.pageSize = 20;
+    const url = 'storefrontapi/catalog/search';
+    return this.http.post<CatalogSearch>(url, searchCriteria);
   }
 
   getAllCategories(): Observable<Category[]> {
-    const searchCriteria = { keyword: "", start: "0", isFuzzySearch: true, pageSize: "1000" };
+    //const searchCriteria = { keyword: "", start: "0", isFuzzySearch: true, pageSize: "1000" };
+    const searchCriteria = new CategorySearchCriteria();
+    searchCriteria.pageSize = 1000;
+    searchCriteria.responseGroup = CategoryResponseGroup.Info;
     const url = 'storefrontapi/categories/search';
     return this.http.post<SearchCategoriesResult>(url, searchCriteria).pipe(map(x => x.categories));
   }
