@@ -7,7 +7,7 @@ import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angu
 // 3d
 import { BlockUIModule } from 'ng-block-ui';
 import { MaterialModule } from './material/material.module';
-
+import  { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // custom modules import
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,11 +22,6 @@ import { FooterPanelComponent } from './components/container/footer-panel/footer
 import { AppComponent } from './app.component';
 import { AccountComponent } from './components/account/account.component';
 import { ActiveOrderComponent } from './components/active-order/active-order.component';
-import { ActiveOrderDetailComponent } from './components/active-order/active-order-detail/active-order-detail.component';
-import { ActiveOrderHeaderComponent } from './components/active-order/active-order-header/active-order-header.component';
-import { ActiveOrderPostCheckoutComponent } from './components/active-order/active-order-post-checkout/active-order-post-checkout.component';
-import { ActiveOrderSummaryComponent } from './components/active-order/active-order-summary/active-order-summary.component';
-import { ActiveOrderTotalComponent } from './components/active-order/active-order-total/active-order-total.component';
 import { BulkOrderComponent } from './components/bulk-order/bulk-order.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { CaruselComponent } from './components/catalog/carusel/carusel.component';
@@ -61,11 +56,6 @@ import { RemoveWrapperDirective } from './directives/remove-wrapper.directive';
     AppComponent,
     AccountComponent,
     ActiveOrderComponent,
-    ActiveOrderDetailComponent,
-    ActiveOrderHeaderComponent,
-    ActiveOrderPostCheckoutComponent,
-    ActiveOrderSummaryComponent,
-    ActiveOrderTotalComponent,
     BulkOrderComponent,
     CatalogComponent,
     CaruselComponent,
@@ -90,8 +80,6 @@ import { RemoveWrapperDirective } from './directives/remove-wrapper.directive';
   imports: [
     BrowserModule,
     AppRoutingModule,
-
-    MaterialModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
@@ -101,6 +89,13 @@ import { RemoveWrapperDirective } from './directives/remove-wrapper.directive';
             cookieName: 'XSRF-TOKEN',
             headerName: 'X-CSRF-TOKEN'
         }),
+    NgbModule,
+    // NgbPaginationModule,
+    // NgbDropdownModule,
+    // NgbDatepickerModule,
+    // TODO: remove
+    MaterialModule,
+
     BlockUIModule.forRoot(),
     //InMemoryWebApiModule.forRoot(DataService)
   ],

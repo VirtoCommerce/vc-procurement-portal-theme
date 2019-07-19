@@ -103,35 +103,35 @@ export class ActiveOrderComponent implements OnInit {
   }
 
   private fillProducts(data: any) {
-    console.log('fillProducts count: ' + data.items.length);
-    this.products = new Array<Product>();
-    let _addedProducts = new Array<AddedProduct>();
-    for (const i of data.items) {
-      const product = new Product();
-      const productProperties = new ProductProperties();
-      const priceProduct = new ProductPrice();
+    // console.log('fillProducts count: ' + data.items.length);
+    // this.products = new Array<Product>();
+    // let _addedProducts = new Array<AddedProduct>();
+    // for (const i of data.items) {
+    //   const product = new Product();
+    //   const productProperties = new ProductProperties();
+    //   const priceProduct = new ProductPrice();
 
-      productProperties.productId = i.productId;
-      productProperties.name = i.name;
-      productProperties.sku = i.sku;
-      for (const cat of this.categories) {
-        if (i.categoryId === cat.id) {
-          productProperties.category = cat.name;
-          break;
-        }
-      }
-      priceProduct.id = i.id;
-      priceProduct.productId = i.productId;
-      priceProduct.currency = i.salePrice.currency.symbol;
-      priceProduct.price = i.salePrice.amount;
-      priceProduct.count = i.quantity;
-      product.productProperties = productProperties;
-      product.productPrice = priceProduct;
-      let item = new AddedProduct(priceProduct.id, priceProduct.productId, priceProduct.count);
-      _addedProducts.push(item);
-      this.products.push(product);
-    }
-    this.activeOrderService.afterLoad(_addedProducts);
+    //   productProperties.productId = i.productId;
+    //   productProperties.name = i.name;
+    //   productProperties.sku = i.sku;
+    //   for (const cat of this.categories) {
+    //     if (i.categoryId === cat.id) {
+    //       productProperties.category = cat.name;
+    //       break;
+    //     }
+    //   }
+    //   priceProduct.id = i.id;
+    //   priceProduct.productId = i.productId;
+    //   priceProduct.currency = i.salePrice.currency.symbol;
+    //   priceProduct.price = i.salePrice.amount;
+    //   priceProduct.count = i.quantity;
+    //   product.productProperties = productProperties;
+    //   product.productPrice = priceProduct;
+    //   let item = new AddedProduct(priceProduct.id, priceProduct.productId, priceProduct.count);
+    //   _addedProducts.push(item);
+    //   this.products.push(product);
+    // }
+    // this.activeOrderService.afterLoad(_addedProducts);
   }
 
   clear() {

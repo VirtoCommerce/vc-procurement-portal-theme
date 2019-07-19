@@ -5,8 +5,6 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { ForApprovalComponent } from './components/forapproval/forapproval.component';
 import { CompanyComponent } from './components/company/company.component';
 import { AccountComponent } from './components/account/account.component';
-import { ActiveOrderSummaryComponent } from './components/active-order/active-order-summary/active-order-summary.component';
-import { ActiveOrderPostCheckoutComponent } from './components/active-order/active-order-post-checkout/active-order-post-checkout.component';
 import { BulkOrderComponent } from './components/bulk-order/bulk-order.component';
 import { OrderDetailsComponent } from './components/orders/order-details/order-details.component';
 import { ForApprovalDetailsComponent } from './components/forapproval/forapproval-details/forapproval-details.component';
@@ -34,8 +32,6 @@ const routes: Routes = [
   { path: 'forapproval', component: ForApprovalComponent},
   { path: 'company', component: CompanyComponent},
   { path: 'account', component: AccountComponent},
-  { path: 'activeorder', component: ActiveOrderSummaryComponent},
-  { path: 'invoice', component: ActiveOrderPostCheckoutComponent},
   { path: 'bulkorder', component: BulkOrderComponent},
   { path: 'order-details/:id', component: OrderDetailsComponent },
   { path: 'forapproval-details/:id', component: ForApprovalDetailsComponent}

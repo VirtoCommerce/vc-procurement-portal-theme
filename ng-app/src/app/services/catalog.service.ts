@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { tap, catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { SearchCategoriesResult, Category, CategorySearchCriteria, CategoryResponseGroup } from '../models/category';
-import { ProductSearchCriteria } from '../models/product';
+import { ProductSearchCriteria, Product, SearchProductsResult } from '../models/product';
 
 //import { IProductSearch, ICatalogSearch } from '../models/ProductSearch';
 
@@ -15,22 +15,18 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class CatalogService {
 
-
-  //dataSearch: CatalogSearch[] = [];
-  isLoadingResults = true;
-  data: ProductSearch[];
-
   constructor(
     private http: HttpClient,
     private messageService: MessageService) { }
 
-  getAllProducts() {
+  getAllProducts(pageNumber: number, pageSize: number) {
     //const url = window.location.origin;
     //const body = { keyword: "", start: "0", isFuzzySearch: true, pageSize: "1000" };
     const searchCriteria = new ProductSearchCriteria();
-    searchCriteria.pageSize = 20;
+    searchCriteria.pageNumber = pageNumber;
+    searchCriteria.pageSize = pageSize;
     const url = 'storefrontapi/catalog/search';
-    return this.http.post<CatalogSearch>(url, searchCriteria);
+    return this.http.post<SearchProductsResult>(url, searchCriteria);
   }
 
   getAllCategories(): Observable<Category[]> {
@@ -46,11 +42,6 @@ export class CatalogService {
 }
 
 
- export interface CatalogSearch {
-   products: ProductSearch[];
+export interface CatalogSearch {
+   products: Product[];
  }
-
-export interface ProductSearch {
-  id: string;
-  name: string;
-}

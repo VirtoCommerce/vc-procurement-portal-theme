@@ -3,25 +3,144 @@ import { NumericRange } from './common/numeric-range';
 import { Language } from './common/language';
 import { Currency } from './common/currency';
 import { Term } from './common/term';
+import { PageMetaData } from './common/page-meta-data';
+import { Image } from './common/image';
+import { SeoInfo } from './common/seo-info';
 
-import { ProductProperties } from './product-properties';
-import { ProductPrice } from './product-price';
+ import { ProductProperties } from './product-properties';
+
+// export class Product {
+//   id: string;
+//   name: string;
+//   priceforsort: number;
+//   images: any;
+//   price: number;
+//   properties: any;
+//   sku: string;
+//   catalogId: string;
+//   categoryId: string;
+//   url: string;
+//   image: string;
+//   productProperties: ProductProperties;
+//   productPrice: ProductPrice;
+// }
+
+
+export interface SearchProductsResult {
+  products: Product[];
+  aggregations: Aggregation[];
+  metaData: PageMetaData;
+}
+
+
+interface Aggregation {
+  aggregationType: string;
+  field: string;
+  label: string;
+  items: AggregationItem[];
+}
+
+interface AggregationItem {
+  groupType: string;
+  groupLabel: string;
+  count: number;
+  isApplied: boolean;
+  label: string;
+  value: string;
+  upper?: string;
+  lower?: string;
+}
 
 export class Product {
-  id: string;
-  name: string;
-  priceforsort: number;
-  images: any;
-  price: number;
-  properties: any;
+  handle: string;
+  indexKey: string;
   sku: string;
+  name: string;
+  title: string;
   catalogId: string;
   categoryId: string;
+  outline: string;
+  seoPath: string;
   url: string;
-  image: string;
-  productProperties: ProductProperties;
-  productPrice: ProductPrice;
+  isBuyable: boolean;
+  buyable: boolean;
+  isInStock: boolean;
+  inStock: boolean;
+  isActive: boolean;
+  trackInventory: boolean;
+  maxQuantity: number;
+  minQuantity: number;
+  productType: string;
+  enableReview: boolean;
+  maxNumberOfDownload: number;
+  hasUserAgreement: boolean;
+  variationProperties: any[];
+  assets: any[];
+  variations: any[];
+  price: Price;
+  priceWithTax: DiscountAmount;
+  prices: Price[];
+  inventoryAll: any[];
+  availableQuantity: number;
+  seoInfo: SeoInfo;
+  primaryImage: Image;
+  images: Image[];
+  isQuotable: boolean;
+  isAvailable: boolean;
+  available: boolean;
+  properties: ProductProperties[];
+  taxTotal: DiscountAmount;
+  taxPercentRate: number;
+  taxDetails: any[];
+  discounts: any[];
+  currency: Currency;
+  id: string;
 }
+
+
+interface Price {
+  pricelistId: string;
+  currency: Currency;
+  productId: string;
+  discountAmount: DiscountAmount;
+  discountAmountWithTax: DiscountAmount;
+  discountPercent: number;
+  listPrice: DiscountAmount;
+  listPriceWithTax: DiscountAmount;
+  salePrice: DiscountAmount;
+  salePriceWithTax: DiscountAmount;
+  actualPrice: DiscountAmount;
+  actualPriceWithTax: DiscountAmount;
+  discounts: any[];
+  minQuantity: number;
+  tierPrices: TierPrice[];
+  taxTotal: DiscountAmount;
+  taxPercentRate: number;
+}
+
+interface TierPrice {
+  price: DiscountAmount;
+  priceWithTax: DiscountAmount;
+  discountAmount: DiscountAmount;
+  discountAmountWithTax: DiscountAmount;
+  actualPrice: DiscountAmount;
+  actualPriceWithTax: DiscountAmount;
+  quantity: number;
+  currency: Currency;
+  taxTotal: DiscountAmount;
+  taxPercentRate: number;
+  taxDetails: any[];
+}
+
+interface DiscountAmount {
+  amount: number;
+  formattedAmount: string;
+  formattedAmountWithoutPointAndCurrency: string;
+  formattedAmountWithoutPoint: string;
+  formattedAmountWithoutCurrency: string;
+  currency: Currency;
+}
+
 
 export class ProductSearchCriteria extends PagedSearchCriteria {
   responseGroup: ItemResponseGroup;

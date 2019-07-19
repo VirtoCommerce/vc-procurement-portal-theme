@@ -1,24 +1,14 @@
 import { PagedSearchCriteria } from './common/paged-search-criteria';
 import { Language } from './common/language';
 import { Image } from './common/image';
+import { PageMetaData } from './common/page-meta-data';
 
 export interface SearchCategoriesResult {
   categories: Category[];
-  metaData: MetaData;
+  metaData: PageMetaData;
 }
 
-export interface MetaData {
-  pageCount: number;
-  totalItemCount: number;
-  pageNumber: number;
-  pageSize: number;
-  hasPreviousPage: boolean;
-  hasNextPage: boolean;
-  isFirstPage: boolean;
-  isLastPage: boolean;
-  firstItemOnPage: number;
-  lastItemOnPage: number;
-}
+
 
 export interface Category {
   catalogId: string;

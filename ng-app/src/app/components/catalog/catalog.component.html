@@ -104,20 +104,20 @@
       </div>
     </div>
     <div class="list product--list">
-      <div class="list__item">
+      <div class="list__item" *ngFor="let p of products">
         <div class="list__img list__img--placeholder">
-          <img src="" alt="" class="list__pic" />
+          <img src="{{ p.primaryImage.url }}" alt="{{p.sku}}" class="list__pic" />
         </div>
         <div class="list__info">
-          <a class="list__name" href="#">Dynarex Dental Impression Trays</a>
+          <a class="list__name" href="#">{{p.name}}</a>
           <div class="list__brand">Impression Tray</div>
           <div class="list__model">
-            Model: 2120 <span class="divider">|</span>SKU: 2039082
+            Model: 2120 <span class="divider">|</span>SKU: {{p.sku}}
           </div>
           <div class="list__descr">Case of 10 Bags with 12 per Bag</div>
         </div>
         <div class="list__other">
-          <div class="list__price">$20.00</div>
+          <div class="list__price">${{ p.price.actualPrice.amount }}</div>
           <div class="input-group input-group--qty mt-auto">
             <a href="#" class="btn btn--blue">
               <span class="btn__ico btn__ico--plus-white"></span>
@@ -125,64 +125,15 @@
           </div>
         </div>
       </div>
-      <div class="list__item">
-        <div class="list__img list__img--placeholder">
-          <img src="" alt="" class="list__pic" />
-        </div>
-        <div class="list__info">
-          <a class="list__name" href="#">Dynarex Dental Impression Trays</a>
-          <div class="list__brand">Impression Tray</div>
-          <div class="list__model">
-            Model: 2120 <span class="divider">|</span>SKU: 2039082
-          </div>
-          <div class="list__descr">Case of 10 Bags with 12 per Bag</div>
-        </div>
-        <div class="list__other">
-          <div class="list__price">$38.400,00</div>
-          <div class="input-group input-group--qty mt-auto">
-            <a href="#" class="btn btn--green">
-              <span class="btn__ico btn__ico--minus-white"></span>
-            </a>
-            <input type="text" class="input-group__input" value="1920" />
-            <a href="#" class="btn btn--green">
-              <span class="btn__ico btn__ico--plus-white"></span>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="list__item">
-        <div class="list__img list__img--placeholder">
-          <img src="" alt="" class="list__pic" />
-        </div>
-        <div class="list__info">
-          <a class="list__name" href="#">Dynarex Dental Impression Trays</a>
-          <div class="list__brand">Impression Tray</div>
-          <div class="list__model">
-            Model: 2120 <span class="divider">|</span>SKU: 2039082
-          </div>
-          <div class="list__descr">Case of 10 Bags with 12 per Bag</div>
-        </div>
-        <div class="list__other">
-          <div class="list__price">$18.180,00</div>
-          <div class="input-group input-group--qty disabled mt-auto">
-            <span class="d-none d-xxl-block list__notify"
-              >There is no such quantity in stock</span
-            >
-            <a href="#" class="btn btn--light-green">
-              <span class="btn__ico btn__ico--minus"></span>
-            </a>
-            <input type="text" class="input-group__input" value="909" />
-            <a href="#" class="btn btn--light-green">
-              <span class="btn__ico btn__ico--plus"></span>
-            </a>
-          </div>
-        </div>
-        <div class="list__divider"></div>
-        <div class="d-block d-xxl-none list__notify">
-          There is no such quantity in stock
-        </div>
-      </div>
     </div>
+    
+        <ngb-pagination
+        [(page)]="pageMetaData.pageNumber"
+        [pageSize]="pageMetaData.pageSize"
+        [collectionSize]="pageMetaData.totalItemCount"
+        (pageChange)="pageChanged()"></ngb-pagination>
+    
+    
     <div class="page-nav">
       <div class="row align-items-end justify-content-center">
         <div class="col-auto">

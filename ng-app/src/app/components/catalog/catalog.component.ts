@@ -18,6 +18,7 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { first } from 'rxjs/operators';
 import { Category } from 'src/app/models/category';
+import { PageMetaData } from 'src/app/models/common/page-meta-data';
 
 @Component({
   selector: 'app-catalog',
@@ -31,6 +32,14 @@ export class CatalogComponent implements OnInit {
   displayedColumns: string[] = ['image', 'name', 'price'];
   dataSource: MatTableDataSource<Product>;
   filterByCategory: string;
+
+  pagingInfo = {
+    page: 1,
+    pageSize: 10,
+    totalCount: 0
+  };
+
+  pageMetaData = new PageMetaData();
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -47,7 +56,6 @@ export class CatalogComponent implements OnInit {
   userFromApi: User;
 
   constructor(
-    private http: HttpClient,
     private catalogService: CatalogService,
     private activeOrderService: ActiveOrderService,
     private userService: UserService,
@@ -58,12 +66,25 @@ export class CatalogComponent implements OnInit {
   }
 
   ngOnInit() {
-     this.LoadData();
+     this.loadData();
   }
 
-  LoadData() {
+  pageChanged() {
+    this.getPproducts();
+  }
+
+  getPproducts() {
+    this.catalogService.getAllProducts(this.pagingInfo.page, this.pagingInfo.pageSize).subscribe((data) => {
+      this.products = data.products;
+      //this.pagingInfo = data.metaData;
+      this.pageMetaData = data.metaData;
+    });
+  }
+
+  loadData() {
     //this.blockUI.start('Loading...');
     this.categories = this.catalogService.getAllCategories();
+    this.getPproducts();
       // .subscribe(
       //   (data: Category[]) => {
       //     this.categories = data;
@@ -75,7 +96,7 @@ export class CatalogComponent implements OnInit {
       //     this.blockUI.stop();
       //   }
       // );
-
+      
     // this.activeOrderService.removeForTable.subscribe(() => {
     //   this.catalogService.getAllProducts()
     //     .subscribe(
