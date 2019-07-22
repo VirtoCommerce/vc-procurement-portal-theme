@@ -31,7 +31,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              {"input": "src/styles/login/login-page.scss", "bundleName": "login-page"}
+              {"input": "src/styles/login/login-page.scss", "bundleName": "login-page", "inject": false}
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -68,7 +68,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "vc-procurement-portal:build"
+            "browserTarget": "vc-procurement-portal:build",
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {

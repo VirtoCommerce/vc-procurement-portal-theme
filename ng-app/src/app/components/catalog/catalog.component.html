@@ -126,15 +126,15 @@
         </div>
       </div>
     </div>
-    
+
         <ngb-pagination
         [(page)]="pageMetaData.pageNumber"
         [pageSize]="pageMetaData.pageSize"
         [collectionSize]="pageMetaData.totalItemCount"
         (pageChange)="pageChanged()"></ngb-pagination>
-    
-    
-    <div class="page-nav">
+
+
+    <!-- <div class="page-nav">
       <div class="row align-items-end justify-content-center">
         <div class="col-auto">
           <div class="page-nav__total">You've viewed 72 of 101 products</div>
@@ -169,7 +169,9 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+
+
     <div class="d-block d-lg-none mt-auto">
       <div class="mobile-order" data-name="mobile-order">
         <div class="mobile-order__ico"></div>
@@ -180,7 +182,11 @@
         <div class="mobile-order__price ml-auto">$1,500.00</div>
       </div>
     </div>
+
   </div>
+
+
+  <!-- avtive order -->
   <div class="sidebar sidebar--bg-gray d-none d-lg-block">
     <div class="sidebar__inner">
       <div class="sidebar__body order">
@@ -229,4 +235,5 @@
       </div>
     </div>
   </div>
+
 </main>

@@ -2,6 +2,7 @@ import { PagedSearchCriteria } from './common/paged-search-criteria';
 import { Language } from './common/language';
 import { Image } from './common/image';
 import { PageMetaData } from './common/page-meta-data';
+import { SeoInfo } from './common/seo-info';
 
 export interface SearchCategoriesResult {
   categories: Category[];
@@ -34,10 +35,6 @@ export interface Category {
 
 
 
-interface SeoInfo {
-  slug: string;
-  language: Language;
-}
 
 
 
