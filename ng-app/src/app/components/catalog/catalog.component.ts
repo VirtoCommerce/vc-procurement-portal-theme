@@ -8,9 +8,7 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { Product } from '../../models/product';
 import { CatalogService, AuthenticationService } from '../../services';
 import { CatalogSearch } from '../../models/ProductSearch';
-import { CaruselComponent } from './carusel/carusel.component';
-import { ProductProperties } from '../../models/product-properties';
-import { ProductPrice } from '../../models/product-price';
+import { CategoriesComponent } from './categories/categoires.component';
 import { AddedProduct } from '../../models/added-product';
 import { ActiveOrderService } from '../../services/active-order.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
@@ -18,9 +16,9 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { first } from 'rxjs/operators';
 import { Category } from 'src/app/models/category';
-import { PageMetaData } from 'src/app/models/common/page-meta-data';
 import { PaginationInfo } from 'src/app/models/inner/pagination-info';
 import { PageSizeChangedArgs } from '../page-size-selector/page-size-selector.component';
+import { AppConfig } from 'src/app/services/app-config.service';
 
 @Component({
   selector: 'app-catalog',
@@ -31,8 +29,8 @@ export class CatalogComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   products: Product[];
   categories$: Observable<Category[]>;
-  paginationInfo = new PaginationInfo();
-
+  paginationInfo = new PaginationInfo(AppConfig.settings.defaultPageSize);
+  pageSizes = AppConfig.settings.pageSizes;
 
   filterByCategory: string;
 
@@ -57,7 +55,8 @@ export class CatalogComponent implements OnInit {
   }
 
   ngOnInit() {
-     this.loadData();
+
+    this.loadData();
   }
 
   pageChanged() {
@@ -72,7 +71,6 @@ export class CatalogComponent implements OnInit {
   getPproducts() {
     this.catalogService.getAllProducts(this.paginationInfo.page, this.paginationInfo.pageSize).subscribe((data) => {
       this.products = data.products;
-      //this.pagingInfo = data.metaData;
       this.paginationInfo.page = data.metaData.pageNumber;
       this.paginationInfo.collectionSize = data.metaData.totalItemCount;
     });

@@ -22,7 +22,7 @@ import { AccountComponent } from './components/account/account.component';
 import { ActiveOrderComponent } from './components/active-order/active-order.component';
 import { BulkOrderComponent } from './components/bulk-order/bulk-order.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
-import { CaruselComponent } from './components/catalog/carusel/carusel.component';
+import { CategoriesComponent } from './components/catalog/categories/categoires.component';
 import { ModifyCountProductComponent } from './components/catalog/modify-count-product/modify-count-product.component';
 import { ProductPropertiesComponent } from './components/catalog/product-properties/product-properties.component';
 import { CompanyComponent } from './components/company/company.component';
@@ -47,7 +47,7 @@ import { ProcurementPortalInterceptor } from './services/interceptors/intercepto
 
 // directives
 import { RemoveWrapperDirective } from './directives/remove-wrapper.directive';
-import { initializeAppConfig, AppConfigService } from './services/app-config.service';
+import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
 
 // import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -64,7 +64,7 @@ import { initializeAppConfig, AppConfigService } from './services/app-config.ser
     ActiveOrderComponent,
     BulkOrderComponent,
     CatalogComponent,
-    CaruselComponent,
+    CategoriesComponent,
     ModifyCountProductComponent,
     ProductPropertiesComponent,
     CompanyComponent,
@@ -111,7 +111,7 @@ import { initializeAppConfig, AppConfigService } from './services/app-config.ser
     //fakeBackendProvider,
     { provide: APP_INITIALIZER,
       useFactory: initializeAppConfig,
-      deps: [AppConfigService], multi: true },
+      deps: [AppConfig], multi: true },
     AuthenticationService
   ],
   bootstrap: [AppComponent]

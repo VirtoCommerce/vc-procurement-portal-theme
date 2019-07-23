@@ -1,5 +1,5 @@
 export class PaginationInfo {
-  page: number = 1;
-  pageSize: number = 10;
+  page = 1;
   collectionSize: number;
+  constructor(public  pageSize: number = 10) {}
 }
