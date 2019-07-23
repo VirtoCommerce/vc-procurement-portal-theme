@@ -1,18 +1,13 @@
-export class PageMetaData {
+export interface PageMetaData {
   pageCount: number;
+  pageNumber: number;
+  pageSize: number;
   totalItemCount: number;
- 
   hasPreviousPage: boolean;
   hasNextPage: boolean;
   isFirstPage: boolean;
   isLastPage: boolean;
   firstItemOnPage: number;
   lastItemOnPage: number;
-  /**
-   *
-   */
-  constructor(public pageNumber: number = 1, public pageSize: number = 10) {
-
-  }
 }
 

@@ -1,5 +1,5 @@
 <main class="main container">
-  <app-carusel [categories]="categories"></app-carusel>
+  <app-carusel [categories]="categories$"></app-carusel>
   <div class="content">
     <form class="search d-none d-xl-block">
       <input
@@ -126,12 +126,23 @@
         </div>
       </div>
     </div>
+    <div class="page-nav">
+      <div class="row align-items-end justify-content-center">
+        <div class="col-auto">
+          <div class="page-nav__total">You've viewed {{products?.length}} of {{paginationInfo.collectionSize}} products</div>
+          <ngb-pagination
+          [(page)]="paginationInfo.page"
+          [pageSize]="paginationInfo.pageSize"
+          [collectionSize]="paginationInfo.collectionSize"
+          (pageChange)="pageChanged()"></ngb-pagination>
+        </div>
+        <div class="col-auto ml-sm-auto">
+            Show
+            <app-page-size-selector [defaultPageSize]="10" [pageSizes]="[10,20,30]" (pageSizeChanged)="pageSizeChanged($event)" ></app-page-size-selector>
+        </div>
+      </div>
+    </div>
 
-        <ngb-pagination
-        [(page)]="pageMetaData.pageNumber"
-        [pageSize]="pageMetaData.pageSize"
-        [collectionSize]="pageMetaData.totalItemCount"
-        (pageChange)="pageChanged()"></ngb-pagination>
 
 
     <!-- <div class="page-nav">

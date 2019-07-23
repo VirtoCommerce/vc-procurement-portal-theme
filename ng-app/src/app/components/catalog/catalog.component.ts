@@ -19,6 +19,8 @@ import { User } from '../../models/user';
 import { first } from 'rxjs/operators';
 import { Category } from 'src/app/models/category';
 import { PageMetaData } from 'src/app/models/common/page-meta-data';
+import { PaginationInfo } from 'src/app/models/inner/pagination-info';
+import { PageSizeChangedArgs } from '../page-size-selector/page-size-selector.component';
 
 @Component({
   selector: 'app-catalog',
@@ -28,27 +30,16 @@ import { PageMetaData } from 'src/app/models/common/page-meta-data';
 export class CatalogComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   products: Product[];
-  categories: Observable<Category[]>;
-  displayedColumns: string[] = ['image', 'name', 'price'];
-  dataSource: MatTableDataSource<Product>;
+  categories$: Observable<Category[]>;
+  paginationInfo = new PaginationInfo();
+
+
   filterByCategory: string;
-
-  pagingInfo = {
-    page: 1,
-    pageSize: 10,
-    totalCount: 0
-  };
-
-  pageMetaData = new PageMetaData();
 
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
 
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
-
-  test: any;
 
   onLoad: AddedProduct;
 
@@ -73,149 +64,36 @@ export class CatalogComponent implements OnInit {
     this.getPproducts();
   }
 
+  pageSizeChanged(eventArgs: PageSizeChangedArgs) {
+    this.paginationInfo.pageSize = eventArgs.newPageSize;
+    this.getPproducts();
+  }
+
   getPproducts() {
-    this.catalogService.getAllProducts(this.pagingInfo.page, this.pagingInfo.pageSize).subscribe((data) => {
+    this.catalogService.getAllProducts(this.paginationInfo.page, this.paginationInfo.pageSize).subscribe((data) => {
       this.products = data.products;
       //this.pagingInfo = data.metaData;
-      this.pageMetaData = data.metaData;
+      this.paginationInfo.page = data.metaData.pageNumber;
+      this.paginationInfo.collectionSize = data.metaData.totalItemCount;
     });
   }
 
   loadData() {
     //this.blockUI.start('Loading...');
-    this.categories = this.catalogService.getAllCategories();
+    this.categories$ = this.catalogService.getAllCategories();
     this.getPproducts();
-      // .subscribe(
-      //   (data: Category[]) => {
-      //     this.categories = data;
-      //     //console.log("STOP! Catlog component, ngOnInit getAllCategories");
-      //     this.blockUI.stop();
-      //   },
-      //   error => {
-      //     console.log('Catalog component, error:' + error);
-      //     this.blockUI.stop();
-      //   }
-      // );
-      
-    // this.activeOrderService.removeForTable.subscribe(() => {
-    //   this.catalogService.getAllProducts()
-    //     .subscribe(
-    //       (data: CatalogSearch) => {
-    //         this.products = new Array<Product>();
-    //         for (const i of data.products) {
-    //           const product = new Product();
-    //           const productProperties = new ProductProperties();
-    //           const priceProduct = new ProductPrice();
-    //           product.id = i.id;
-    //           product.sku = i.sku;
-    //           product.catalogId = i.catalogId;
-    //           product.categoryId = i.categoryId;
-    //           product.url = i.catalogId;
-    //           product.image = i.images[0].url;
-    //           productProperties.productId = i.id;
-    //           productProperties.name = i.name;
-    //           product.name = i.name;
-    //           productProperties.sku = i.sku;
-    //           // productProperties.nameProperty1 = i.properties[0].name;
-    //           // productProperties.valueProperty1 = i.properties[0].value;
-    //           // productProperties.nameProperty2 = i.properties[2].name;
-    //           // productProperties.valueProperty2 = i.properties[2].value;
-    //           for (const cat of this.categories) {
-    //             if (i.categoryId === cat.id) {
-    //               productProperties.category = cat.name;
-    //               break;
-    //             }
-    //           }
-    //           priceProduct.productId = product.id;
-    //           priceProduct.currency = i.price.currency.symbol;
-    //           priceProduct.price = i.price.salePrice.amount;
-    //           priceProduct.count = 0;
-    //           product.price = i.price.salePrice.amount;
-    //           product.productProperties = productProperties;
-    //           product.productPrice = priceProduct;
-    //           this.products.push(product);
-    //         }
-    //         this.dataSource = new MatTableDataSource(this.products);
-    //         this.dataSource.paginator = this.paginator;
-    //         this.dataSource.sort = this.sort;
-    //       },
-    //       error => console.log(error)
-    //     );
-    // });
-
-    // this.activeOrderService.load.subscribe((onLoad: AddedProduct[]) => {
-    //   //console.log("START! Catalog component, ngOnInit - load");
-    //   //this.blockUI.start("Loading products...");
-    //   this.catalogService.getAllProducts()
-    //     .subscribe(
-    //       (data: CatalogSearch) => {
-    //         // console.log("STOP! Catlog component, ngOnInit getAllProducts");
-    //         this.blockUI.stop();
-    //         this.products = new Array<Product>();
-    //         for (const p of data.products) {
-    //           const product = new Product();
-    //           const productProperties = new ProductProperties();
-    //           const priceProduct = new ProductPrice();
-    //           product.id = p.id;
-    //           product.sku = p.sku;
-    //           product.catalogId = p.catalogId;
-    //           product.categoryId = p.categoryId;
-    //           product.url = p.catalogId;
-    //           product.image = p.images[0].url;
-    //           productProperties.productId = p.id;
-    //           productProperties.name = p.name;
-    //           product.name = p.name;
-    //           productProperties.sku = p.sku;
-    //           // productProperties.nameProperty1 = p.properties[0].name;
-    //           // productProperties.valueProperty1 = p.properties[0].value;
-    //           // productProperties.nameProperty2 = p.properties[2].name;
-    //           // productProperties.valueProperty2 = p.properties[2].value;
-    //           for (const cat of this.categories) {
-    //             if (p.categoryId === cat.id) {
-    //               productProperties.category = cat.name;
-    //               break;
-    //             }
-    //           }
-    //           priceProduct.productId = product.id;
-    //           priceProduct.currency = p.price.currency.symbol;
-    //           priceProduct.price = p.price.salePrice.amount;
-    //           priceProduct.count = 0;
-    //           for (const _product of onLoad) {
-    //             if (_product.productid === product.id) {
-    //               priceProduct.count = _product.count;
-    //               priceProduct.id = _product.id;
-    //             }
-    //           }
-
-    //           product.price = p.price.salePrice.amount;
-
-
-    //           product.productProperties = productProperties;
-    //           product.productPrice = priceProduct;
-    //           this.products.push(product);
-    //         }
-    //         this.dataSource = new MatTableDataSource(this.products);
-    //         this.dataSource.paginator = this.paginator;
-    //         this.dataSource.sort = this.sort;
-    //       },
-    //       error => {
-    //         this.blockUI.stop();
-    //         console.log(error);
-    //       }
-    //     );
-    //   });
   }
 
   setFilterByCategory(filterByCategory: string) {
-    this.dataSource.filter = filterByCategory;
+    // this.dataSource.filter = filterByCategory;
   }
 
   applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    // this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    // if (this.dataSource.paginator) {
+    //   this.dataSource.paginator.firstPage();
+    // }
   }
 }
 

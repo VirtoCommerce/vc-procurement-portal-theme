@@ -56,7 +56,19 @@ $(function() {
 	$('body').delegate('.overlay', 'click', function() {
 		$('.swipe').removeClass('swipe--opened');
 		$('.overlay').remove();
-	});
+  });
+
+
+  // $('.dropdown__toggle').on('click', function() {
+  //   var self = $(this).parent();
+  //   if(self.hasClass('dropdown--opened')) {
+	// 		self.removeClass('dropdown--opened');
+	// 	}
+	// 	else {
+	// 		self.addClass('dropdown--opened');
+	// 	}
+  // });
+
 
 });
 
