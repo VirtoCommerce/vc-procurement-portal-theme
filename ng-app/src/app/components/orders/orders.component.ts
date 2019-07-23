@@ -45,7 +45,7 @@ export class OrdersComponent implements OnInit {
   ngOnInit() {
     console.log('orders component. getOrders');
     this.ordersService.getOrders().subscribe((data: any) => {
-      this.orders = data as IOrder[];
+      this.orders = data.results as IOrder[];
       if (this.isForApprove) {
         console.log('current user:' + this.authenticationService.currentUserValue);
         this.orders = this.orders.filter(order => order.status === 'Awaiting Approve' && order.toRole === this.authenticationService.currentUserValue.workflowRole);

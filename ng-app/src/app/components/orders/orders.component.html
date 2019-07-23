@@ -4,9 +4,11 @@
     <div class="row page__sort">
       <div class="col-md-auto page__sort-date">
         From
-        <input type="text" class="form-control" />
+        <input class="form-control" placeholder="yyyy-mm-dd"
+             name="dp1" ngbDatepicker #d1="ngbDatepicker" [(ngModel)]="dateFrom" (click)="d1.toggle()">
         To
-        <input type="text" class="form-control" />
+        <input class="form-control" placeholder="yyyy-mm-dd"
+             name="dp2" ngbDatepicker #d2="ngbDatepicker" [(ngModel)]="dateTo" (click)="d2.toggle()">
       </div>
       <div class="col-md-auto page__sort-filter">
         Filter by status
@@ -38,14 +40,41 @@
             <th>Date</th>
             <th>#Items</th>
             <th>Created by</th>
-            <th>Assignet to</th>
+            <th>Assigned to</th>
             <th>Total</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody *ngFor="let order of orders">
+          <tr>
+          <td>{{order.number}}</td>
+          <td>{{order.status}}</td>
+          <td>{{order.createdDate | date: 'EEE, dd/MM '}}</td>
+          <td>{{order.items.length}}</td>
+          <td>{{order.createdBy}}</td>
+          <td>{{order.assignedTo}}</td>
+          <td>{{order.total.formattedAmount}}</td>
+          </tr>
+          <!--<tr>
+            <td>348763429</td>
+            <td>Completed</td>
+            <td>Tue, 05/03</td>
+            <td>4</td>
+            <td>Pavlov Pavel</td>
+            <td>Ivanov Peotr</td>
+            <td>$ 2.100.999,00</td>
+          </tr>
           <tr>
             <td>348763429</td>
             <td>Completed</td>
+            <td>Tue, 05/03</td>
+            <td>4</td>
+            <td>Pavlov Pavel</td>
+            <td>Ivanov Peotr</td>
+            <td>$ 2.100.999,00</td>
+          </tr>
+          <tr>
+            <td>348763429</td>
+            <td>Awaiting approwal</td>
             <td>Tue, 05/03</td>
             <td>4</td>
             <td>Pavlov Pavel</td>
@@ -114,25 +143,7 @@
             <td>Pavlov Pavel</td>
             <td>Ivanov Peotr</td>
             <td>$ 2.100.999,00</td>
-          </tr>
-          <tr>
-            <td>348763429</td>
-            <td>Completed</td>
-            <td>Tue, 05/03</td>
-            <td>4</td>
-            <td>Pavlov Pavel</td>
-            <td>Ivanov Peotr</td>
-            <td>$ 2.100.999,00</td>
-          </tr>
-          <tr>
-            <td>348763429</td>
-            <td>Completed</td>
-            <td>Tue, 05/03</td>
-            <td>4</td>
-            <td>Pavlov Pavel</td>
-            <td>Ivanov Peotr</td>
-            <td>$ 2.100.999,00</td>
-          </tr>
+          </tr>-->
         </tbody>
       </table>
     </div>

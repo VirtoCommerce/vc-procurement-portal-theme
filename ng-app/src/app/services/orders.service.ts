@@ -1,33 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap, catchError, map } from 'rxjs/operators';
-import { Observable, of } from 'rxjs'
-import { IOrder } from '../models/iorder';
+import { Observable, of } from 'rxjs';
+import { IOrder, OrderSearchCriteria } from '../models/iorder';
 import { IOrders } from '../models/iorders';
 
 
 @Injectable({ providedIn: 'root' })
 export class OrdersService {
     private heroesUrl = 'api/heroes';
-    private ordersUrl = 'api/orders';
+    private ordersUrl = 'storefrontapi/orders/search';
     private usersUrl = 'api/users';
     private approvalWorkflowUrl = 'api/approvalWorkflow';
 
     constructor(
         private http: HttpClient) { }
 
-    getUsers() {
-        return this.http.get(this.usersUrl).pipe(
-            tap(
-                users => {
-                    this.log(`fetched usersUrl:` + users);
-                }),
-            catchError(this.handleError('usersUrl', []))
-        );
-    }
-
-    getOrders() {
-        return this.http.get(this.ordersUrl).pipe(
+    getOrders(pageNumber: number = 1, pageSize: number = 10) {
+      const searchCriteria = new OrderSearchCriteria();
+      searchCriteria.pageNumber = pageNumber;
+      searchCriteria.pageSize = pageSize;
+        return this.http.post(this.ordersUrl,searchCriteria).pipe(
             tap(
                 orders => {
                     this.log(`fetched ordersUrl:` + orders);
