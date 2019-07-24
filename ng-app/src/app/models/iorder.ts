@@ -1,4 +1,10 @@
 import { ICurrency } from './icurrency';
+import { PagedSearchCriteria } from './common/paged-search-criteria';
+
+export class OrderSearchCriteria extends PagedSearchCriteria {
+    CustomerId: string;
+    Sort: string;
+}
 
 export interface IOrder {
     id: string;
