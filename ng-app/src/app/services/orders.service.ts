@@ -12,6 +12,7 @@ export class OrdersService {
     private ordersUrl = 'storefrontapi/orders/search';
     private usersUrl = 'api/users';
     private approvalWorkflowUrl = 'api/approvalWorkflow';
+    private orderUrl = 'storefrontapi/orders';
 
     constructor(
         private http: HttpClient) { }
@@ -27,6 +28,16 @@ export class OrdersService {
                 }),
             catchError(this.handleError('ordersUrl', []))
         );
+    }
+
+    getOrder(OrderNumber: string) {
+      return this.http.get(this.orderUrl + `/${OrderNumber}`).pipe(
+        tap(
+            order => {
+                this.log(`fetched ordersUrl:` + order);
+            }),
+        catchError(this.handleError('orderUrl', []))
+    );
     }
 
     updateOrder(order: IOrder): Observable<IOrder> {

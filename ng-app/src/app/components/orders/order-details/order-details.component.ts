@@ -33,12 +33,21 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ordersService.getOrders().subscribe((data: any) => {
-      let orders = data as IOrder[];
-      orders = orders.filter(order => order.id === this.id);
-      this.order = orders[0] as IOrder;
-      this.items = orders[0].items as IOrderItem[];
-      this.comments = orders[0].comments as IOrderComment[];
-    });
+    // this.ordersService.getOrders().subscribe((data: any) => {
+    //   let orders = data.results as IOrder[];
+    //   orders = orders.filter(order => order.id === this.id);
+    //   this.order = orders[0] as IOrder;
+    //   this.items = orders[0].items as IOrderItem[];
+    //   this.comments = orders[0].comments as IOrderComment[];
+    // });
+
+    this.ordersService.getOrder(this.id).subscribe((data: any) => {
+      this.order = data as IOrder;
+      this.items = data.items;
+    })
+  }
+
+  toggleAccordion(event) {
+    event.target.classList.toggle('accordion__item--active');
   }
 }
