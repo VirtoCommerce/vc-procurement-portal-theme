@@ -46,7 +46,7 @@
         </thead>
         <tbody *ngFor="let order of orders">
           <tr>
-          <td>{{order.number}}</td>
+          <td><a [routerLink]="['/order-details',order.number]">{{order.number}}</a></td>
           <td>{{order.status}}</td>
           <td>{{order.createdDate | date: 'EEE, dd/MM '}}</td>
           <td>{{order.items.length}}</td>
@@ -147,7 +147,27 @@
         </tbody>
       </table>
     </div>
+
     <div class="page-nav">
+        <div class="row align-items-end justify-content-center">
+          <div class="col-auto">
+            <div class="page-nav__total">You've viewed {{orders.length}} of {{paginationInfo.collectionSize}} orders</div>
+            <ngb-pagination
+            [(page)]="paginationInfo.page"
+            [pageSize]="paginationInfo.pageSize"
+            [collectionSize]="paginationInfo.collectionSize"
+            (pageChange)="pageChanged()"></ngb-pagination>
+          </div>
+          <div class="col-auto ml-sm-auto">
+              Show
+              <app-page-size-selector [defaultPageSize]="10" [pageSizes]="[10,20,30]" (pageSizeChanged)="pageSizeChanged($event)" ></app-page-size-selector>
+          </div>
+        </div>
+      </div>
+
+
+
+    <!-- <div class="page-nav">
       <div class="row align-items-end justify-content-center">
         <div class="col-auto">
           <div class="page-nav__total">You've viewed 72 of 101 products</div>
@@ -183,6 +203,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+
   </div>
 </main>

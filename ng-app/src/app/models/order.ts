@@ -9,7 +9,7 @@ export class Order implements IOrder{
     createdBy: string;
     assignedTo: string;
     total: IOrderTotal;
-    subtotal: IOrderSubtotal;
+    subTotal: IOrderSubtotal;
     shipping: IOrderShipping;
     toRole: string;
     comments: IOrderComment[];

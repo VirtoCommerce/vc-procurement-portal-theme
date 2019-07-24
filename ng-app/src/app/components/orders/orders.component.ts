@@ -13,6 +13,10 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services';
+import { PaginationInfo } from 'src/app/models/inner/pagination-info';
+import { PageSizeChangedArgs } from '../page-size-selector/page-size-selector.component';
+import { AppConfig } from 'src/app/services/app-config.service';
+
 
 @Component({
   selector: 'app-orders',
@@ -35,6 +39,8 @@ export class OrdersComponent implements OnInit {
   isRateLimitReached = false;
   @Input() isForApprove = false;
   @Input() role: string;
+  paginationInfo = new PaginationInfo(AppConfig.settings.defaultPageSize);
+  pageSizes = AppConfig.settings.pageSizes;
 
   constructor(
     private ordersService: OrdersService,
@@ -44,26 +50,29 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit() {
     console.log('orders component. getOrders');
-    this.ordersService.getOrders().subscribe((data: any) => {
+    this.getAllOrders();
+  }
+
+  pageSizeChanged(eventArgs: PageSizeChangedArgs) {
+    this.paginationInfo.pageSize = eventArgs.newPageSize;
+    this.getAllOrders();
+  }
+
+  getAllOrders() {
+    this.ordersService.getOrders(this.paginationInfo.page, this.paginationInfo.pageSize).subscribe((data: any) => {
       this.orders = data.results as IOrder[];
-      if (this.isForApprove) {
-        console.log('current user:' + this.authenticationService.currentUserValue);
-        this.orders = this.orders.filter(order => order.status === 'Awaiting Approve' && order.toRole === this.authenticationService.currentUserValue.workflowRole);
-      }
-      this.dataSource = new MatTableDataSource(this.orders);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      //this.dataSource = new MatTableDataSource(this.orders);
+      //this.dataSource.paginator = this.paginator;
+      //this.dataSource.sort = this.sort;
+      this.paginationInfo.page = data.metaData.pageNumber;
+      this.paginationInfo.collectionSize = data.metaData.totalItemCount;
     });
   }
 
-  Details(id: string) {
-    if (this.isForApprove) {
-      this.router.navigate(['/forapproval-details', id]);
-    } else {
-      this.router.navigate(['/order-details', id]);
-    }
-
+  pageChanged() {
+    this.getAllOrders();
   }
+
 }
 
 
