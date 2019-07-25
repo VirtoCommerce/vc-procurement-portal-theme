@@ -44,7 +44,7 @@ export class OrderDetailsComponent implements OnInit {
     this.ordersService.getOrder(this.id).subscribe((data: any) => {
       this.order = data as IOrder;
       this.items = data.items;
-    })
+    });
   }
 
   toggleAccordion(event) {

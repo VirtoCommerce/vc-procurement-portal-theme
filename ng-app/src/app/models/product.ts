@@ -7,7 +7,6 @@ import { PageMetaData } from './common/page-meta-data';
 import { Image } from './common/image';
 import { SeoInfo } from './common/seo-info';
 
- import { ProductProperties } from './product-properties';
 
 // export class Product {
 //   id: string;
@@ -88,7 +87,7 @@ export class Product {
   isQuotable: boolean;
   isAvailable: boolean;
   available: boolean;
-  properties: ProductProperties[];
+  properties: any[];
   taxTotal: DiscountAmount;
   taxPercentRate: number;
   taxDetails: any[];

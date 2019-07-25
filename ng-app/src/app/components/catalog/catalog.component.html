@@ -1,20 +1,21 @@
 <main class="main container">
-  <app-carusel [categories]="categories$"></app-carusel>
+  <app-categories
+    [categories]="categories$"
+    (categoryChanged)="categoryChanged($event)"
+  ></app-categories>
   <div class="content">
     <form class="search d-none d-xl-block">
-      <input
-        placeholder="Search (e.g. «DORT»)"
-        type="text"
-        class="form-control"
-      />
+      <app-search-products
+        appRemoveWrapper
+        (searchTextChanged)="searchByText($event)"
+      ></app-search-products>
     </form>
     <div class="mobile-navbar d-block d-xl-none">
       <form class="search">
-        <input
-          placeholder="Search (e.g. «DORT»)"
-          type="text"
-          class="form-control"
-        />
+          <app-search-products
+          appRemoveWrapper
+          (searchTextChanged)="searchByText($event)"
+        ></app-search-products>
         <a href="#" class="search__close"></a>
       </form>
       <div class="list">
@@ -99,20 +100,28 @@
           Search
         </a>
         <div class="list__item d-none d-lg-block">
-          <a [routerLink]="['/bulkorder']" class="btn btn--blue btn--sm btn--block">Bulk Order</a>
+          <a
+            [routerLink]="['/bulkorder']"
+            class="btn btn--blue btn--sm btn--block"
+            >Bulk Order</a
+          >
         </div>
       </div>
     </div>
     <div class="list product--list">
       <div class="list__item" *ngFor="let p of products">
         <div class="list__img list__img--placeholder">
-          <img src="{{ p.primaryImage.url }}" alt="{{p.sku}}" class="list__pic" />
+          <img
+            src="{{ p.primaryImage.url }}"
+            alt="{{ p.sku }}"
+            class="list__pic"
+          />
         </div>
         <div class="list__info">
-          <a class="list__name" href="#">{{p.name}}</a>
+          <a class="list__name" href="#">{{ p.name }}</a>
           <div class="list__brand">Impression Tray</div>
           <div class="list__model">
-            Model: 2120 <span class="divider">|</span>SKU: {{p.sku}}
+            Model: 2120 <span class="divider">|</span>SKU: {{ p.sku }}
           </div>
           <div class="list__descr">Case of 10 Bags with 12 per Bag</div>
         </div>
@@ -129,21 +138,27 @@
     <div class="page-nav">
       <div class="row align-items-end justify-content-center">
         <div class="col-auto">
-          <div class="page-nav__total">You've viewed {{products?.length}} of {{paginationInfo.collectionSize}} products</div>
+          <div class="page-nav__total">
+            You've viewed {{ products?.length }} of
+            {{ paginationInfo.collectionSize }} products
+          </div>
           <ngb-pagination
-          [(page)]="paginationInfo.page"
-          [pageSize]="paginationInfo.pageSize"
-          [collectionSize]="paginationInfo.collectionSize"
-          (pageChange)="pageChanged()"></ngb-pagination>
+            [(page)]="paginationInfo.page"
+            [pageSize]="paginationInfo.pageSize"
+            [collectionSize]="paginationInfo.collectionSize"
+            (pageChange)="pageChanged()"
+          ></ngb-pagination>
         </div>
         <div class="col-auto ml-sm-auto">
-            Show
-            <app-page-size-selector [defaultPageSize]="10" [pageSizes]="[10,20,30]" (pageSizeChanged)="pageSizeChanged($event)" ></app-page-size-selector>
+          Show
+          <app-page-size-selector
+            [defaultPageSize]="10"
+            [pageSizes]="[10, 20, 30]"
+            (pageSizeChanged)="pageSizeChanged($event)"
+          ></app-page-size-selector>
         </div>
       </div>
     </div>
-
-
 
     <!-- <div class="page-nav">
       <div class="row align-items-end justify-content-center">
@@ -182,7 +197,6 @@
       </div>
     </div> -->
 
-
     <div class="d-block d-lg-none mt-auto">
       <div class="mobile-order" data-name="mobile-order">
         <div class="mobile-order__ico"></div>
@@ -193,9 +207,7 @@
         <div class="mobile-order__price ml-auto">$1,500.00</div>
       </div>
     </div>
-
   </div>
-
 
   <!-- avtive order -->
   <div class="sidebar sidebar--bg-gray d-none d-lg-block">
@@ -246,5 +258,4 @@
       </div>
     </div>
   </div>
-
 </main>

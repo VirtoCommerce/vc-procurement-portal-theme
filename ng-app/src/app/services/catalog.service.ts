@@ -19,12 +19,14 @@ export class CatalogService {
     private http: HttpClient,
     private messageService: MessageService) { }
 
-  getAllProducts(pageNumber: number, pageSize: number) {
+  getAllProducts(pageNumber: number, pageSize: number, categoryId: string, keyword: string) {
     //const url = window.location.origin;
     //const body = { keyword: "", start: "0", isFuzzySearch: true, pageSize: "1000" };
     const searchCriteria = new ProductSearchCriteria();
     searchCriteria.pageNumber = pageNumber;
     searchCriteria.pageSize = pageSize;
+    searchCriteria.keyword = keyword;
+    //searchCriteria.
     const url = 'storefrontapi/catalog/search';
     return this.http.post<SearchProductsResult>(url, searchCriteria);
   }

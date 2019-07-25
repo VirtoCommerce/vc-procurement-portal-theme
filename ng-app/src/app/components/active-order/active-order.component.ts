@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, isDevMode } from '@angular/core';
 import { ActiveOrderService } from '../../services/active-order.service';
 import { Product } from '../../models/product';
-import { ProductProperties } from '../../models/product-properties';
 import { ProductPrice } from '../../models/product-price';
 import { Category } from '../../models/category';
 import { User } from '../../models/user';
