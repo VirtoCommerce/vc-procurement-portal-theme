@@ -29,10 +29,11 @@ export class CatalogComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   products: Product[];
   categories$: Observable<Category[]>;
+  selectedCategory: Category = null;
+  private searchText: string = '';
   paginationInfo = new PaginationInfo(AppConfig.settings.defaultPageSize);
   pageSizes = AppConfig.settings.pageSizes;
 
-  filterByCategory: string;
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -56,7 +57,7 @@ export class CatalogComponent implements OnInit {
 
   ngOnInit() {
 
-    this.loadData();
+    this.Init();
   }
 
   pageChanged() {
@@ -68,31 +69,32 @@ export class CatalogComponent implements OnInit {
     this.getPproducts();
   }
 
+  categoryChanged(category: Category) {
+    this.selectedCategory = category;
+    this.getPproducts();
+  }
+
   getPproducts() {
-    this.catalogService.getAllProducts(this.paginationInfo.page, this.paginationInfo.pageSize).subscribe((data) => {
+    const categoryId = this.selectedCategory ? this.selectedCategory.id : null;
+    this.catalogService.getAllProducts(this.paginationInfo.page, this.paginationInfo.pageSize, categoryId, this.searchText).subscribe((data) => {
       this.products = data.products;
       this.paginationInfo.page = data.metaData.pageNumber;
       this.paginationInfo.collectionSize = data.metaData.totalItemCount;
     });
   }
 
-  loadData() {
+  searchByText(searchText: string) {
+    this.searchText = searchText;
+    this.getPproducts();
+  }
+
+
+  private Init() {
     //this.blockUI.start('Loading...');
     this.categories$ = this.catalogService.getAllCategories();
     this.getPproducts();
   }
 
-  setFilterByCategory(filterByCategory: string) {
-    // this.dataSource.filter = filterByCategory;
-  }
-
-  applyFilter(filterValue: string) {
-    // this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    // if (this.dataSource.paginator) {
-    //   this.dataSource.paginator.firstPage();
-    // }
-  }
 }
 
 

@@ -3,21 +3,30 @@ import { Category } from '../../../models/category';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-carusel',
+  selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit {
   // categories: string[] = [ 'Category 1', 'Category 2', 'Category 3', 'Category 4', 'Category 5', 'Category 6', 'Category 7'];
   @Input() categories: Observable<Category[]>;
-  @Output() filterByCategory = new EventEmitter<string>();
+
+  selectedCategory: Category = null;
+
+  @Output() categoryChanged = new EventEmitter<Category>();
   constructor() {
   }
 
   ngOnInit() {
   }
 
-  setFilterByCategory(filterByCategory: string) {
-    this.filterByCategory.emit(filterByCategory);
+
+  isActive(category: Category): boolean {
+    return this.selectedCategory === category;
+  }
+
+  selectCategory(category: Category) {
+    this.selectedCategory = category;
+    this.categoryChanged.emit(category);
   }
 }

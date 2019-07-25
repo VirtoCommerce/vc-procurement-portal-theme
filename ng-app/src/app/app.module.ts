@@ -22,9 +22,9 @@ import { AccountComponent } from './components/account/account.component';
 import { ActiveOrderComponent } from './components/active-order/active-order.component';
 import { BulkOrderComponent } from './components/bulk-order/bulk-order.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
+import { SearchProductsComponent } from './components/catalog/search-products/search-products.component';
 import { CategoriesComponent } from './components/catalog/categories/categoires.component';
 import { ModifyCountProductComponent } from './components/catalog/modify-count-product/modify-count-product.component';
-import { ProductPropertiesComponent } from './components/catalog/product-properties/product-properties.component';
 import { CompanyComponent } from './components/company/company.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { OrderCommentsComponent } from './components/order-comments/order-comments.component';
@@ -50,6 +50,7 @@ import { RemoveWrapperDirective } from './directives/remove-wrapper.directive';
 import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
 
+
 // import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 
@@ -64,9 +65,9 @@ import { initializeAppConfig, AppConfig } from './services/app-config.service';
     ActiveOrderComponent,
     BulkOrderComponent,
     CatalogComponent,
+    SearchProductsComponent,
     CategoriesComponent,
     ModifyCountProductComponent,
-    ProductPropertiesComponent,
     CompanyComponent,
     MenuComponent,
     OrderCommentsComponent,
@@ -81,6 +82,9 @@ import { initializeAppConfig, AppConfig } from './services/app-config.service';
     RemoveWrapperDirective,
 
     PageSizeSelectorComponent
+
+
+
   ],
   imports: [
     BrowserModule,
