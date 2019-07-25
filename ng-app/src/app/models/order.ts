@@ -1,6 +1,6 @@
-import { IOrder, IOrderItem, IOrderTotal, IOrderSubtotal, IOrderShipping, IOrderComment } from "./iorder";
+import { IOrder, IOrderItem, IOrderShipping, IOrderComment, IMoney } from "./iorder";
 
-export class Order implements IOrder{
+export class Order {
     id: string;
     items: IOrderItem[];
     number: string;
@@ -8,8 +8,8 @@ export class Order implements IOrder{
     createdDate: string;
     createdBy: string;
     assignedTo: string;
-    total: IOrderTotal;
-    subTotal: IOrderSubtotal;
+    total: IMoney;
+    subTotal: IMoney;
     shipping: IOrderShipping;
     toRole: string;
     comments: IOrderComment[];
