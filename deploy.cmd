@@ -1,4 +1,3 @@
-@if "%SCM_TRACE_LEVEL%" NEQ "4" @echo off
 
 :: ----------------------
 :: KUDU Deployment Script
@@ -60,10 +59,8 @@ IF NOT DEFINED DEPLOYMENT_TEMP (
 set pages_target=%DEPLOYMENT_TEMP%\wwwroot\App_Data\cms-content\pages\vccom
 set theme_target=%DEPLOYMENT_TEMP%\wwwroot\App_Data\cms-content\themes\vccom\default
 
-:: Copy IISUrlRewrite to the site root IISUrlRewrite.xml -> \
-xcopy "%DEPLOYMENT_SOURCE%\IISUrlRewrite.xml" "%DEPLOYMENT_TEMP%" /S /R /Y /I
-IF !ERRORLEVEL! NEQ 0 goto error
 
+echo %DEPLOYMENT_SOURCE%
 :: Copy all files form  wwwroot\*.* -> wwwroot\wwwroot\*.* site folder
 xcopy "%DEPLOYMENT_SOURCE%\wwwroot\*.*" "%DEPLOYMENT_TEMP%\wwwroot" /S /R /Y /I
 IF !ERRORLEVEL! NEQ 0 goto error
