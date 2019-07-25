@@ -1,12 +1,14 @@
 <main class="main container">
   <div class="order">
-    <h1>Orders</h1>
+    <h1>Awaiting Approval</h1>
     <div class="row page__sort">
       <div class="col-md-auto page__sort-date">
         From
-        <input type="text" class="form-control" />
+        <input class="form-control" placeholder="yyyy-mm-dd"
+             name="dp1" ngbDatepicker #d1="ngbDatepicker" [(ngModel)]="dateFrom" (click)="d1.toggle()">
         To
-        <input type="text" class="form-control" />
+        <input class="form-control" placeholder="yyyy-mm-dd"
+             name="dp2" ngbDatepicker #d2="ngbDatepicker" [(ngModel)]="dateTo" (click)="d2.toggle()">
       </div>
     </div>
     <div class="table-responsive">
@@ -31,8 +33,19 @@
             <th>Total</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody *ngFor="let order of orders">
           <tr>
+            <td>{{order.number}}</td>
+            <td>
+              <span class="text--blue">{{order.status}}</span>
+            </td>
+            <td>{{order.createdDate | date: 'EEE, dd/MM '}}</td>
+            <td>{{order.items.length}}</td>
+            <td>{{order.createdBy}}</td>
+            <td>{{order.assignedTo}}</td>
+            <td>{{order.total.formattedAmount}}</td>
+          </tr>
+          <!-- <tr>
             <td>348763429</td>
             <td>
               <span class="text--blue">Awaiting Approval</span>
@@ -130,22 +143,29 @@
             <td>Pavlov Pavel</td>
             <td>Ivanov Peotr</td>
             <td>$ 2.100.999,00</td>
-          </tr>
-          <tr>
-            <td>348763429</td>
-            <td>
-              <span class="text--blue">Awaiting Approval</span>
-            </td>
-            <td>Tue, 05/03</td>
-            <td>4</td>
-            <td>Pavlov Pavel</td>
-            <td>Ivanov Peotr</td>
-            <td>$ 2.100.999,00</td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
+
     <div class="page-nav">
+      <div class="row align-items-end justify-content-center">
+        <div class="col-auto">
+          <div class="page-nav__total">You've viewed {{orders.length}} of {{paginationInfo.collectionSize}} orders</div>
+          <ngb-pagination
+          [(page)]="paginationInfo.page"
+          [pageSize]="paginationInfo.pageSize"
+          [collectionSize]="paginationInfo.collectionSize"
+          (pageChange)="pageChanged()"></ngb-pagination>
+        </div>
+        <div class="col-auto ml-sm-auto">
+            Show
+            <app-page-size-selector [defaultPageSize]="10" [pageSizes]="[10,20,30]" (pageSizeChanged)="pageSizeChanged($event)" ></app-page-size-selector>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="page-nav">
       <div class="row align-items-end justify-content-center">
         <div class="col-auto">
           <div class="page-nav__total">You've viewed 72 of 101 products</div>
@@ -181,6 +201,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+
   </div>
 </main>
