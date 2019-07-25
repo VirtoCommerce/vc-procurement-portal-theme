@@ -42,16 +42,16 @@ $(function() {
 	});
 
 	// Accordion
-	$('.accordion__header').on('click', function() {
-		var self = $(this).parent();
+	// $('.accordion__header').on('click', function() {
+	// 	var self = $(this).parent();
 
-		if(self.hasClass('accordion__item--active')) {
-			self.removeClass('accordion__item--active');
-		}
-		else {
-			self.addClass('accordion__item--active');
-		}
-	});
+	// 	if(self.hasClass('accordion__item--active')) {
+	// 		self.removeClass('accordion__item--active');
+	// 	}
+	// 	else {
+	// 		self.addClass('accordion__item--active');
+	// 	}
+	// });
 
 	$('body').delegate('.overlay', 'click', function() {
 		$('.swipe').removeClass('swipe--opened');

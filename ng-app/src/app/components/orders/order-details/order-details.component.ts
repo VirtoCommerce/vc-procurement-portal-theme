@@ -1,21 +1,19 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, ViewChild, Input } from "@angular/core";
+import { Observable } from "rxjs";
 //import { Store, select } from '@ngrx/store';
-import { catchError, map, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { IOrder, IOrderItem, IOrderComment } from '../../../models/iorder';
-import { OrdersService } from '../../../services/orders.service';
-
+import { catchError, map, tap, pluck, switchMap } from "rxjs/operators";
+import { of } from "rxjs";
+import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
+import { FormControl } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
+import { IOrder, IOrderItem, IOrderComment } from "../../../models/iorder";
+import { OrdersService } from "../../../services/orders.service";
 
 @Component({
-  selector: 'app-order-details',
-  templateUrl: './order-details.component.html',
-  styleUrls: ['./order-details.component.scss']
+  selector: "app-order-details",
+  templateUrl: "./order-details.component.html",
+  styleUrls: ["./order-details.component.scss"]
 })
-
 export class OrderDetailsComponent implements OnInit {
   isForApprove: boolean;
   id: any;
@@ -23,14 +21,16 @@ export class OrderDetailsComponent implements OnInit {
   order: IOrder;
   items: IOrderItem[];
   comments: IOrderComment[];
-
+  subTotal: string;
+  shipping: string;
+  total: string;
+  createdBy: string;
+  status: string;
 
   constructor(
     private ordersService: OrdersService,
-    private activateRoute: ActivatedRoute
-  ) {
-    this.id = activateRoute.snapshot.params['id'];
-  }
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     // this.ordersService.getOrders().subscribe((data: any) => {
@@ -40,14 +40,23 @@ export class OrderDetailsComponent implements OnInit {
     //   this.items = orders[0].items as IOrderItem[];
     //   this.comments = orders[0].comments as IOrderComment[];
     // });
-
-    this.ordersService.getOrder(this.id).subscribe((data: any) => {
-      this.order = data as IOrder;
-      this.items = data.items;
-    })
+    console.log(this.route.params);
+    this.route.paramMap
+      .pipe(switchMap(params => this.ordersService.getOrder(params.get('id'))))
+      .subscribe((data: any) => {
+        this.order = data as IOrder;
+        this.items = data.items;
+        this.subTotal = this.order.subTotal.formattedAmount;
+        this.shipping = this.order.shippingTotal.formattedAmount;
+        this.total = this.order.total.formattedAmount;
+        this.createdBy = this.order.createdBy;
+        this.status = this.order.status;
+        console.log('Order: ', this.order);
+        console.log('Items: ', this.items);
+      });
   }
 
   toggleAccordion(event) {
-    event.target.classList.toggle('accordion__item--active');
+    event.target.parentElement.classList.toggle('accordion__item--active');
   }
 }
