@@ -1,5 +1,6 @@
 @if "%SCM_TRACE_LEVEL%" NEQ "4" @echo off
 
+echo An error has occurred during web site deployment.
 :: ----------------------
 :: KUDU Deployment Script
 :: Version: 1.0.6
