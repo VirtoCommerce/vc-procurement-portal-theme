@@ -4,7 +4,7 @@ import { IMoney } from './common/money';
 import { Product } from './product';
 import { IUser } from './iuser';
 
-interface ICart {
+export interface ICart {
   name: string;
   storeId: string;
   hasPhysicalProducts: boolean;
@@ -37,7 +37,7 @@ interface ICart {
   discountTotal: IMoney;
   discountTotalWithTax: IMoney;
   addresses: any[];
-  items: Item[];
+  items: ILineItem[];
   itemsCount: number;
   itemsQuantity: number;
   coupons: any[];
@@ -46,7 +46,7 @@ interface ICart {
   objectType: string;
   dynamicProperties: any[];
   availablePaymentMethods: any[];
-  recentlyAddedItem: Item;
+  recentlyAddedItem: ILineItem;
   isValid: boolean;
   validationErrors: any[];
   discounts: any[];
@@ -58,7 +58,7 @@ interface ICart {
   id: string;
 }
 
-interface Item {
+interface ILineItem {
   createdDate: string;
   product: Product;
   productId: string;

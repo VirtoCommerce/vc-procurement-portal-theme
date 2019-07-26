@@ -7,13 +7,14 @@ import { tap, catchError, map, startWith, switchMap } from 'rxjs/operators';
 
 import { IActiveOrder } from '../models/iactive-order';
 import { Subject } from 'rxjs';
+import { ICart } from '../models/icart';
 
 @Injectable({ providedIn: 'root' })
 export class ActiveOrderService {
 
   headers: HttpHeaders;
 
-  Cart = new Subject<any>();
+  Cart = new Subject<ICart>();
 
 
   constructor(private http: HttpClient) {
@@ -61,7 +62,7 @@ export class ActiveOrderService {
 
   getCart() {
     const url = 'storefrontapi/cart';
-    this.http.get<any>(url)
+    this.http.get<ICart>(url)
     .subscribe(x =>
       this.Cart.next(x) );
   }
