@@ -1,4 +1,4 @@
-export interface Image {
+export interface IImage {
   url: string;
   sortOrder: number;
   group: string;

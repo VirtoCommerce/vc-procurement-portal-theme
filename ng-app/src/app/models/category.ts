@@ -1,12 +1,12 @@
 import { PagedSearchCriteria } from './common/paged-search-criteria';
-import { Language } from './common/language';
-import { Image } from './common/image';
-import { PageMetaData } from './common/page-meta-data';
-import { SeoInfo } from './common/seo-info';
+import { ILanguage } from './common/language';
+import { IImage } from './common/image';
+import { IPageMetaData } from './common/page-meta-data';
+import { ISeoInfo } from './common/seo-info';
 
 export interface SearchCategoriesResult {
   categories: Category[];
-  metaData: PageMetaData;
+  metaData: IPageMetaData;
 }
 
 
@@ -21,27 +21,23 @@ export interface Category {
   level: number;
   seoPath: string;
   url: string;
-  seoInfo: SeoInfo;
-  images: Image[];
+  seoInfo: ISeoInfo;
+  images: IImage[];
   categories: any[];
   properties: any[];
   handle: string;
   indexKey: string;
   id: string;
   parentId?: string;
-  primaryImage?: Image;
-  image?: Image;
+  primaryImage?: IImage;
+  image?: IImage;
 }
-
-
-
-
 
 
 export class CategorySearchCriteria extends PagedSearchCriteria {
     responseGroup: CategoryResponseGroup;
     outline: string;
-    language: Language;
+    language: ILanguage;
     keyword: string;
     sortBy: string;
     isFuzzySearch = true;

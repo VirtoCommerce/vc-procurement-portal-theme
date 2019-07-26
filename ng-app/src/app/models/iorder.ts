@@ -1,25 +1,28 @@
-import { ICurrency } from "./icurrency";
-import { PagedSearchCriteria } from "./common/paged-search-criteria";
+import { PagedSearchCriteria } from './common/paged-search-criteria';
+import { IMoney } from './common/money';
+import { ICurrency } from './common/currency';
+import { IAddress } from './common/address';
 
 export class OrderSearchCriteria extends PagedSearchCriteria {
   CustomerId: string;
   Sort: string;
 }
 
+// this entity does not exist on server
 export interface IOrderComment {
   id: string;
   userId: string;
   username: string;
   text: string;
 }
-
+// this entity does not exist on server
 export class OrderComment implements IOrderComment {
   id: string;
   userId: string;
   username: string;
   text: string;
   constructor(userId: string, username: string, text: string) {
-    this.id = "AAA";
+    this.id = 'AAA';
     this.userId = userId;
     this.username = username;
     this.text = text;
@@ -39,7 +42,7 @@ export interface IOrder {
   number: string;
   isApproved: boolean;
   status: string;
-  currency: Currency;
+  currency: ICurrency;
   currencyCode: string;
   isCancelled: boolean;
   cancelled: boolean;
@@ -90,7 +93,7 @@ export interface IOrderShipping {
   operationType: string;
   number: string;
   status: string;
-  currency: Currency;
+  currency: ICurrency;
   childrenOperations: any[];
   dynamicProperties: any[];
   createdDate: string;
@@ -112,7 +115,7 @@ export interface IOrderShipping {
 }
 
 export interface IOrderItem {
-  currency: Currency;
+  currency: ICurrency;
   reserveQuantity: number;
   quantity: number;
   productId: string;
@@ -154,7 +157,7 @@ export interface InPayment {
   number: string;
   isApproved: boolean;
   status: string;
-  currency: Currency;
+  currency: ICurrency;
   sum: IMoney;
   tax: IMoney;
   isCancelled: boolean;
@@ -167,31 +170,4 @@ export interface InPayment {
   id: string;
 }
 
-export interface IMoney {
-  amount: number;
-  formattedAmount: string;
-  formattedAmountWithoutPointAndCurrency: string;
-  formattedAmountWithoutPoint: string;
-  formattedAmountWithoutCurrency: string;
-  currency: Currency;
-}
 
-export interface Currency {
-  code: string;
-  symbol: string;
-}
-
-export interface IAddress {
-  type: number;
-  key: string;
-  name: string;
-  countryCode: string;
-  countryName: string;
-  city: string;
-  postalCode: string;
-  line1: string;
-  line2: string;
-  firstName: string;
-  lastName: string;
-  id: string;
-}

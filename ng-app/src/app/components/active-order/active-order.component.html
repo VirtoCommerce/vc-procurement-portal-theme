@@ -6,3 +6,53 @@
     [total]="total">
 </app-active-order-total>
 <app-active-order-detail [products]="products" ></app-active-order-detail> -->
+
+<div appRemoveWrapper class="sidebar__body order">
+  <div class="order__info">
+    <div class="order__t">
+      Your Order
+      <a href="#" class="order__t-link">Remove all</a>
+    </div>
+    <div class="order__text">You have 1 items in your order</div>
+    <div class="list list--total">
+      <div class="list__item">
+        Subtotal <span class="list__count">$1,500.00</span>
+      </div>
+      <div class="list__item">
+        Shipping <span class="list__count free">Free</span>
+      </div>
+      <div class="list__item">
+        Total <span class="list__count">$1.500,00</span>
+      </div>
+    </div>
+  </div>
+  <div class="order__item">
+    <a class="order__item-remove" href="#">Remove item</a>
+    <div class="order__item-name">G61-50T38</div>
+    <div class="order__item-brand">Brand name</div>
+    <div class="order__item-model">
+      Model: 0000 <span class="divider">|</span>SKU: 0000000
+    </div>
+    <div class="order__item-descr">Description item</div>
+    <div class="order__item-other">
+      <div class="order__item-price">$1,500.00</div>
+      <div class="input-group input-group--qty input-group--sm ml-auto">
+        <a href="#" class="btn btn--white">
+          <span class="btn__ico btn__ico--minus"></span>
+        </a>
+        <input type="text" class="input-group__input" value="2" />
+        <a href="#" class="btn btn--white">
+          <span class="btn__ico btn__ico--plus"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="order__item" *ngIf="(cart$ | async) as cart" >
+    {{cart}}
+  </div>
+  <div class="sidebar__footer">
+    <a href="#" class="btn btn--green btn--block">Checkout</a>
+  </div>
+</div>
+
+

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { User } from '../models/user';
 
+
 @Injectable({ providedIn: 'root' })
 export class UserService {
     constructor(private http: HttpClient) { }
@@ -14,4 +15,12 @@ export class UserService {
     getById(id: number) {
         return this.http.get<User>(`/users/${id}`);
     }
+
+
+    getUserName() {
+      console.log('getUserName');
+      const url = 'storefrontapi/account';
+      return this.http.get<any>(url);
+    }
+
 }

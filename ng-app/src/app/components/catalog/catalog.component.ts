@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 
 import { merge, Observable, of as observableOf } from 'rxjs';
@@ -7,9 +6,6 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 
 import { Product } from '../../models/product';
 import { CatalogService, AuthenticationService } from '../../services';
-import { CatalogSearch } from '../../models/ProductSearch';
-import { CategoriesComponent } from './categories/categoires.component';
-import { AddedProduct } from '../../models/added-product';
 import { ActiveOrderService } from '../../services/active-order.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { UserService } from '../../services/user.service';
@@ -30,7 +26,7 @@ export class CatalogComponent implements OnInit {
   products: Product[];
   categories$: Observable<Category[]>;
   selectedCategory: Category = null;
-  private searchText: string = '';
+  private searchText = '';
   paginationInfo = new PaginationInfo(AppConfig.settings.defaultPageSize);
   pageSizes = AppConfig.settings.pageSizes;
 
@@ -38,9 +34,6 @@ export class CatalogComponent implements OnInit {
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
-
-
-  onLoad: AddedProduct;
 
   currentUser: User;
   userFromApi: User;

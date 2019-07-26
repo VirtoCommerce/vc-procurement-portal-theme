@@ -1,5 +1,4 @@
-export interface NumericRange
-{
+export interface INumericRange {
     lower: number | null;
     upper: number | null;
     includeLower: boolean;
