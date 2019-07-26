@@ -12,4 +12,5 @@ export interface IOrganization {
   userGroups: any[];
   dynamicProperties: IDynamicProperty[];
   id: string;
+  name: string;
 }
