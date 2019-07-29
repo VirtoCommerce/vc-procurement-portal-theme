@@ -47,6 +47,7 @@ import { ProcurementPortalInterceptor } from './services/interceptors/intercepto
 // directives
 import { RemoveWrapperDirective } from './directives/remove-wrapper.directive';
 import { ChangeProductQuantityComponent } from './components/catalog/change-product-quantity/change-product-quantity.component';
+import { MobileCartSummaryComponent } from './components/catalog/mobile-cart-summary/mobile-cart-summary.component';
 // import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
 
@@ -82,7 +83,9 @@ import { ChangeProductQuantityComponent } from './components/catalog/change-prod
 
     PageSizeSelectorComponent,
 
-    ChangeProductQuantityComponent
+    ChangeProductQuantityComponent,
+
+    MobileCartSummaryComponent
 
 
 
