@@ -1,0 +1,16 @@
+<div class="input-group input-group--qty mt-auto" appRemoveWrapper>
+  <a *ngIf="!productLineItem; else quantityChanger" class="btn btn--blue" (click)="addProductToCart()">
+    <span class="btn__ico btn__ico--plus-white"></span>
+  </a>
+
+</div>
+
+<ng-template #quantityChanger>
+<a class="btn btn--green" (click)="decrementQuantity(productLineItem)">
+  <span class="btn__ico btn__ico--minus-white"></span>
+</a>
+<input type="number" class="input-group__input" [value]="productLineItem.quantity">
+<a class="btn btn--green" (click)="incrementQuantity(productLineItem)">
+  <span class="btn__ico btn__ico--plus-white"></span>
+</a>
+</ng-template>

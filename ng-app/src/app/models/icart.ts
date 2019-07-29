@@ -58,7 +58,7 @@ export interface ICart {
   id: string;
 }
 
-interface ILineItem {
+export interface ILineItem {
   createdDate: string;
   product: Product;
   productId: string;

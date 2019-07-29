@@ -160,7 +160,7 @@
         </div>
         <div class="col-auto ml-sm-auto">
             Show
-            <app-page-size-selector [defaultPageSize]="10" [pageSizes]="[10,20,30]" (pageSizeChanged)="pageSizeChanged($event)" ></app-page-size-selector>
+            <app-page-size-selector [defaultPageSize]="paginationInfo.pageSize" [pageSizes]="pageSizes" (pageSizeChanged)="pageSizeChanged($event)" ></app-page-size-selector>
         </div>
       </div>
     </div>

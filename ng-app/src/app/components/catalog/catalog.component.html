@@ -106,7 +106,7 @@
         </div>
       </div>
     </div>
-    <div class="list product--list">
+    <div class="list product--list" *ngIf="(cart$ | async) as cart">
       <div class="list__item" *ngFor="let p of products">
         <div class="list__img list__img--placeholder">
           <img
@@ -125,11 +125,7 @@
         </div>
         <div class="list__other">
           <div class="list__price">{{ p.price.actualPrice.formattedAmount }}</div>
-          <div class="input-group input-group--qty mt-auto">
-            <a href="#" class="btn btn--blue">
-              <span class="btn__ico btn__ico--plus-white"></span>
-            </a>
-          </div>
+            <app-change-product-quantity [cart]="cart" [product]="p"></app-change-product-quantity>
         </div>
       </div>
     </div>
@@ -150,8 +146,8 @@
         <div class="col-auto ml-sm-auto">
           Show
           <app-page-size-selector
-            [defaultPageSize]="10"
-            [pageSizes]="[10, 20, 30]"
+            [defaultPageSize]="paginationInfo.pageSize"
+            [pageSizes]="pageSizes"
             (pageSizeChanged)="pageSizeChanged($event)"
           ></app-page-size-selector>
         </div>

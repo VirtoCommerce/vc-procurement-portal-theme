@@ -18,47 +18,15 @@ export class ActiveOrderService {
 
 
   constructor(private http: HttpClient) {
-    this.refresh();
+    this.refreshCart();
   }
 
 
-  private refresh() {
+  refreshCart() {
     // todo
     this.getCart();
 
   }
-
-  getTotal(t: string) {
-    // let url = window['BASE_URL'] + 'storefrontapi/cart/itemscount?t=' + Date.now();
-    // this.http.get<any>(url).subscribe(
-    //   (data: any) => {
-    //   },
-    //   error => console.log('Error data: ' + error)
-    // );
-    // url = window['BASE_URL'] + 'storefrontapi/cart/itemscount?t=' + Date.now();
-    // this.http.get<any>(url).subscribe(
-    //   (data: any) => {
-    //   },
-    //   error => console.log('Error data: ' + error)
-    // );
-    // if (t === '') {
-    //   console.log('t1=' + t);
-    //   let url = window['BASE_URL'] + 'storefrontapi/cart?t=' + Date.now();
-    //   return this.http.get(url);
-    // }
-    // else {
-    //   console.log('t2=' + t);
-    //   let url = window['BASE_URL'] + 'storefrontapi/cart/itemscount?t=' + t;
-    //   this.http.get<any>(url).subscribe(
-    //     (data: any) => {
-    //     },
-    //     error => console.log('Error data: ' + error)
-    //   );;
-    //   url = window['BASE_URL'] + 'storefrontapi/cart?t=' + Date.now();
-    //   return this.http.get(url);
-    // }
-  }
-
 
   getCart() {
     const url = 'storefrontapi/cart';
@@ -70,40 +38,34 @@ export class ActiveOrderService {
   createOrder() {
     console.log('createOrder');
     const body = {};
-    const url = window['BASE_URL'] + 'storefrontapi/cart/createorder';
+    const url = 'storefrontapi/cart/createorder';
     return this.http.post<any>(url, body);
   }
 
-  ClearAllItems() {
+  clearAllItems() {
     console.log('Clear');
     const url = 'storefrontapi/cart/clear';
     const body = '{}';
-    return this.http.post<any>(url, body);
+    return this.http.post<any>(url, body).pipe(tap(x => this.refreshCart()));
   }
 
   AddItem(productId: string) {
     console.log('Add');
     const body = { id: productId, quantity: 1 };
     const url = 'storefrontapi/cart/items';
-    return this.http.post<any>(url, body);
+    return this.http.post<any>(url, body).pipe( tap(x => this.refreshCart()));
   }
 
-  RemoveItem(productId: string) {
+  removeItem(lineItemId: string) {
     console.log('Remove');
-    const url = 'storefrontapi/cart/items?lineItemId=' + productId;
-    return this.http.delete(url);
+    const url = 'storefrontapi/cart/items?lineItemId=' + lineItemId;
+    return this.http.delete(url).pipe(tap(x => this.refreshCart()));
   }
 
-  ChangeItemQuantity(id: string, quantity: number) {
-    console.log('Change');
-    if (id === 'undefined') {
-      //console.log("1) Change id=" + id);
-    } else {
-      //console.log("2) Change id=" + id);
-      const url = window['BASE_URL'] + 'storefrontapi/cart/items';
-      const body = '{"lineItemId":"' + id + '","Quantity":"' + quantity + '"}';
-      return this.http.put<any>(url, body);
-    }
+  ChangeItemQuantity(lineItemId: string, quantity: number) {
+      const url = 'storefrontapi/cart/items';
+      const body = '{"lineItemId":"' + lineItemId + '","Quantity":"' + quantity + '"}';
+      return this.http.put<any>(url, body).pipe(tap(x => this.refreshCart()));
   }
 
 }
