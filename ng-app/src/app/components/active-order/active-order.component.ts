@@ -10,6 +10,7 @@ import { AuthenticationService } from '../../services';
 import { first } from 'rxjs/operators';
 import { IActiveOrder, IActiveOrderCurrency } from '../../models/iactive-order';
 import { Observable } from 'rxjs';
+import { ILineItem, ICart } from 'src/app/models/icart';
 
 @Component({
   selector: 'app-active-order',
@@ -19,7 +20,7 @@ import { Observable } from 'rxjs';
 export class ActiveOrderComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
 
-  cart$: Observable<any>;
+  cart$: Observable<ICart>;
 
   constructor(
     private activeOrderService: ActiveOrderService,
@@ -30,49 +31,29 @@ export class ActiveOrderComponent implements OnInit {
 
   ngOnInit() {
     this.cart$ = this.activeOrderService.Cart;
-    this.cart$.subscribe(x => console.log(x));
+    this.cart$.subscribe();
+    this.activeOrderService.refreshCart();
   }
 
 
-  getActiveOrder(t: string) {
-
-  }
-
-  private fillProducts(data: any) {
-    // console.log('fillProducts count: ' + data.items.length);
-    // this.products = new Array<Product>();
-    // let _addedProducts = new Array<AddedProduct>();
-    // for (const i of data.items) {
-    //   const product = new Product();
-    //   const productProperties = new ProductProperties();
-    //   const priceProduct = new ProductPrice();
-
-    //   productProperties.productId = i.productId;
-    //   productProperties.name = i.name;
-    //   productProperties.sku = i.sku;
-    //   for (const cat of this.categories) {
-    //     if (i.categoryId === cat.id) {
-    //       productProperties.category = cat.name;
-    //       break;
-    //     }
-    //   }
-    //   priceProduct.id = i.id;
-    //   priceProduct.productId = i.productId;
-    //   priceProduct.currency = i.salePrice.currency.symbol;
-    //   priceProduct.price = i.salePrice.amount;
-    //   priceProduct.count = i.quantity;
-    //   product.productProperties = productProperties;
-    //   product.productPrice = priceProduct;
-    //   let item = new AddedProduct(priceProduct.id, priceProduct.productId, priceProduct.count);
-    //   _addedProducts.push(item);
-    //   this.products.push(product);
-    // }
-    // this.activeOrderService.afterLoad(_addedProducts);
+  removeItem(item: ILineItem) {
+    this.activeOrderService.removeItem(item.id).subscribe();
   }
 
   clear() {
-    //console.log('Remove all');
-    this.activeOrderService.ClearAllItems();
+    this.activeOrderService.clearAllItems().subscribe();
   }
+
+  decrementQuantity(item: ILineItem) {
+    if (item.quantity <= 1) { return; }
+    item.quantity--;
+    this.activeOrderService.ChangeItemQuantity(item.id, item.quantity).subscribe();
+  }
+
+  incrementQuantity(item: ILineItem) {
+    item.quantity++;
+    this.activeOrderService.ChangeItemQuantity(item.id, item.quantity).subscribe();
+  }
+
 }
 

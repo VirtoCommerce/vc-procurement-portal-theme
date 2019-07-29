@@ -24,7 +24,6 @@ import { BulkOrderComponent } from './components/bulk-order/bulk-order.component
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { SearchProductsComponent } from './components/catalog/search-products/search-products.component';
 import { CategoriesComponent } from './components/catalog/categories/categoires.component';
-import { ModifyCountProductComponent } from './components/catalog/modify-count-product/modify-count-product.component';
 import { CompanyComponent } from './components/company/company.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { OrderCommentsComponent } from './components/order-comments/order-comments.component';
@@ -47,7 +46,8 @@ import { ProcurementPortalInterceptor } from './services/interceptors/intercepto
 
 // directives
 import { RemoveWrapperDirective } from './directives/remove-wrapper.directive';
-import { initializeAppConfig, AppConfig } from './services/app-config.service';
+import { ChangeProductQuantityComponent } from './components/catalog/change-product-quantity/change-product-quantity.component';
+// import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
 
 
@@ -67,7 +67,6 @@ import { initializeAppConfig, AppConfig } from './services/app-config.service';
     CatalogComponent,
     SearchProductsComponent,
     CategoriesComponent,
-    ModifyCountProductComponent,
     CompanyComponent,
     MenuComponent,
     OrderCommentsComponent,
@@ -81,7 +80,9 @@ import { initializeAppConfig, AppConfig } from './services/app-config.service';
     // directives
     RemoveWrapperDirective,
 
-    PageSizeSelectorComponent
+    PageSizeSelectorComponent,
+
+    ChangeProductQuantityComponent
 
 
 
@@ -113,9 +114,9 @@ import { initializeAppConfig, AppConfig } from './services/app-config.service';
     //{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     //fakeBackendProvider,
-    { provide: APP_INITIALIZER,
-      useFactory: initializeAppConfig,
-      deps: [AppConfig], multi: true },
+    // { provide: APP_INITIALIZER,
+    //   useFactory: initializeAppConfig,
+    //   deps: [AppConfig], multi: true },
     AuthenticationService
   ],
   bootstrap: [AppComponent]

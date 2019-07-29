@@ -11,7 +11,7 @@
   <div class="order__info">
     <div class="order__t">
       Your Order
-      <a href="#" class="order__t-link">Remove all</a>
+      <a href="#" class="order__t-link" (click)="clear()">Remove all</a>
     </div>
     <div class="order__text">You have {{cart.itemsCount}} items in your order</div>
     <div class="list list--total">
@@ -27,7 +27,7 @@
     </div>
   </div>
   <div class="order__item" *ngFor="let item of cart.items">
-    <a class="order__item-remove" href="#">Remove item</a>
+    <a class="order__item-remove" (click)="removeItem(item)" >Remove item</a>
     <div class="order__item-name">{{item.product.name}}</div>
     <div class="order__item-brand">Brand name</div>
     <div class="order__item-model">
@@ -37,11 +37,11 @@
     <div class="order__item-other">
       <div class="order__item-price">{{item.extendedPrice.formattedAmount}}</div>
       <div class="input-group input-group--qty input-group--sm ml-auto">
-        <a href="#" class="btn btn--white">
+        <a class="btn btn--white" (click)="decrementQuantity(item)">
           <span class="btn__ico btn__ico--minus"></span>
         </a>
-        <input type="text" class="input-group__input" value="{{item.quantity}}" />
-        <a href="#" class="btn btn--white">
+        <input type="number" class="input-group__input" value="{{item.quantity}}" />
+        <a  class="btn btn--white" (click)="incrementQuantity(item)">
           <span class="btn__ico btn__ico--plus"></span>
         </a>
       </div>

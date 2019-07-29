@@ -14,7 +14,10 @@ import { first } from 'rxjs/operators';
 import { Category } from 'src/app/models/category';
 import { PaginationInfo } from 'src/app/models/inner/pagination-info';
 import { PageSizeChangedArgs } from '../page-size-selector/page-size-selector.component';
-import { AppConfig } from 'src/app/services/app-config.service';
+//import { AppConfig } from 'src/app/services/app-config.service';
+import settings_data from 'src/assets/config/config.dev.json';
+import { IAppConfig } from 'src/app/models/iapp-config';
+import { ICart } from 'src/app/models/icart';
 
 @Component({
   selector: 'app-catalog',
@@ -25,11 +28,14 @@ export class CatalogComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   products: Product[];
   categories$: Observable<Category[]>;
+  cart$: Observable<ICart>;
   selectedCategory: Category = null;
   private searchText = '';
-  paginationInfo = new PaginationInfo(AppConfig.settings.defaultPageSize);
-  pageSizes = AppConfig.settings.pageSizes;
-
+  settings = settings_data as IAppConfig;
+  // paginationInfo = new PaginationInfo(AppConfig.settings.defaultPageSize);
+  // pageSizes = AppConfig.settings.pageSizes;
+  paginationInfo = new PaginationInfo(this.settings.defaultPageSize);
+  pageSizes = this.settings.pageSizes;
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -49,8 +55,9 @@ export class CatalogComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.Init();
+    this.cart$ = this.activeOrderService.Cart;
+    this.cart$.subscribe();
   }
 
   pageChanged() {
