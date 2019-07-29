@@ -1,5 +1,5 @@
 export interface IAddress {
-  type: number;
+  type: AddressType;
   key: string;
   name: string;
   countryCode: string;
@@ -18,3 +18,10 @@ export interface IAddress {
 }
 
 
+
+
+export enum AddressType {
+  Billing = 1,
+  Shipping = 2,
+  BillingAndShipping = Billing | Shipping
+}
