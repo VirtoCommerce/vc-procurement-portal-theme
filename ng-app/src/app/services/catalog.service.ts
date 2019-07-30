@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap, catchError, map, startWith, switchMap } from 'rxjs/operators';
-import { MessageService } from './message.service';
 import { SearchCategoriesResult, Category, CategorySearchCriteria, CategoryResponseGroup } from '../models/category';
 import { ProductSearchCriteria, Product, SearchProductsResult } from '../models/product';
 
@@ -15,9 +14,7 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class CatalogService {
 
-  constructor(
-    private http: HttpClient,
-    private messageService: MessageService) { }
+  constructor(private http: HttpClient) {}
 
   getAllProducts(pageNumber: number, pageSize: number, categoryId: string, keyword: string) {
     //const url = window.location.origin;

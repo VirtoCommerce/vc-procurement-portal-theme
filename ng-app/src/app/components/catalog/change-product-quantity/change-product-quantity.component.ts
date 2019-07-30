@@ -16,6 +16,8 @@ export class ChangeProductQuantityComponent implements OnInit {
   @Input()
   product: Product;
 
+  productQuantity: number;
+
   constructor(private readonly activeOrderService: ActiveOrderService) { }
 
   ngOnInit() {
@@ -48,5 +50,11 @@ export class ChangeProductQuantityComponent implements OnInit {
     lineItem.quantity++;
     this.activeOrderService.ChangeItemQuantity(lineItem.id, lineItem.quantity).subscribe();
   }
+
+  updateLineItemQuantity() {
+    const lineItem = this.productLineItem;
+    this.activeOrderService.ChangeItemQuantity(lineItem.id, lineItem.quantity).subscribe();
+  }
+
 
 }

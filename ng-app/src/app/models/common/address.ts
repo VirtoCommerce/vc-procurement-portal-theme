@@ -17,9 +17,6 @@ export interface IAddress {
   id: string;
 }
 
-
-
-
 export enum AddressType {
   Billing = 1,
   Shipping = 2,
