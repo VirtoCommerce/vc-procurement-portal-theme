@@ -55,5 +55,14 @@ export class ActiveOrderComponent implements OnInit {
     this.activeOrderService.ChangeItemQuantity(item.id, item.quantity).subscribe();
   }
 
+  updateLineItemQuantity(lineItem: ILineItem) {
+    //const lineItem = this.productLineItem;
+    this.activeOrderService.ChangeItemQuantity(lineItem.id, lineItem.quantity).subscribe();
+  }
+
+  checkout(cart: ICart) {
+    console.log(cart);
+  }
+
 }
 

@@ -40,7 +40,8 @@
         <a class="btn btn--white" (click)="decrementQuantity(item)">
           <span class="btn__ico btn__ico--minus"></span>
         </a>
-        <input type="number" class="input-group__input" value="{{item.quantity}}" />
+        <!-- <input type="number" class="input-group__input" value="{{item.quantity}}" /> -->
+        <input type="number" class="input-group__input" [(ngModel)]="item.quantity" (ngModelChange)="updateLineItemQuantity(item)" />
         <a  class="btn btn--white" (click)="incrementQuantity(item)">
           <span class="btn__ico btn__ico--plus"></span>
         </a>
@@ -48,7 +49,7 @@
     </div>
   </div>
   <div class="sidebar__footer">
-    <a href="#" class="btn btn--green btn--block">Checkout</a>
+    <a class="btn btn--green btn--block" (click)="checkout(cart)">Checkout</a>
   </div>
 </div>
 
