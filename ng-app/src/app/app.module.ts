@@ -30,6 +30,7 @@ import { OrderDetailsComponent } from './components/orders/order-details/order-d
 import { ForApprovalComponent } from './components/forapproval/forapproval.component';
 import { ForApprovalDetailsComponent } from './components/forapproval/forapproval-details/forapproval-details.component';
 import { PageSizeSelectorComponent } from './components/page-size-selector/page-size-selector.component';
+import { MobileCartSummaryComponent } from './components/catalog/mobile-cart-summary/mobile-cart-summary.component';
 // services
 import { AuthenticationService } from './services';
 
@@ -42,6 +43,7 @@ import { ProcurementPortalInterceptor } from './services/interceptors/intercepto
 // directives
 import { RemoveWrapperDirective } from './directives/remove-wrapper.directive';
 import { ChangeProductQuantityComponent } from './components/catalog/change-product-quantity/change-product-quantity.component';
+
 import { AuthInterceptor } from './services/interceptors/auth-interceptor';
 // import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
@@ -69,15 +71,12 @@ import { AuthInterceptor } from './services/interceptors/auth-interceptor';
     OrderDetailsComponent,
     ForApprovalComponent,
     ForApprovalDetailsComponent,
+    MobileCartSummaryComponent,
+    PageSizeSelectorComponent,
+    ChangeProductQuantityComponent,
 
     // directives
-    RemoveWrapperDirective,
-
-    PageSizeSelectorComponent,
-
-    ChangeProductQuantityComponent
-
-
+    RemoveWrapperDirective
 
   ],
   imports: [
