@@ -1,4 +1,5 @@
-import { IOrder, IOrderItem, IOrderShipping, IOrderComment, IMoney } from "./iorder";
+import { IOrder, IOrderItem, IOrderShipping, IOrderComment } from "./iorder";
+import { IMoney } from './common/money';
 
 export class Order {
     id: string;

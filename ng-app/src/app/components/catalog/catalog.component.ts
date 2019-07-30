@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 
 import { merge, Observable, of as observableOf } from 'rxjs';
@@ -7,9 +6,6 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 
 import { Product } from '../../models/product';
 import { CatalogService, AuthenticationService } from '../../services';
-import { CatalogSearch } from '../../models/ProductSearch';
-import { CategoriesComponent } from './categories/categoires.component';
-import { AddedProduct } from '../../models/added-product';
 import { ActiveOrderService } from '../../services/active-order.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { UserService } from '../../services/user.service';
@@ -18,7 +14,10 @@ import { first } from 'rxjs/operators';
 import { Category } from 'src/app/models/category';
 import { PaginationInfo } from 'src/app/models/inner/pagination-info';
 import { PageSizeChangedArgs } from '../page-size-selector/page-size-selector.component';
-import { AppConfig } from 'src/app/services/app-config.service';
+//import { AppConfig } from 'src/app/services/app-config.service';
+import settings_data from 'src/assets/config/config.dev.json';
+import { IAppConfig } from 'src/app/models/iapp-config';
+import { ICart } from 'src/app/models/icart';
 
 @Component({
   selector: 'app-catalog',
@@ -29,18 +28,18 @@ export class CatalogComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   products: Product[];
   categories$: Observable<Category[]>;
+  cart$: Observable<ICart>;
   selectedCategory: Category = null;
-  private searchText: string = '';
-  paginationInfo = new PaginationInfo(AppConfig.settings.defaultPageSize);
-  pageSizes = AppConfig.settings.pageSizes;
-
+  private searchText = '';
+  settings = settings_data as IAppConfig;
+  // paginationInfo = new PaginationInfo(AppConfig.settings.defaultPageSize);
+  // pageSizes = AppConfig.settings.pageSizes;
+  paginationInfo = new PaginationInfo(this.settings.defaultPageSize);
+  pageSizes = this.settings.pageSizes;
 
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
-
-
-  onLoad: AddedProduct;
 
   currentUser: User;
   userFromApi: User;
@@ -56,8 +55,9 @@ export class CatalogComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.Init();
+    this.cart$ = this.activeOrderService.Cart;
+    this.cart$.subscribe();
   }
 
   pageChanged() {

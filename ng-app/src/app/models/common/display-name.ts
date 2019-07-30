@@ -1,6 +1,6 @@
 import { ILanguage } from './language';
 
-export interface ISeoInfo {
-  slug: string;
+export interface ILocalizedString {
   language: ILanguage;
+  value: string;
 }

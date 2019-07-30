@@ -1,4 +1,4 @@
-export interface PageMetaData {
+export interface IPageMetaData {
   pageCount: number;
   pageNumber: number;
   pageSize: number;

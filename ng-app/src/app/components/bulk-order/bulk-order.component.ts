@@ -7,8 +7,6 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 
 
 import { CatalogService } from '../../services';
-
-import { AddedProduct } from '../../models/added-product';
 import { ActiveOrderService } from '../../services/active-order.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Category } from 'src/app/models/category';
@@ -21,7 +19,7 @@ import { Category } from 'src/app/models/category';
 export class BulkOrderComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   categories: Category[];
-  onLoad: AddedProduct;
+
 
   constructor(
     private catalogService: CatalogService,

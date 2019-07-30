@@ -1,4 +1,4 @@
-import { ICurrency } from './icurrency';
+import { ICurrency } from './common/currency';
 
 export interface IActiveOrder {
     id: string;

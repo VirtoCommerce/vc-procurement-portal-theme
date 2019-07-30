@@ -6,3 +6,50 @@
     [total]="total">
 </app-active-order-total>
 <app-active-order-detail [products]="products" ></app-active-order-detail> -->
+
+<div class="sidebar__body order" *ngIf="(cart$ | async) as cart" >
+  <div class="order__info">
+    <div class="order__t">
+      Your Order
+      <a class="order__t-link" (click)="clear()">Remove all</a>
+    </div>
+    <div class="order__text">You have {{cart.itemsCount}} items in your order</div>
+    <div class="list list--total">
+      <div class="list__item">
+        Subtotal <span class="list__count">{{cart.subTotal.formattedAmount}}</span>
+      </div>
+      <div class="list__item">
+        Shipping <span class="list__count free">{{cart.shippingTotal.formattedAmount}}</span>
+      </div>
+      <div class="list__item">
+        Total <span class="list__count">{{cart.subTotal.formattedAmount}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="order__item" *ngFor="let item of cart.items">
+    <a class="order__item-remove" (click)="removeItem(item)" >Remove item</a>
+    <div class="order__item-name">{{item.product.name}}</div>
+    <div class="order__item-brand">Brand name</div>
+    <div class="order__item-model">
+      Model: 0000 <span class="divider">|</span>SKU: {{item.product.sku}}
+    </div>
+    <div class="order__item-descr">Description item</div>
+    <div class="order__item-other">
+      <div class="order__item-price">{{item.extendedPrice.formattedAmount}}</div>
+      <div class="input-group input-group--qty input-group--sm ml-auto">
+        <a class="btn btn--white" (click)="decrementQuantity(item)">
+          <span class="btn__ico btn__ico--minus"></span>
+        </a>
+        <input type="number" class="input-group__input" value="{{item.quantity}}" />
+        <a  class="btn btn--white" (click)="incrementQuantity(item)">
+          <span class="btn__ico btn__ico--plus"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar__footer">
+    <a href="#" class="btn btn--green btn--block">Checkout</a>
+  </div>
+</div>
+
+

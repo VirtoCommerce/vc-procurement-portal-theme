@@ -1,4 +1,4 @@
-export interface Language {
+export interface ILanguage {
   isInvariant: boolean;
   cultureName: string;
   nativeName: string;

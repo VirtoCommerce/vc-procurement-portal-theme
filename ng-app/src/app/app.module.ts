@@ -6,7 +6,6 @@ import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angu
 
 // 3d
 import { BlockUIModule } from 'ng-block-ui';
-import { MaterialModule } from './material/material.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // custom modules import
 
@@ -24,30 +23,29 @@ import { BulkOrderComponent } from './components/bulk-order/bulk-order.component
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { SearchProductsComponent } from './components/catalog/search-products/search-products.component';
 import { CategoriesComponent } from './components/catalog/categories/categoires.component';
-import { ModifyCountProductComponent } from './components/catalog/modify-count-product/modify-count-product.component';
 import { CompanyComponent } from './components/company/company.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { OrderCommentsComponent } from './components/order-comments/order-comments.component';
-import { OrderItemsComponent } from './components/order-items/order-items.component';
-import { OrderTotalComponent } from './components/order-total/order-total.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { OrderDetailsComponent } from './components/orders/order-details/order-details.component';
 import { ForApprovalComponent } from './components/forapproval/forapproval.component';
 import { ForApprovalDetailsComponent } from './components/forapproval/forapproval-details/forapproval-details.component';
 import { PageSizeSelectorComponent } from './components/page-size-selector/page-size-selector.component';
+import { MobileCartSummaryComponent } from './components/catalog/mobile-cart-summary/mobile-cart-summary.component';
 // services
 import { AuthenticationService } from './services';
 
 // services modules
 // import { SharedService } from './services/shared-service';
 // import { AuthGuard } from './guards';
-import { fakeBackendProvider } from './helpers';
 import { JwtInterceptor, ErrorInterceptor } from './helpers';
 import { ProcurementPortalInterceptor } from './services/interceptors/interceptors';
 
 // directives
 import { RemoveWrapperDirective } from './directives/remove-wrapper.directive';
-import { initializeAppConfig, AppConfig } from './services/app-config.service';
+import { ChangeProductQuantityComponent } from './components/catalog/change-product-quantity/change-product-quantity.component';
+
+import { AuthInterceptor } from './services/interceptors/auth-interceptor';
+// import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
 
 
@@ -67,23 +65,18 @@ import { initializeAppConfig, AppConfig } from './services/app-config.service';
     CatalogComponent,
     SearchProductsComponent,
     CategoriesComponent,
-    ModifyCountProductComponent,
     CompanyComponent,
     MenuComponent,
-    OrderCommentsComponent,
-    OrderItemsComponent,
-    OrderTotalComponent,
     OrdersComponent,
     OrderDetailsComponent,
     ForApprovalComponent,
     ForApprovalDetailsComponent,
+    MobileCartSummaryComponent,
+    PageSizeSelectorComponent,
+    ChangeProductQuantityComponent,
 
     // directives
-    RemoveWrapperDirective,
-
-    PageSizeSelectorComponent
-
-
+    RemoveWrapperDirective
 
   ],
   imports: [
@@ -102,20 +95,19 @@ import { initializeAppConfig, AppConfig } from './services/app-config.service';
     // NgbPaginationModule,
     // NgbDropdownModule,
     // NgbDatepickerModule,
-    // TODO: remove
-    MaterialModule,
 
     BlockUIModule.forRoot(),
     //InMemoryWebApiModule.forRoot(DataService)
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ProcurementPortalInterceptor, multi: true },
     //{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     //fakeBackendProvider,
-    { provide: APP_INITIALIZER,
-      useFactory: initializeAppConfig,
-      deps: [AppConfig], multi: true },
+    // { provide: APP_INITIALIZER,
+    //   useFactory: initializeAppConfig,
+    //   deps: [AppConfig], multi: true },
     AuthenticationService
   ],
   bootstrap: [AppComponent]

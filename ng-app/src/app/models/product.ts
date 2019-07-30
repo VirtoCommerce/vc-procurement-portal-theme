@@ -1,11 +1,13 @@
 import { PagedSearchCriteria } from "./common/paged-search-criteria";
-import { NumericRange } from './common/numeric-range';
-import { Language } from './common/language';
-import { Currency } from './common/currency';
-import { Term } from './common/term';
-import { PageMetaData } from './common/page-meta-data';
-import { Image } from './common/image';
-import { SeoInfo } from './common/seo-info';
+import { INumericRange } from './common/numeric-range';
+import { ILanguage } from './common/language';
+import { ICurrency } from './common/currency';
+import { ITerm } from './common/term';
+import { IPageMetaData } from './common/page-meta-data';
+import { IImage } from './common/image';
+import { ISeoInfo } from './common/seo-info';
+import { IProductPrice } from './common/price';
+import { IMoney } from './common/money';
 
 
 // export class Product {
@@ -28,7 +30,7 @@ import { SeoInfo } from './common/seo-info';
 export interface SearchProductsResult {
   products: Product[];
   aggregations: Aggregation[];
-  metaData: PageMetaData;
+  metaData: IPageMetaData;
 }
 
 
@@ -76,79 +78,38 @@ export class Product {
   variationProperties: any[];
   assets: any[];
   variations: any[];
-  price: Price;
-  priceWithTax: DiscountAmount;
-  prices: Price[];
+  price: IProductPrice;
+  priceWithTax: IMoney;
+  prices: IProductPrice[];
   inventoryAll: any[];
   availableQuantity: number;
-  seoInfo: SeoInfo;
-  primaryImage: Image;
-  images: Image[];
+  seoInfo: ISeoInfo;
+  primaryImage: IImage;
+  images: IImage[];
   isQuotable: boolean;
   isAvailable: boolean;
   available: boolean;
   properties: any[];
-  taxTotal: DiscountAmount;
+  taxTotal: IMoney;
   taxPercentRate: number;
   taxDetails: any[];
   discounts: any[];
-  currency: Currency;
+  currency: ICurrency;
   id: string;
 }
 
 
-interface Price {
-  pricelistId: string;
-  currency: Currency;
-  productId: string;
-  discountAmount: DiscountAmount;
-  discountAmountWithTax: DiscountAmount;
-  discountPercent: number;
-  listPrice: DiscountAmount;
-  listPriceWithTax: DiscountAmount;
-  salePrice: DiscountAmount;
-  salePriceWithTax: DiscountAmount;
-  actualPrice: DiscountAmount;
-  actualPriceWithTax: DiscountAmount;
-  discounts: any[];
-  minQuantity: number;
-  tierPrices: TierPrice[];
-  taxTotal: DiscountAmount;
-  taxPercentRate: number;
-}
 
-interface TierPrice {
-  price: DiscountAmount;
-  priceWithTax: DiscountAmount;
-  discountAmount: DiscountAmount;
-  discountAmountWithTax: DiscountAmount;
-  actualPrice: DiscountAmount;
-  actualPriceWithTax: DiscountAmount;
-  quantity: number;
-  currency: Currency;
-  taxTotal: DiscountAmount;
-  taxPercentRate: number;
-  taxDetails: any[];
-}
-
-interface DiscountAmount {
-  amount: number;
-  formattedAmount: string;
-  formattedAmountWithoutPointAndCurrency: string;
-  formattedAmountWithoutPoint: string;
-  formattedAmountWithoutCurrency: string;
-  currency: Currency;
-}
 
 
 export class ProductSearchCriteria extends PagedSearchCriteria {
   responseGroup: ItemResponseGroup;
   outline: string;
-  currency: Currency;
-  priceRange: NumericRange;
-  language: Language;
+  currency: ICurrency;
+  priceRange: INumericRange;
+  language: ILanguage;
   keyword: string = '';
-  terms: Term[];
+  terms: ITerm[];
   userGroups: string[];
   sortBy: string;
   vendorId: string;

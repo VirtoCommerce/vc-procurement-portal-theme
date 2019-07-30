@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { IAppConfig } from '../models/iapp-config';
 import { environment } from 'src/environments/environment';
 
+
 export function initializeAppConfig(appConfig: AppConfig) {
   return () => appConfig.load();
 }
@@ -13,16 +14,21 @@ export function initializeAppConfig(appConfig: AppConfig) {
 export class AppConfig {
   static settings: IAppConfig;
   constructor(private http: HttpClient) {}
-  load() {
-        const jsonFile = environment.name ? `/assets/config/config.${environment.name}.json` : '/assets/config/config.json' ;
-        return new Promise<void>((resolve, reject) => {
-            this.http.get<IAppConfig>(jsonFile).toPromise().then((response: IAppConfig) => {
-               AppConfig.settings = response;
-               resolve();
-            }).catch((response: any) => {
-               reject(`Could not load file '${jsonFile}': ${JSON.stringify(response)}`);
-            });
-        });
+  async load() {
+        // const jsonFile = environment.name ? `src/assets/config/config.${environment.name}.json` : 'src/assets/config/config.json' ;
+        // //const jsonFile = environment.name ? `/settings1/config.${environment.name}.json` : '/settings1/config.json' ;
+
+        // const settingsData = await import(jsonFile);
+        // AppConfig.settings =  settingsData as IAppConfig;
+
+        // // return new Promise<void>((resolve, reject) => {
+        // //     this.http.get<IAppConfig>(jsonFile).toPromise().then((response: IAppConfig) => {
+        // //        AppConfig.settings = response;
+        // //        resolve();
+        // //     }).catch((response: any) => {
+        // //        reject(`Could not load file '${jsonFile}': ${JSON.stringify(response)}`);
+        // //     });
+        // // });
     }
 
 }
