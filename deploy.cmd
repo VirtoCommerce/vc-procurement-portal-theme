@@ -1,4 +1,4 @@
-setlocal
+ï»¿setlocal
 @if "%SCM_TRACE_LEVEL%" NEQ "4" @echo off
 
 :: ----------------------
@@ -21,9 +21,6 @@ IF %ERRORLEVEL% NEQ 0 (
 
 setlocal enabledelayedexpansion
 
-SET ARTIFACTS=%~dp0artifacts
-SET DEPLOYMENT_TEMP=%ARTIFACTS%\wwwroot\cms-content\themes\Electronics\default
-
 IF NOT DEFINED DEPLOYMENT_SOURCE (
     SET DEPLOYMENT_SOURCE=%~dp0.
 )
@@ -32,16 +29,11 @@ IF NOT DEFINED DEPLOYMENT_TARGET (
     SET DEPLOYMENT_TARGET=%~dp0..\
 )
 
-@echo ARTIFACTS: %ARTIFACTS%
-@echo DEPLOYMENT_SOURCE: %DEPLOYMENT_SOURCE%
-@echo DEPLOYMENT_TARGET: %DEPLOYMENT_TARGET%
-@echo DEPLOYMENT_TEMP: %DEPLOYMENT_TEMP%
-
 IF NOT DEFINED NEXT_MANIFEST_PATH (
-  SET NEXT_MANIFEST_PATH=%ARTIFACTS%\manifest
+  SET NEXT_MANIFEST_PATH=%DEPLOYMENT_SOURCE%\manifest
 
   IF NOT DEFINED PREVIOUS_MANIFEST_PATH (
-    SET PREVIOUS_MANIFEST_PATH=%ARTIFACTS%\manifest
+    SET PREVIOUS_MANIFEST_PATH=%DEPLOYMENT_SOURCE%\manifest
   )
 )
 
@@ -73,7 +65,9 @@ goto :EOF
 :: ----------
 
 :Deployment
-echo Handling node.js deployment.
+
+@echo DEPLOYMENT_SOURCE: %DEPLOYMENT_SOURCE%
+@echo DEPLOYMENT_TARGET: %DEPLOYMENT_TARGET%
 
 :: 1. Select node version
 call :SelectNodeVersion
@@ -82,33 +76,24 @@ pushd "%DEPLOYMENT_SOURCE%"
 cd %DEPLOYMENT_SOURCE%\ng-app\
 :: 2. Install npm packages
 IF EXIST "%DEPLOYMENT_SOURCE%\ng-app\package.json" (
+  echo Install nmp packages ...
   call :ExecuteCmd !NPM_CMD! install
   IF !ERRORLEVEL! NEQ 0 goto error
 )
 
 :: 3. Angular Prod Build //If you had generated this yourself then please add this step manually!!)
 IF EXIST "%DEPLOYMENT_SOURCE%\ng-app\angular.json" (
-echo Building App in %DEPLOYMENT_SOURCE%…
+echo Building App ...
 call :ExecuteCmd !NPM_CMD! run build
 :: If the above command fails comment above and uncomment below one
-:: call ./node_modules/.bin/ng build –prod
+:: call ./node_modules/.bin/ng build 
 IF !ERRORLEVEL! NEQ 0 goto error
 )
 popd
 
-
-xcopy "%DEPLOYMENT_SOURCE%\assets\*.*" "%DEPLOYMENT_TEMP%\assets" /S /R /Y /I
-xcopy "%DEPLOYMENT_SOURCE%\layout\*.*" "%DEPLOYMENT_TEMP%\layout" /S /R /Y /I
-xcopy "%DEPLOYMENT_SOURCE%\locales\*.*" "%DEPLOYMENT_TEMP%\locales" /S /R /Y /I
-xcopy "%DEPLOYMENT_SOURCE%\settings\*.*" "%DEPLOYMENT_TEMP%\settings" /S /R /Y /I
-xcopy "%DEPLOYMENT_SOURCE%\snippets\*.*" "%DEPLOYMENT_TEMP%\snippets" /S /R /Y /I
-xcopy "%DEPLOYMENT_SOURCE%\templates\*.*" "%DEPLOYMENT_TEMP%\templates" /S /R /Y /I
-
-IF !ERRORLEVEL! NEQ 0 goto error
-
 :: 4. KuduSync
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
-    call :ExecuteCmd "%KUDU_SYNC_CMD%" -v 50 -f "%ARTIFACTS%" -t "%DEPLOYMENT_TARGET%" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.hg;.deployment;deploy.cmd"
+    call :ExecuteCmd "%KUDU_SYNC_CMD%" -v 50 -f "%DEPLOYMENT_SOURCE%" -t "%DEPLOYMENT_TARGET%\wwwroot\cms-content\themes\Electronics\default" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.vscode;.hg;.deployment;deploy.cmd;ng-app"
     IF !ERRORLEVEL! NEQ 0 goto error
 )
 
