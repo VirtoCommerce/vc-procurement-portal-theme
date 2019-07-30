@@ -45,6 +45,7 @@ import { RemoveWrapperDirective } from './directives/remove-wrapper.directive';
 import { ChangeProductQuantityComponent } from './components/catalog/change-product-quantity/change-product-quantity.component';
 
 import { AuthInterceptor } from './services/interceptors/auth-interceptor';
+import { RequestInterceptor } from './services/interceptors/request-interceptor';
 // import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
 
@@ -96,12 +97,16 @@ import { AuthInterceptor } from './services/interceptors/auth-interceptor';
     // NgbDropdownModule,
     // NgbDatepickerModule,
 
-    BlockUIModule.forRoot(),
+    BlockUIModule.forRoot({
+      delayStart: 300,
+      delayStop: 300
+    }),
     //InMemoryWebApiModule.forRoot(DataService)
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ProcurementPortalInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     //{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     //fakeBackendProvider,
