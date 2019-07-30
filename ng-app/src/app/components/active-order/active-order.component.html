@@ -41,7 +41,7 @@
           <span class="btn__ico btn__ico--minus"></span>
         </a>
         <!-- <input type="number" class="input-group__input" value="{{item.quantity}}" /> -->
-        <input type="number" class="input-group__input" [(ngModel)]="item.quantity" (ngModelChange)="updateLineItemQuantity(item)" />
+        <input type="number" class="input-group__input" min="1" [(ngModel)]="item.quantity" (ngModelChange)="updateLineItemQuantity(item)" />
         <a  class="btn btn--white" (click)="incrementQuantity(item)">
           <span class="btn__ico btn__ico--plus"></span>
         </a>

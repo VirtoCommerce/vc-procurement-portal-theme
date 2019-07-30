@@ -110,14 +110,14 @@
       <div class="list__item" *ngFor="let p of products">
         <div class="list__img list__img--placeholder">
           <img
-            src="{{ p.primaryImage.url }}"
+            src="{{ p.primaryImage?.url }}"
             alt="{{ p.sku }}"
             class="list__pic"
           />
         </div>
         <div class="list__info">
-          <a class="list__name" href="#">{{ p.name }}</a>
-          <div class="list__brand">Impression Tray</div>
+          <a class="list__name" [routerLink]="['/product-details', p.id]">{{ p.name }}</a>
+          <div class="list__brand">Brand name</div>
           <div class="list__model">
             Model: 2120 <span class="divider">|</span>SKU: {{ p.sku }}
           </div>
@@ -154,42 +154,6 @@
       </div>
     </div>
 
-    <!-- <div class="page-nav">
-      <div class="row align-items-end justify-content-center">
-        <div class="col-auto">
-          <div class="page-nav__total">You've viewed 72 of 101 products</div>
-          <div class="pagination">
-            <div class="pagination__item">
-              <a href="#" class="pagination__link pagination__link--active"
-                >1</a
-              >
-            </div>
-            <div class="pagination__item">
-              <a href="#" class="pagination__link">2</a>
-            </div>
-            <div class="pagination__item">
-              <a href="#" class="pagination__link">3</a>
-            </div>
-            <div class="pagination__item pagination__item--next">
-              <a href="#" class="pagination__link">Next</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-auto ml-sm-auto">
-          <div class="page-nav__count">
-            Show
-            <div class="dropdown">
-              <div class="dropdown__toggle">30</div>
-              <div class="dropdown__menu dropdown__menu--up">
-                <a href="#" class="dropdown__menu-item">10</a>
-                <a href="#" class="dropdown__menu-item">20</a>
-                <a href="#" class="dropdown__menu-item">30</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
     <app-mobile-cart-summary></app-mobile-cart-summary>
   </div>
 
