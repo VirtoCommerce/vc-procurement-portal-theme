@@ -22,7 +22,7 @@ IF %ERRORLEVEL% NEQ 0 (
 setlocal enabledelayedexpansion
 
 SET ARTIFACTS=%~dp0artifacts
-SET DEPLOYMENT_TEMP=%ARTIFACTS%\wwwroot\wwwroot\cms-content\themes\Electronics\default
+SET DEPLOYMENT_TEMP=%ARTIFACTS%\wwwroot\cms-content\themes\Electronics\default
 
 IF NOT DEFINED DEPLOYMENT_SOURCE (
     SET DEPLOYMENT_SOURCE=%~dp0.
