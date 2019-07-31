@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap, catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { SearchCategoriesResult, Category, CategorySearchCriteria, CategoryResponseGroup } from '../models/category';
-import { ProductSearchCriteria, Product, SearchProductsResult } from '../models/product';
+import { ProductSearchCriteria, IProduct, SearchProductsResult } from '../models/product';
 
 //import { IProductSearch, ICatalogSearch } from '../models/ProductSearch';
 
@@ -37,10 +37,15 @@ export class CatalogService {
     return this.http.post<SearchCategoriesResult>(url, searchCriteria).pipe(map(x => x.categories));
   }
 
+  getProduct(productId: string) {
+    const url = 'storefrontapi/products?productIds=';
+    return this.http.get(url + productId);
+  }
+
 
 }
 
 
 export interface CatalogSearch {
-   products: Product[];
+   products: IProduct[];
  }
