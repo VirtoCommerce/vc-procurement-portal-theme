@@ -1,7 +1,7 @@
 import { ILanguage } from './common/language';
 import { ICurrency } from './common/currency';
 import { IMoney } from './common/money';
-import { Product } from './product';
+import { IProduct } from './product';
 import { IUser } from './iuser';
 
 export interface ICart {
@@ -60,7 +60,7 @@ export interface ICart {
 
 export interface ILineItem {
   createdDate: string;
-  product: Product;
+  product: IProduct;
   productId: string;
   productType: string;
   catalogId: string;

@@ -8,27 +8,11 @@ import { IImage } from './common/image';
 import { ISeoInfo } from './common/seo-info';
 import { IProductPrice } from './common/price';
 import { IMoney } from './common/money';
-
-
-// export class Product {
-//   id: string;
-//   name: string;
-//   priceforsort: number;
-//   images: any;
-//   price: number;
-//   properties: any;
-//   sku: string;
-//   catalogId: string;
-//   categoryId: string;
-//   url: string;
-//   image: string;
-//   productProperties: ProductProperties;
-//   productPrice: ProductPrice;
-// }
+import { ILocalizedString } from './common/display-name';
 
 
 export interface SearchProductsResult {
-  products: Product[];
+  products: IProduct[];
   aggregations: Aggregation[];
   metaData: IPageMetaData;
 }
@@ -52,7 +36,7 @@ interface AggregationItem {
   lower?: string;
 }
 
-export class Product {
+export interface IProduct {
   handle: string;
   indexKey: string;
   sku: string;
@@ -75,9 +59,59 @@ export class Product {
   enableReview: boolean;
   maxNumberOfDownload: number;
   hasUserAgreement: boolean;
-  variationProperties: any[];
+  variationProperties: VariationProperty[];
+  assets: any[];
+  variations: Variation[];
+  description: string;
+  descriptions: Description[];
+  price: IProductPrice;
+  priceWithTax: IMoney;
+  prices: IProductPrice[];
+  inventoryAll: any[];
+  availableQuantity: number;
+  seoInfo: ISeoInfo;
+  primaryImage: IImage;
+  images: IImage[];
+  isQuotable: boolean;
+  isAvailable: boolean;
+  available: boolean;
+  properties: VariationProperty[];
+  taxTotal: IMoney;
+  taxPercentRate: number;
+  taxDetails: any[];
+  discounts: any[];
+  currency: ICurrency;
+  id: string;
+}
+
+interface Variation {
+  handle: string;
+  indexKey: string;
+  sku: string;
+  name: string;
+  title: string;
+  catalogId: string;
+  categoryId: string;
+  outline: string;
+  seoPath: string;
+  url: string;
+  titularItemId: string;
+  isBuyable: boolean;
+  buyable: boolean;
+  isInStock: boolean;
+  inStock: boolean;
+  isActive: boolean;
+  trackInventory: boolean;
+  maxQuantity: number;
+  minQuantity: number;
+  productType: string;
+  enableReview: boolean;
+  maxNumberOfDownload: number;
+  hasUserAgreement: boolean;
+  variationProperties: VariationProperty[];
   assets: any[];
   variations: any[];
+  descriptions: Description[];
   price: IProductPrice;
   priceWithTax: IMoney;
   prices: IProductPrice[];
@@ -98,9 +132,29 @@ export class Product {
   id: string;
 }
 
+interface VariationProperty {
+  name: string;
+  type: string;
+  valueType: string;
+  valueId: string;
+  localizedValues: any[];
+  value: string;
+  displayName: string;
+  displayNames: ILocalizedString[];
+  isMultivalue: boolean;
+  values: any[];
+  indexKey: string;
+  id: string;
+}
 
 
-
+interface Description {
+  reviewType: string;
+  content: string;
+  indexKey: string;
+  value: string;
+  language: ILanguage;
+}
 
 export class ProductSearchCriteria extends PagedSearchCriteria {
   responseGroup: ItemResponseGroup;

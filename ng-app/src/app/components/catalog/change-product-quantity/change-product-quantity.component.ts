@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActiveOrderService } from 'src/app/services/active-order.service';
 import { ICart, ILineItem } from 'src/app/models/icart';
-import { Product } from 'src/app/models/product';
+import { IProduct } from 'src/app/models/product';
 
 
 @Component({
@@ -14,7 +14,7 @@ export class ChangeProductQuantityComponent implements OnInit {
   @Input()
   cart: ICart;
   @Input()
-  product: Product;
+  product: IProduct;
 
   productQuantity: number;
 

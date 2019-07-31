@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 
-import { Product } from '../../models/product';
+import { IProduct } from '../../models/product';
 import { CatalogService, AuthenticationService } from '../../services';
 import { ActiveOrderService } from '../../services/active-order.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
@@ -26,7 +26,7 @@ import { ICart } from 'src/app/models/icart';
 })
 export class CatalogComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
-  products: Product[];
+  products: IProduct[];
   categories$: Observable<Category[]>;
   cart$: Observable<ICart>;
   selectedCategory: Category = null;
