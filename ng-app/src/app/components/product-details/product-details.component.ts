@@ -6,12 +6,15 @@ import { IProduct } from "src/app/models/product";
 import { Observable } from "rxjs";
 import { ICart } from "src/app/models/icart";
 import { ActiveOrderService } from "src/app/services/active-order.service";
-import { IImage } from 'src/app/models/common/image';
+import { IImage } from "src/app/models/common/image";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: "app-product-details",
   templateUrl: "./product-details.component.html",
-  styleUrls: ["./product-details.component.scss"]
+  styleUrls: ["./product-details.component.scss"],
+  providers: [NgbCarouselConfig]
 })
 export class ProductDetailsComponent implements OnInit {
   product: IProduct;
@@ -27,8 +30,13 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private catalogService: CatalogService,
     private activeOrderService: ActiveOrderService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private modalService: NgbModal,
+    config: NgbCarouselConfig
+  ) {
+    config.showNavigationArrows = false;
+    config.showNavigationIndicators = false;
+  }
 
   ngOnInit() {
     this.cart$ = this.activeOrderService.Cart;
@@ -59,5 +67,9 @@ export class ProductDetailsComponent implements OnInit {
         }
         this.images = this.product.images;
       });
+  }
+
+  openImageModal(content) {
+    this.modalService.open(content, { centered: true });
   }
 }
