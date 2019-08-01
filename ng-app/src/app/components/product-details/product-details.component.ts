@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { switchMap } from "rxjs/operators";
 import { CatalogService } from "src/app/services";
-import { IProduct } from "src/app/models/product";
+import { IProduct } from "src/app/models/dto/product";
 import { Observable } from "rxjs";
-import { ICart } from "src/app/models/icart";
+import { ICart } from "src/app/models/dto/icart";
 import { ActiveOrderService } from "src/app/services/active-order.service";
-import { IImage } from "src/app/models/common/image";
+import { IImage } from "src/app/models/dto/common/image";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 
@@ -17,14 +17,14 @@ import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
   providers: [NgbCarouselConfig]
 })
 export class ProductDetailsComponent implements OnInit {
+  @ViewChild("quickDescriptionElement", { static: false }) quickDesc: ElementRef;
+  @ViewChild("fullDescriptionElement", { static: false }) fullDesc: ElementRef;
   product: IProduct;
   cart$: Observable<ICart>;
   name: string;
   sku: string;
   price: string;
   primaryImage: string;
-  fullDescription: string;
-  quickDescription: string;
   brand: string;
   images: IImage[];
   constructor(
@@ -52,9 +52,9 @@ export class ProductDetailsComponent implements OnInit {
         this.price = this.product.price.actualPrice.formattedAmount;
         this.product.descriptions.forEach(desc => {
           if (desc.reviewType === "FullReview") {
-            this.fullDescription = desc.value;
+            this.fullDesc.nativeElement.innerHTML = desc.value;
           } else {
-            this.quickDescription = desc.value;
+            this.quickDesc.nativeElement.innerHTML = desc.value;
           }
         });
         this.product.properties.forEach(prop => {
@@ -72,4 +72,5 @@ export class ProductDetailsComponent implements OnInit {
   openImageModal(content) {
     this.modalService.open(content, { centered: true });
   }
+
 }
