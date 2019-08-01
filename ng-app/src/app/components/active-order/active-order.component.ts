@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, isDevMode } from "@angular/core";
 import { ActiveOrderService } from "../../services/active-order.service";
-import { IProduct } from "../../models/product";
+import { IProduct } from "../../models/dto/product";
 
 import { BlockUI, NgBlockUI } from "ng-block-ui";
 import { UserService } from "../../services/user.service";
 import { AuthenticationService } from "../../services";
 import { first } from "rxjs/operators";
-import { IActiveOrder, IActiveOrderCurrency } from "../../models/iactive-order";
+import { IActiveOrder, IActiveOrderCurrency } from "../../models/dto/iactive-order";
 import { Observable } from "rxjs";
-import { ILineItem, ICart } from "src/app/models/icart";
+import { ILineItem, ICart } from "src/app/models/dto/icart";
 
 @Component({
   selector: "app-active-order",

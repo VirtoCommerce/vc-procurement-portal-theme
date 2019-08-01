@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Category } from '../../../models/category';
+import { Category } from '../../../models/dto/category';
 import { Observable } from 'rxjs';
 
 @Component({

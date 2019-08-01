@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActiveOrderService } from 'src/app/services/active-order.service';
-import { ICart, ILineItem } from 'src/app/models/icart';
-import { IProduct } from 'src/app/models/product';
+import { ICart, ILineItem } from 'src/app/models/dto/icart';
+import { IProduct } from 'src/app/models/dto/product';
 
 
 @Component({

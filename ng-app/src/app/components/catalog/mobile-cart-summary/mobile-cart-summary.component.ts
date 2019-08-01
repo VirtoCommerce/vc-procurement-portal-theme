@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ICart } from 'src/app/models/icart';
+import { ICart } from 'src/app/models/dto/icart';
 import { Observable } from 'rxjs';
 import { ActiveOrderService } from 'src/app/services/active-order.service';
 

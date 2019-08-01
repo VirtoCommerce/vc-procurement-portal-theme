@@ -4,20 +4,20 @@ import { HttpClient } from '@angular/common/http';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 
-import { IProduct } from '../../models/product';
+import { IProduct } from '../../models/dto/product';
 import { CatalogService, AuthenticationService } from '../../services';
 import { ActiveOrderService } from '../../services/active-order.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { first } from 'rxjs/operators';
-import { Category } from 'src/app/models/category';
+import { Category } from 'src/app/models/dto/category';
 import { PaginationInfo } from 'src/app/models/inner/pagination-info';
 import { PageSizeChangedArgs } from '../page-size-selector/page-size-selector.component';
 //import { AppConfig } from 'src/app/services/app-config.service';
 import settings_data from 'src/assets/config/config.dev.json';
 import { IAppConfig } from 'src/app/models/iapp-config';
-import { ICart } from 'src/app/models/icart';
+import { ICart } from 'src/app/models/dto/icart';
 
 @Component({
   selector: 'app-catalog',

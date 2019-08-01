@@ -1,6 +1,6 @@
 import { IDynamicProperty } from './common/dynamic-property';
 import { IAddress } from './common/address';
-import { Role } from './role';
+import { Role } from '../role';
 import { IContact } from './icontact';
 import { IOrganization } from './iorganization';
 import { ISecurityAccount } from './common/security-account';

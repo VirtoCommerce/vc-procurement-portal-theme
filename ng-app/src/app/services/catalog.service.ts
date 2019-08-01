@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap, catchError, map, startWith, switchMap } from 'rxjs/operators';
-import { SearchCategoriesResult, Category, CategorySearchCriteria, CategoryResponseGroup } from '../models/category';
-import { ProductSearchCriteria, IProduct, SearchProductsResult } from '../models/product';
+import { SearchCategoriesResult, Category, CategorySearchCriteria, CategoryResponseGroup } from '../models/dto/category';
+import { ProductSearchCriteria, IProduct, SearchProductsResult } from '../models/dto/product';
 
 //import { IProductSearch, ICatalogSearch } from '../models/ProductSearch';
 

@@ -3,7 +3,7 @@ import { PaginationInfo } from 'src/app/models/inner/pagination-info';
 // import { AppConfig } from 'src/app/services/app-config.service';
 import { OrdersService } from 'src/app/services/orders.service';
 import { PageSizeChangedArgs } from '../page-size-selector/page-size-selector.component';
-import { IOrder } from 'src/app/models/iorder';
+import { IOrder } from 'src/app/models/dto/iorder';
 import settings_data from 'src/assets/config/config.dev.json';
 import { IAppConfig } from 'src/app/models/iapp-config';
 

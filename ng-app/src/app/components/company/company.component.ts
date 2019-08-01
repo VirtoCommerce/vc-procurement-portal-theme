@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { OrganizationService } from "src/app/services/organization.service";
-import { IOrganization } from "src/app/models/iorganization";
+import { IOrganization } from "src/app/models/dto/iorganization";
 
 @Component({
   selector: "app-company",

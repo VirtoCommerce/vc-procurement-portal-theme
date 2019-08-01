@@ -5,7 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IOrder, IOrderItem, IOrderComment, OrderComment } from '../../../models/iorder';
+import { IOrder, IOrderItem, IOrderComment, OrderComment } from '../../../models/dto/iorder';
 import { OrdersService } from '../../../services/orders.service';
 import { IApprovalWorkFlow, IApprovalWorkFlowStep } from '../../../models/iapproval-workflow';
 

@@ -6,7 +6,7 @@ import { of } from "rxjs";
 import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
 import { FormControl } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { IOrder, IOrderItem, IOrderComment } from "../../../models/iorder";
+import { IOrder, IOrderItem, IOrderComment } from "../../../models/dto/iorder";
 import { OrdersService } from "../../../services/orders.service";
 
 @Component({

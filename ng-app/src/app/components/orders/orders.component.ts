@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 // import { Store, select } from '@ngrx/store';
 import { OrdersService } from '../../services/orders.service';
-import { IOrder } from '../../models/iorder';
+import { IOrder } from '../../models/dto/iorder';
 import { User } from '../../models/user';
 
 import { AuthenticationService } from '../../services';

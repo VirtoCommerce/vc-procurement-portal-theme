@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap, catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { IOrder, OrderSearchCriteria } from '../models/iorder';
-import { IOrders } from '../models/iorders';
+import { IOrder, OrderSearchCriteria } from '../models/dto/iorder';
+import { IOrders } from '../models/dto/iorders';
 
 
 @Injectable({ providedIn: 'root' })
