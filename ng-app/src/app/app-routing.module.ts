@@ -9,6 +9,7 @@ import { BulkOrderComponent } from './components/bulk-order/bulk-order.component
 import { OrderDetailsComponent } from './components/orders/order-details/order-details.component';
 import { ForApprovalDetailsComponent } from './components/forapproval/forapproval-details/forapproval-details.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { InvoiceComponent } from './components/orders/invoice/invoice.component';
 
 
 const routes: Routes = [
@@ -36,7 +37,8 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent},
   { path: 'bulkorder', component: BulkOrderComponent},
   { path: 'order-details/:id', component: OrderDetailsComponent },
-  { path: 'forapproval-details/:id', component: ForApprovalDetailsComponent}
+  { path: 'forapproval-details/:id', component: ForApprovalDetailsComponent},
+  { path: 'invoice/:id', component: InvoiceComponent }
 ];
 
 @NgModule({

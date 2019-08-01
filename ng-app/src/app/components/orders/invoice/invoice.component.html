@@ -1,0 +1,84 @@
+<main class="main container" *ngIf="order">
+  <div class="order">
+      <h1>Your order successfully</h1>
+      <div class="order__status">
+          <div class="logo-vc"></div>
+          <div class="order__status-name">
+              Status <span class="status text--green">{{order.status}}</span>
+          </div>
+      </div>
+      <div class="row order__general">
+          <div class="col-md-6">
+              <div class="order__general-date">
+                  Order Date <span class="value">{{order.createdDate | date: 'MM/dd/yyyy h:mm:ss a'}}</span>
+              </div>
+          </div>
+          <div class="col-md-6">
+              <div class="order__general-number">
+                  Order Number <span class="value">{{order.number}}</span>
+              </div>
+          </div>
+      </div>
+      <h2>Details</h2>
+      <div class="table-responsive">
+          <table class="table">
+              <colgroup>
+                  <col>
+                  <col class="col-w-340">
+                  <col class="col-w-120">
+                  <col class="col-w-120">
+                  <col class="col-w-120">
+              </colgroup>
+              <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>Item Description</th>
+                      <th>Unit Price</th>
+                      <th>Invoice QTY</th>
+                      <th>Line Price</th>
+                  </tr>
+              </thead>
+              <tbody *ngFor="let item of items; let i = index ">
+                  <tr>
+                      <td>{{i+1}}</td>
+                      <td>
+                          {{item.name}}
+                          <div class="text--gray">SKU: {{item.sku}}</div>
+                      </td>
+                      <td>{{item.placedPrice.formattedAmount}}</td>
+                      <td>{{item.quantity}}</td>
+                      <td>{{item.extendedPrice.formattedAmount}}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+      <div class="row">
+          <div class="col-md-6 ml-md-auto">
+              <div class="list list--total">
+                  <div class="list__item">
+                      <b class="text--black">Shipping</b> <span class="list__count">{{order.shippingTotal.formattedAmount}}</span>
+                  </div>
+                  <div class="list__item">
+                      <b class="text--black">Total Fees</b> <span class="list__count free">0.00</span>
+                  </div>
+                  <div class="list__item">
+                      <b class="text--black">Order Subtotal</b> <span class="list__count">{{order.subTotal.formattedAmount}}</span>
+                  </div>
+                  <div class="list__item">
+                      <b class="text--black">GST</b> <span class="list__count">{{order.taxTotal.formattedAmount}}</span>
+                  </div>
+                  <div class="list__item">
+                      <b class="text--black">Total</b> <span class="list__count">{{order.total.formattedAmount}}</span>
+                  </div>
+                  <div class="list__item">
+                      <b class="text--black">Currency</b> <span class="list__count">{{order.currency.code}}</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="order__actions">
+          <a [routerLink]="['/catalog']" class="btn btn--outline">Back to Catalog</a>
+          <a (click)="getInvoicePdf(order.number)" class="btn btn--green">Download</a>
+      </div>
+  </div>
+</main>

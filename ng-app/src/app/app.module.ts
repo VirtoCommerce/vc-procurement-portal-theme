@@ -47,6 +47,7 @@ import { ChangeProductQuantityComponent } from './components/catalog/change-prod
 import { AuthInterceptor } from './services/interceptors/auth-interceptor';
 import { RequestInterceptor } from './services/interceptors/request-interceptor';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { InvoiceComponent } from './components/orders/invoice/invoice.component';
 // import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
 
@@ -80,7 +81,9 @@ import { ProductDetailsComponent } from './components/product-details/product-de
     // directives
     RemoveWrapperDirective,
 
-    ProductDetailsComponent
+    ProductDetailsComponent,
+
+    InvoiceComponent
 
   ],
   imports: [

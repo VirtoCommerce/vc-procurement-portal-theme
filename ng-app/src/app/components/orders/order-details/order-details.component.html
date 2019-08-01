@@ -118,7 +118,7 @@
         </div>
         <div class="order__actions">
             <a href="#" class="btn btn--green">Add to current Order</a>
-            <a href="#" class="btn btn--outline">View Invoice</a>
+            <a class="btn btn--outline" [routerLink]="['/invoice',order.number]">View Invoice</a>
         </div>
     </div>
 </main>
