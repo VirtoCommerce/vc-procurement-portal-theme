@@ -34,7 +34,7 @@ export class ChangeProductQuantityComponent implements OnInit {
   }
 
   addProductToCart() {
-    this.activeOrderService.AddItem(this.product.id).subscribe();
+    this.activeOrderService.addItem(this.product.id).subscribe();
   }
 
 
@@ -43,17 +43,17 @@ export class ChangeProductQuantityComponent implements OnInit {
       return;
     }
     lineItem.quantity--;
-    this.activeOrderService.ChangeItemQuantity(lineItem.id, lineItem.quantity).subscribe();
+    this.activeOrderService.changeItemQuantity(lineItem.id, lineItem.quantity).subscribe();
   }
 
   incrementQuantity(lineItem: ILineItem) {
     lineItem.quantity++;
-    this.activeOrderService.ChangeItemQuantity(lineItem.id, lineItem.quantity).subscribe();
+    this.activeOrderService.changeItemQuantity(lineItem.id, lineItem.quantity).subscribe();
   }
 
   updateLineItemQuantity() {
     const lineItem = this.productLineItem;
-    this.activeOrderService.ChangeItemQuantity(lineItem.id, lineItem.quantity).subscribe();
+    this.activeOrderService.changeItemQuantity(lineItem.id, lineItem.quantity).subscribe();
   }
 
 

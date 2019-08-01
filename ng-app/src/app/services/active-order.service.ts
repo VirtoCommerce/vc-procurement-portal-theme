@@ -39,7 +39,7 @@ export class ActiveOrderService {
     console.log('createOrder');
     const body = {};
     const url = 'storefrontapi/cart/createorder';
-    return this.http.post<any>(url, body);
+    return this.http.post<any>(url, body).pipe(tap(x => this.refreshCart()));
   }
 
   clearAllItems() {
@@ -49,7 +49,7 @@ export class ActiveOrderService {
     return this.http.post<any>(url, body).pipe(tap(x => this.refreshCart()));
   }
 
-  AddItem(productId: string) {
+  addItem(productId: string) {
     console.log('Add');
     const body = { id: productId, quantity: 1 };
     const url = 'storefrontapi/cart/items';
@@ -62,7 +62,7 @@ export class ActiveOrderService {
     return this.http.delete(url).pipe(tap(x => this.refreshCart()));
   }
 
-  ChangeItemQuantity(lineItemId: string, quantity: number) {
+  changeItemQuantity(lineItemId: string, quantity: number) {
       const url = 'storefrontapi/cart/items';
       const body = '{"lineItemId":"' + lineItemId + '","Quantity":"' + quantity + '"}';
       return this.http.put<any>(url, body).pipe(tap(x => this.refreshCart()));
