@@ -44,26 +44,28 @@ export class ActiveOrderComponent implements OnInit {
     }
     item.quantity--;
     this.activeOrderService
-      .ChangeItemQuantity(item.id, item.quantity)
+      .changeItemQuantity(item.id, item.quantity)
       .subscribe();
   }
 
   incrementQuantity(item: ILineItem) {
     item.quantity++;
     this.activeOrderService
-      .ChangeItemQuantity(item.id, item.quantity)
+      .changeItemQuantity(item.id, item.quantity)
       .subscribe();
   }
 
   updateLineItemQuantity(lineItem: ILineItem) {
     //const lineItem = this.productLineItem;
     this.activeOrderService
-      .ChangeItemQuantity(lineItem.id, lineItem.quantity)
+      .changeItemQuantity(lineItem.id, lineItem.quantity)
       .subscribe();
   }
 
   checkout(cart: ICart) {
-    console.log(cart);
+    //console.log(cart);
+    this.activeOrderService.createOrder().subscribe();
+
   }
 
 }
