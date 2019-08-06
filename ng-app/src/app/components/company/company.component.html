@@ -28,7 +28,7 @@
           <div class="form-row form-group">
             <div class="col-md">
               <label for="name">Company Name</label>
-              <input type="text" class="form-control" id="name" [ngModel]="companyName" />
+              <input type="text" class="form-control" id="name" [(ngModel)]="companyName"/>
             </div>
             <div class="col-md">
               <label for="number">Tax Number</label>
@@ -72,7 +72,7 @@
             </div>
           </div>
         </fieldset>
-        <fieldset>
+        <fieldset *ngIf="billingAddress">
           <legend>Billing address</legend>
           <div class="form-row form-group">
             <div class="col-md-6">
@@ -84,6 +84,7 @@
                     type="text"
                     class="form-control"
                     id="billing-country"
+                    [(ngModel)]="billingAddress.country"
                   />
                 </div>
                 <div class="col-md">
@@ -93,6 +94,7 @@
                     type="text"
                     class="form-control"
                     id="billing-city"
+                    [(ngModel)]="billingAddress.city"
                   />
                 </div>
                 <div class="col-md-auto">
@@ -102,6 +104,7 @@
                     type="text"
                     class="form-control form-control--code"
                     id="billing-code"
+                    [(ngModel)]="billingAddress.postalCode"
                   />
                 </div>
               </div>
@@ -115,6 +118,7 @@
                     type="text"
                     class="form-control"
                     id="billing-address"
+                    [(ngModel)]="billingAddress.address1"
                   />
                 </div>
                 <div class="col-md">
@@ -124,13 +128,14 @@
                     type="text"
                     class="form-control"
                     id="billing-address-2"
+                    [(ngModel)]="billingAddress.address2"
                   />
                 </div>
               </div>
             </div>
           </div>
         </fieldset>
-        <fieldset>
+        <fieldset *ngIf="shippingAddress">
           <legend>Shipping address</legend>
           <div class="form-row form-group">
             <div class="col-md-6">
@@ -142,6 +147,7 @@
                     type="text"
                     class="form-control"
                     id="shipping-country"
+                    [(ngModel)]="shippingAddress.country"
                   />
                 </div>
                 <div class="col-md">
@@ -151,6 +157,7 @@
                     type="text"
                     class="form-control"
                     id="shipping-city"
+                    [(ngModel)]="shippingAddress.city"
                   />
                 </div>
                 <div class="col-md-auto">
@@ -160,6 +167,7 @@
                     type="text"
                     class="form-control form-control--code"
                     id="shipping-code"
+                    [(ngModel)]="shippingAddress.postalCode"
                   />
                 </div>
               </div>
@@ -173,6 +181,7 @@
                     type="text"
                     class="form-control"
                     id="shipping-address"
+                    [(ngModel)]="shippingAddress.address1"
                   />
                 </div>
                 <div class="col-md">
@@ -182,6 +191,7 @@
                     type="text"
                     class="form-control"
                     id="shipping-address-2"
+                    [(ngModel)]="shippingAddress.address2"
                   />
                 </div>
               </div>
@@ -195,9 +205,66 @@
             <a class="btn btn--outline btn--active">No</a>
           </div>
         </fieldset>
+        <a class="btn btn--green" (click)="updateCompany()">Update Company</a>
       </div>
       <div class="tabs__content">
-        <a href="#" class="btn btn--green mb-4">Add new User</a>
+        <a (click)="openCreateUserModal(content)" class="btn btn--green mb-4">Add new User</a>
+
+        <ng-template #content let-modal>
+          <form #myform='ngForm' (ngSubmit)='myform.form.valid && addNewUser(myform)' class='p-3'>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input id="Useremail" name="email" placeholder="Email" required class="form-control" ngModel #email="ngModel" [ngClass]="{ 'is-invalid': myform.submitted && email.invalid }" email>
+              <div *ngIf="myform.submitted && email.invalid" class="invalid-feedback">
+                <div *ngIf="email.errors.required">Email is required</div>
+                <div *ngIf="email.errors.email">Email must be a valid email address</div>
+            </div>
+            </div>
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input id="firstName" name="firstName" placeholder="First Name" type="text" class="form-control" [ngClass]="{ 'is-invalid': myform.submitted && firstName.invalid }" required ngModel #firstName="ngModel">
+              <div *ngIf="myform.submitted && firstName.invalid" class="invalid-feedback">
+                <div *ngIf="firstName.errors.required">First Name is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input id="lastName" name="lastName" placeholder="Last Name" type="text" class="form-control" [ngClass]="{ 'is-invalid': myform.submitted && lastName.invalid }" required ngModel #lastName="ngModel">
+              <div *ngIf="myform.submitted && lastName.invalid" class="invalid-feedback">
+                <div *ngIf="lastName.errors.required">Last Name is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="userName">User Name</label>
+              <input id="userName" name="userName" placeholder="User Name" type="text" class="form-control" required [ngClass]="{ 'is-invalid': myform.submitted && userName.invalid }" required ngModel #userName="ngModel">
+              <div *ngIf="myform.submitted && userName.invalid" class="invalid-feedback">
+                <div *ngIf="userName.errors.required">User Name is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="Password">Password</label>
+              <input id="password" name="password" placeholder="Password" type="password" required class="form-control" ngModel #password="ngModel" [ngClass]="{ 'is-invalid': myform.submitted && password.invalid }" required minlength="6">
+              <div *ngIf="myform.submitted && password.invalid" class="invalid-feedback">
+                <div *ngIf="password.errors.required">Password is required</div>
+                <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+              </div>
+            </div>
+            <div class="form-group">
+                <select id="selectRole" name="selectRole" class="custom-select" required aria-describedby="selectRoleHelpBlock" [ngClass]="{ 'is-invalid': myform.submitted && role.invalid }" required ngModel #role="ngModel">
+                  <option value="" style="display:none">Please select role</option>
+                  <option value="org-maintainer">Organization maintainer</option>
+                  <option value="org-employee">Organization employee</option>
+                </select>
+                <div *ngIf="myform.submitted && role.invalid" class="invalid-feedback">
+                  <div *ngIf="role.errors.required">Role is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+              <button name="submit" type="submit" class="btn btn--green mb-4">Add</button>
+            </div>
+          </form>
+        </ng-template>
+
         <div class="table-responsive">
           <table class="table">
             <colgroup>
@@ -222,17 +289,17 @@
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody *ngFor="let user of users">
               <tr>
-                <td>PetrovD</td>
-                <td>Dmitry</td>
-                <td>Petrov</td>
-                <td>Agent</td>
-                <td>Admin</td>
-                <td>PetrovD@gmail.com</td>
-                <td>+7 911 111 11 11</td>
+                <td>{{user.userName}}</td>
+                <td>{{user.firstName}}</td>
+                <td>{{user.lastName}}</td>
+                <td>Тут workflow role</td>
+                <td>{{user.role.name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.phones[0]}}</td>
                 <td>
-                  <a href="#" class="text--red">Remove user</a>
+                  <a (click)="deleteUser(user)" class="text--red">Remove user</a>
                 </td>
               </tr>
             </tbody>
@@ -269,5 +336,23 @@
         </div>
       </div>
     </div>
+
+    <div class="page-nav">
+      <div class="row align-items-end justify-content-center">
+        <div class="col-auto">
+          <div class="page-nav__total">You've viewed {{users.length}} of {{paginationInfo.collectionSize}} orders</div>
+          <ngb-pagination
+          [(page)]="paginationInfo.page"
+          [pageSize]="paginationInfo.pageSize"
+          [collectionSize]="paginationInfo.collectionSize"
+          (pageChange)="pageChanged()"></ngb-pagination>
+        </div>
+        <div class="col-auto ml-sm-auto">
+            Show
+            <app-page-size-selector [defaultPageSize]="paginationInfo.pageSize" [pageSizes]="pageSizes" (pageSizeChanged)="pageSizeChanged($event)" ></app-page-size-selector>
+        </div>
+      </div>
+    </div>
+
   </div>
 </main>
