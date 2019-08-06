@@ -14,11 +14,11 @@
           <div class="form-row form-group">
             <div class="col-md">
               <label for="login">Login</label>
-              <input type="text" class="form-control" id="login" [ngModel]="userName" />
+              <input type="text" class="form-control" id="login" [ngModel]="userName" readonly />
             </div>
             <div class="col-md">
               <label for="email">Email</label>
-              <input type="email" class="form-control" id="email" [ngModel]="email"/>
+              <input type="email" class="form-control" id="email" [(ngModel)]="email"/>
             </div>
             <div class="col-md">
               <label for="phone">Phone</label>
@@ -26,6 +26,7 @@
             </div>
           </div>
         </fieldset>
+        <a class="btn btn--green" (click)="updateUser()">Update User</a>
       </div>
     </div>
   </div>

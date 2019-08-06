@@ -24,4 +24,10 @@ export class AccountComponent implements OnInit {
       console.log(this.user);
     });
   }
+
+  updateUser() {
+    this.userService
+      .updateUser(this.user.firstName, this.user.lastName, this.email)
+      .subscribe();
+  }
 }
