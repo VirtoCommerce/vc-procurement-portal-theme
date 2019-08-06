@@ -125,7 +125,7 @@
         </div>
         <div class="list__other">
           <div class="list__price">{{ p.price.actualPrice.formattedAmount }}</div>
-            <app-change-product-quantity [cart]="cart" [product]="p"></app-change-product-quantity>
+            <app-change-product-quantity [cart]="cart" [productId]="p.id"></app-change-product-quantity>
         </div>
       </div>
     </div>

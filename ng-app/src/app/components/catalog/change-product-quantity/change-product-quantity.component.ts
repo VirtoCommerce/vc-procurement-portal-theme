@@ -14,7 +14,7 @@ export class ChangeProductQuantityComponent implements OnInit {
   @Input()
   cart: ICart;
   @Input()
-  product: IProduct;
+  productId: string;
 
   productQuantity: number;
 
@@ -25,7 +25,7 @@ export class ChangeProductQuantityComponent implements OnInit {
   }
 
   get productLineItem() {
-    return this.getProductLineItem(this.product.id);
+    return this.getProductLineItem(this.productId);
   }
 
   private getProductLineItem(productId: string): ILineItem {
@@ -34,7 +34,7 @@ export class ChangeProductQuantityComponent implements OnInit {
   }
 
   addProductToCart() {
-    this.activeOrderService.addItem(this.product.id).subscribe();
+    this.activeOrderService.addItem(this.productId).subscribe();
   }
 
 
