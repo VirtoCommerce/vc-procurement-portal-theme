@@ -18,12 +18,6 @@ export class UserService {
     return this.http.get<User>(`/users/${id}`);
   }
 
-  getUserName() {
-    console.log("getUserName");
-    const url = "storefrontapi/account";
-    return this.http.get<any>(url);
-  }
-
   updateUser(newFirstName: string, newLastName: string, newEmail: string) {
     const url = "storefrontapi/account";
     const body = {

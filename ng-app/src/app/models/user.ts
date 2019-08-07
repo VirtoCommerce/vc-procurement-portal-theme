@@ -8,3 +8,4 @@ export class User {
     token?: string;
     workflowRole: string;
 }
+

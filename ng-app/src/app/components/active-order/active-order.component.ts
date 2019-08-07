@@ -1,23 +1,19 @@
-import { Component, OnInit, Input, isDevMode } from "@angular/core";
-import { ActiveOrderService } from "../../services/active-order.service";
-import { IProduct } from "../../models/dto/product";
+import { Component, OnInit, Input, isDevMode } from '@angular/core';
+import { ActiveOrderService } from '../../services/active-order.service';
 
-import { BlockUI, NgBlockUI } from "ng-block-ui";
-import { UserService } from "../../services/user.service";
-import { AuthenticationService } from "../../services";
-import { first } from "rxjs/operators";
-import { IActiveOrder, IActiveOrderCurrency } from "../../models/dto/iactive-order";
-import { Observable } from "rxjs";
-import { ILineItem, ICart } from "src/app/models/dto/icart";
+import { UserService } from '../../services/user.service';
+import { AuthenticationService } from '../../services';
+import { first } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { ILineItem, ICart } from 'src/app/models/dto/icart';
 import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
 
 @Component({
-  selector: "app-active-order",
-  templateUrl: "./active-order.component.html",
-  styleUrls: ["./active-order.component.scss"]
+  selector: 'app-active-order',
+  templateUrl: './active-order.component.html',
+  styleUrls: ['./active-order.component.scss']
 })
 export class ActiveOrderComponent implements OnInit {
-  @BlockUI() blockUI: NgBlockUI;
 
   cart$: Observable<ICart>;
 
@@ -59,14 +55,13 @@ export class ActiveOrderComponent implements OnInit {
   }
 
   updateLineItemQuantity(lineItem: ILineItem) {
-    //const lineItem = this.productLineItem;
     this.activeOrderService
       .changeItemQuantity(lineItem.id, lineItem.quantity)
       .subscribe();
   }
 
   checkout(cart: ICart) {
-    //console.log(cart);
+    // console.log(cart);
     this.activeOrderService.createOrder().subscribe();
 
   }
