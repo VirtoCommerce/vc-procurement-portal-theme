@@ -1,4 +1,4 @@
-import { PagedSearchCriteria } from "./common/paged-search-criteria";
+import { PagedSearchCriteria } from './common/paged-search-criteria';
 import { INumericRange } from './common/numeric-range';
 import { ILanguage } from './common/language';
 import { ICurrency } from './common/currency';

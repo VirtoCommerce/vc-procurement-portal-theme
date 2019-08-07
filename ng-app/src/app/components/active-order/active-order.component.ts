@@ -9,6 +9,7 @@ import { first } from "rxjs/operators";
 import { IActiveOrder, IActiveOrderCurrency } from "../../models/dto/iactive-order";
 import { Observable } from "rxjs";
 import { ILineItem, ICart } from "src/app/models/dto/icart";
+import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
 
 @Component({
   selector: "app-active-order",
@@ -20,7 +21,7 @@ export class ActiveOrderComponent implements OnInit {
 
   cart$: Observable<ICart>;
 
-  constructor(private activeOrderService: ActiveOrderService) {
+  constructor(private activeOrderService: ActiveOrderService, private confirmService: ConfirmService) {
     // this.currentUser = this.authenticationService.currentUserValue;
   }
 
@@ -31,11 +32,13 @@ export class ActiveOrderComponent implements OnInit {
   }
 
   removeItem(item: ILineItem) {
-    this.activeOrderService.removeItem(item.id).subscribe();
+    const confirmOptions = { title: 'Line item removing', message: 'Are you sure you want to remove this line item from the active order?' };
+    this.confirmService.confirm(confirmOptions).then(() => this.activeOrderService.removeItem(item.id).subscribe() );
   }
 
   clear() {
-    this.activeOrderService.clearAllItems().subscribe();
+    const confirmOptions = { title: 'Active order cleaning', message: 'Are you sure you want to clear the active order?' };
+    this.confirmService.confirm(confirmOptions).then(() => this.activeOrderService.clearAllItems().subscribe() );
   }
 
   decrementQuantity(item: ILineItem) {
