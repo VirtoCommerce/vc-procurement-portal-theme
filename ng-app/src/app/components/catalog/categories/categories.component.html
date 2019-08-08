@@ -1,7 +1,8 @@
 
 <div class="sidebar d-none d-xl-block">
   <div class="sidebar__block">
-      <a href="#" class="btn btn--blue btn--block">Bulk Order</a>
+      <a [routerLink]="['/bulkorder']"
+       class="btn btn--blue btn--block">Bulk Order</a>
   </div>
   <ul class="nav nav--category">
       <li class="nav__item" *ngFor="let category of categories | async" >

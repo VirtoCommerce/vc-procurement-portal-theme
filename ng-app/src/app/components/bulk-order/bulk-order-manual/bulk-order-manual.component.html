@@ -1,0 +1,183 @@
+<div class="bulk-order" appWrapperRemove>
+    <h1>Bulk Order Pad</h1>
+    <div class="row bulk-order__actions">
+        <div class="bulk-order__actions-item col-md-auto">
+            <a href="#" class="btn btn--blue btn--outline">Catalog order</a>
+        </div>
+        <div class="bulk-order__actions-item col-md">
+            <div class="btn-group">
+                <a class="btn btn--outline btn--active" data-name="manual">Manual</a>
+                <a class="btn btn--outline" data-name="copy-paste">Copy & Paste</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk order tab content -->
+    <div class="bulk-order__content bulk-order__content--active" data-index="0">
+        <h2>Add new item</h2>
+        <div class="bulk-order__new">
+            <div class="row">
+                <div class="col-md">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input placeholder="Product SKU" type="text" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <input placeholder="Product name" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-auto">
+                    <div class="row">
+                        <div class="col-md-auto">
+                            <div class="input-group input-group--qty">
+                                <input placeholder="QTY" type="text" class="form-control form-control--qty">
+                                <a href="#" class="btn btn--blue">
+                                    <span class="btn__ico btn__ico--plus-white"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bulk-order__list">
+            <h2>Items in order</h2>
+            <div class="list">
+                <div class="row list__item">
+                    <div class="col-md">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" value="2039082">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" value="G61-50T38">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-auto">
+                        <div class="row">
+                            <div class="col-md-auto">
+                                <div class="input-group input-group--qty">
+                                    <input type="text" class="form-control form-control--qty" value="1920">
+                                    <a href="#" class="btn btn--white">
+                                        <span class="btn__ico btn__ico--trash-gray"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row list__item">
+                    <div class="col-md">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" value="2039082">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" value="G61-50T38">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-auto">
+                        <div class="row">
+                            <div class="col-md-auto">
+                                <div class="input-group input-group--qty">
+                                    <input type="text" class="form-control form-control--qty" value="1920">
+                                    <a href="#" class="btn btn--white">
+                                        <span class="btn__ico btn__ico--trash-gray"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row list__item">
+                    <div class="col-md">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" value="2039082">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" value="G61-50T38">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-auto">
+                        <div class="row">
+                            <div class="col-md-auto">
+                                <div class="input-group input-group--qty">
+                                    <input type="text" class="form-control form-control--qty" value="1920">
+                                    <a href="#" class="btn btn--white">
+                                        <span class="btn__ico btn__ico--trash-gray"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row list__item">
+                    <div class="col-md">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control form-control--error" value="2039082">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control form-control--error" value="G61-50T38">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="form-error">Error</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-auto">
+                        <div class="row">
+                            <div class="col-md-auto">
+                                <div class="input-group input-group--qty">
+                                    <input type="text" class="form-control form-control--qty" value="1920">
+                                    <a href="#" class="btn btn--white">
+                                        <span class="btn__ico btn__ico--trash-gray"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bulk-order__content" data-index="1">
+        <div class="bulk-order__copy">
+            <p>Simply copy the item records from your CSV file and paste them into the text box using the following format: SKU, Quantity. Each record should start from a new line.</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <textarea class="bulk-order__copy-field"></textarea>
+                </div>
+                <div class="col-md-6">
+                    <div class="bulk-order__copy-errors">
+                        <p>Error in line 1: Product is not recognized</p>
+                        <p>Error in line 12: Product is not recognized</p>
+                        <p>Error in line 12: Product is not recognized</p>
+                        <p>Error in line 12: Product is not recognized</p>
+                        <p>Error in line 12: Product is not recognized</p>
+                        <p>Error in line 12: Product is not recognized</p>
+                        <p>Error in line 12: Product is not recognized</p>
+                        <p>Error in line 12: Product is not recognized</p>
+                        <a class="all-errors" href="#">Show all Errors</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <a href="#" class="btn btn--blue">Validate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bulk-order__add-order">
+        <a href="#" class="btn btn--green ml-auto">Add to Order</a>
+    </div>
+</div>
