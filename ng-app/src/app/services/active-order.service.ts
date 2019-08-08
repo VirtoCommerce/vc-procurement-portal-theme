@@ -49,9 +49,9 @@ export class ActiveOrderService {
     return this.http.post<any>(url, body).pipe(tap(x => this.refreshCart()));
   }
 
-  addItem(productId: string) {
+  addItem(productId: string, productQuantity: number = 1) {
     console.log('Add');
-    const body = { id: productId, quantity: 1 };
+    const body = { id: productId, quantity: productQuantity };
     const url = 'storefrontapi/cart/items';
     return this.http.post<any>(url, body).pipe( tap(x => this.refreshCart()));
   }
