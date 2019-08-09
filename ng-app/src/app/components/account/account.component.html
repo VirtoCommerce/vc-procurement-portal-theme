@@ -9,20 +9,20 @@
         User Details
         <!-- <span class="mobile-name">User Details</span> -->
       </label>
-      <div class="tabs__content">
+      <div class="tabs__content" *ngIf="user">
         <fieldset>
           <div class="form-row form-group">
             <div class="col-md">
               <label for="login">Login</label>
-              <input type="text" class="form-control" id="login" [ngModel]="userName" readonly />
+              <input type="text" class="form-control" id="login" [ngModel]="user.userName" readonly />
             </div>
             <div class="col-md">
               <label for="email">Email</label>
-              <input type="email" class="form-control" id="email" [(ngModel)]="email"/>
+              <input type="email" class="form-control" id="email" [(ngModel)]="user.email"/>
             </div>
             <div class="col-md">
               <label for="phone">Phone</label>
-              <input type="text" class="form-control" id="phone" [ngModel]="phone"/>
+              <input type="text" class="form-control" id="phone" [ngModel]="user.phoneNumbers[0]"/>
             </div>
           </div>
         </fieldset>

@@ -48,6 +48,8 @@ import { AuthInterceptor } from './services/interceptors/auth-interceptor';
 import { RequestInterceptor } from './services/interceptors/request-interceptor';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { InvoiceComponent } from './components/orders/invoice/invoice.component';
+import { ModalFormComponent } from './components/company/modal-form/modal-form.component';
+import { ConfirmEqualValidatorDirective } from './directives/match-value.directive';
 // import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
 
@@ -83,7 +85,11 @@ import { InvoiceComponent } from './components/orders/invoice/invoice.component'
 
     ProductDetailsComponent,
 
-    InvoiceComponent
+    InvoiceComponent,
+
+    ModalFormComponent,
+
+    ConfirmEqualValidatorDirective
 
   ],
   imports: [
@@ -121,6 +127,7 @@ import { InvoiceComponent } from './components/orders/invoice/invoice.component'
     //   deps: [AppConfig], multi: true },
     AuthenticationService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalFormComponent]
 })
 export class AppModule { }
