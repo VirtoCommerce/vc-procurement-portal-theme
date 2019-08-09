@@ -10,7 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // custom modules import
 
 import { AppRoutingModule } from './app-routing.module';
-
+import { ConfirmModalModule } from './modules/confirm-modal/confirm-modal.module';
 
 import { HeaderPanelComponent } from './components/container/header-panel/header-panel.component';
 import { MainPanelComponent } from './components/container/main-panel/main-panel.component';
@@ -43,7 +43,6 @@ import { ProcurementPortalInterceptor } from './services/interceptors/intercepto
 // directives
 import { RemoveWrapperDirective } from './directives/remove-wrapper.directive';
 import { ChangeProductQuantityComponent } from './components/catalog/change-product-quantity/change-product-quantity.component';
-
 import { AuthInterceptor } from './services/interceptors/auth-interceptor';
 import { RequestInterceptor } from './services/interceptors/request-interceptor';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
@@ -51,8 +50,6 @@ import { InvoiceComponent } from './components/orders/invoice/invoice.component'
 import { ModalFormComponent } from './components/company/modal-form/modal-form.component';
 import { ConfirmEqualValidatorDirective } from './directives/match-value.directive';
 // import { initializeAppConfig, AppConfig } from './services/app-config.service';
-
-
 
 // import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
@@ -63,7 +60,6 @@ import { ConfirmEqualValidatorDirective } from './directives/match-value.directi
     HeaderPanelComponent,
     MainPanelComponent,
     FooterPanelComponent,
-
     AccountComponent,
     ActiveOrderComponent,
     BulkOrderComponent,
@@ -79,11 +75,11 @@ import { ConfirmEqualValidatorDirective } from './directives/match-value.directi
     MobileCartSummaryComponent,
     PageSizeSelectorComponent,
     ChangeProductQuantityComponent,
-
-    // directives
-    RemoveWrapperDirective,
-
     ProductDetailsComponent,
+    InvoiceComponent,
+    // directives
+    RemoveWrapperDirective
+
 
     InvoiceComponent,
 
@@ -108,20 +104,20 @@ import { ConfirmEqualValidatorDirective } from './directives/match-value.directi
     // NgbPaginationModule,
     // NgbDropdownModule,
     // NgbDatepickerModule,
-
+    ConfirmModalModule,
     BlockUIModule.forRoot({
       delayStart: 300,
       delayStop: 300
     }),
-    //InMemoryWebApiModule.forRoot(DataService)
+    // InMemoryWebApiModule.forRoot(DataService)
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ProcurementPortalInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
-    //{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    //fakeBackendProvider,
+    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // fakeBackendProvider,
     // { provide: APP_INITIALIZER,
     //   useFactory: initializeAppConfig,
     //   deps: [AppConfig], multi: true },

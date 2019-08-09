@@ -93,7 +93,7 @@ popd
 
 :: 4. KuduSync
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
-    call :ExecuteCmd "%KUDU_SYNC_CMD%" -v 50 -f "%DEPLOYMENT_SOURCE%" -t "%DEPLOYMENT_TARGET%\wwwroot\cms-content\themes\Electronics\default" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.vscode;.hg;.deployment;deploy.cmd;ng-app"
+    call :ExecuteCmd "%KUDU_SYNC_CMD%" -v 50 -f "%DEPLOYMENT_SOURCE%" -t "%DEPLOYMENT_TARGET%\wwwroot\cms-content\themes\dental\default" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.vscode;.hg;.deployment;deploy.cmd;ng-app"
     IF !ERRORLEVEL! NEQ 0 goto error
 )
 

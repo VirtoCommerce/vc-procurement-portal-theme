@@ -36,3 +36,4 @@ export class EditUserPassword {
   newPassword: string;
   newPasswordConfirm: string;
 }
+
