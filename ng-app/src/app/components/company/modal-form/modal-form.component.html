@@ -1,0 +1,103 @@
+    <form #myform='ngForm' (ngSubmit)='passBack(myform)' class='p-3'>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="useremail" name="email" placeholder="Email" required class="form-control" [(ngModel)]="user.email" #email="ngModel" [ngClass]="{ 'is-invalid': myform.submitted && email.invalid }" email>
+        <div *ngIf="myform.submitted && email.invalid" class="invalid-feedback">
+          <div *ngIf="email.errors.required">Email is required</div>
+          <div *ngIf="email.errors.email">Email must be a valid email address</div>
+      </div>
+      </div>
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input id="firstName" name="firstName" placeholder="First Name" type="text" class="form-control" [ngClass]="{ 'is-invalid': myform.submitted && firstName.invalid }" required [(ngModel)]="user.firstName" #firstName="ngModel">
+        <div *ngIf="myform.submitted && firstName.invalid" class="invalid-feedback">
+          <div *ngIf="firstName.errors.required">First Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input id="lastName" name="lastName" placeholder="Last Name" type="text" class="form-control" [ngClass]="{ 'is-invalid': myform.submitted && lastName.invalid }" required [(ngModel)]="user.lastName" #lastName="ngModel">
+        <div *ngIf="myform.submitted && lastName.invalid" class="invalid-feedback">
+          <div *ngIf="lastName.errors.required">Last Name is required</div>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="!editUserMode">
+        <label for="userName">User Name</label>
+        <input id="userName" name="userName" placeholder="User Name" type="text" class="form-control" required [ngClass]="{ 'is-invalid': myform.submitted && userName.invalid }" required [(ngModel)]="user.userName" #userName="ngModel">
+        <div *ngIf="myform.submitted && userName.invalid" class="invalid-feedback">
+          <div *ngIf="userName.errors.required">User Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="selectRole">Role</label>
+        <select id="selectRole" name="selectRole" class="custom-select" required aria-describedby="selectRoleHelpBlock"  [ngClass]="{ 'is-invalid': myform.submitted && role.invalid }" required [(ngModel)]="user.role" #role="ngModel">
+          <option value="" style="display:none">Please select role</option>
+          <option value="org-maintainer">Organization maintainer</option>
+          <option value="org-employee">Organization employee</option>
+        </select>
+        <div *ngIf="myform.submitted && role.invalid" class="invalid-feedback">
+          <div *ngIf="role.errors.required">Role is required</div>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="!editUserMode">
+        <label for="Password">Password</label>
+        <input id="password" name="password" placeholder="Password" type="password" required class="form-control" [(ngModel)]="user.password" #password="ngModel" pattern="(^[A-Z])\w+" [ngClass]="{ 'is-invalid': password.touched && password.invalid }" required minlength="6">
+        <div *ngIf="myform.submitted && password.invalid" class="invalid-feedback">
+        <div *ngIf="password.errors.required">Password is required</div>
+        </div>
+        <div *ngIf="password.touched && password.invalid" class="invalid-feedback">
+          <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+          <div *ngIf="password.errors.pattern">Password must start with uppercase letter</div>
+        </div>
+      </div>
+
+      <div *ngIf="editUserMode">
+
+      <div class="form-group">
+        <label>Change password</label>
+        <div>
+          <div class="custom-control custom-checkbox custom-control-inline">
+            <input name="passwordCheckbox" id="passwordCheckbox_0" type="checkbox" class="custom-control-input" [(ngModel)]="changePassword">
+            <label for="passwordCheckbox_0" class="custom-control-label">Yes</label>
+          </div>
+        </div>
+      </div>
+
+        <div ngModelGroup="passwordGroup" *ngIf="changePassword">
+        <div class="form-group">
+            <label for="oldPassword">Old Password</label>
+            <input id="oldPassword" name="oldPassword" placeholder="Old Password" type="password" required class="form-control" ngModel #oldPassword="ngModel" required [ngClass]="{ 'is-invalid': oldPassword.touched && oldPassword.invalid }">
+            <div *ngIf="oldPassword.touched && oldPassword.invalid" class="invalid-feedback">
+                <div *ngIf="oldPassword.errors.required">Old Password is required</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input id="password" name="password" (ngModelChange)="confirmPassword.control.updateValueAndValidity()" placeholder="Password" type="password" required class="form-control" ngModel #password="ngModel" pattern="(^[A-Z])\w+" required minlength="6" [ngClass]="{ 'is-invalid': password.touched && password.invalid }">
+          <div *ngIf="password.touched && password.invalid" class="invalid-feedback">
+            <div *ngIf="password.errors.required">Password is required</div>
+            <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+            <div *ngIf="password.errors.pattern">Password must start with uppercase letter</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input id="confirmPassword" name="confirmPassword" appConfirmEqualValidator="password" placeholder="Confirm Password" type="password" required class="form-control" ngModel [ngClass]="{ 'is-invalid': confirmPassword.touched && confirmPassword.invalid }" #confirmPassword="ngModel" required >
+          <div *ngIf="confirmPassword.touched && confirmPassword.invalid" class="invalid-feedback">
+            <div *ngIf="confirmPassword.errors.required">Password is required</div>
+            <div *ngIf="confirmPassword.errors.notEqual">Confirm Password & Password must be same</div>
+          </div>
+        </div>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <button name="submit" type="submit" class="btn btn--green mb-4" *ngIf="!editUserMode">Add</button>
+        <button name="submit" type="submit" class="btn btn--green mb-4" *ngIf="editUserMode">Update user</button>
+      </div>
+
+    </form>
+

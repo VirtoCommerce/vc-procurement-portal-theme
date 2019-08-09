@@ -8,6 +8,7 @@ import { FormControl } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { IOrder, IOrderItem, IOrderComment } from "../../../models/dto/iorder";
 import { OrdersService } from "../../../services/orders.service";
+import { ActiveOrderService } from 'src/app/services/active-order.service';
 
 @Component({
   selector: "app-order-details",
@@ -29,7 +30,8 @@ export class OrderDetailsComponent implements OnInit {
 
   constructor(
     private ordersService: OrdersService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private readonly activeOrderService: ActiveOrderService
   ) {}
 
   ngOnInit() {
@@ -58,5 +60,11 @@ export class OrderDetailsComponent implements OnInit {
 
   toggleAccordion(event) {
     event.target.parentElement.classList.toggle('accordion__item--active');
+  }
+
+  addProductToCart() {
+    this.items.forEach(item => {
+      this.activeOrderService.addItem(item.productId,item.quantity).subscribe();
+    });
   }
 }

@@ -57,22 +57,16 @@
                 </div>
                 <div class="accordion__content" *ngFor="let item of items">
                     <div class="order__item">
-                        <a class="order__item-remove" href="#">Remove item</a>
+                        <!-- <a class="order__item-remove" href="#">Remove item</a> -->
                         <div class="order__item-name">{{item.name}}</div>
                         <div class="order__item-brand">Impression Tray</div>
                         <div class="order__item-model">Model: 2120 <span class="divider">| </span>SKU: {{item.sku}}</div>
                         <div class="order__item-descr">Case of 10 Bags with 12 per Bag</div>
                         <div class="order__item-other">
-                            <div class="order__item-price">{{item.placedPrice.formattedAmount}}</div>
-                                <div class="input-group input-group--qty input-group--sm ml-auto">
-                                <a href="#" class="btn btn--white">
-                                    <span class="btn__ico btn__ico--minus"></span>
-                                </a>
-                                <input type="text" class="input-group__input" value="1920">
-                                <a href="#" class="btn btn--white">
-                                    <span class="btn__ico btn__ico--plus"></span>
-                                </a>
-                            </div>
+                            <div class="order__item-price">Unit price: {{item.placedPrice.formattedAmount}}</div>
+                        </div>
+                        <div class="order__item-other">
+                          <div class="order__item-price">Quantity: {{item.quantity}}</div>
                         </div>
                     </div>
                 </div>
@@ -117,8 +111,14 @@
             </div>
         </div>
         <div class="order__actions">
-            <a href="#" class="btn btn--green">Add to current Order</a>
+            <a (click)="addProductToCart()" class="btn btn--green">Add to current Order</a>
             <a class="btn btn--outline" [routerLink]="['/invoice',order.number]">View Invoice</a>
+        </div>
+        <app-mobile-cart-summary></app-mobile-cart-summary>
+    </div>
+    <div class="sidebar sidebar--bg-gray d-none d-lg-block">
+        <div class="sidebar__inner">
+          <app-active-order></app-active-order>
         </div>
     </div>
 </main>

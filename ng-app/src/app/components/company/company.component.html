@@ -208,63 +208,7 @@
         <a class="btn btn--green" (click)="updateCompany()">Update Company</a>
       </div>
       <div class="tabs__content">
-        <a (click)="openCreateUserModal(content)" class="btn btn--green mb-4">Add new User</a>
-
-        <ng-template #content let-modal>
-          <form #myform='ngForm' (ngSubmit)='myform.form.valid && addNewUser(myform)' class='p-3'>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input id="Useremail" name="email" placeholder="Email" required class="form-control" ngModel #email="ngModel" [ngClass]="{ 'is-invalid': myform.submitted && email.invalid }" email>
-              <div *ngIf="myform.submitted && email.invalid" class="invalid-feedback">
-                <div *ngIf="email.errors.required">Email is required</div>
-                <div *ngIf="email.errors.email">Email must be a valid email address</div>
-            </div>
-            </div>
-            <div class="form-group">
-              <label for="firstName">First Name</label>
-              <input id="firstName" name="firstName" placeholder="First Name" type="text" class="form-control" [ngClass]="{ 'is-invalid': myform.submitted && firstName.invalid }" required ngModel #firstName="ngModel">
-              <div *ngIf="myform.submitted && firstName.invalid" class="invalid-feedback">
-                <div *ngIf="firstName.errors.required">First Name is required</div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="lastName">Last Name</label>
-              <input id="lastName" name="lastName" placeholder="Last Name" type="text" class="form-control" [ngClass]="{ 'is-invalid': myform.submitted && lastName.invalid }" required ngModel #lastName="ngModel">
-              <div *ngIf="myform.submitted && lastName.invalid" class="invalid-feedback">
-                <div *ngIf="lastName.errors.required">Last Name is required</div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="userName">User Name</label>
-              <input id="userName" name="userName" placeholder="User Name" type="text" class="form-control" required [ngClass]="{ 'is-invalid': myform.submitted && userName.invalid }" required ngModel #userName="ngModel">
-              <div *ngIf="myform.submitted && userName.invalid" class="invalid-feedback">
-                <div *ngIf="userName.errors.required">User Name is required</div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="Password">Password</label>
-              <input id="password" name="password" placeholder="Password" type="password" required class="form-control" ngModel #password="ngModel" [ngClass]="{ 'is-invalid': myform.submitted && password.invalid }" required minlength="6">
-              <div *ngIf="myform.submitted && password.invalid" class="invalid-feedback">
-                <div *ngIf="password.errors.required">Password is required</div>
-                <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
-              </div>
-            </div>
-            <div class="form-group">
-                <select id="selectRole" name="selectRole" class="custom-select" required aria-describedby="selectRoleHelpBlock" [ngClass]="{ 'is-invalid': myform.submitted && role.invalid }" required ngModel #role="ngModel">
-                  <option value="" style="display:none">Please select role</option>
-                  <option value="org-maintainer">Organization maintainer</option>
-                  <option value="org-employee">Organization employee</option>
-                </select>
-                <div *ngIf="myform.submitted && role.invalid" class="invalid-feedback">
-                  <div *ngIf="role.errors.required">Role is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-              <button name="submit" type="submit" class="btn btn--green mb-4">Add</button>
-            </div>
-          </form>
-        </ng-template>
-
+        <a (click)="openCreateUserModal()" class="btn btn--green mb-4">Add new User</a>
         <div class="table-responsive">
           <table class="table">
             <colgroup>
@@ -300,11 +244,29 @@
                 <td>{{user.phones[0]}}</td>
                 <td>
                   <a (click)="deleteUser(user)" class="text--red">Remove user</a>
+                  |
+                  <a (click)="openEditUserModal(user)" class="text--red">Edit user</a>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
+        <div class="page-nav">
+            <div class="row align-items-end justify-content-center">
+              <div class="col-auto">
+                <div class="page-nav__total">You've viewed {{users.length}} of {{paginationInfo.collectionSize}} orders</div>
+                <ngb-pagination
+                [(page)]="paginationInfo.page"
+                [pageSize]="paginationInfo.pageSize"
+                [collectionSize]="paginationInfo.collectionSize"
+                (pageChange)="pageChanged()"></ngb-pagination>
+              </div>
+              <div class="col-auto ml-sm-auto">
+                  Show
+                  <app-page-size-selector [defaultPageSize]="paginationInfo.pageSize" [pageSizes]="pageSizes" (pageSizeChanged)="pageSizeChanged($event)" ></app-page-size-selector>
+              </div>
+            </div>
+          </div>
       </div>
       <div class="tabs__content">
         <a href="#" class="btn btn--green mb-4">Add new Role</a>
@@ -333,23 +295,6 @@
               </tr>
             </tbody>
           </table>
-        </div>
-      </div>
-    </div>
-
-    <div class="page-nav">
-      <div class="row align-items-end justify-content-center">
-        <div class="col-auto">
-          <div class="page-nav__total">You've viewed {{users.length}} of {{paginationInfo.collectionSize}} orders</div>
-          <ngb-pagination
-          [(page)]="paginationInfo.page"
-          [pageSize]="paginationInfo.pageSize"
-          [collectionSize]="paginationInfo.collectionSize"
-          (pageChange)="pageChanged()"></ngb-pagination>
-        </div>
-        <div class="col-auto ml-sm-auto">
-            Show
-            <app-page-size-selector [defaultPageSize]="paginationInfo.pageSize" [pageSizes]="pageSizes" (pageSizeChanged)="pageSizeChanged($event)" ></app-page-size-selector>
         </div>
       </div>
     </div>
