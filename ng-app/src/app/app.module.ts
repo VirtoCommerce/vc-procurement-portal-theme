@@ -81,7 +81,7 @@ import { ConfirmEqualValidatorDirective } from './directives/match-value.directi
     ModalFormComponent,
     // directives
     RemoveWrapperDirective,
-    BulkOrderManualComponent
+    BulkOrderManualComponent,
     ConfirmEqualValidatorDirective
 
   ],
