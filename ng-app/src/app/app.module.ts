@@ -77,14 +77,9 @@ import { ConfirmEqualValidatorDirective } from './directives/match-value.directi
     ChangeProductQuantityComponent,
     ProductDetailsComponent,
     InvoiceComponent,
-    // directives
-    RemoveWrapperDirective
-
-
-    InvoiceComponent,
-
     ModalFormComponent,
-
+    // directives
+    RemoveWrapperDirective,
     ConfirmEqualValidatorDirective
 
   ],
