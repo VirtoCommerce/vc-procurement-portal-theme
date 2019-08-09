@@ -15,15 +15,17 @@
     <!-- Bulk order tab content -->
     <div class="bulk-order__content bulk-order__content--active" data-index="0">
         <h2>Add new item</h2>
-        <div class="bulk-order__new">
+        <form class="bulk-order__new" [formGroup]="newItemForm" novalidate>
             <div class="row">
                 <div class="col-md">
                     <div class="row">
                         <div class="col-md-6">
-                            <input placeholder="Product SKU" type="text" class="form-control">
+                            <input placeholder="Product SKU" type="text" class="form-control"
+                            formControlName="sku">
                         </div>
                         <div class="col-md-6">
-                            <input placeholder="Product name" type="text" class="form-control">
+                            <input placeholder="Product name" type="text" class="form-control"
+                            formControlName="productName">
                         </div>
                     </div>
                 </div>
@@ -31,8 +33,9 @@
                     <div class="row">
                         <div class="col-md-auto">
                             <div class="input-group input-group--qty">
-                                <input placeholder="QTY" type="text" class="form-control form-control--qty">
-                                <a href="#" class="btn btn--blue">
+                                <input placeholder="QTY" type="number" min="1" class="form-control form-control--qty"
+                                formControlName="qty">
+                                <a class="btn btn--blue" (click)="addItem()">
                                     <span class="btn__ico btn__ico--plus-white"></span>
                                 </a>
                             </div>
@@ -40,18 +43,21 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="bulk-order__list">
+          </form>
+        <form class="bulk-order__list" [formGroup]="itemsForm">
             <h2>Items in order</h2>
-            <div class="list">
-                <div class="row list__item">
+            <div class="list"
+             formArrayName="items">
+                <form class="row list__item" [formGroup]="itemForm"  *ngFor="let itemForm of itemsForm.controls['items'].controls; let i = index">
                     <div class="col-md">
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="text" class="form-control" value="2039082">
+                                <input type="text" class="form-control"
+                                formControlName="sku">
                             </div>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" value="G61-50T38">
+                                <input type="text" class="form-control"
+                                formControlName="productName">
                             </div>
                         </div>
                     </div>
@@ -59,94 +65,19 @@
                         <div class="row">
                             <div class="col-md-auto">
                                 <div class="input-group input-group--qty">
-                                    <input type="text" class="form-control form-control--qty" value="1920">
-                                    <a href="#" class="btn btn--white">
+                                    <input type="number" min="1" class="form-control form-control--qty"
+                                    formControlName="qty">
+                                    <a class="btn btn--white" (click)="removeItem(i)">
                                         <span class="btn__ico btn__ico--trash-gray"></span>
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                  </form>
+
                 </div>
-                <div class="row list__item">
-                    <div class="col-md">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" value="2039082">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" value="G61-50T38">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-auto">
-                        <div class="row">
-                            <div class="col-md-auto">
-                                <div class="input-group input-group--qty">
-                                    <input type="text" class="form-control form-control--qty" value="1920">
-                                    <a href="#" class="btn btn--white">
-                                        <span class="btn__ico btn__ico--trash-gray"></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row list__item">
-                    <div class="col-md">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" value="2039082">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" value="G61-50T38">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-auto">
-                        <div class="row">
-                            <div class="col-md-auto">
-                                <div class="input-group input-group--qty">
-                                    <input type="text" class="form-control form-control--qty" value="1920">
-                                    <a href="#" class="btn btn--white">
-                                        <span class="btn__ico btn__ico--trash-gray"></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row list__item">
-                    <div class="col-md">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control form-control--error" value="2039082">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control form-control--error" value="G61-50T38">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md">
-                                <div class="form-error">Error</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-auto">
-                        <div class="row">
-                            <div class="col-md-auto">
-                                <div class="input-group input-group--qty">
-                                    <input type="text" class="form-control form-control--qty" value="1920">
-                                    <a href="#" class="btn btn--white">
-                                        <span class="btn__ico btn__ico--trash-gray"></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
     <div class="bulk-order__content" data-index="1">
         <div class="bulk-order__copy">
@@ -178,6 +109,6 @@
     </div>
 
     <div class="bulk-order__add-order">
-        <a href="#" class="btn btn--green ml-auto">Add to Order</a>
+        <button class="btn btn--green ml-auto" [disabled]="itemsForm.invalid">Add to Order</button>
     </div>
 </div>

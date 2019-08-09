@@ -101,8 +101,8 @@ import { BulkOrderManualComponent } from './components/bulk-order/bulk-order-man
     // NgbDatepickerModule,
     ConfirmModalModule,
     BlockUIModule.forRoot({
-      delayStart: 300,
-      delayStop: 300
+      delayStart: 1000,
+      delayStop: 1000
     }),
     // InMemoryWebApiModule.forRoot(DataService)
   ],
