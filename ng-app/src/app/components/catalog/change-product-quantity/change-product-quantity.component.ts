@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ActiveOrderService } from 'src/app/services/active-order.service';
 import { ICart, ILineItem } from 'src/app/models/dto/icart';
 import { IProduct } from 'src/app/models/dto/product';
 import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
+import { Subject, BehaviorSubject, Subscription, EMPTY } from 'rxjs';
+import { debounce, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 
 @Component({
@@ -10,19 +12,31 @@ import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-serv
   templateUrl: './change-product-quantity.component.html',
   styleUrls: ['./change-product-quantity.component.scss']
 })
-export class ChangeProductQuantityComponent implements OnInit {
+export class ChangeProductQuantityComponent implements OnInit,OnDestroy {
 
   @Input()
   cart: ICart;
   @Input()
   productId: string;
 
-  productQuantity: number;
 
-  constructor(private readonly activeOrderService: ActiveOrderService, private confirmService: ConfirmService) { }
+  productQuantity$ = new BehaviorSubject<string>('');
+  private quantitySub: Subscription;
+  //productQuantity: number;
+
+  constructor(private readonly activeOrderService: ActiveOrderService, private confirmService: ConfirmService) {
+   }
 
   ngOnInit() {
-
+    this.quantitySub = this.productQuantity$.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap(quantity => {
+        console.log('New quantity: ', quantity);
+        this.updateLineItemQuantity(this.productId,+quantity);
+        return EMPTY;
+      })
+    ).subscribe();
   }
 
   get productLineItem() {
@@ -58,9 +72,17 @@ export class ChangeProductQuantityComponent implements OnInit {
     this.activeOrderService.changeItemQuantity(lineItem.id, lineItem.quantity).subscribe();
   }
 
-  updateLineItemQuantity() {
-    const lineItem = this.productLineItem;
-    this.activeOrderService.changeItemQuantity(lineItem.id, lineItem.quantity).subscribe();
+  updateLineItemQuantity(itemId: string, quantity: number) {
+    //const lineItem = this.productLineItem;
+    this.activeOrderService.changeItemQuantity(itemId, quantity).subscribe();
+  }
+
+  ngOnDestroy(): void {
+    if (this.quantitySub) {
+      this.quantitySub.unsubscribe();
+      this.quantitySub = null;
+    }
+
   }
 
 
