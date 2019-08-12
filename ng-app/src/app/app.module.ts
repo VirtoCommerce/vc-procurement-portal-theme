@@ -109,7 +109,7 @@ import { ConfirmEqualValidatorDirective } from './directives/match-value.directi
     // InMemoryWebApiModule.forRoot(DataService)
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    //{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ProcurementPortalInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -12,7 +12,7 @@ import { debounce, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/op
   templateUrl: './change-product-quantity.component.html',
   styleUrls: ['./change-product-quantity.component.scss']
 })
-export class ChangeProductQuantityComponent implements OnInit,OnDestroy {
+export class ChangeProductQuantityComponent implements OnInit, OnDestroy {
 
   @Input()
   cart: ICart;
@@ -20,7 +20,7 @@ export class ChangeProductQuantityComponent implements OnInit,OnDestroy {
   productId: string;
 
 
-  productQuantity$ = new BehaviorSubject<string>('');
+  productQuantity$ = new Subject<number>();
   private quantitySub: Subscription;
   //productQuantity: number;
 
@@ -70,6 +70,10 @@ export class ChangeProductQuantityComponent implements OnInit,OnDestroy {
   incrementQuantity(lineItem: ILineItem) {
     lineItem.quantity++;
     this.activeOrderService.changeItemQuantity(lineItem.id, lineItem.quantity).subscribe();
+  }
+
+  onChangeQuantity(quantity: number) {
+    this.productQuantity$.next(quantity);
   }
 
   updateLineItemQuantity(quantity: number) {
