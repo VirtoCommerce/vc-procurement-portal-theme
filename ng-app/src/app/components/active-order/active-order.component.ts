@@ -39,6 +39,7 @@ export class ActiveOrderComponent implements OnInit {
 
   decrementQuantity(item: ILineItem) {
     if (item.quantity <= 1) {
+      this.removeItem(item);
       return;
     }
     item.quantity--;
