@@ -33,7 +33,7 @@ export class ChangeProductQuantityComponent implements OnInit,OnDestroy {
       distinctUntilChanged(),
       switchMap(quantity => {
         console.log('New quantity: ', quantity);
-        this.updateLineItemQuantity(this.productId,+quantity);
+        this.updateLineItemQuantity(+quantity);
         return EMPTY;
       })
     ).subscribe();
@@ -72,9 +72,9 @@ export class ChangeProductQuantityComponent implements OnInit,OnDestroy {
     this.activeOrderService.changeItemQuantity(lineItem.id, lineItem.quantity).subscribe();
   }
 
-  updateLineItemQuantity(itemId: string, quantity: number) {
-    //const lineItem = this.productLineItem;
-    this.activeOrderService.changeItemQuantity(itemId, quantity).subscribe();
+  updateLineItemQuantity(quantity: number) {
+    const lineItem = this.productLineItem;
+    this.activeOrderService.changeItemQuantity(lineItem.id, quantity).subscribe();
   }
 
   ngOnDestroy(): void {
