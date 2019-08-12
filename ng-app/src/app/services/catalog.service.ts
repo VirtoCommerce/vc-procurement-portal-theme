@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap, catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { SearchCategoriesResult, Category, CategorySearchCriteria, CategoryResponseGroup } from '../models/dto/category';
-import { ProductSearchCriteria, IProduct, SearchProductsResult } from '../models/dto/product';
+import { ProductSearchCriteria, IProduct, SearchProductsResult, ItemResponseGroup } from '../models/dto/product';
 import { ProductConverterService } from './converters/product-converter.service';
 import { ProductDetails } from '../models/product';
 
@@ -18,7 +18,7 @@ export class CatalogService {
 
   constructor(private http: HttpClient, private productConverter: ProductConverterService) {}
 
-  getAllProducts(pageNumber: number, pageSize: number, categoryId: string, keyword: string) {
+  getAllProducts(pageNumber: number, pageSize: number, categoryId: string, keyword: string): Observable<SearchProductsResult>  {
     //const body = { keyword: "", start: "0", isFuzzySearch: true, pageSize: "1000" };
     const searchCriteria = new ProductSearchCriteria();
     searchCriteria.pageNumber = pageNumber;
@@ -43,6 +43,19 @@ export class CatalogService {
     return this.http.get<IProduct[]>(url).pipe(map( x => x.map(p => this.productConverter.toProductDetails( p )) ), map(x => x.length > 0 ? x[0] : null));
   }
 
+  getProductBySku(sku: string): Observable<IProduct> {
+    const searchCriteria = new ProductSearchCriteria();
+    searchCriteria.keyword = sku;
+    searchCriteria.pageSize = 2;
+    searchCriteria.responseGroup = ItemResponseGroup.ItemLarge;
+    const url = 'storefrontapi/catalog/search';
+    return this.http.post<SearchProductsResult>(url, searchCriteria).pipe(map(x => {
+      if (x.metaData.totalItemCount === 1 && x.products[0].sku === sku) {
+        return x.products[0];
+      }
+      return null;
+    }));
+  }
 
 }
 
