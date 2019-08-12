@@ -22,7 +22,6 @@ export class ChangeProductQuantityComponent implements OnInit, OnDestroy {
 
   productQuantity$ = new Subject<number>();
   private quantitySub: Subscription;
-  //productQuantity: number;
 
   constructor(private readonly activeOrderService: ActiveOrderService, private confirmService: ConfirmService) {
    }
