@@ -10,6 +10,8 @@ import { PaginationInfo } from 'src/app/models/inner/pagination-info';
 import { PageSizeChangedArgs } from '../page-size-selector/page-size-selector.component';
 import { ModalFormComponent } from '../company/modal-form/modal-form.component';
 import { UserConverterService } from 'src/app/services/converters/user-converter.service';
+import { OrganizationConverterService } from 'src/app/services/converters/organization-converter.service';
+import { OrganizationDetails } from 'src/app/models/organization';
 
 
 @Component({
@@ -21,21 +23,7 @@ export class CompanyComponent implements OnInit {
   operationType: string;
   users: IUser[];
   organization: IOrganization;
-  companyName: string;
-  billingAddress: {
-    country: string;
-    city: string;
-    postalCode: string;
-    address1: string;
-    address2: string;
-  };
-  shippingAddress: {
-    country: string;
-    city: string;
-    postalCode: string;
-    address1: string;
-    address2: string;
-  };
+  organizationDetails: OrganizationDetails;
 
   settings = settings_data as IAppConfig;
   paginationInfo = new PaginationInfo(this.settings.defaultPageSize);
@@ -45,35 +33,16 @@ export class CompanyComponent implements OnInit {
     private organizationService: OrganizationService,
     private userService: UserService,
     private modalService: NgbModal,
-    private userConverter: UserConverterService
+    private userConverter: UserConverterService,
+    private orgConverter: OrganizationConverterService
   ) {}
 
   ngOnInit() {
     this.organizationService.getUserOrganization().subscribe((data: any) => {
       this.organization = data as IOrganization;
-      this.companyName = this.organization.name;
-      this.organization.addresses.forEach(address => {
-        if (address.type === 1) {
-          this.billingAddress = {
-            country: address.countryName,
-            city: address.city,
-            postalCode: address.postalCode,
-            address1: address.line1,
-            address2: address.line2
-          };
-        }
-        if (address.type === 2) {
-          this.shippingAddress = {
-            country: address.countryName,
-            city: address.city,
-            postalCode: address.postalCode,
-            address1: address.line1,
-            address2: address.line2
-          };
-        }
-      });
+      console.log('Import of organization', this.organization);
+      this.organizationDetails = this.orgConverter.toOrganizationDetails(this.organization);
     });
-
     this.fetchUsers();
   }
 
@@ -96,10 +65,6 @@ export class CompanyComponent implements OnInit {
         this.users = data.results;
         this.paginationInfo.collectionSize = data.totalCount;
       });
-  }
-
-  updateCompany() {
-    this.organizationService.updateOrganization(this.companyName).subscribe();
   }
 
   deleteUser(user: IUser) {

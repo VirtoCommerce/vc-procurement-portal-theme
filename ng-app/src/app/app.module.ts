@@ -52,6 +52,7 @@ import { ModalFormComponent } from './components/company/modal-form/modal-form.c
 import { ConfirmEqualValidatorDirective } from './directives/match-value.directive';
 import { ChangeProductQuantityActiveOrderComponent } from './components/catalog/change-product-quantity-active-order/change-product-quantity-active-order.component';
 import { BulkOrderItemComponent } from './components/bulk-order/bulk-order-manual/bulk-order-item/bulk-order-item.component';
+import { CompanyDetailsComponent } from './components/company/company-details/company-details.component';
 // import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
 // import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -86,7 +87,8 @@ import { BulkOrderItemComponent } from './components/bulk-order/bulk-order-manua
     RemoveWrapperDirective,
     BulkOrderManualComponent,
     ConfirmEqualValidatorDirective,
-    BulkOrderItemComponent
+    BulkOrderItemComponent,
+    CompanyDetailsComponent
 
   ],
   imports: [

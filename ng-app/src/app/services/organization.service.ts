@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { tap, catchError } from "rxjs/operators";
 import { Observable, of } from "rxjs";
+import { UpdateOrganization } from '../models/organization';
 
 @Injectable({
   providedIn: "root"
@@ -25,15 +26,9 @@ export class OrganizationService {
     return this.http.post<any>(url,body);
   }
 
-  updateOrganization(
-    newName: string
-  ) {
-    console.log('updating org with new name: ', newName)
+  updateOrganization(organization: UpdateOrganization) {
     const url = 'storefrontapi/account/organization';
-    const body = {
-      name: newName
-    };
-    return this.http.put<any>(url, body);
+    return this.http.put<any>(url, organization);
   }
 
   private handleError<T>(operation = "operation", result?: T) {
