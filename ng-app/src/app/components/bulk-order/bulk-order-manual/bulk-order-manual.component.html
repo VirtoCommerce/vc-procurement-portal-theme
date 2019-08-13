@@ -48,49 +48,9 @@
             <h2>Items in order</h2>
             <div class="list"
              formArrayName="items">
-                <form class="row list__item" [formGroup]="itemForm"  *ngFor="let itemForm of itemsForm.controls['items'].controls; let i = index">
-                    <div class="col-md">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control"
-                                formControlName="sku">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control"
-                                formControlName="productName">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-auto">
-                        <div class="row">
-                            <div class="col-md-auto">
-                                <div class="input-group input-group--qty">
-                                    <input type="number" min="1" class="form-control form-control--qty"
-                                    formControlName="qty">
-                                    <a class="btn btn--white" (click)="removeItem(i)">
-                                        <span class="btn__ico btn__ico--trash-gray"></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div  *ngIf="sku.invalid && (sku.dirty || sku.touched)"
-                          class="row">
-                      <div class="col-md">
-                        <div class="form-error" *ngIf="sku.errors.required">
-                          SKU is required.
-                        </div>
-                        <div class="form-error" *ngIf="id.errors.required">
-                         There is not such SKU.
-                        </div>
-                        <div class="form-error" *ngIf="sku.errors.uniqueSkuValidator">
-                          SKU value must be unique.
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-
-                </div>
+                <app-bulk-order-item [itemForm]="itemForm" [index]="i" (removeClicked)="removeItem()"
+                 *ngFor="let itemForm of itemsForm.controls['items'].controls; let i = index"></app-bulk-order-item>
+            </div>
         </form>
     </div>
     <div class="bulk-order__content" data-index="1">

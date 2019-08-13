@@ -1,0 +1,47 @@
+<form class="row list__item" [formGroup]="itemForm">
+  <div class="col-md">
+      <div class="row">
+          <div class="col-md-6">
+              <input type="text" class="form-control"
+              formControlName="sku">
+          </div>
+          <div class="col-md-6">
+              <input type="text" class="form-control"
+              formControlName="productName">
+          </div>
+      </div>
+  </div>
+  <div class="col-md-auto">
+      <div class="row">
+          <div class="col-md-auto">
+              <div class="input-group input-group--qty">
+                  <input type="number" min="1" class="form-control form-control--qty"
+                  formControlName="qty">
+                  <a class="btn btn--white" (click)="onRemove()">
+                      <span class="btn__ico btn__ico--trash-gray"></span>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+</form>
+<div  *ngIf="sku.invalid && (sku.dirty || sku.touched)"
+        class="row">
+    <div class="col-md">
+      <div class="form-error" *ngIf="sku.errors.required">
+        SKU is required.
+      </div>
+      <div class="form-error" *ngIf="sku.errors.uniqueSku">
+        SKU value must be unique.
+      </div>
+    </div>
+</div>
+<div  *ngIf="!!id && id.invalid && (sku.dirty || sku.touched)"
+        class="row">
+    <div class="col-md">
+      <div class="form-error" *ngIf="id.errors.required">
+       There is not such SKU.
+      </div>
+    </div>
+</div>
+
