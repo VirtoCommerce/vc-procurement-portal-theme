@@ -17,7 +17,7 @@ export class AddNewUser {
   firstName: string;
   fullName: string;
   lastName: string;
-  roles: Array<string>;
+  role: string;
   email: string;
   organizationId: string;
 }

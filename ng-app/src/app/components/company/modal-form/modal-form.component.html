@@ -4,8 +4,10 @@
         <input id="useremail" name="email" placeholder="Email" required class="form-control" [(ngModel)]="user.email" #email="ngModel" [ngClass]="{ 'is-invalid': myform.submitted && email.invalid }" email>
         <div *ngIf="myform.submitted && email.invalid" class="invalid-feedback">
           <div *ngIf="email.errors.required">Email is required</div>
+        </div>
+        <div *ngIf="email.touched && email.invalid" class="invalid-feedback">
           <div *ngIf="email.errors.email">Email must be a valid email address</div>
-      </div>
+        </div>
       </div>
       <div class="form-group">
         <label for="firstName">First Name</label>
@@ -49,49 +51,6 @@
           <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
           <div *ngIf="password.errors.pattern">Password must start with uppercase letter</div>
         </div>
-      </div>
-
-      <div *ngIf="editUserMode">
-
-      <div class="form-group">
-        <label>Change password</label>
-        <div>
-          <div class="custom-control custom-checkbox custom-control-inline">
-            <input name="passwordCheckbox" id="passwordCheckbox_0" type="checkbox" class="custom-control-input" [(ngModel)]="changePassword">
-            <label for="passwordCheckbox_0" class="custom-control-label">Yes</label>
-          </div>
-        </div>
-      </div>
-
-        <div ngModelGroup="passwordGroup" *ngIf="changePassword">
-        <div class="form-group">
-            <label for="oldPassword">Old Password</label>
-            <input id="oldPassword" name="oldPassword" placeholder="Old Password" type="password" required class="form-control" ngModel #oldPassword="ngModel" required [ngClass]="{ 'is-invalid': oldPassword.touched && oldPassword.invalid }">
-            <div *ngIf="oldPassword.touched && oldPassword.invalid" class="invalid-feedback">
-                <div *ngIf="oldPassword.errors.required">Old Password is required</div>
-            </div>
-        </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input id="password" name="password" (ngModelChange)="confirmPassword.control.updateValueAndValidity()" placeholder="Password" type="password" required class="form-control" ngModel #password="ngModel" pattern="(^[A-Z])\w+" required minlength="6" [ngClass]="{ 'is-invalid': password.touched && password.invalid }">
-          <div *ngIf="password.touched && password.invalid" class="invalid-feedback">
-            <div *ngIf="password.errors.required">Password is required</div>
-            <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
-            <div *ngIf="password.errors.pattern">Password must start with uppercase letter</div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="confirmPassword">Confirm Password</label>
-          <input id="confirmPassword" name="confirmPassword" appConfirmEqualValidator="password" placeholder="Confirm Password" type="password" required class="form-control" ngModel [ngClass]="{ 'is-invalid': confirmPassword.touched && confirmPassword.invalid }" #confirmPassword="ngModel" required >
-          <div *ngIf="confirmPassword.touched && confirmPassword.invalid" class="invalid-feedback">
-            <div *ngIf="confirmPassword.errors.required">Password is required</div>
-            <div *ngIf="confirmPassword.errors.notEqual">Confirm Password & Password must be same</div>
-          </div>
-        </div>
-        </div>
-
       </div>
 
       <div class="form-group">
