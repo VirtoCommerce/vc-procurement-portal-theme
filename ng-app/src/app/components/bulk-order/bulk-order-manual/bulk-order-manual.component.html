@@ -51,7 +51,16 @@
                 <app-bulk-order-item [itemForm]="itemForm" [index]="i" (removeClicked)="removeItem()"
                  *ngFor="let itemForm of itemsForm.controls['items'].controls; let i = index"></app-bulk-order-item>
             </div>
+            <div  *ngIf="itemsForm.controls['items'].errors?.itemsEmpty"
+                  class="row">
+            <div class="col-md">
+                  <div class="form-error" >
+                    Orders items list is empty.
+                  </div>
+                </div>
+            </div>
         </form>
+
     </div>
     <div class="bulk-order__content" data-index="1">
         <div class="bulk-order__copy">
