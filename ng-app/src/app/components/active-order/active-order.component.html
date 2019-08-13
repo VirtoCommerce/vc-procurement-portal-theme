@@ -11,7 +11,7 @@
   <div class="order__info">
     <div class="order__t">
       Your Order
-      <a class="order__t-link" (click)="clear()">Remove all</a>
+      <a class="order__t-link" *ngIf="cart.itemsCount != 0" (click)="clear()">Remove all</a>
     </div>
     <div class="order__text">You have {{cart.itemsCount}} items in your order</div>
     <div class="list list--total">
@@ -49,7 +49,7 @@
     </div>
   </div>
   <div class="sidebar__footer">
-    <a class="btn btn--green btn--block" (click)="checkout(cart)">Checkout</a>
+    <a class="btn btn--green btn--block" [ngClass]="{'disabled': cart.itemsCount === 0}"(click)="checkout(cart)">Checkout</a>
   </div>
 </div>
 

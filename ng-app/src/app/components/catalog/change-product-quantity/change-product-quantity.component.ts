@@ -1,7 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ActiveOrderService } from 'src/app/services/active-order.service';
 import { ICart, ILineItem } from 'src/app/models/dto/icart';
 import { IProduct } from 'src/app/models/dto/product';
+import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
+import { Subject, BehaviorSubject, Subscription, EMPTY } from 'rxjs';
+import { debounce, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 
 @Component({
@@ -9,23 +12,39 @@ import { IProduct } from 'src/app/models/dto/product';
   templateUrl: './change-product-quantity.component.html',
   styleUrls: ['./change-product-quantity.component.scss']
 })
-export class ChangeProductQuantityComponent implements OnInit {
+export class ChangeProductQuantityComponent implements OnInit, OnDestroy {
 
   @Input()
   cart: ICart;
   @Input()
   productId: string;
 
-  productQuantity: number;
 
-  constructor(private readonly activeOrderService: ActiveOrderService) { }
+  productQuantity$ = new Subject<number>();
+  private quantitySub: Subscription;
+
+  constructor(private readonly activeOrderService: ActiveOrderService, private confirmService: ConfirmService) {
+   }
 
   ngOnInit() {
-
+    this.quantitySub = this.productQuantity$.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap(quantity => {
+        console.log('New quantity: ', quantity);
+        this.updateLineItemQuantity(+quantity);
+        return EMPTY;
+      })
+    ).subscribe();
   }
 
   get productLineItem() {
     return this.getProductLineItem(this.productId);
+  }
+
+  removeItem(item: ILineItem) {
+    const confirmOptions = { title: 'Line item removing', message: 'Are you sure you want to remove this line item from the active order?' };
+    this.confirmService.confirm(confirmOptions).then(() => this.activeOrderService.removeItem(item.id).subscribe() );
   }
 
   private getProductLineItem(productId: string): ILineItem {
@@ -40,6 +59,7 @@ export class ChangeProductQuantityComponent implements OnInit {
 
   decrementQuantity(lineItem: ILineItem) {
     if (lineItem.quantity <= 1) {
+      this.removeItem(lineItem);
       return;
     }
     lineItem.quantity--;
@@ -51,9 +71,21 @@ export class ChangeProductQuantityComponent implements OnInit {
     this.activeOrderService.changeItemQuantity(lineItem.id, lineItem.quantity).subscribe();
   }
 
-  updateLineItemQuantity() {
+  onChangeQuantity(quantity: number) {
+    this.productQuantity$.next(quantity);
+  }
+
+  updateLineItemQuantity(quantity: number) {
     const lineItem = this.productLineItem;
-    this.activeOrderService.changeItemQuantity(lineItem.id, lineItem.quantity).subscribe();
+    this.activeOrderService.changeItemQuantity(lineItem.id, quantity).subscribe();
+  }
+
+  ngOnDestroy(): void {
+    if (this.quantitySub) {
+      this.quantitySub.unsubscribe();
+      this.quantitySub = null;
+    }
+
   }
 
 

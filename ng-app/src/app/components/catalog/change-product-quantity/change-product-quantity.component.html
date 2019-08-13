@@ -9,8 +9,9 @@
 <a class="btn btn--green" (click)="decrementQuantity(productLineItem)">
   <span class="btn__ico btn__ico--minus-white"></span>
 </a>
-<input type="number" min="1" class="input-group__input" [(ngModel)]="productLineItem.quantity" (ngModelChange)="updateLineItemQuantity()">
+<input type="number" min="1" class="input-group__input" [value]="productLineItem.quantity" (keyup)="onChangeQuantity($event.target.value)">
 <a class="btn btn--green" (click)="incrementQuantity(productLineItem)">
   <span class="btn__ico btn__ico--plus-white"></span>
 </a>
+<!-- [(ngModel)]="productLineItem.quantity" (ngModelChange)="updateLineItemQuantity()" -->
 </ng-template>
