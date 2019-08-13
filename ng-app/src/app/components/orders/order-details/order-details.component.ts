@@ -1,19 +1,19 @@
-import { Component, OnInit, ViewChild, Input } from "@angular/core";
-import { Observable } from "rxjs";
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 //import { Store, select } from '@ngrx/store';
-import { catchError, map, tap, pluck, switchMap } from "rxjs/operators";
-import { of } from "rxjs";
-import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
-import { FormControl } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
-import { IOrder, IOrderItem, IOrderComment } from "../../../models/dto/iorder";
-import { OrdersService } from "../../../services/orders.service";
+import { catchError, map, tap, pluck, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { IOrder, IOrderItem, IOrderComment } from '../../../models/dto/iorder';
+import { OrdersService } from '../../../services/orders.service';
 import { ActiveOrderService } from 'src/app/services/active-order.service';
 
 @Component({
-  selector: "app-order-details",
-  templateUrl: "./order-details.component.html",
-  styleUrls: ["./order-details.component.scss"]
+  selector: 'app-order-details',
+  templateUrl: './order-details.component.html',
+  styleUrls: ['./order-details.component.scss']
 })
 export class OrderDetailsComponent implements OnInit {
   isForApprove: boolean;
@@ -64,7 +64,7 @@ export class OrderDetailsComponent implements OnInit {
 
   addProductToCart() {
     this.items.forEach(item => {
-      this.activeOrderService.addItem(item.productId,item.quantity).subscribe();
+      this.activeOrderService.addItem(item.productId, item.quantity).subscribe();
     });
   }
 }

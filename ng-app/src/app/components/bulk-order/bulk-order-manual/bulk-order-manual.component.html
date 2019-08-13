@@ -92,6 +92,6 @@
     </div>
 
     <div class="bulk-order__add-order">
-        <button class="btn btn--green ml-auto" [disabled]="itemsForm.invalid">Add to Order</button>
+        <button class="btn btn--green ml-auto" [disabled]="itemsForm.invalid" (click)="addItemsToCart()">Add to Order</button>
     </div>
 </div>
