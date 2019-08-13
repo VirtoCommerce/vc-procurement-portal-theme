@@ -48,36 +48,19 @@
             <h2>Items in order</h2>
             <div class="list"
              formArrayName="items">
-                <form class="row list__item" [formGroup]="itemForm"  *ngFor="let itemForm of itemsForm.controls['items'].controls; let i = index">
-                    <div class="col-md">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control"
-                                formControlName="sku">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control"
-                                formControlName="productName">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-auto">
-                        <div class="row">
-                            <div class="col-md-auto">
-                                <div class="input-group input-group--qty">
-                                    <input type="number" min="1" class="form-control form-control--qty"
-                                    formControlName="qty">
-                                    <a class="btn btn--white" (click)="removeItem(i)">
-                                        <span class="btn__ico btn__ico--trash-gray"></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                  </form>
-
+                <app-bulk-order-item [itemForm]="itemForm" [index]="i" (removeClicked)="removeItem()"
+                 *ngFor="let itemForm of itemsForm.controls['items'].controls; let i = index"></app-bulk-order-item>
+            </div>
+            <div  *ngIf="itemsForm.controls['items'].errors?.itemsEmpty"
+                  class="row">
+            <div class="col-md">
+                  <div class="form-error" >
+                    Orders items list is empty.
+                  </div>
                 </div>
+            </div>
         </form>
+
     </div>
     <div class="bulk-order__content" data-index="1">
         <div class="bulk-order__copy">
@@ -109,6 +92,6 @@
     </div>
 
     <div class="bulk-order__add-order">
-        <button class="btn btn--green ml-auto" [disabled]="itemsForm.invalid">Add to Order</button>
+        <button class="btn btn--green ml-auto" [disabled]="itemsForm.invalid" (click)="addItemsToCart()">Add to Order</button>
     </div>
 </div>

@@ -17,6 +17,7 @@ import {
 } from 'rxjs/operators';
 import { CatalogService } from 'src/app/services';
 import { IProduct } from 'src/app/models/dto/product';
+import { ActiveOrderService } from 'src/app/services/active-order.service';
 
 @Component({
   selector: 'app-bulk-order-manual',
@@ -32,7 +33,8 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private catalogService: CatalogService
+    private catalogService: CatalogService,
+    private activeOrderService: ActiveOrderService
   ) {
     this.newItemForm = this.formBuilder.group(
       {
@@ -80,7 +82,7 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
       )
       .subscribe(p => {
         itemForm.get('id').setValue(null);
-        //itemForm.get('sku').setValidators([Validators.required, this.uniqueSkuValidator]);
+        // itemForm.get('sku').setValidators([Validators.required, this.uniqueSkuValidator]);
         if (p != null) {
           itemForm.get('id').setValue(p.id);
           itemForm.get('productName').setValue(p.name);
@@ -93,13 +95,16 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
             ]);
         } else {
           itemForm.get('id').setValue(null);
-          itemForm.get('sku').setErrors(Validators.required);
+          if (itemForm.controls.sku.value !== '') {
+            itemForm.get('sku').setErrors({ skuExists: true });
+          }
           itemForm.get('productName').setValue('');
         }
       });
 
     return itemForm;
   }
+
 
   itemsEmptyValidator(itemsForms: FormArray) {
     if (itemsForms == null || itemsForms.controls.length < 1) {
@@ -159,5 +164,13 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
     // }
     this.items.removeAt(index);
     this.itemsForm.updateValueAndValidity();
+  }
+
+  addItemsToCart() {
+    for (const itemForm of this.items.controls as FormGroup[]) {
+      const productId = itemForm.get('id').value;
+      const quantity = itemForm.get('qty').value;
+      this.activeOrderService.addItem(productId, quantity).subscribe();
+    }
   }
 }

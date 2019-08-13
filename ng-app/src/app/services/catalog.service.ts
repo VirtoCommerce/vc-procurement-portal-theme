@@ -7,7 +7,7 @@ import { ProductSearchCriteria, IProduct, SearchProductsResult, ItemResponseGrou
 import { ProductConverterService } from './converters/product-converter.service';
 import { ProductDetails } from '../models/product';
 
-//import { IProductSearch, ICatalogSearch } from '../models/ProductSearch';
+// import { IProductSearch, ICatalogSearch } from '../models/ProductSearch';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -19,7 +19,7 @@ export class CatalogService {
   constructor(private http: HttpClient, private productConverter: ProductConverterService) {}
 
   getAllProducts(pageNumber: number, pageSize: number, categoryId: string, keyword: string): Observable<SearchProductsResult>  {
-    //const body = { keyword: "", start: "0", isFuzzySearch: true, pageSize: "1000" };
+    // const body = { keyword: "", start: "0", isFuzzySearch: true, pageSize: "1000" };
     const searchCriteria = new ProductSearchCriteria();
     searchCriteria.pageNumber = pageNumber;
     searchCriteria.pageSize = pageSize;
@@ -30,7 +30,7 @@ export class CatalogService {
   }
 
   getAllCategories(): Observable<Category[]> {
-    //const searchCriteria = { keyword: "", start: "0", isFuzzySearch: true, pageSize: "1000" };
+    // const searchCriteria = { keyword: "", start: "0", isFuzzySearch: true, pageSize: "1000" };
     const searchCriteria = new CategorySearchCriteria();
     searchCriteria.pageSize = 1000;
     searchCriteria.responseGroup = CategoryResponseGroup.Info;
