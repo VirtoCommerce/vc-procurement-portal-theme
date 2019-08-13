@@ -36,21 +36,13 @@
     <div class="order__item-descr">Description item</div>
     <div class="order__item-other">
       <div class="order__item-price">{{item.extendedPrice.formattedAmount}}</div>
-      <div class="input-group input-group--qty input-group--sm ml-auto">
-        <a class="btn btn--white" (click)="decrementQuantity(item)">
-          <span class="btn__ico btn__ico--minus"></span>
-        </a>
-        <!-- <input type="number" class="input-group__input" value="{{item.quantity}}" /> -->
-        <input type="number" class="input-group__input" min="1" [(ngModel)]="item.quantity" (ngModelChange)="updateLineItemQuantity(item)" />
-        <a  class="btn btn--white" (click)="incrementQuantity(item)">
-          <span class="btn__ico btn__ico--plus"></span>
-        </a>
-      </div>
+      <app-change-product-quantity-active-order [cart]="cart" [lineItem]="item"></app-change-product-quantity-active-order>
     </div>
   </div>
   <div class="sidebar__footer">
     <a class="btn btn--green btn--block" [ngClass]="{'disabled': cart.itemsCount === 0}"(click)="checkout(cart)">Checkout</a>
   </div>
 </div>
+
 
 

@@ -1,0 +1,12 @@
+<div class="input-group input-group--qty mt-auto" appRemoveWrapper>
+  <a class="btn btn--green" (click)="decrementQuantity(lineItem)">
+    <span class="btn__ico btn__ico--minus-white"></span>
+  </a>
+  <input type="number" min="1" class="input-group__input" [value]="lineItem.quantity" (keyup)="onChangeQuantity($event.target.value)">
+  <a class="btn btn--green" (click)="incrementQuantity(lineItem)">
+    <span class="btn__ico btn__ico--plus-white"></span>
+  </a>
+</div>
+
+
+
