@@ -93,7 +93,9 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
             ]);
         } else {
           itemForm.get('id').setValue(null);
-          itemForm.get('sku').setErrors(Validators.required);
+          if (itemForm.controls.sku.value !== '') {
+            itemForm.get('sku').setErrors({ skuExists: true });
+          }
           itemForm.get('productName').setValue('');
         }
       });
