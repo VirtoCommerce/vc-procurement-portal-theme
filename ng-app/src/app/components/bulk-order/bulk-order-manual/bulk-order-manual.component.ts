@@ -80,7 +80,7 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
       )
       .subscribe(p => {
         itemForm.get('id').setValue(null);
-        //itemForm.get('sku').setValidators([Validators.required, this.uniqueSkuValidator]);
+        // itemForm.get('sku').setValidators([Validators.required, this.uniqueSkuValidator]);
         if (p != null) {
           itemForm.get('id').setValue(p.id);
           itemForm.get('productName').setValue(p.name);

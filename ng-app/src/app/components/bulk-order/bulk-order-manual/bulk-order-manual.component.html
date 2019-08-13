@@ -74,6 +74,20 @@
                             </div>
                         </div>
                     </div>
+                    <div  *ngIf="sku.invalid && (sku.dirty || sku.touched)"
+                          class="row">
+                      <div class="col-md">
+                        <div class="form-error" *ngIf="sku.errors.required">
+                          SKU is required.
+                        </div>
+                        <div class="form-error" *ngIf="id.errors.required">
+                         There is not such SKU.
+                        </div>
+                        <div class="form-error" *ngIf="sku.errors.uniqueSkuValidator">
+                          SKU value must be unique.
+                        </div>
+                      </div>
+                    </div>
                   </form>
 
                 </div>
