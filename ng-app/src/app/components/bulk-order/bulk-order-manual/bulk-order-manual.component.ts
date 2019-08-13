@@ -1,23 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormArray,
-  FormControl
-} from '@angular/forms';
-import { Subject, Observable } from 'rxjs';
-import {
-  takeUntil,
-  debounceTime,
-  distinctUntilChanged,
-  switchMap,
-  exhaust,
-  exhaustMap
-} from 'rxjs/operators';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { Subject, Observable, iif, of } from 'rxjs';
+import { takeUntil, debounceTime, distinctUntilChanged, switchMap, exhaust, exhaustMap, every, map, filter, tap, catchError } from 'rxjs/operators';
 import { CatalogService } from 'src/app/services';
 import { IProduct } from 'src/app/models/dto/product';
 import { ActiveOrderService } from 'src/app/services/active-order.service';
+import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-bulk-order-manual',
@@ -27,7 +15,10 @@ import { ActiveOrderService } from 'src/app/services/active-order.service';
 export class BulkOrderManualComponent implements OnInit, OnDestroy {
   newItemForm: FormGroup;
   itemsForm: FormGroup;
-  //itemsForms: FormGroup[] = [];
+
+  sugesstedProducts: IProduct[];
+
+  // itemsForms: FormGroup[] = [];
   private defaultItemsCount = 1;
   private unsubscribe = new Subject();
 
@@ -73,7 +64,7 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
       qty: [qty, [Validators.required, Validators.min(1)]]
     });
 
-    itemForm.controls.sku.valueChanges
+    itemForm.get('sku').valueChanges
       .pipe(
         takeUntil(this.unsubscribe),
         debounceTime(200),
@@ -86,11 +77,11 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
         if (p != null) {
           itemForm.get('id').setValue(p.id);
           itemForm.get('productName').setValue(p.name);
-          itemForm
-            .get('qty')
+          itemForm.get('qty')
             .setValidators([
               Validators.required,
               Validators.min(1),
+              // todo: set to real caonstraint value
               Validators.max(50)
             ]);
         } else {
@@ -102,7 +93,53 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
         }
       });
 
+    // itemForm.controls.productName.valueChanges
+    //   .pipe(
+    //     takeUntil(this.unsubscribe),
+    //     filter(x => x.length > 2),
+    //     debounceTime(200),
+    //     distinctUntilChanged(),
+    //     switchMap(x => this.getSugesstedProducts(x))
+    //   ).subscribe(data => {
+    //     this.sugesstedProducts = data;
+
+    //   }) ;
+
+
+    if (sku) {
+      itemForm.get('sku').markAsDirty();
+    }
+    if (productName) {
+      itemForm.get('productName').markAsDirty();
+    }
+    if (qty > 1) {
+      itemForm.get('qty').markAsDirty();
+    }
+
     return itemForm;
+  }
+
+
+
+  suggestedProductsFormatter = (item: {name: string}) => item.name;
+
+  searchProductsSuggestionsByName = (text$: Observable<string>) =>
+  text$.pipe(
+    debounceTime(300),
+    distinctUntilChanged(),
+    switchMap(term =>
+      this.getSuggestedProducts(term).pipe(
+       )
+    )
+  )
+
+  suggestedProductSelected(event: NgbTypeaheadSelectItemEvent) {
+    event.preventDefault();
+    if ( !!event.item ) {
+      const product = event.item as IProduct;
+      this.newItemForm.get('sku').setValue(product.sku);
+      this.newItemForm.get('productName').setValue(product.name);
+    }
   }
 
 
@@ -134,7 +171,21 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
   }
 
   private getProduct(sku: string): Observable<IProduct> {
-    return this.catalogService.getProductBySku(sku);
+    return !sku ? of(null) : this.catalogService.getProductBySku(sku)
+    .pipe(catchError(() => {
+      console.log('Finding product by sku is failed');
+      return of(null);
+    } ));
+  }
+
+  private getSuggestedProducts(keyword: string): Observable<IProduct[]> {
+    return this.catalogService.getAllProducts(1, 20, null, keyword)
+      .pipe(map(x => x.products),
+        catchError(() => {
+          console.log('Suggested products loading is failed');
+          return of([]);
+      })
+    );
   }
 
   get items() {
@@ -154,7 +205,7 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
     itemForm.get('sku').patchValue(this.newItemForm.get('sku').value);
     //itemForm.updateValueAndValidity();
     itemForm.markAsTouched();
-    this.itemsForm.updateValueAndValidity();
+    this.itemsForm.updateValueAndValidity( {emitEvent: true});
   }
 
   removeItem(index: number) {
@@ -163,7 +214,7 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
     //   this.items.splice(ix, 1);
     // }
     this.items.removeAt(index);
-    this.itemsForm.updateValueAndValidity();
+    this.itemsForm.updateValueAndValidity( {emitEvent: true} );
   }
 
   addItemsToCart() {
