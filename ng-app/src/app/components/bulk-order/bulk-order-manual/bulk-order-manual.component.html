@@ -25,7 +25,9 @@
                         </div>
                         <div class="col-md-6">
                             <input placeholder="Product name" type="text" class="form-control"
-                            formControlName="productName">
+                            formControlName="productName" [ngbTypeahead]="searchProductsSuggestionsByName"
+                            [resultFormatter]="suggestedProductsFormatter"
+                            (selectItem)="suggestedProductSelected($event)">
                         </div>
                     </div>
                 </div>
@@ -35,9 +37,9 @@
                             <div class="input-group input-group--qty">
                                 <input placeholder="QTY" type="number" min="1" class="form-control form-control--qty"
                                 formControlName="qty">
-                                <a class="btn btn--blue" (click)="addItem()">
+                                <button [disabled]="newItemForm.invalid" class="btn btn--blue" (click)="addItem()">
                                     <span class="btn__ico btn__ico--plus-white"></span>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -48,12 +50,11 @@
             <h2>Items in order</h2>
             <div class="list"
              formArrayName="items">
-                <app-bulk-order-item [itemForm]="itemForm" [index]="i" (removeClicked)="removeItem()"
+                <app-bulk-order-item [itemForm]="itemForm" [index]="i" (removeClicked)="removeItem($event)"
                  *ngFor="let itemForm of itemsForm.controls['items'].controls; let i = index"></app-bulk-order-item>
             </div>
-            <div  *ngIf="itemsForm.controls['items'].errors?.itemsEmpty"
-                  class="row">
-            <div class="col-md">
+            <div class="row" *ngIf="itemsForm.controls['items'].errors?.itemsEmpty">
+                <div class="col-md">
                   <div class="form-error" >
                     Orders items list is empty.
                   </div>
