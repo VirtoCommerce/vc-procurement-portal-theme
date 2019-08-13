@@ -11,8 +11,6 @@ export class UserViewEditUserModel {
   email: string;
   firstName: string;
   lastName: string;
-  passwordCheckbox: boolean;
-  passwordGroup: { oldPassword: string; password: string; confirmPassword: string };
   selectRole: string;
   userName: string;
 }

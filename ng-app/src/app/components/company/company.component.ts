@@ -123,15 +123,10 @@ export class CompanyComponent implements OnInit {
     modalRef.componentInstance.user = user;
     modalRef.componentInstance.editUserMode = true;
     modalRef.result.then(result => {
-      console.log('Результат: ', result);
       const updatedUser = this.userConverter.toEditUser(result, user);
       this.userService.updateUser(updatedUser).subscribe(() => {
         this.fetchUsers();
       });
-      if (result.passwordCheckbox === true) {
-        const password = this.userConverter.toEditUserPassword(result);
-        this.userService.changeUserPassword(password);
-      }
     });
 
 

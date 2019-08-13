@@ -13,14 +13,13 @@ export class UserConverterService {
 
   toAddUser(userView: UserViewAddUserModel , organization: IOrganization ): AddNewUser {
     const result = new AddNewUser();
-    result.roles = [];
     result.email = userView.email;
     result.firstName = userView.firstName;
     result.lastName = userView.lastName;
     result.fullName = `${userView.firstName} ${userView.lastName}`;
     result.organizationId = organization.id;
     result.password = userView.password;
-    result.roles.push(userView.selectRole);
+    result.role = userView.selectRole;
     result.userName = userView.userName;
     return result;
   }
@@ -34,14 +33,6 @@ export class UserConverterService {
     result.roles.push(userView.selectRole);
     result.email = userView.email;
     result.id = user.id;
-    return result;
-  }
-
-  toEditUserPassword(userView: UserViewEditUserModel): EditUserPassword {
-    const result = new EditUserPassword();
-    result.oldPassword = userView.passwordGroup.oldPassword;
-    result.newPassword = userView.passwordGroup.password;
-    result.newPasswordConfirm = userView.passwordGroup.confirmPassword;
     return result;
   }
 
