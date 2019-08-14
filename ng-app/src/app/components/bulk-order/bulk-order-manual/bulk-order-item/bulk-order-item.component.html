@@ -53,6 +53,9 @@
       </div>
     </div>
 </div> -->
+<!-- <div class="row">{{ qty.invalid}}</div>
+<div class="row">{{ qty.dirty}}</div>
+<div class="row">{{ qty.touched}}</div> -->
 <div  *ngIf="qty.invalid && (qty.dirty || qty.touched)"
         class="row">
     <div class="col-md" *ngIf="qty.errors.required">

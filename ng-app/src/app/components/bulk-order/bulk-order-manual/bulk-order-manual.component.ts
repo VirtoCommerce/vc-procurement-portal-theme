@@ -22,6 +22,10 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
   private defaultItemsCount = 1;
   private unsubscribe = new Subject();
 
+  get items() {
+    return this.itemsForm.get('items') as FormArray;
+  }
+
   constructor(
     private formBuilder: FormBuilder,
     private catalogService: CatalogService,
@@ -49,6 +53,89 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
   ngOnInit() {}
   ngOnDestroy(): void {
     this.unsubscribe.next();
+  }
+
+
+  addItem() {
+    console.log(this.newItemForm);
+    const itemForm = this.createItemForm(
+      this.newItemForm.get('sku').value,
+      this.newItemForm.get('productName').value,
+      this.newItemForm.get('qty').value
+    );
+    this.items.push(itemForm);
+  }
+
+  removeItem(index: number) {
+    this.items.removeAt(index);
+  }
+
+  addItemsToCart() {
+    for (const itemForm of this.items.controls as FormGroup[]) {
+      const productId = itemForm.get('id').value;
+      const quantity = itemForm.get('qty').value;
+      this.activeOrderService.addItem(productId, quantity).subscribe();
+    }
+  }
+
+  suggestedProductsFormatter = (item: {name: string}) => item.name;
+
+  searchProductsSuggestionsByName = (text$: Observable<string>) =>
+  text$.pipe(
+    debounceTime(300),
+    distinctUntilChanged(),
+    switchMap(term =>
+      this.getSuggestedProducts(term).pipe(
+       )
+    )
+  )
+
+  suggestedProductSelected(event: NgbTypeaheadSelectItemEvent) {
+    event.preventDefault();
+    if ( !!event.item ) {
+      const product = event.item as IProduct;
+      this.newItemForm.get('sku').setValue(product.sku);
+      this.newItemForm.get('productName').setValue(product.name);
+    }
+  }
+
+
+  private itemsEmptyValidator(itemsForms: FormArray) {
+    if (itemsForms == null || itemsForms.controls.length < 1) {
+      return { itemsEmpty: true };
+    }
+    return null;
+  }
+
+  // sku unique validator
+  private uniqueSkuValidator(control: FormControl): { [s: string]: boolean } {
+    const itemsForms = (control.parent || { parent: null }).parent as FormArray;
+    if (itemsForms != null) {
+      for (const itemForm of itemsForms.controls) {
+        if (  itemForm !== control.parent && itemForm.get('sku').value === control.value) {
+          return { uniqueSku: true };
+        }
+      }
+    }
+    return null;
+  }
+
+  private getProduct(sku: string): Observable<IProduct> {
+    return !sku ? of(null) : this.catalogService.getProductBySku(sku)
+    .pipe(catchError(() => {
+      console.log('Finding product by sku is failed');
+      return of(null);
+    } ));
+  }
+
+  private getSuggestedProducts(keyword: string): Observable<IProduct[]> {
+    return this.catalogService.getAllProducts(1, 20, null, keyword)
+      .pipe(map(x => x.products),
+        catchError(() => {
+          console.log('Suggested products loading is failed');
+          return of([]);
+      })
+    );
   }
 
   private createItemForm(
@@ -82,146 +169,30 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
               Validators.required,
               Validators.min(1),
               // todo: set to real caonstraint value
-              Validators.max(50)
+              Validators.max(100)
             ]);
+          itemForm.get('qty').updateValueAndValidity();
+
         } else {
           itemForm.get('id').setValue(null);
           if (itemForm.controls.sku.value !== '') {
             itemForm.get('sku').setErrors({ skuExists: true });
           }
           itemForm.get('productName').setValue('');
+          itemForm.get('qty').setValidators( [
+            Validators.required,
+            Validators.min(1)]);
         }
       });
 
-    // itemForm.controls.productName.valueChanges
-    //   .pipe(
-    //     takeUntil(this.unsubscribe),
-    //     filter(x => x.length > 2),
-    //     debounceTime(200),
-    //     distinctUntilChanged(),
-    //     switchMap(x => this.getSugesstedProducts(x))
-    //   ).subscribe(data => {
-    //     this.sugesstedProducts = data;
-
-    //   }) ;
-
+    itemForm.get('sku').updateValueAndValidity();
 
     if (sku) {
       itemForm.get('sku').markAsDirty();
     }
-    if (productName) {
-      itemForm.get('productName').markAsDirty();
-    }
-    if (qty > 1) {
-      itemForm.get('qty').markAsDirty();
-    }
+    itemForm.get('qty').markAsDirty();
 
     return itemForm;
   }
 
-
-
-  suggestedProductsFormatter = (item: {name: string}) => item.name;
-
-  searchProductsSuggestionsByName = (text$: Observable<string>) =>
-  text$.pipe(
-    debounceTime(300),
-    distinctUntilChanged(),
-    switchMap(term =>
-      this.getSuggestedProducts(term).pipe(
-       )
-    )
-  )
-
-  suggestedProductSelected(event: NgbTypeaheadSelectItemEvent) {
-    event.preventDefault();
-    if ( !!event.item ) {
-      const product = event.item as IProduct;
-      this.newItemForm.get('sku').setValue(product.sku);
-      this.newItemForm.get('productName').setValue(product.name);
-    }
-  }
-
-
-  itemsEmptyValidator(itemsForms: FormArray) {
-    if (itemsForms == null || itemsForms.controls.length < 1) {
-      return { itemsEmpty: true };
-    }
-    return null;
-  }
-
-  // валидатор
-  //  idSettedValidator(control: FormControl): {[s: string]: boolean} {
-  //   if (control.value != null) {
-  //       return { 'idRequired': true};
-  //   }
-  //   return null;
-  // }
-  // sku unique validator
-  uniqueSkuValidator(control: FormControl): { [s: string]: boolean } {
-    const itemsForms = (control.parent || { parent: null }).parent as FormArray;
-    if (itemsForms != null) {
-      for (const itemForm of itemsForms.controls) {
-        if (  itemForm !== control.parent && itemForm.get('sku').value === control.value) {
-          return { uniqueSku: true };
-        }
-      }
-    }
-    return null;
-  }
-
-  private getProduct(sku: string): Observable<IProduct> {
-    return !sku ? of(null) : this.catalogService.getProductBySku(sku)
-    .pipe(catchError(() => {
-      console.log('Finding product by sku is failed');
-      return of(null);
-    } ));
-  }
-
-  private getSuggestedProducts(keyword: string): Observable<IProduct[]> {
-    return this.catalogService.getAllProducts(1, 20, null, keyword)
-      .pipe(map(x => x.products),
-        catchError(() => {
-          console.log('Suggested products loading is failed');
-          return of([]);
-      })
-    );
-  }
-
-  get items() {
-    return this.itemsForm.get('items') as FormArray;
-  }
-
-  addItem() {
-    console.log(this.newItemForm);
-    const itemForm = this.createItemForm(
-      this.newItemForm.get('sku').value,
-      this.newItemForm.get('productName').value,
-      this.newItemForm.get('qty').value
-    );
-    // this.itemsForms.push(newItemForm);
-    this.items.push(itemForm);
-    // to on valueChanges
-    itemForm.get('sku').patchValue(this.newItemForm.get('sku').value);
-    //itemForm.updateValueAndValidity();
-    itemForm.markAsTouched();
-    this.itemsForm.updateValueAndValidity( {emitEvent: true});
-  }
-
-  removeItem(index: number) {
-    // const ix = this.itemsForm.controls.items.indexOf(itemForm);
-    // if (ix > -1) {
-    //   this.items.splice(ix, 1);
-    // }
-    this.items.removeAt(index);
-    this.itemsForm.updateValueAndValidity( {emitEvent: true} );
-  }
-
-  addItemsToCart() {
-    for (const itemForm of this.items.controls as FormGroup[]) {
-      const productId = itemForm.get('id').value;
-      const quantity = itemForm.get('qty').value;
-      this.activeOrderService.addItem(productId, quantity).subscribe();
-    }
-  }
 }
