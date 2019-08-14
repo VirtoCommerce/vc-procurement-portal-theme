@@ -1,0 +1,61 @@
+<div class="tabs__content" appRemoveWrapper>
+  <a (click)="openCreateUserModal()" class="btn btn--green mb-4">Add new User</a>
+  <div class="table-responsive">
+    <table class="table">
+      <colgroup>
+        <col class="col-w-120" />
+        <col class="col-w-120" />
+        <col class="col-w-120" />
+        <col class="col-w-120" />
+        <col class="col-w-120" />
+        <col class="col-w-140" />
+        <col class="col-w-140" />
+        <col class="col-w-120" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Account</th>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Workflow Role</th>
+          <th>System Role</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let user of users">
+        <tr>
+          <td>{{user.userName}}</td>
+          <td>{{user.firstName}}</td>
+          <td>{{user.lastName}}</td>
+          <td>Тут workflow role</td>
+          <td>{{user.role.name}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.phones[0]}}</td>
+          <td>
+            <a (click)="deleteUser(user)" class="text--red">Remove user</a>
+            |
+            <a (click)="openEditUserModal(user)" class="text--red">Edit user</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="page-nav">
+      <div class="row align-items-end justify-content-center">
+        <div class="col-auto">
+          <div class="page-nav__total">You've viewed {{users.length}} of {{paginationInfo.collectionSize}} orders</div>
+          <ngb-pagination
+          [(page)]="paginationInfo.page"
+          [pageSize]="paginationInfo.pageSize"
+          [collectionSize]="paginationInfo.collectionSize"
+          (pageChange)="pageChanged()"></ngb-pagination>
+        </div>
+        <div class="col-auto ml-sm-auto">
+            Show
+            <app-page-size-selector [defaultPageSize]="paginationInfo.pageSize" [pageSizes]="pageSizes" (pageSizeChanged)="pageSizeChanged($event)" ></app-page-size-selector>
+        </div>
+      </div>
+    </div>
+</div>

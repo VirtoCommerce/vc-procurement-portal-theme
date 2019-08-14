@@ -11,16 +11,22 @@
       </div>
       <div class="form-group">
         <label for="firstName">First Name</label>
-        <input id="firstName" name="firstName" placeholder="First Name" type="text" class="form-control" [ngClass]="{ 'is-invalid': myform.submitted && firstName.invalid }" required [(ngModel)]="user.firstName" #firstName="ngModel">
+        <input id="firstName" name="firstName" placeholder="First Name" type="text" class="form-control" pattern="[A-Za-z ]+" [ngClass]="{ 'is-invalid': myform.submitted && firstName.invalid }" required [(ngModel)]="user.firstName" #firstName="ngModel">
         <div *ngIf="myform.submitted && firstName.invalid" class="invalid-feedback">
           <div *ngIf="firstName.errors.required">First Name is required</div>
+        </div>
+        <div *ngIf="firstName.touched && firstName.invalid" class="invalid-feedback">
+          <div *ngIf="firstName.errors.pattern">First Name is not valid</div>
         </div>
       </div>
       <div class="form-group">
         <label for="lastName">Last Name</label>
-        <input id="lastName" name="lastName" placeholder="Last Name" type="text" class="form-control" [ngClass]="{ 'is-invalid': myform.submitted && lastName.invalid }" required [(ngModel)]="user.lastName" #lastName="ngModel">
+        <input id="lastName" name="lastName" placeholder="Last Name" type="text" class="form-control" pattern="[A-Za-z -]+" [ngClass]="{ 'is-invalid': myform.submitted && lastName.invalid }" required [(ngModel)]="user.lastName" #lastName="ngModel">
         <div *ngIf="myform.submitted && lastName.invalid" class="invalid-feedback">
           <div *ngIf="lastName.errors.required">Last Name is required</div>
+        </div>
+        <div *ngIf="lastName.touched && lastName.invalid" class="invalid-feedback">
+          <div *ngIf="lastName.errors.pattern">Last Name is not valid</div>
         </div>
       </div>
       <div class="form-group" *ngIf="!editUserMode">
