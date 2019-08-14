@@ -57,17 +57,18 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
 
 
   addItem() {
-    console.log(this.newItemForm);
     const itemForm = this.createItemForm(
       this.newItemForm.get('sku').value,
       this.newItemForm.get('productName').value,
       this.newItemForm.get('qty').value
     );
     this.items.push(itemForm);
+    this.validateAllFormFields(this.itemsForm);
   }
 
   removeItem(index: number) {
     this.items.removeAt(index);
+    this.validateAllFormFields(this.itemsForm);
   }
 
   addItemsToCart() {
@@ -185,7 +186,7 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
         }
       });
 
-    itemForm.get('sku').updateValueAndValidity();
+    // itemForm.get('sku').updateValueAndValidity();
 
     if (sku) {
       itemForm.get('sku').markAsDirty();
@@ -194,5 +195,19 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
 
     return itemForm;
   }
+
+
+ private  validateAllFormFields(formGroup: FormGroup | FormArray) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+
+      if (control instanceof FormControl) {
+        control.updateValueAndValidity({ onlySelf: true });
+      } else if (control instanceof FormGroup || control instanceof FormArray) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
+
 
 }
