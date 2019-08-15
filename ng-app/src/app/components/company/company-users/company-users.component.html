@@ -1,4 +1,4 @@
-<div class="tabs__content" appRemoveWrapper>
+<div class="tabs__content" appRemoveWrapper *ngIf="users">
   <a (click)="openCreateUserModal()" class="btn btn--green mb-4">Add new User</a>
   <div class="table-responsive">
     <table class="table">
