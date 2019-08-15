@@ -1,6 +1,6 @@
-<div class="tabs__content" appRemoveWrapper *ngIf="users">
+<div class="tabs__content" appRemoveWrapper>
   <a (click)="openCreateUserModal()" class="btn btn--green mb-4">Add new User</a>
-  <div class="table-responsive">
+  <div class="table-responsive" *ngIf="users">
     <table class="table">
       <colgroup>
         <col class="col-w-120" />
@@ -24,7 +24,7 @@
           <th>Action</th>
         </tr>
       </thead>
-      <tbody *ngFor="let user of users">
+      <tbody *ngFor="let user of users" >
         <tr>
           <td>{{user.userName}}</td>
           <td>{{user.firstName}}</td>
@@ -45,7 +45,7 @@
   <div class="page-nav">
       <div class="row align-items-end justify-content-center">
         <div class="col-auto">
-          <div class="page-nav__total">You've viewed {{users.length}} of {{paginationInfo.collectionSize}} orders</div>
+          <div class="page-nav__total">You've viewed {{users?.length}} of {{paginationInfo.collectionSize}} orders</div>
           <ngb-pagination
           [(page)]="paginationInfo.page"
           [pageSize]="paginationInfo.pageSize"
