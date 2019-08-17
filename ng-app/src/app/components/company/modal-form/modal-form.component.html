@@ -40,8 +40,8 @@
         <label for="selectRole">Role</label>
         <select id="selectRole" name="selectRole" class="custom-select" required aria-describedby="selectRoleHelpBlock"  [ngClass]="{ 'is-invalid': myform.submitted && role.invalid }" required [(ngModel)]="user.role" #role="ngModel">
           <option value="" style="display:none">Please select role</option>
-          <option value="org-maintainer">Organization maintainer</option>
-          <option value="org-employee">Organization employee</option>
+          <option value="pp-admin">Administrator</option>
+          <option value="pp-agent">Agent</option>
         </select>
         <div *ngIf="myform.submitted && role.invalid" class="invalid-feedback">
           <div *ngIf="role.errors.required">Role is required</div>
