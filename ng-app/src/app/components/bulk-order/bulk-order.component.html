@@ -17,8 +17,12 @@
         </div>
 
         <!-- Bulk order tab content -->
-        <app-bulk-order-manual *ngIf="selectedTab == 'manualy'"></app-bulk-order-manual>
-        <app-bulk-order-csv *ngIf="selectedTab == 'csv'"></app-bulk-order-csv>
+        <div class="bulk-order__content" [ngClass]="{'bulk-order__content--active': selectedTab == 'manualy'}" >
+          <app-bulk-order-manual></app-bulk-order-manual>
+        </div>
+        <div class="bulk-order__content " [ngClass]="{'bulk-order__content--active': selectedTab == 'csv'}">
+          <app-bulk-order-csv></app-bulk-order-csv>
+        </div>
 
     </div>
       <app-mobile-cart-summary></app-mobile-cart-summary>

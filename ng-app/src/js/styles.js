@@ -33,13 +33,13 @@ $(function() {
 	});
 
 	// Bulk order content tab
-	$('.bulk-order__actions .btn').on('click', function() {
-		var self = $(this);
+	// $('.bulk-order__actions .btn').on('click', function() {
+	// 	var self = $(this);
 
-		console.log(self)
+	// 	console.log(self)
 
-		openBulkOrderTab(self);
-	});
+	// 	openBulkOrderTab(self);
+	// });
 
 	// Accordion
 	// $('.accordion__header').on('click', function() {
@@ -59,15 +59,15 @@ $(function() {
   });
 
 
-  $('.dropdown__toggle').on('click', function() {
-    var self = $(this).parent();
-    if(self.hasClass('dropdown--opened')) {
-			self.removeClass('dropdown--opened');
-		}
-		else {
-			self.addClass('dropdown--opened');
-		}
-  });
+  // $('.dropdown__toggle').on('click', function() {
+  //   var self = $(this).parent();
+  //   if(self.hasClass('dropdown--opened')) {
+	// 		self.removeClass('dropdown--opened');
+	// 	}
+	// 	else {
+	// 		self.addClass('dropdown--opened');
+	// 	}
+  // });
 
 
 });
