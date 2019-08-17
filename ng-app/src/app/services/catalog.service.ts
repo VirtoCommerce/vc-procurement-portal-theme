@@ -24,6 +24,7 @@ export class CatalogService {
     searchCriteria.pageNumber = pageNumber;
     searchCriteria.pageSize = pageSize;
     searchCriteria.keyword = keyword;
+    searchCriteria.outline = categoryId;
 
     const url = 'storefrontapi/catalog/search';
     return this.http.post<SearchProductsResult>(url, searchCriteria);
