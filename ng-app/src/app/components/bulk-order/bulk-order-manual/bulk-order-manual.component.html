@@ -1,19 +1,7 @@
-<div class="bulk-order" appWrapperRemove>
-    <h1>Bulk Order Pad</h1>
-    <div class="row bulk-order__actions">
-        <div class="bulk-order__actions-item col-md-auto">
-            <a href="#" class="btn btn--blue btn--outline">Catalog order</a>
-        </div>
-        <div class="bulk-order__actions-item col-md">
-            <div class="btn-group">
-                <a class="btn btn--outline btn--active" data-name="manual">Manual</a>
-                <a class="btn btn--outline" data-name="copy-paste">Copy & Paste</a>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Bulk order tab content -->
-    <div class="bulk-order__content bulk-order__content--active" data-index="0">
+    <div class="bulk-order__content bulk-order__content--active">
         <h2>Add new item</h2>
         <form class="bulk-order__new" [formGroup]="newItemForm" novalidate>
             <div class="row">
@@ -63,7 +51,7 @@
         </form>
 
     </div>
-    <div class="bulk-order__content" data-index="1">
+    <!-- <div class="bulk-order__content" data-index="1">
         <div class="bulk-order__copy">
             <p>Simply copy the item records from your CSV file and paste them into the text box using the following format: SKU, Quantity. Each record should start from a new line.</p>
             <div class="row">
@@ -90,9 +78,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="bulk-order__add-order">
         <button class="btn btn--green ml-auto" [disabled]="itemsForm.invalid" (click)="addItemsToCart()">Add to Order</button>
     </div>
-</div>
+

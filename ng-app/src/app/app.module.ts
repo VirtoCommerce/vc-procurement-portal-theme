@@ -55,6 +55,7 @@ import { BulkOrderItemComponent } from './components/bulk-order/bulk-order-manua
 import { CompanyDetailsComponent } from './components/company/company-details/company-details.component';
 import { CompanyUsersComponent } from './components/company/company-users/company-users.component';
 import { RoleManagementComponent } from './components/company/role-management/role-management.component';
+import { BulkOrderCsvComponent } from './components/bulk-order/bulk-order-csv/bulk-order-csv.component';
 // import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
 // import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -92,7 +93,8 @@ import { RoleManagementComponent } from './components/company/role-management/ro
     BulkOrderItemComponent,
     CompanyDetailsComponent,
     CompanyUsersComponent,
-    RoleManagementComponent
+    RoleManagementComponent,
+    BulkOrderCsvComponent
 
   ],
   imports: [

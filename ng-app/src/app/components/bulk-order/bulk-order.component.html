@@ -1,7 +1,26 @@
 <main class="main container">
   <div class="content">
-      <app-bulk-order-manual></app-bulk-order-manual>
+      <!-- <app-bulk-order-manual></app-bulk-order-manual> -->
 
+      <div class="bulk-order">
+        <h1>Bulk Order Pad</h1>
+        <div class="row bulk-order__actions">
+            <div class="bulk-order__actions-item col-md-auto">
+                <a href="#" class="btn btn--blue btn--outline">Catalog order</a>
+            </div>
+            <div class="bulk-order__actions-item col-md">
+                <div class="btn-group">
+                    <a class="btn btn--outline" [ngClass]="{'btn--active': selectedTab == 'manualy'}" (click)="setSelectedTab('manualy')">Manual</a>
+                    <a class="btn btn--outline" [ngClass]="{'btn--active': selectedTab == 'csv'}" (click)="setSelectedTab('csv')">Copy & Paste</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bulk order tab content -->
+        <app-bulk-order-manual *ngIf="selectedTab == 'manualy'"></app-bulk-order-manual>
+        <app-bulk-order-csv *ngIf="selectedTab == 'csv'"></app-bulk-order-csv>
+
+    </div>
       <app-mobile-cart-summary></app-mobile-cart-summary>
       <!-- <div class="d-block d-lg-none mt-auto">
           <div class="mobile-order" data-name="mobile-order">
