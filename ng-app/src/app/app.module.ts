@@ -7,6 +7,7 @@ import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angu
 // 3d
 import { BlockUIModule } from 'ng-block-ui';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 // custom modules import
 
 import { AppRoutingModule } from './app-routing.module';
@@ -55,6 +56,7 @@ import { BulkOrderItemComponent } from './components/bulk-order/bulk-order-manua
 import { CompanyDetailsComponent } from './components/company/company-details/company-details.component';
 import { CompanyUsersComponent } from './components/company/company-users/company-users.component';
 import { RoleManagementComponent } from './components/company/role-management/role-management.component';
+import { CheckoutModalComponent } from './components/active-order/checkout-modal/checkout-modal.component';
 // import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
 // import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -92,7 +94,8 @@ import { RoleManagementComponent } from './components/company/role-management/ro
     BulkOrderItemComponent,
     CompanyDetailsComponent,
     CompanyUsersComponent,
-    RoleManagementComponent
+    RoleManagementComponent,
+    CheckoutModalComponent
 
   ],
   imports: [
@@ -108,6 +111,7 @@ import { RoleManagementComponent } from './components/company/role-management/ro
             headerName: 'X-CSRF-TOKEN'
         }),
     NgbModule,
+    ScrollingModule,
     // NgbPaginationModule,
     // NgbDropdownModule,
     // NgbDatepickerModule,
@@ -131,6 +135,6 @@ import { RoleManagementComponent } from './components/company/role-management/ro
     AuthenticationService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ModalFormComponent]
+  entryComponents: [ModalFormComponent, CheckoutModalComponent]
 })
 export class AppModule { }
