@@ -8,15 +8,15 @@
       </div>
       <div class="col-md">
         <label for="number">Tax Number</label>
-        <input type="text" class="form-control" id="number" />
+        <input type="text" class="form-control" id="number" [(ngModel)]="organizationDetails.taxNumber"/>
       </div>
       <div class="col-md">
         <label for="reg-number">Company Registration Number</label>
-        <input type="text" class="form-control" id="reg-number" />
+        <input type="text" class="form-control" id="reg-number" [(ngModel)]="organizationDetails.companyRegistrationNumber"/>
       </div>
     </div>
   </fieldset>
-  <fieldset>
+  <fieldset *ngIf="organizationDetails">
     <legend>Procurements service contact</legend>
     <div class="form-row form-group">
       <div class="col-md">
@@ -26,6 +26,7 @@
           type="text"
           class="form-control"
           id="phone"
+          [(ngModel)]="organizationDetails.phoneNumber"
         />
       </div>
       <div class="col-md">
@@ -35,6 +36,7 @@
           type="text"
           class="form-control"
           id="email"
+          [(ngModel)]="organizationDetails.email"
         />
       </div>
       <div class="col-md">
@@ -44,6 +46,7 @@
           type="text"
           class="form-control"
           id="person"
+          [(ngModel)]="organizationDetails.contactPerson"
         />
       </div>
     </div>
@@ -174,11 +177,12 @@
       </div>
     </div>
   </fieldset>
-  <fieldset>
+  <fieldset *ngIf="organizationDetails">
     <legend>Return Invalid orders to creator</legend>
+    {{organizationDetails.returnInvalidOrdersToCreator}}
     <div class="btn-group btn-group--uppercase">
-      <a class="btn btn--outline">Yes</a>
-      <a class="btn btn--outline btn--active">No</a>
+      <a class="btn btn--outline" [ngClass]="{'btn--active': organizationDetails.returnInvalidOrdersToCreator}" (click)="setOrdersProperty(true)">Yes</a>
+      <a class="btn btn--outline" [ngClass]="{'btn--active': !organizationDetails.returnInvalidOrdersToCreator}" (click)="setOrdersProperty(false)">No</a>
     </div>
   </fieldset>
   <a class="btn btn--green" (click)="updateCompany()">Update Company</a>
