@@ -110,7 +110,7 @@
                 </div>
             </div>
         </div>
-        <div class="order__actions">
+        <div class="order__actions" *ngIf="order">
             <a (click)="addProductToCart()" class="btn btn--green">Add to current Order</a>
             <a class="btn btn--outline" [routerLink]="['/invoice',order.number]">View Invoice</a>
         </div>

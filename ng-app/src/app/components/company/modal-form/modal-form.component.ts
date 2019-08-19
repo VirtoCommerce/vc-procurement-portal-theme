@@ -29,4 +29,8 @@ export class ModalFormComponent implements OnInit {
     }
   }
 
+  closeModal(){
+    this.activeModal.dismiss();
+  }
+
 }

@@ -37,3 +37,7 @@ export class EditUserPassword {
   newPasswordConfirm: string;
 }
 
+export class EditUserPhone {
+  phoneNumber: string;
+}
+

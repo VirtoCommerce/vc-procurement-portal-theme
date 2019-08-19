@@ -1,4 +1,11 @@
     <form #myform='ngForm' (ngSubmit)='passBack(myform)' class='p-3'>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-title" *ngIf="!editUserMode">Add new user</h4>
+        <h4 class="modal-title" id="modal-title" *ngIf="editUserMode">Edit user</h4>
+          <button type="button" class="close" aria-describedby="modal-title" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
       <div class="form-group">
         <label for="email">Email</label>
         <input id="useremail" name="email" placeholder="Email" required class="form-control" [(ngModel)]="user.email" #email="ngModel" [ngClass]="{ 'is-invalid': myform.submitted && email.invalid }" email>
@@ -49,7 +56,7 @@
       </div>
       <div class="form-group" *ngIf="!editUserMode">
         <label for="Password">Password</label>
-        <input id="password" name="password" placeholder="Password" type="password" required class="form-control" [(ngModel)]="user.password" #password="ngModel" pattern="(^[A-Z])\w+" [ngClass]="{ 'is-invalid': password.touched && password.invalid }" required minlength="6">
+        <input id="password" name="password" placeholder="Password" type="password" class="form-control" [(ngModel)]="user.password" #password="ngModel" pattern="(^[A-Z])\w+" [ngClass]="{ 'is-invalid': password.touched && password.invalid }" required minlength="6">
         <div *ngIf="myform.submitted && password.invalid" class="invalid-feedback">
         <div *ngIf="password.errors.required">Password is required</div>
         </div>
@@ -59,10 +66,10 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary mb-4" (click)="closeModal()">Cancel</button>
         <button name="submit" type="submit" class="btn btn--green mb-4" *ngIf="!editUserMode">Add</button>
         <button name="submit" type="submit" class="btn btn--green mb-4" *ngIf="editUserMode">Update user</button>
       </div>
-
     </form>
 

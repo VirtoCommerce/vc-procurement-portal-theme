@@ -72,7 +72,8 @@ export class CompanyUsersComponent implements OnInit {
 
   openCreateUserModal() {
     const modalRef = this.modalService.open(ModalFormComponent, {
-      centered: true
+      centered: true,
+      backdrop: 'static'
     });
     modalRef.result.then(result => {
       const user = this.userConverter.toAddUser(result, this.organization);
@@ -84,7 +85,8 @@ export class CompanyUsersComponent implements OnInit {
 
   openEditUserModal(user: IUser) {
     const modalRef = this.modalService.open(ModalFormComponent, {
-      centered: true
+      centered: true,
+      backdrop: 'static'
     });
     modalRef.componentInstance.user = user;
     modalRef.componentInstance.editUserMode = true;

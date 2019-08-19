@@ -13,4 +13,8 @@ export interface IOrganization {
   dynamicProperties: IDynamicProperty[];
   id: string;
   name: string;
+  email: string;
 }
+
+
+

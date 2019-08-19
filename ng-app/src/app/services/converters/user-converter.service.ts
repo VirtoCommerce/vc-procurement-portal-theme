@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User, AddNewUser, EditUser, EditUserPassword } from '../../models/user';
+import { User, AddNewUser, EditUser, EditUserPassword, EditUserPhone } from '../../models/user';
 import { IUser } from 'src/app/models/dto/iuser';
 import { IOrganization } from 'src/app/models/dto/iorganization';
 import { UserViewAddUserModel, UserViewEditUserModel } from 'src/app/models/form';
@@ -43,8 +43,14 @@ export class UserConverterService {
     result.lastName = userView.lastName;
     result.fullName = `${userView.firstName} ${userView.lastName}`;
     result.email = userView.email;
-    result.roles.push(userView.role);
+    result.roles = userView.roles.map(x => x.id) ;
     result.id = userView.id;
+    return result;
+  }
+
+  toEditCurrentAccountPhoneNumber(userView: IUser): EditUserPhone {
+    const result = new EditUserPhone();
+    result.phoneNumber = userView.phoneNumber;
     return result;
   }
 }

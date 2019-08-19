@@ -7,6 +7,7 @@ import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angu
 // 3d
 import { BlockUIModule } from 'ng-block-ui';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 // custom modules import
 
 import { AppRoutingModule } from './app-routing.module';
@@ -56,6 +57,7 @@ import { CompanyDetailsComponent } from './components/company/company-details/co
 import { CompanyUsersComponent } from './components/company/company-users/company-users.component';
 import { RoleManagementComponent } from './components/company/role-management/role-management.component';
 import { BulkOrderCsvComponent } from './components/bulk-order/bulk-order-csv/bulk-order-csv.component';
+import { CheckoutModalComponent } from './components/active-order/checkout-modal/checkout-modal.component';
 // import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
 // import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -95,6 +97,7 @@ import { BulkOrderCsvComponent } from './components/bulk-order/bulk-order-csv/bu
     CompanyUsersComponent,
     RoleManagementComponent,
     BulkOrderCsvComponent
+    CheckoutModalComponent
 
   ],
   imports: [
@@ -110,6 +113,7 @@ import { BulkOrderCsvComponent } from './components/bulk-order/bulk-order-csv/bu
             headerName: 'X-CSRF-TOKEN'
         }),
     NgbModule,
+    ScrollingModule,
     // NgbPaginationModule,
     // NgbDropdownModule,
     // NgbDatepickerModule,
@@ -133,6 +137,6 @@ import { BulkOrderCsvComponent } from './components/bulk-order/bulk-order-csv/bu
     AuthenticationService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ModalFormComponent]
+  entryComponents: [ModalFormComponent, CheckoutModalComponent]
 })
 export class AppModule { }

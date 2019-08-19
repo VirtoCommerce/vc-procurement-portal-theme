@@ -7,6 +7,8 @@ import { first } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ILineItem, ICart } from 'src/app/models/dto/icart';
 import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CheckoutModalComponent } from './checkout-modal/checkout-modal.component';
 
 @Component({
   selector: 'app-active-order',
@@ -17,7 +19,7 @@ export class ActiveOrderComponent implements OnInit {
 
   cart$: Observable<ICart>;
 
-  constructor(private activeOrderService: ActiveOrderService, private confirmService: ConfirmService) {
+  constructor(private activeOrderService: ActiveOrderService, private confirmService: ConfirmService, private modalService: NgbModal) {
     // this.currentUser = this.authenticationService.currentUserValue;
   }
 
@@ -62,9 +64,14 @@ export class ActiveOrderComponent implements OnInit {
   }
 
   checkout(cart: ICart) {
-    // console.log(cart);
-    this.activeOrderService.createOrder().subscribe();
-
+    const modalRef = this.modalService.open(CheckoutModalComponent, {
+      centered: true,
+      backdrop: 'static',
+      size: 'lg'
+    });
+    modalRef.componentInstance.cart = cart;
+    modalRef.result.then(result => {
+      this.activeOrderService.createOrder().subscribe();
+    });
   }
-
 }
