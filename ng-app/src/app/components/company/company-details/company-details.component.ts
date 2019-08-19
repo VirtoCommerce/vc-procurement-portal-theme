@@ -19,12 +19,18 @@ export class CompanyDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    
   }
 
   updateCompany() {
-    const updatedOrg = this.orgConverter.toUpdateOrganization(this.organizationDetails);
+    const updatedOrg = this.orgConverter.toUpdateOrganization(this.organizationDetails,this.organization);
     this.organizationService
       .updateOrganization(updatedOrg)
       .subscribe();
+  }
+
+  setOrdersProperty(value: boolean) {
+    this.organizationDetails.returnInvalidOrdersToCreator = value;
+    console.log(this.organizationDetails.returnInvalidOrdersToCreator);
   }
 }
