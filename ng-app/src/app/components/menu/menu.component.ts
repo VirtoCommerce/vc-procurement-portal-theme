@@ -4,7 +4,7 @@ import {
 } from '@angular/router';
 import { AuthenticationService } from '../../services';
 import { User } from '../../models/user';
-import { Role } from '../../models/role';
+import { RoleEnum } from '../../models/role';
 
 @Component({
   selector: 'app-menu',
@@ -23,7 +23,7 @@ export class MenuComponent implements OnInit {
   }
 
   get isAdmin() {
-    return this.currentUser && this.currentUser.role === Role.Admin;
+    return this.currentUser && this.currentUser.role === RoleEnum.Admin;
   }
 
   logout() {
