@@ -43,7 +43,7 @@ export class UserConverterService {
     result.lastName = userView.lastName;
     result.fullName = `${userView.firstName} ${userView.lastName}`;
     result.email = userView.email;
-    result.roles.push(userView.role);
+    result.roles = userView.roles.map(x => x.id) ;
     result.id = userView.id;
     return result;
   }
