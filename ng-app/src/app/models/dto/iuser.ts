@@ -44,6 +44,7 @@ export interface IUser {
   phones: any[];
   groups: any[];
   userGroups: any[];
+  phoneNumber: string;
 }
 
 

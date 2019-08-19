@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { User, AddNewUser, EditUser, EditUserPassword } from '../models/user';
+import { User, AddNewUser, EditUser, EditUserPassword, EditUserPhone } from '../models/user';
 import { tap, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { IUser } from '../models/dto/iuser';
@@ -27,6 +27,11 @@ export class UserService {
   updateUser(user: EditUser) {
     const url = 'storefrontapi/account';
     return this.http.post(url, user);
+  }
+
+  updatePhoneNumber(phoneNumber: EditUserPhone) {
+    const url = 'storefrontapi/account/phonenumber';
+    return this.http.post(url, phoneNumber);
   }
 
   changeUserPassword(password: EditUserPassword) {
