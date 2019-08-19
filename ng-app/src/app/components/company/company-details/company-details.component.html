@@ -179,7 +179,7 @@
   </fieldset>
   <fieldset *ngIf="organizationDetails">
     <legend>Return Invalid orders to creator</legend>
-    {{organizationDetails.returnInvalidOrdersToCreator}}
+    <!-- {{organizationDetails.returnInvalidOrdersToCreator}} -->
     <div class="btn-group btn-group--uppercase">
       <a class="btn btn--outline" [ngClass]="{'btn--active': organizationDetails.returnInvalidOrdersToCreator}" (click)="setOrdersProperty(true)">Yes</a>
       <a class="btn btn--outline" [ngClass]="{'btn--active': !organizationDetails.returnInvalidOrdersToCreator}" (click)="setOrdersProperty(false)">No</a>

@@ -19,11 +19,10 @@ export class CompanyDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    
   }
 
   updateCompany() {
-    const updatedOrg = this.orgConverter.toUpdateOrganization(this.organizationDetails,this.organization);
+    const updatedOrg = this.orgConverter.toUpdateOrganization(this.organizationDetails, this.organization);
     this.organizationService
       .updateOrganization(updatedOrg)
       .subscribe();
