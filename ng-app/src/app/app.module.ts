@@ -96,9 +96,8 @@ import { CheckoutModalComponent } from './components/active-order/checkout-modal
     CompanyDetailsComponent,
     CompanyUsersComponent,
     RoleManagementComponent,
-    BulkOrderCsvComponent
+    BulkOrderCsvComponent,
     CheckoutModalComponent
-
   ],
   imports: [
     BrowserModule,
