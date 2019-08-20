@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IUser } from 'src/app/models/dto/iuser';
-import { User,AddNewUser } from 'src/app/models/user';
+import { Component, OnInit, Input } from '@angular/core';
+import { User} from 'src/app/models/user';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { AbstractControl } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -27,6 +26,10 @@ export class ModalFormComponent implements OnInit {
     if (userView.form.valid) {
       this.activeModal.close(userView.value);
     }
+  }
+
+  checkValid(form: NgForm){
+    form.form.controls.confirmPassword.updateValueAndValidity();
   }
 
   closeModal(){
