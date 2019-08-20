@@ -6,7 +6,7 @@
             <h2>Add new item</h2>
           </div>
           <div class="col-auto">
-            <a class="order__t-link" *ngIf="!itemsIsEmpty" (click)="clearItems()">Remove all</a>
+            <a class="order__t-link mr-3" *ngIf="!itemsIsEmpty" (click)="clearItems()">Remove all</a>
           </div>
         </div>
         <form class="bulk-order__new" [formGroup]="newItemForm" novalidate>
