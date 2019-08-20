@@ -4,6 +4,7 @@ import { tap, catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { IOrder, OrderSearchCriteria } from '../models/dto/iorder';
 import { IOrders } from '../models/dto/iorders';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Injectable({ providedIn: 'root' })
@@ -17,10 +18,17 @@ export class OrdersService {
     constructor(
         private http: HttpClient) { }
 
-    getOrders(pageNumber: number = 1, pageSize: number = 10) {
+    getOrders(pageNumber: number = 1, pageSize: number = 10, startDate: Date = null, endDate: Date = null, status: string = '' ) {
       const searchCriteria = new OrderSearchCriteria();
       searchCriteria.pageNumber = pageNumber;
       searchCriteria.pageSize = pageSize;
+      searchCriteria.StartDate = startDate;
+      searchCriteria.EndDate = endDate;
+      if (status === 'All') {
+        searchCriteria.Status = '';
+      } else {
+        searchCriteria.Status = status;
+      }
         return this.http.post(this.ordersUrl,searchCriteria).pipe(
             tap(
                 orders => {

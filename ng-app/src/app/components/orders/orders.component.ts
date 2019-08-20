@@ -21,6 +21,9 @@ import { IAppConfig } from 'src/app/models/iapp-config';
 export class OrdersComponent implements OnInit {
   date = new FormControl(new Date());
   serializedDate = new FormControl(new Date().toISOString());
+  startDate: Date;
+  endDate: Date;
+  status: string = 'All';
 
   orders: IOrder[] = [];
   users: User[] = [];
@@ -57,6 +60,12 @@ export class OrdersComponent implements OnInit {
     this.getAllOrders();
   }
 
+  changeActiveStatus(status: string) {
+    this.status = status;
+    this.getAllOrders();
+  }
+
+
   pageSizeChanged(eventArgs: PageSizeChangedArgs) {
     this.paginationInfo.pageSize = eventArgs.newPageSize;
     this.getAllOrders();
@@ -64,8 +73,9 @@ export class OrdersComponent implements OnInit {
 
   getAllOrders() {
     this.ordersService
-      .getOrders(this.paginationInfo.page, this.paginationInfo.pageSize)
+      .getOrders(this.paginationInfo.page, this.paginationInfo.pageSize,this.startDate,this.endDate,this.status)
       .subscribe((data: any) => {
+        console.log(data);
         this.orders = data.results as IOrder[];
         this.paginationInfo.collectionSize = data.totalCount;
       });

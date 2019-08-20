@@ -6,6 +6,10 @@ import { IAddress } from './common/address';
 export class OrderSearchCriteria extends PagedSearchCriteria {
   CustomerId: string;
   Sort: string;
+  StartDate: Date;
+  EndDate: Date;
+  Status: string;
+  Statuses: string[];
 }
 
 // this entity does not exist on server
@@ -169,5 +173,3 @@ export interface InPayment {
   modifiedBy: string;
   id: string;
 }
-
-
