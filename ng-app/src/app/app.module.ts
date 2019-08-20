@@ -58,6 +58,7 @@ import { CompanyUsersComponent } from './components/company/company-users/compan
 import { RoleManagementComponent } from './components/company/role-management/role-management.component';
 import { BulkOrderCsvComponent } from './components/bulk-order/bulk-order-csv/bulk-order-csv.component';
 import { CheckoutModalComponent } from './components/active-order/checkout-modal/checkout-modal.component';
+import { OnlyNumberDirective } from './directives/only-number.directive';
 // import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
 // import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -97,7 +98,8 @@ import { CheckoutModalComponent } from './components/active-order/checkout-modal
     CompanyUsersComponent,
     RoleManagementComponent,
     BulkOrderCsvComponent,
-    CheckoutModalComponent
+    CheckoutModalComponent,
+    OnlyNumberDirective
   ],
   imports: [
     BrowserModule,

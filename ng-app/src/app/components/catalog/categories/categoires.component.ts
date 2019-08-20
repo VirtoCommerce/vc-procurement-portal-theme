@@ -29,4 +29,9 @@ export class CategoriesComponent implements OnInit {
     this.selectedCategory = category;
     this.categoryChanged.emit(category);
   }
+
+  selectAllProducts() {
+    this.selectedCategory = null;
+    this.categoryChanged.emit(null);
+  }
 }
