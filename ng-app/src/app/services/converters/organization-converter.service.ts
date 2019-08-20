@@ -20,7 +20,7 @@ export class OrganizationConverterService {
     result.contactPerson = orgDto.dynamicProperties.find(x => x.name === 'contactPerson').values[0].value;
     result.taxNumber = orgDto.dynamicProperties.find(x => x.name === 'taxNumber').values[0].value;
     result.companyRegistrationNumber = orgDto.dynamicProperties.find(x => x.name === 'companyRegistrationNumber').values[0].value;
-    result.returnInvalidOrdersToCreator = orgDto.dynamicProperties.find(x => x.name === 'returnInvalidOrdersToCreator').values[0].value.toLowerCase();
+    result.returnInvalidOrdersToCreator = orgDto.dynamicProperties.find(x => x.name === 'returnInvalidOrdersToCreator').values[0].value.toLowerCase() === 'true';
     return result;
   }
 
