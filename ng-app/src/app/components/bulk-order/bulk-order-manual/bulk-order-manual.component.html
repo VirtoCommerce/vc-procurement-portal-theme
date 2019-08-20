@@ -1,7 +1,14 @@
 
 
     <!-- Bulk order tab content -->
-        <h2>Add new item</h2>
+        <div class="row align-items-center">
+          <div class="col-auto mr-auto">
+            <h2>Add new item</h2>
+          </div>
+          <div class="col-auto">
+            <a class="order__t-link" *ngIf="!itemsIsEmpty" (click)="clearItems()">Remove all</a>
+          </div>
+        </div>
         <form class="bulk-order__new" [formGroup]="newItemForm" novalidate>
             <div class="row">
                 <div class="col-md">
@@ -40,43 +47,16 @@
                 <app-bulk-order-item [itemForm]="itemForm" [index]="i" (removeClicked)="removeItem($event)"
                  *ngFor="let itemForm of itemsForm.controls['items'].controls; let i = index"></app-bulk-order-item>
             </div>
-            <div class="row" *ngIf="itemsForm.controls['items'].errors?.itemsEmpty">
+            <!-- <div class="row" *ngIf="itemsForm.controls['items'].errors?.itemsEmpty">
                 <div class="col-md">
                   <div class="form-error" >
                     Orders items list is empty.
                   </div>
                 </div>
-            </div>
+            </div> -->
         </form>
 
-    <!-- <div class="bulk-order__content" data-index="1">
-        <div class="bulk-order__copy">
-            <p>Simply copy the item records from your CSV file and paste them into the text box using the following format: SKU, Quantity. Each record should start from a new line.</p>
-            <div class="row">
-                <div class="col-md-6">
-                    <textarea class="bulk-order__copy-field"></textarea>
-                </div>
-                <div class="col-md-6">
-                    <div class="bulk-order__copy-errors">
-                        <p>Error in line 1: Product is not recognized</p>
-                        <p>Error in line 12: Product is not recognized</p>
-                        <p>Error in line 12: Product is not recognized</p>
-                        <p>Error in line 12: Product is not recognized</p>
-                        <p>Error in line 12: Product is not recognized</p>
-                        <p>Error in line 12: Product is not recognized</p>
-                        <p>Error in line 12: Product is not recognized</p>
-                        <p>Error in line 12: Product is not recognized</p>
-                        <a class="all-errors" href="#">Show all Errors</a>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col">
-                    <a href="#" class="btn btn--blue">Validate</a>
-                </div>
-            </div>
-        </div>
-    </div> -->
+
 
     <div class="bulk-order__add-order">
         <button class="btn btn--green ml-auto" [disabled]="itemsForm.invalid" (click)="addItemsToCart()">Add to Order</button>

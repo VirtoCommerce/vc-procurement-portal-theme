@@ -19,11 +19,15 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
   sugesstedProducts: IProduct[];
 
   // itemsForms: FormGroup[] = [];
-  private defaultItemsCount = 1;
+  private defaultItemsCount = 0;
   private unsubscribe = new Subject();
 
   get items() {
     return this.itemsForm.get('items') as FormArray;
+  }
+
+  get itemsIsEmpty() {
+    return this.items.controls.length === 0;
   }
 
   constructor(
@@ -55,6 +59,10 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
     this.unsubscribe.next();
   }
 
+  clearItems() {
+    this.items.clear();
+
+  }
 
   addItem() {
     const itemForm = this.createItemForm(
