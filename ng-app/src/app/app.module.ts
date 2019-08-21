@@ -50,7 +50,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { InvoiceComponent } from './components/orders/invoice/invoice.component';
 import { BulkOrderManualComponent } from './components/bulk-order/bulk-order-manual/bulk-order-manual.component';
 import { ConfirmEqualValidatorDirective } from './directives/match-value.directive';
-import { ChangeProductQuantityActiveOrderComponent } from './components/catalog/change-product-quantity-active-order/change-product-quantity-active-order.component';
+import { ChangeProductQuantityActiveOrderComponent } from './components/active-order/change-product-quantity-active-order/change-product-quantity-active-order.component';
 import { BulkOrderItemComponent } from './components/bulk-order/bulk-order-manual/bulk-order-item/bulk-order-item.component';
 import { CompanyDetailsComponent } from './components/company/company-details/company-details.component';
 import { CompanyUsersComponent } from './components/company/company-users/company-users.component';
