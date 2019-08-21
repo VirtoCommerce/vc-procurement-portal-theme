@@ -49,7 +49,6 @@ import { RequestInterceptor } from './services/interceptors/request-interceptor'
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { InvoiceComponent } from './components/orders/invoice/invoice.component';
 import { BulkOrderManualComponent } from './components/bulk-order/bulk-order-manual/bulk-order-manual.component';
-import { ModalFormComponent } from './components/company/modal-form/modal-form.component';
 import { ConfirmEqualValidatorDirective } from './directives/match-value.directive';
 import { ChangeProductQuantityActiveOrderComponent } from './components/catalog/change-product-quantity-active-order/change-product-quantity-active-order.component';
 import { BulkOrderItemComponent } from './components/bulk-order/bulk-order-manual/bulk-order-item/bulk-order-item.component';
@@ -59,6 +58,7 @@ import { RoleManagementComponent } from './components/company/role-management/ro
 import { BulkOrderCsvComponent } from './components/bulk-order/bulk-order-csv/bulk-order-csv.component';
 import { CheckoutModalComponent } from './components/active-order/checkout-modal/checkout-modal.component';
 import { OnlyNumberDirective } from './directives/only-number.directive';
+import { EditCompanyUserModalFormComponent } from './components/company/edit-company-user-modal-form/edit-company-user-modal-form.component';
 // import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
 // import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -87,7 +87,7 @@ import { OnlyNumberDirective } from './directives/only-number.directive';
     ChangeProductQuantityComponent,
     ProductDetailsComponent,
     InvoiceComponent,
-    ModalFormComponent,
+    EditCompanyUserModalFormComponent,
     ChangeProductQuantityActiveOrderComponent,
     // directives
     RemoveWrapperDirective,
@@ -140,6 +140,6 @@ import { OnlyNumberDirective } from './directives/only-number.directive';
     AuthenticationService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ModalFormComponent, CheckoutModalComponent]
+  entryComponents: [EditCompanyUserModalFormComponent, CheckoutModalComponent]
 })
 export class AppModule { }

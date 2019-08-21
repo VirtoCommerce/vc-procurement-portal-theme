@@ -7,10 +7,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserConverterService } from 'src/app/services/converters/user-converter.service';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { PageSizeChangedArgs } from '../../page-size-selector/page-size-selector.component';
-import { ModalFormComponent } from '../modal-form/modal-form.component';
 import { IOrganization } from 'src/app/models/dto/iorganization';
 import settings_data from 'src/assets/config/config.dev.json';
 import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
+import { EditCompanyUserModalFormComponent } from '../edit-company-user-modal-form/edit-company-user-modal-form.component';
 
 @Component({
   selector: 'app-company-users',
@@ -71,7 +71,7 @@ export class CompanyUsersComponent implements OnInit {
   }
 
   openCreateUserModal() {
-    const modalRef = this.modalService.open(ModalFormComponent, {
+    const modalRef = this.modalService.open(EditCompanyUserModalFormComponent, {
       centered: true,
       backdrop: 'static'
     });
@@ -84,7 +84,7 @@ export class CompanyUsersComponent implements OnInit {
   }
 
   openEditUserModal(user: IUser) {
-    const modalRef = this.modalService.open(ModalFormComponent, {
+    const modalRef = this.modalService.open(EditCompanyUserModalFormComponent, {
       centered: true,
       backdrop: 'static'
     });
