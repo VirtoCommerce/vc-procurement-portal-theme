@@ -33,13 +33,11 @@ import { ForApprovalDetailsComponent } from './components/forapproval/forapprova
 import { PageSizeSelectorComponent } from './components/page-size-selector/page-size-selector.component';
 import { MobileCartSummaryComponent } from './components/catalog/mobile-cart-summary/mobile-cart-summary.component';
 // services
-import { AuthenticationService } from './services';
+
 
 // services modules
 // import { SharedService } from './services/shared-service';
 // import { AuthGuard } from './guards';
-import { JwtInterceptor, ErrorInterceptor } from './helpers';
-import { ProcurementPortalInterceptor } from './services/interceptors/interceptors';
 
 // directives
 import { RemoveWrapperDirective } from './directives/remove-wrapper.directive';
@@ -127,17 +125,13 @@ import { OnlyNumberDirective } from './directives/only-number.directive';
   ],
   providers: [
     //{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ProcurementPortalInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter},
 
-    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     // fakeBackendProvider,
     // { provide: APP_INITIALIZER,
     //   useFactory: initializeAppConfig,
     //   deps: [AppConfig], multi: true },
-    AuthenticationService
   ],
   bootstrap: [AppComponent],
   entryComponents: [ModalFormComponent, CheckoutModalComponent]

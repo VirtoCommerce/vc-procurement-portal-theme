@@ -6,7 +6,6 @@ import { OrdersService } from '../../services/orders.service';
 import { IOrder } from '../../models/dto/iorder';
 import { User } from '../../models/user';
 
-import { AuthenticationService } from '../../services';
 import { PaginationInfo } from 'src/app/models/inner/pagination-info';
 import { PageSizeChangedArgs } from '../page-size-selector/page-size-selector.component';
 // import { AppConfig } from 'src/app/services/app-config.service';
@@ -51,8 +50,7 @@ export class OrdersComponent implements OnInit {
 
   constructor(
     private ordersService: OrdersService,
-    private router: Router,
-    private authenticationService: AuthenticationService
+    private router: Router
   ) {}
 
   ngOnInit() {

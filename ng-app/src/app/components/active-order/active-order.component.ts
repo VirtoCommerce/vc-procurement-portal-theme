@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, isDevMode } from '@angular/core';
 import { ActiveOrderService } from '../../services/active-order.service';
 
-import { UserService } from '../../services/user.service';
-import { AuthenticationService } from '../../services';
 import { first } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ILineItem, ICart } from 'src/app/models/dto/icart';
@@ -19,9 +17,7 @@ export class ActiveOrderComponent implements OnInit {
 
   cart$: Observable<ICart>;
 
-  constructor(private activeOrderService: ActiveOrderService, private confirmService: ConfirmService, private modalService: NgbModal) {
-    // this.currentUser = this.authenticationService.currentUserValue;
-  }
+  constructor(private activeOrderService: ActiveOrderService, private confirmService: ConfirmService, private modalService: NgbModal) {  }
 
   ngOnInit() {
     this.cart$ = this.activeOrderService.Cart;
