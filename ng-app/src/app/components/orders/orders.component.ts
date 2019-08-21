@@ -24,6 +24,7 @@ export class OrdersComponent implements OnInit {
   startDate: Date;
   endDate: Date;
   status: string = 'All';
+  validFilterDate = true;
 
   orders: IOrder[] = [];
   users: User[] = [];
@@ -65,10 +66,18 @@ export class OrdersComponent implements OnInit {
     this.getAllOrders();
   }
 
-
   pageSizeChanged(eventArgs: PageSizeChangedArgs) {
     this.paginationInfo.pageSize = eventArgs.newPageSize;
     this.getAllOrders();
+  }
+
+  filterOrdersByDate() {
+    if (this.startDate > this.endDate) {
+      this.validFilterDate = false;
+    } else {
+      this.validFilterDate = true;
+      this.getAllOrders();
+    }
   }
 
   getAllOrders() {

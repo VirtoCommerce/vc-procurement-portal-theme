@@ -5,11 +5,12 @@
       <div class="col-md-auto page__sort-date">
         From
         <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp1" ngbDatepicker #d1="ngbDatepicker" [(ngModel)]="startDate" (ngModelChange)="getAllOrders()" (click)="d1.toggle()">
+             name="dp1" ngbDatepicker #d1="ngbDatepicker" [(ngModel)]="startDate" (ngModelChange)="filterOrdersByDate()" (click)="d1.toggle()">
         To
         <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp2" ngbDatepicker #d2="ngbDatepicker" [(ngModel)]="endDate" (ngModelChange)="getAllOrders()" (click)="d2.toggle()">
+             name="dp2" ngbDatepicker #d2="ngbDatepicker" [(ngModel)]="endDate" (ngModelChange)="filterOrdersByDate()" (click)="d2.toggle()">
       </div>
+      <div class="alert alert-danger col-md-auto m-0" *ngIf="!validFilterDate">Date is not valid</div>
       <div class="col-md-auto page__sort-filter">
         Filter by status
         <div class="dropdown">
