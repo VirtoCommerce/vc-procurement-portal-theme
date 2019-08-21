@@ -3,13 +3,12 @@ import { User} from 'src/app/models/user';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
 
-
 @Component({
-  selector: 'app-modal-form',
-  templateUrl: './modal-form.component.html',
-  styleUrls: ['./modal-form.component.scss']
+  selector: 'app-edit-company-user-modal-form',
+  templateUrl: './edit-company-user-modal-form.component.html',
+  styleUrls: ['./edit-company-user-modal-form.component.scss']
 })
-export class ModalFormComponent implements OnInit {
+export class EditCompanyUserModalFormComponent implements OnInit {
   @Input() user: User;
   @Input() editUserMode: boolean;
   changePassword: boolean;
