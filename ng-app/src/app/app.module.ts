@@ -106,11 +106,11 @@ import { OnlyNumberDirective } from './directives/only-number.directive';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    HttpClientXsrfModule
-        .withOptions({
-            cookieName: 'XSRF-TOKEN',
-            headerName: 'X-CSRF-TOKEN'
-        }),
+    // HttpClientXsrfModule
+    //     .withOptions({
+    //         cookieName: 'XSRF-TOKEN',
+    //         headerName: 'X-CSRF-TOKEN'
+    //     }),
     NgbModule,
     ScrollingModule,
     // NgbPaginationModule,
