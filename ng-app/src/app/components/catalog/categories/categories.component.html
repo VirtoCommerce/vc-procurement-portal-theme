@@ -1,3 +1,21 @@
+<!-- Swipe category-->
+<div class="swipe swipe--category">
+  <div class="swipe__header">
+      <div class="swipe__header-t">Category</div>
+      <div class="swipe__close"></div>
+  </div>
+  <div class="swipe__body">
+      <ul class="nav nav--category">
+        <li class="nav__item">
+          <a class="nav__link" [ngClass]="{'nav__link--active': selectedCategory === null}" (click)="selectAllProducts()" >All Products</a>
+      </li>
+      <li class="nav__item" *ngFor="let category of categories | async" >
+          <a class="nav__link" [ngClass]="{'nav__link--active': isActive(category)}" (click)="selectCategory(category)" >{{category.name}}</a>
+      </li>
+      </ul>
+  </div>
+</div>
+
 
 <div class="sidebar d-none d-xl-block" appRemoveWrapper>
   <div class="sidebar__block">
