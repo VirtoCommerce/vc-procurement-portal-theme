@@ -109,7 +109,7 @@ import { EditCompanyUserModalFormComponent } from './components/company/edit-com
     // HttpClientXsrfModule
     //     .withOptions({
     //         cookieName: 'XSRF-TOKEN',
-    //         headerName: 'X-CSRF-TOKEN'
+    //         headerName: 'X-XSRF-TOKEN'
     //     }),
     NgbModule,
     ScrollingModule,
