@@ -5,10 +5,10 @@
       <div class="col-md-auto page__sort-date">
         From
         <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp1" ngbDatepicker #d1="ngbDatepicker" [(ngModel)]="dateFrom" (click)="d1.toggle()">
+             name="dp1" ngbDatepicker #d1="ngbDatepicker" [(ngModel)]="startDate" (ngModelChange)="getAllOrders()" (click)="d1.toggle()">
         To
         <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp2" ngbDatepicker #d2="ngbDatepicker" [(ngModel)]="dateTo" (click)="d2.toggle()">
+             name="dp2" ngbDatepicker #d2="ngbDatepicker" [(ngModel)]="endDate" (ngModelChange)="getAllOrders()" (click)="d2.toggle()">
       </div>
     </div>
     <div class="table-responsive">
@@ -45,105 +45,6 @@
             <td>{{order.assignedTo}}</td>
             <td>{{order.total.formattedAmount}}</td>
           </tr>
-          <!-- <tr>
-            <td>348763429</td>
-            <td>
-              <span class="text--blue">Awaiting Approval</span>
-            </td>
-            <td>Tue, 05/03</td>
-            <td>4</td>
-            <td>Pavlov Pavel</td>
-            <td>Ivanov Peotr</td>
-            <td>$ 2.100.999,00</td>
-          </tr>
-          <tr>
-            <td>348763429</td>
-            <td>
-              <span class="text--blue">Awaiting Approval</span>
-            </td>
-            <td>Tue, 05/03</td>
-            <td>4</td>
-            <td>Pavlov Pavel</td>
-            <td>Ivanov Peotr</td>
-            <td>$ 2.100.999,00</td>
-          </tr>
-          <tr>
-            <td>348763429</td>
-            <td>
-              <span class="text--blue">Awaiting Approval</span>
-            </td>
-            <td>Tue, 05/03</td>
-            <td>4</td>
-            <td>Pavlov Pavel</td>
-            <td>Ivanov Peotr</td>
-            <td>$ 2.100.999,00</td>
-          </tr>
-          <tr>
-            <td>348763429</td>
-            <td>
-              <span class="text--blue">Awaiting Approval</span>
-            </td>
-            <td>Tue, 05/03</td>
-            <td>4</td>
-            <td>Pavlov Pavel</td>
-            <td>Ivanov Peotr</td>
-            <td>$ 2.100.999,00</td>
-          </tr>
-          <tr>
-            <td>348763429</td>
-            <td>
-              <span class="text--blue">Awaiting Approval</span>
-            </td>
-            <td>Tue, 05/03</td>
-            <td>4</td>
-            <td>Pavlov Pavel</td>
-            <td>Ivanov Peotr</td>
-            <td>$ 2.100.999,00</td>
-          </tr>
-          <tr>
-            <td>348763429</td>
-            <td>
-              <span class="text--blue">Awaiting Approval</span>
-            </td>
-            <td>Tue, 05/03</td>
-            <td>4</td>
-            <td>Pavlov Pavel</td>
-            <td>Ivanov Peotr</td>
-            <td>$ 2.100.999,00</td>
-          </tr>
-          <tr>
-            <td>348763429</td>
-            <td>
-              <span class="text--blue">Awaiting Approval</span>
-            </td>
-            <td>Tue, 05/03</td>
-            <td>4</td>
-            <td>Pavlov Pavel</td>
-            <td>Ivanov Peotr</td>
-            <td>$ 2.100.999,00</td>
-          </tr>
-          <tr>
-            <td>348763429</td>
-            <td>
-              <span class="text--blue">Awaiting Approval</span>
-            </td>
-            <td>Tue, 05/03</td>
-            <td>4</td>
-            <td>Pavlov Pavel</td>
-            <td>Ivanov Peotr</td>
-            <td>$ 2.100.999,00</td>
-          </tr>
-          <tr>
-            <td>348763429</td>
-            <td>
-              <span class="text--blue">Awaiting Approval</span>
-            </td>
-            <td>Tue, 05/03</td>
-            <td>4</td>
-            <td>Pavlov Pavel</td>
-            <td>Ivanov Peotr</td>
-            <td>$ 2.100.999,00</td>
-          </tr> -->
         </tbody>
       </table>
     </div>
@@ -164,44 +65,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <div class="page-nav">
-      <div class="row align-items-end justify-content-center">
-        <div class="col-auto">
-          <div class="page-nav__total">You've viewed 72 of 101 products</div>
-          <div class="pagination">
-            <div class="pagination__item">
-              <a href="#" class="pagination__link pagination__link--active"
-                >1</a
-              >
-            </div>
-            <div class="pagination__item">
-              <a href="#" class="pagination__link">2</a>
-            </div>
-            <div class="pagination__item">
-              <a href="#" class="pagination__link">3</a>
-            </div>
-            <div class="pagination__item pagination__item--next">
-              <a href="#" class="pagination__link">Next</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-auto ml-sm-auto">
-          <div class="page-nav__count">
-            Show
-            <div class="dropdown">
-              <div class="dropdown__toggle">30</div>
-              <div class="dropdown__menu dropdown__menu--up">
-                <a href="#" class="dropdown__menu-item">10</a>
-                <a href="#" class="dropdown__menu-item">20</a>
-                <a href="#" class="dropdown__menu-item">30</a>
-              </div>
-            </div>
-            Entries
-          </div>
-        </div>
-      </div>
-    </div> -->
 
   </div>
 </main>

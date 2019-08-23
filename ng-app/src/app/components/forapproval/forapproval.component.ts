@@ -19,6 +19,9 @@ export class ForApprovalComponent implements OnInit {
   settings = settings_data as IAppConfig;
   paginationInfo = new PaginationInfo(this.settings.defaultPageSize);
   pageSizes = this.settings.pageSizes;
+  startDate: Date;
+  endDate: Date;
+  status: string = 'All';
 
   constructor(private ordersService: OrdersService) { }
 
@@ -34,7 +37,7 @@ export class ForApprovalComponent implements OnInit {
 
   getAllOrders() {
     this.ordersService
-      .getOrders(this.paginationInfo.page, this.paginationInfo.pageSize)
+      .getOrders(this.paginationInfo.page, this.paginationInfo.pageSize,this.startDate,this.endDate,this.status)
       .subscribe((data: any) => {
         this.orders = data.results as IOrder[];
         this.paginationInfo.collectionSize = data.totalCount;
