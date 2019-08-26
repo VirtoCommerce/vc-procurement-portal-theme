@@ -27,7 +27,7 @@ export class ActiveOrderComponent implements OnInit {
 
   removeItem(item: ILineItem) {
     const confirmOptions = { title: 'Line item removing', message: 'Are you sure you want to remove this line item from the active order?' };
-    this.confirmService.confirm(confirmOptions).then(() => this.activeOrderService.removeItem(item.id).subscribe() );
+    this.confirmService.confirm(confirmOptions).then(() => this.activeOrderService.removeItem(item.id).subscribe(), () => { });
   }
 
   clear() {
