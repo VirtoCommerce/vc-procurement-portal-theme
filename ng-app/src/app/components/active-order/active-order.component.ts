@@ -1,9 +1,6 @@
-import { Component, OnInit, Input, isDevMode } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActiveOrderService } from '../../services/active-order.service';
 
-import { UserService } from '../../services/user.service';
-import { AuthenticationService } from '../../services';
-import { first } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ILineItem, ICart } from 'src/app/models/dto/icart';
 import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
@@ -19,9 +16,7 @@ export class ActiveOrderComponent implements OnInit {
 
   cart$: Observable<ICart>;
 
-  constructor(private activeOrderService: ActiveOrderService, private confirmService: ConfirmService, private modalService: NgbModal) {
-    // this.currentUser = this.authenticationService.currentUserValue;
-  }
+  constructor(private activeOrderService: ActiveOrderService, private confirmService: ConfirmService, private modalService: NgbModal) {  }
 
   ngOnInit() {
     this.cart$ = this.activeOrderService.Cart;
@@ -31,7 +26,7 @@ export class ActiveOrderComponent implements OnInit {
 
   removeItem(item: ILineItem) {
     const confirmOptions = { title: 'Line item removing', message: 'Are you sure you want to remove this line item from the active order?' };
-    this.confirmService.confirm(confirmOptions).then(() => this.activeOrderService.removeItem(item.id).subscribe() );
+    this.confirmService.confirm(confirmOptions).then(() => this.activeOrderService.removeItem(item.id).subscribe(), () => { });
   }
 
   clear() {

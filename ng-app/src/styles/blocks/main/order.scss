@@ -63,6 +63,12 @@
 			font-size: .875rem;
 			font-weight: normal;
 			margin-left: auto;
+    }
+
+    &-link:hover
+		{
+      color: #4da0f7 !important;
+      cursor: pointer;
 		}
 	}
 
