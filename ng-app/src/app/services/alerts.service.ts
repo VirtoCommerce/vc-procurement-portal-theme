@@ -18,11 +18,9 @@ export enum AlertType {
 @Injectable( { providedIn: 'root' })
 export class AlertsService {
 
-  private  alerts: Alert[];
+  private  alerts: Alert[] = [];
 
   alerts$: Subject<Alert[]> = new Subject<Alert[]>();
-
-  private keepAfterRouteChange = false;
 
   constructor(private router: Router) {
 
@@ -56,10 +54,11 @@ export class AlertsService {
    * @param msg text of alert
    * @param keepAfterRouteChange if it keep showing after route changes or neither
    */
-  alert(type: AlertType, msg: string, keepAfterRouteChange = false) {
-    this.keepAfterRouteChange = keepAfterRouteChange;
-    this.alerts.push(new Alert(type, msg, keepAfterRouteChange));
+  alert(type: AlertType, msg: string, keepAfterRouteChange = false, dismissTimeout = 5000) {
+    const alert = new Alert(type, msg, keepAfterRouteChange);
+    this.alerts.push(alert);
     this.alerts$.next(this.alerts);
+    setTimeout(() => this.dismissAlert(alert), dismissTimeout);
   }
 
   clear() {
