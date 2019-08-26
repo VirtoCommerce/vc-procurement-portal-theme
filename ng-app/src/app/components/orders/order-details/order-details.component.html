@@ -1,3 +1,4 @@
+<app-active-order-mobile #mobileOrderSidebar></app-active-order-mobile>
 <main class="main container">
     <div class="order">
         <h1>Order details information</h1>
@@ -114,7 +115,7 @@
             <a (click)="addProductToCart()" class="btn btn--green">Add to current Order</a>
             <a class="btn btn--outline" [routerLink]="['/invoice',order.number]">View Invoice</a>
         </div>
-        <app-mobile-cart-summary></app-mobile-cart-summary>
+        <app-mobile-cart-summary [activeOrderMobileSidebar]="mobileOrderSidebar"></app-mobile-cart-summary>
     </div>
     <div class="sidebar sidebar--bg-gray d-none d-lg-block">
         <div class="sidebar__inner">

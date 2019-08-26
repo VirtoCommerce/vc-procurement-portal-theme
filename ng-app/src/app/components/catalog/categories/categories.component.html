@@ -1,8 +1,8 @@
 <!-- Swipe category-->
-<div class="swipe swipe--category">
+<div class="swipe swipe--category" [ngClass]="{'swipe--opened': isOpen}">
   <div class="swipe__header">
       <div class="swipe__header-t">Category</div>
-      <div class="swipe__close"></div>
+      <div class="swipe__close" (click)="closeSidebar()"></div>
   </div>
   <div class="swipe__body">
       <ul class="nav nav--category">
@@ -17,7 +17,7 @@
 </div>
 
 
-<div class="sidebar d-none d-xl-block" appRemoveWrapper>
+<div class="sidebar d-none d-xl-block">
   <div class="sidebar__block">
       <a [routerLink]="['/bulkorder']"
        class="btn btn--blue btn--block">Bulk Order</a>

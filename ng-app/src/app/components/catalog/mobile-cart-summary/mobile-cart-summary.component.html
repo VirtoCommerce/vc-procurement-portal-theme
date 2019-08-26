@@ -1,4 +1,4 @@
-<div class="d-block d-lg-none mt-auto" appWrapperRemove *ngIf="(cart$ | async) as cart">
+<div class="d-block d-lg-none mt-auto" (click)="openSidebar()" *ngIf="(cart$ | async) as cart">
   <div class="mobile-order" data-name="mobile-order">
     <div class="mobile-order__ico"></div>
     <div class="mobile-order__info">

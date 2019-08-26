@@ -1,27 +1,27 @@
 
 
  <!-- Swipe -->
-<div class="swipe swipe--menu">
+<div class="swipe swipe--menu" [ngClass]="{'swipe--opened': isOpen}">
   <div class="swipe__header">
       <div class="swipe__header-t">Username</div>
-      <div class="swipe__close"></div>
+      <div class="swipe__close" (click)="closeMobileMenu()"></div>
   </div>
   <div class="swipe__body">
       <ul class="nav">
           <li class="nav__item">
-              <a [routerLink]="['/catalog']" class="nav__link" routerLinkActive="nav__link--active">Catalog</a>
+              <a [routerLink]="['/catalog']" class="nav__link" routerLinkActive="nav__link--active" (click)="closeMobileMenu()">Catalog</a>
           </li>
           <li class="nav__item">
-              <a [routerLink]="['/orders']" class="nav__link" routerLinkActive="nav__link--active">Orders</a>
+              <a [routerLink]="['/orders']" class="nav__link" routerLinkActive="nav__link--active" (click)="closeMobileMenu()">Orders</a>
           </li>
           <li class="nav__item">
-              <a [routerLink]="['/forapproval']" class="nav__link" routerLinkActive="nav__link--active">Awaiting Approval</a>
+              <a [routerLink]="['/forapproval']" class="nav__link" routerLinkActive="nav__link--active" (click)="closeMobileMenu()">Awaiting Approval</a>
           </li>
           <li class="nav__item">
-              <a [routerLink]="['/company']" class="nav__link" routerLinkActive="nav__link--active">Company</a>
+              <a [routerLink]="['/company']" class="nav__link" routerLinkActive="nav__link--active" (click)="closeMobileMenu()">Company</a>
           </li>
           <li class="nav__item">
-            <a [routerLink]="['/account']" class="nav__link" routerLinkActive="nav__link--active">My account</a>
+            <a [routerLink]="['/account']" class="nav__link" routerLinkActive="nav__link--active" (click)="closeMobileMenu()">My account</a>
           </li>
           <li class="nav__item">
             <a href="/account/logout" class="nav__link">Logout</a>
@@ -63,7 +63,7 @@
           <div class="col-auto d-block d-lg-none ml-auto">
               <div class="header-nav-mobile">
                   <a class="header__link" [routerLink]="['/bulkorder']">Bulk Order</a>
-                  <a class="header-toggle" data-name="mobile-menu"></a>
+                  <a class="header-toggle" (click)="openMobileMenu()"></a>
               </div>
           </div>
       </div>

@@ -1,36 +1,36 @@
-$(function() {
+//$(function() {
 
 	// Mobile search
-	$('[data-name="mobile-search"]').on('click', function() {
-		$('.mobile-navbar .search').addClass('opened');
-	});
+	// $('[data-name="mobile-search"]').on('click', function() {
+	// 	$('.mobile-navbar .search').addClass('opened');
+	// });
 
-	$('.search__close').on('click', function() {
-		$('.mobile-navbar .search').removeClass('opened');
-	});
+	// $('.search__close').on('click', function() {
+	// 	$('.mobile-navbar .search').removeClass('opened');
+	// });
 
 	// Mobile category
-	$('[data-name="mobile-category"]').on('click', function() {
-		$('body').prepend('<div class="overlay"></div>');
-		$('.swipe--category').addClass('swipe--opened');
-	});
+	// $('[data-name="mobile-category"]').on('click', function() {
+	// 	$('body').prepend('<div class="overlay"></div>');
+	// 	$('.swipe--category').addClass('swipe--opened');
+	// });
 
 	// Mobile menu
-	$('[data-name="mobile-menu"]').on('click', function() {
-		$('body').prepend('<div class="overlay"></div>');
-		$('.swipe--menu').addClass('swipe--opened');
-	});
+	// $('[data-name="mobile-menu"]').on('click', function() {
+	// 	$('body').prepend('<div class="overlay"></div>');
+	// 	$('.swipe--menu').addClass('swipe--opened');
+	// });
 
 	// Mobile order
-	$('[data-name="mobile-order"]').on('click', function() {
-		$('body').prepend('<div class="overlay"></div>');
-		$('.swipe--order').addClass('swipe--opened');
-	});
+	// $('[data-name="mobile-order"]').on('click', function() {
+	// 	$('body').prepend('<div class="overlay"></div>');
+	// 	$('.swipe--order').addClass('swipe--opened');
+	// });
 
-	$('.swipe__close').on('click', function() {
-		$('.swipe').removeClass('swipe--opened');
-		$('.overlay').remove();
-	});
+	// $('.swipe__close').on('click', function() {
+	// 	$('.swipe').removeClass('swipe--opened');
+	// 	$('.overlay').remove();
+	// });
 
 	// Bulk order content tab
 	// $('.bulk-order__actions .btn').on('click', function() {
@@ -53,10 +53,10 @@ $(function() {
 	// 	}
 	// });
 
-	$('body').delegate('.overlay', 'click', function() {
-		$('.swipe').removeClass('swipe--opened');
-		$('.overlay').remove();
-  });
+	// $('body').delegate('.overlay', 'click', function() {
+	// 	$('.swipe').removeClass('swipe--opened');
+	// 	$('.overlay').remove();
+  // });
 
 
   // $('.dropdown__toggle').on('click', function() {
@@ -70,7 +70,7 @@ $(function() {
   // });
 
 
-});
+//});
 
 // function openBulkOrderTab(self) {
 // 	var index = self.index();
