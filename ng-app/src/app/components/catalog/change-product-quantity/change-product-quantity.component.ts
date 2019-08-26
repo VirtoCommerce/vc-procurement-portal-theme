@@ -1,10 +1,9 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ActiveOrderService } from 'src/app/services/active-order.service';
 import { ICart, ILineItem } from 'src/app/models/dto/icart';
-import { IProduct } from 'src/app/models/dto/product';
 import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
-import { Subject, BehaviorSubject, Subscription, EMPTY } from 'rxjs';
-import { debounce, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Subject, Subscription, EMPTY } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 
 @Component({
