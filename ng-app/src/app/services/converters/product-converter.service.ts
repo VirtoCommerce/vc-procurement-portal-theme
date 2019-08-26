@@ -21,8 +21,8 @@ export class ProductConverterService {
     result.quickReview =  ( quickReview || { value: ''} ).value;
     const fullReview = productDto.descriptions.find(x => x.reviewType === 'FullReview');
     result.fullReview =  ( fullReview || { value: ''} ).value;
-    result.brand = (productDto.properties.find(x => x.name === 'BRAND') || {value: ''}).value;
-
+    result.brand = (productDto.properties.find(x => x.name === 'Brand') || {value: ''}).value;
+    result.model = (productDto.properties.find(x => x.name === 'Model') || {value: ''}).value;
     result.primaryImage = productDto.primaryImage;
     result.images = productDto.images;
 
