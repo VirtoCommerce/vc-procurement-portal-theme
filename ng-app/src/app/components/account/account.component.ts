@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { IUser } from 'src/app/models/dto/iuser';
 import { UserConverterService } from 'src/app/services/converters/user-converter.service';
+import { AlertsService } from 'src/app/services/alerts.service';
+import { of } from 'rxjs';
+import { concatAll, concatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-account',
@@ -13,7 +16,8 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private userConverter: UserConverterService
+    private userConverter: UserConverterService,
+    private aletsService: AlertsService
   ) {}
 
   ngOnInit() {
@@ -26,7 +30,8 @@ export class AccountComponent implements OnInit {
   updateUser() {
     const updatedUser = this.userConverter.toEditCurrentAccount(this.user);
     const newPhoneNumber = this.userConverter.toEditCurrentAccountPhoneNumber(this.user);
-    this.userService.updateUser(updatedUser).subscribe();
-    this.userService.updatePhoneNumber(newPhoneNumber).subscribe();
+    this.userService.updateUser(updatedUser)
+    .pipe(concatMap(() => this.userService.updatePhoneNumber(newPhoneNumber)))
+    .subscribe(() => this.aletsService.success('Account data is update successfuly!'));
   }
 }
