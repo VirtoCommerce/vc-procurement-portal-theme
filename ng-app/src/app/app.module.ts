@@ -32,6 +32,7 @@ import { ForApprovalComponent } from './components/forapproval/forapproval.compo
 import { ForApprovalDetailsComponent } from './components/forapproval/forapproval-details/forapproval-details.component';
 import { PageSizeSelectorComponent } from './components/page-size-selector/page-size-selector.component';
 import { MobileCartSummaryComponent } from './components/catalog/mobile-cart-summary/mobile-cart-summary.component';
+import { ActiveOrderMobileComponent } from './components/active-order/active-order-mobile/active-order-mobile.component';
 // services
 import { AuthenticationService } from './services';
 
@@ -89,6 +90,7 @@ import { EditCompanyUserModalFormComponent } from './components/company/edit-com
     InvoiceComponent,
     EditCompanyUserModalFormComponent,
     ChangeProductQuantityActiveOrderComponent,
+    ActiveOrderMobileComponent,
     // directives
     RemoveWrapperDirective,
     BulkOrderManualComponent,

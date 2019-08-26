@@ -1,3 +1,4 @@
+<app-active-order-mobile #mobileOrderSidebar></app-active-order-mobile>
 <main class="main container">
   <div class="content" *ngIf="product">
     <div class="row product">
@@ -34,7 +35,7 @@
           <div class="product__descr" [innerHTML]="product.quickReview">
           </div>
           <div class="product__model">
-            Model: 2120
+            Model: {{product.model}}
             <span class="sku">SKU: {{ product.sku }}</span>
           </div>
         </div>
@@ -49,7 +50,7 @@
         </div>
       </div>
     </div>
-    <app-mobile-cart-summary></app-mobile-cart-summary>
+    <app-mobile-cart-summary [activeOrderMobileSidebar]="mobileOrderSidebar"></app-mobile-cart-summary>
   </div>
   <div class="sidebar sidebar--bg-gray d-none d-lg-block">
     <div class="sidebar__inner">
@@ -57,3 +58,4 @@
     </div>
   </div>
 </main>
+

@@ -1,7 +1,9 @@
+<app-active-order-mobile #mobileOrderSidebar></app-active-order-mobile>
 <main class="main container">
   <app-categories
     [categories]="categories$"
     (categoryChanged)="categoryChanged($event)"
+    #mobileCategoies
   ></app-categories>
   <div class="content">
     <form class="search d-none d-xl-block">
@@ -14,10 +16,10 @@
           <app-search-products
           (searchTextChanged)="searchByText($event)"
         ></app-search-products>
-        <a class="search__close"></a>
+        <a class="search__close" (click)="closeMobileSearch()"></a>
       </form>
       <div class="list">
-        <a class="list__item" data-name="mobile-category">
+        <a class="list__item" (click)="openMobileCategories(mobileCategoies)">
           <svg
             class="list__ico"
             width="20px"
@@ -64,7 +66,7 @@
           </svg>
           Category
         </a>
-        <a class="list__item" data-name="mobile-search">
+        <a class="list__item" (click)="openMobileSearch()">
           <svg
             class="list__ico"
             width="20px"
@@ -117,14 +119,14 @@
         </div>
         <div class="list__info">
           <a class="list__name" [routerLink]="['/product-details', p.id]">{{ p.name }}</a>
-          <div class="list__brand">Brand name</div>
+          <div class="list__brand">{{p.brand}}</div>
           <div class="list__model">
-            Model: 2120 <span class="divider">|</span>SKU: {{ p.sku }}
+            Model: {{p.model}} <span class="divider">|</span>SKU: {{ p.sku }}
           </div>
-          <div class="list__descr">Case of 10 Bags with 12 per Bag</div>
+          <div class="list__descr" [innerHTML]="p.quickReview"></div>
         </div>
         <div class="list__other">
-          <div class="list__price">{{ p.price.actualPrice.formattedAmount }}</div>
+          <div class="list__price">{{ p.price }}</div>
             <app-change-product-quantity [cart]="cart" [productId]="p.id"></app-change-product-quantity>
         </div>
       </div>
@@ -153,8 +155,7 @@
         </div>
       </div>
     </div>
-
-    <app-mobile-cart-summary></app-mobile-cart-summary>
+    <app-mobile-cart-summary [activeOrderMobileSidebar]="mobileOrderSidebar"></app-mobile-cart-summary>
   </div>
 
   <!-- avtive order -->
