@@ -1,4 +1,4 @@
 #!groovy
-virtoTheme {
-    sampleStore = "Procurement-portal"
+virtoThemeMix {
+    sampleStore = "Dental"
 }
