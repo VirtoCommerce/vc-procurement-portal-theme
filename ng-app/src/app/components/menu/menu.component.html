@@ -17,7 +17,7 @@
           <li class="nav__item">
               <a [routerLink]="['/forapproval']" class="nav__link" routerLinkActive="nav__link--active" (click)="closeMobileMenu()">Awaiting Approval</a>
           </li>
-          <li class="nav__item">
+          <li class="nav__item" *ngIf="isAdmin | async">
               <a [routerLink]="['/company']" class="nav__link" routerLinkActive="nav__link--active" (click)="closeMobileMenu()">Company</a>
           </li>
           <li class="nav__item">
@@ -49,13 +49,13 @@
                   <li class="nav__item">
                       <a [routerLink]="['/forapproval']" class="nav__link" routerLinkActive="nav__link--active">Awaiting Approval</a>
                   </li>
-                  <li class="nav__item">
+                  <li class="nav__item" *ngIf="isAdmin | async">
                       <a [routerLink]="['/company']" class="nav__link" routerLinkActive="nav__link--active">Company</a>
                   </li>
                   <li class="nav__item">
                     <a [routerLink]="['/account']" class="nav__link" routerLinkActive="nav__link--active">My account</a>
                   </li>
-                  <li class="nav__item ml-auto">
+                  <li class="nav__item ml-auto" (click)="logout()">
                       <a href="/account/logout" class="nav__link">Logout</a>
                   </li>
               </ul>
