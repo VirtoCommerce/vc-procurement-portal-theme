@@ -102,7 +102,11 @@ export interface ILineItem {
 
 
 
-
+export class ChangeCartItemQty {
+  constructor(
+    public lineItemId: string,
+    public quantity: number) {}
+}
 
 
 

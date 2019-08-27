@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, config } from 'rxjs';
 
 export class Alert {
   constructor(public type: AlertType, public msg: string, public keepAfterRouteChange = false) {
@@ -14,6 +14,11 @@ export enum AlertType {
   Warning = 'warning'
 }
 
+export interface IAlertOptions {
+  keepAfterRouteChange?: boolean;
+  dismissTimeout?: number;
+}
+
 
 @Injectable( { providedIn: 'root' })
 export class AlertsService {
@@ -22,8 +27,10 @@ export class AlertsService {
 
   alerts$: Subject<Alert[]> = new Subject<Alert[]>();
 
-  constructor(private router: Router) {
+  defaultAlertOptions: IAlertOptions;
 
+  constructor(private router: Router) {
+    this.defaultAlertOptions = { keepAfterRouteChange: false, dismissTimeout: 5000 };
     router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.alerts = this.alerts.filter(alert => alert.keepAfterRouteChange );
@@ -31,20 +38,20 @@ export class AlertsService {
     });
   }
 
-  success(message: string, keepAfterRouteChange = false) {
-    this.alert(AlertType.Success, message, keepAfterRouteChange);
+  success(message: string, options?: IAlertOptions) {
+    this.alert(AlertType.Success, message, options);
   }
 
-  error(message: string, keepAfterRouteChange = false) {
-    this.alert(AlertType.Error, message, keepAfterRouteChange);
+  error(message: string, options?: IAlertOptions) {
+    this.alert(AlertType.Error, message, options);
   }
 
-  info(message: string, keepAfterRouteChange = false) {
-    this.alert(AlertType.Info, message, keepAfterRouteChange);
+  info(message: string, options?: IAlertOptions) {
+    this.alert(AlertType.Info, message, options);
   }
 
-  warn(message: string, keepAfterRouteChange = false) {
-    this.alert(AlertType.Warning, message, keepAfterRouteChange);
+  warn(message: string, options?: IAlertOptions) {
+    this.alert(AlertType.Warning, message, options);
   }
 
 
@@ -54,11 +61,15 @@ export class AlertsService {
    * @param msg text of alert
    * @param keepAfterRouteChange if it keep showing after route changes or neither
    */
-  alert(type: AlertType, msg: string, keepAfterRouteChange = false, dismissTimeout = 5000) {
-    const alert = new Alert(type, msg, keepAfterRouteChange);
+  alert(type: AlertType, msg: string, options?: IAlertOptions) {
+
+    const opts = { ...this.defaultAlertOptions, ...options };
+    const alert = new Alert(type, msg, opts.keepAfterRouteChange);
     this.alerts.push(alert);
     this.alerts$.next(this.alerts);
-    setTimeout(() => this.dismissAlert(alert), dismissTimeout);
+    if (opts.dismissTimeout) {
+      setTimeout(() => this.dismissAlert(alert), opts.dismissTimeout);
+    }
   }
 
   clear() {

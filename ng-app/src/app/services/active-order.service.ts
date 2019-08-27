@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap, catchError, map, startWith, switchMap } from 'rxjs/operators';
 
 import { Subject } from 'rxjs';
-import { ICart } from '../models/dto/icart';
+import { ICart, ChangeCartItemQty } from '../models/dto/icart';
 
 @Injectable({ providedIn: 'root' })
 export class ActiveOrderService {
@@ -56,7 +56,8 @@ export class ActiveOrderService {
 
   changeItemQuantity(lineItemId: string, quantity: number) {
       const url = 'storefrontapi/cart/items';
-      const body = '{"lineItemId":"' + lineItemId + '","Quantity":"' + quantity + '"}';
+      //const body = '{"lineItemId":"' + lineItemId + '","quantity":"' + quantity + '"}';
+      const body = new ChangeCartItemQty(lineItemId, quantity);
       return this.http.put<any>(url, body).pipe(tap(x => this.refreshCart()));
   }
 
