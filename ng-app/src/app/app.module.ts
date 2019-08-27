@@ -12,6 +12,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ConfirmModalModule } from './modules/confirm-modal/confirm-modal.module';
+import { AlertsModule } from './modules/alerts/alerts.module';
 
 import { HeaderPanelComponent } from './components/container/header-panel/header-panel.component';
 import { MainPanelComponent } from './components/container/main-panel/main-panel.component';
@@ -58,7 +59,6 @@ import { BulkOrderCsvComponent } from './components/bulk-order/bulk-order-csv/bu
 import { CheckoutModalComponent } from './components/active-order/checkout-modal/checkout-modal.component';
 import { OnlyNumberDirective } from './directives/only-number.directive';
 import { EditCompanyUserModalFormComponent } from './components/company/edit-company-user-modal-form/edit-company-user-modal-form.component';
-import { AlertsComponent } from './components/alerts/alerts.component';
 // import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
 // import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -100,8 +100,7 @@ import { AlertsComponent } from './components/alerts/alerts.component';
     RoleManagementComponent,
     BulkOrderCsvComponent,
     CheckoutModalComponent,
-    OnlyNumberDirective,
-    AlertsComponent
+    OnlyNumberDirective
   ],
   imports: [
     BrowserModule,
@@ -117,10 +116,8 @@ import { AlertsComponent } from './components/alerts/alerts.component';
     //     }),
     NgbModule,
     ScrollingModule,
-    // NgbPaginationModule,
-    // NgbDropdownModule,
-    // NgbDatepickerModule,
     ConfirmModalModule,
+    AlertsModule,
     BlockUIModule.forRoot({
       delayStart: 1000,
       delayStop: 1000

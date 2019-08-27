@@ -1,23 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Observable, Subject, config } from 'rxjs';
+import { Alert, IAlertOptions, AlertType } from './models';
 
-export class Alert {
-  constructor(public type: AlertType, public msg: string, public keepAfterRouteChange = false) {
-  }
-}
-
-export enum AlertType {
-  Success = 'success',
-  Error =   'danger',
-  Info =    'info',
-  Warning = 'warning'
-}
-
-export interface IAlertOptions {
-  keepAfterRouteChange?: boolean;
-  dismissTimeout?: number;
-}
 
 
 @Injectable( { providedIn: 'root' })
