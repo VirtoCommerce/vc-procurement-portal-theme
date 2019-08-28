@@ -56,7 +56,9 @@ export class ChangeProductQuantityActiveOrderComponent implements OnInit, OnDest
 
   onChangeQuantity(quantityText: string) {
     const quantity = +quantityText;
-    this.productQuantity$.next(quantity);
+    if (quantity) {
+      this.productQuantity$.next(quantity);
+    }
   }
 
   private updateLineItemQuantity(quantity: number) {

@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ElementRef } from '@angular/core';
 import { ActiveOrderService } from 'src/app/services/active-order.service';
 import { ICart, ILineItem } from 'src/app/models/dto/icart';
 import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
 import { Subject, Subscription, EMPTY } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { element } from 'protractor';
 
 
 @Component({
@@ -70,8 +71,11 @@ export class ChangeProductQuantityComponent implements OnInit, OnDestroy {
     this.activeOrderService.changeItemQuantity(lineItem.id, lineItem.quantity).subscribe();
   }
 
-  onChangeQuantity(quantity: number) {
-    this.productQuantity$.next(quantity);
+  onChangeQuantity(quantityText: string) {
+    const quantity = +quantityText;
+    if (quantity) {
+      this.productQuantity$.next(quantity);
+    }
   }
 
   updateLineItemQuantity(quantity: number) {
