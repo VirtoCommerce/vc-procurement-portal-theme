@@ -1,0 +1,55 @@
+{
+  "ImageUrl": "themes/assets/images/workflow2.svg",
+  "States": [
+    {
+      "Name": "New",
+      "IsInitial": true,
+      "PermittedTransitions": [
+        {
+          "ToState": "1st approved",
+          "Trigger": "1st Approve",
+          "Roles": [
+            "Owner"
+          ]
+        },
+        {
+          "ToState": "Rejected",
+          "Trigger": "Reject",
+          "Roles": [
+            "Owner",
+            "Admin"
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "1st approved",
+      "PermittedTransitions": [
+        {
+          "ToState": "Approved",
+          "Trigger": "Approve",
+          "Roles": [
+            "Admin"
+          ]
+        },
+        {
+          "ToState": "Rejected",
+          "Trigger": "Reject",
+          "Roles": [
+            "Owner",
+            "Admin",
+            "Superman"
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Approved",
+      "IsFinal": true
+    },
+    {
+      "Name": "Rejected",
+      "IsFinal": true
+    }
+  ]
+}
