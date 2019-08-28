@@ -10,6 +10,7 @@ import { OrderDetailsComponent } from './components/orders/order-details/order-d
 import { ForApprovalDetailsComponent } from './components/forapproval/forapproval-details/forapproval-details.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { InvoiceComponent } from './components/orders/invoice/invoice.component';
+import { AuthGuard } from './services';
 
 
 const routes: Routes = [
@@ -33,7 +34,7 @@ const routes: Routes = [
   { path: 'product-details/:id', component: ProductDetailsComponent },
   { path: 'orders', component: OrdersComponent},
   { path: 'forapproval', component: ForApprovalComponent},
-  { path: 'company', component: CompanyComponent},
+  { path: 'company', component: CompanyComponent, canActivate: [AuthGuard]},
   { path: 'account', component: AccountComponent},
   { path: 'bulkorder', component: BulkOrderComponent},
   { path: 'order-details/:id', component: OrderDetailsComponent },

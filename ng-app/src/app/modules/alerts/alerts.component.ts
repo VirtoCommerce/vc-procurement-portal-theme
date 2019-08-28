@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Input, EventEmitter } from '@angular/core';
-import { AlertsService, Alert } from 'src/app/services/alerts.service';
 import { Observable } from 'rxjs';
+import { Alert } from './models';
+import { AlertsService } from './alerts.service';
 
 @Component({
   selector: 'app-alerts',

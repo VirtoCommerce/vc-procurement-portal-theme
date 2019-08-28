@@ -3,6 +3,8 @@ import {
   Router
 } from '@angular/router';
 import { MobileViewService } from 'src/app/services/mobile-view.service';
+import { AuthorizationService } from 'src/app/services/authorization.service';
+import { of, Observable, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-menu',
@@ -11,12 +13,16 @@ import { MobileViewService } from 'src/app/services/mobile-view.service';
 })
 export class MenuComponent implements OnInit {
   isOpen = false;
+  isAdmin: Observable<boolean>;
   constructor(
     private router: Router,
-    private mobileSidebarService: MobileViewService
-  ) { }
+    private mobileSidebarService: MobileViewService,
+    private authService: AuthorizationService
+  ) {
+   }
 
   ngOnInit() {
+    this.isAdmin = this.authService.isAdmin;
   }
 
   openMobileMenu() {
@@ -29,6 +35,10 @@ export class MenuComponent implements OnInit {
 
   toggle() {
     this.isOpen = !this.isOpen;
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }
