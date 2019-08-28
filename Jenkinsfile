@@ -1,4 +1,4 @@
 #!groovy
 virtoThemeMix {
-    sampleStore = "Dental"
+    sampleStore = "dental"
 }
