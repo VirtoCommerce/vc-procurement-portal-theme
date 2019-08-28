@@ -11,6 +11,7 @@ import { IOrganization } from 'src/app/models/dto/iorganization';
 import settings_data from 'src/assets/config/config.dev.json';
 import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
 import { EditCompanyUserModalFormComponent } from '../edit-company-user-modal-form/edit-company-user-modal-form.component';
+import { AlertsService } from 'src/app/modules/alerts/alerts.service';
 
 @Component({
   selector: 'app-company-users',
@@ -30,7 +31,8 @@ export class CompanyUsersComponent implements OnInit {
     private modalService: NgbModal,
     private userConverter: UserConverterService,
     private organizationService: OrganizationService,
-    private confirmService: ConfirmService
+    private confirmService: ConfirmService,
+    private aletsService: AlertsService
   ) {}
 
   ngOnInit() {
@@ -66,6 +68,7 @@ export class CompanyUsersComponent implements OnInit {
     this.confirmService.confirm(confirmOptions).then(() =>
       this.userService.deleteUser(user.id).subscribe(() => {
         this.fetchUsers();
+        this.aletsService.success(`User ${user.userName} removed successfuly!`);
       })
     );
   }
@@ -79,6 +82,7 @@ export class CompanyUsersComponent implements OnInit {
       const user = this.userConverter.toAddUser(result, this.organization);
       this.userService.registerNewUser(user).subscribe(() => {
         this.fetchUsers();
+        this.aletsService.success(`User ${user.userName} is created successfuly!`);
       });
     });
   }
@@ -94,6 +98,7 @@ export class CompanyUsersComponent implements OnInit {
       const updatedUser = this.userConverter.toEditUser(result, user);
       this.userService.updateUser(updatedUser).subscribe(() => {
         this.fetchUsers();
+        this.aletsService.success(`User ${user.userName} is updated successfuly!`);
       });
     });
   }
