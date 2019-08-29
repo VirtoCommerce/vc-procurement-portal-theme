@@ -1,83 +1,82 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap, catchError, map } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { IOrder, OrderSearchCriteria } from '../models/dto/iorder';
-import { IOrders } from '../models/dto/iorders';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { AlertsService } from '../modules/alerts/alerts.service';
 
 
 @Injectable({ providedIn: 'root' })
 export class OrdersService {
-    private heroesUrl = 'api/heroes';
-    private ordersUrl = 'storefrontapi/orders/search';
-    private usersUrl = 'api/users';
-    private approvalWorkflowUrl = 'api/approvalWorkflow';
-    private orderUrl = 'storefrontapi/orders';
+  private ordersUrl = 'storefrontapi/orders/search';
+  private approvalWorkflowUrl = 'api/approvalWorkflow';
+  private orderUrl = 'storefrontapi/orders';
 
-    constructor(
-        private http: HttpClient) { }
+  constructor(private http: HttpClient, private aletsService: AlertsService) {}
 
-    getOrders(pageNumber: number = 1, pageSize: number = 10, startDate: Date = null, endDate: Date = null, status: string = '' ) {
-      const searchCriteria = new OrderSearchCriteria();
-      searchCriteria.pageNumber = pageNumber;
-      searchCriteria.pageSize = pageSize;
-      searchCriteria.StartDate = startDate;
-      searchCriteria.EndDate = endDate;
-      if (status === 'All') {
-        searchCriteria.Status = '';
-      } else {
-        searchCriteria.Status = status;
-      }
-        return this.http.post(this.ordersUrl,searchCriteria).pipe(
-            tap(
-                orders => {
-                    this.log(`fetched ordersUrl:` + orders);
-                }),
-            catchError(this.handleError('ordersUrl', []))
-        );
+  getOrders(
+    pageNumber: number = 1,
+    pageSize: number = 10,
+    startDate: Date = null,
+    endDate: Date = null,
+    status: string = ''
+  ) {
+    const searchCriteria = new OrderSearchCriteria();
+    searchCriteria.pageNumber = pageNumber;
+    searchCriteria.pageSize = pageSize;
+    searchCriteria.StartDate = startDate;
+    searchCriteria.EndDate = endDate;
+    if (status === 'All') {
+      searchCriteria.Status = '';
+    } else {
+      searchCriteria.Status = status;
     }
-
-    getOrder(OrderNumber: string) {
-      return this.http.get(this.orderUrl + `/${OrderNumber}`).pipe(
-        tap(
-            order => {
-                this.log(`fetched ordersUrl:` + order);
-            }),
-        catchError(this.handleError('orderUrl', []))
+    return this.http.post(this.ordersUrl, searchCriteria).pipe(
+      tap(orders => {
+        this.log(`fetched ordersUrl:` + orders);
+      }),
+      catchError(error => this.handleError(error))
     );
+  }
+
+  getOrder(OrderNumber: string) {
+    return this.http.get(this.orderUrl + `/${OrderNumber}`).pipe(
+      tap(order => {
+        this.log(`fetched ordersUrl:` + order);
+      }),
+      catchError(error => this.handleError(error))
+    );
+  }
+
+  updateOrder(order: IOrder): Observable<IOrder> {
+    return this.http
+      .post<IOrder>(this.ordersUrl, order)
+      .pipe(catchError(error => this.handleError(error)));
+  }
+
+  getApprovalWorkflow() {
+    return this.http.get(this.approvalWorkflowUrl).pipe(
+      tap(workflow => {
+        this.log(`fetched approvalWorkflowUrl:` + workflow);
+      }),
+      catchError(error => this.handleError(error))
+    );
+  }
+
+  private handleError(error: any) {
+    if (error.status === 500) {
+      this.aletsService.error(
+        `An error occurred with code ${error.status} while trying to execute a request to the server`, { dismissTimeout: 0 }
+      );
+    } else if (error.status === 400) {
+      this.aletsService.warn(
+        `An error occurred with code ${error.status} while trying to execute a request to the server`, { dismissTimeout: 0 }
+      );
     }
+    return throwError(error);
+  }
 
-    updateOrder(order: IOrder): Observable<IOrder> {
-        return this.http.post<IOrder>(this.ordersUrl, order);
-    }
-
-    getApprovalWorkflow() {
-        return this.http.get(this.approvalWorkflowUrl).pipe(
-            tap(
-                workflow => {
-                    this.log(`fetched approvalWorkflowUrl:` + workflow);
-                }),
-            catchError(this.handleError('Error approvalWorkflowUrl', []))
-        );
-
-    }
-
-    private handleError<T>(operation = 'operation', result?: T) {
-        return (error: any): Observable<T> => {
-            // TODO: send the error to remote logging infrastructure
-            console.error(error); // log to console instead
-
-            // TODO: better job of transforming error for user consumption
-            this.log(`${operation} failed: ${error.message}`);
-
-            // Let the app keep running by returning an empty result.
-            return of(result as T);
-        };
-    }
-
-
-    private log(message: string) {
-        console.log('Orders service: ' + message);
-    }
+  private log(message: string) {
+    console.log('Orders service: ' + message);
+  }
 }

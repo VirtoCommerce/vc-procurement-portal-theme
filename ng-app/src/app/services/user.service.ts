@@ -1,46 +1,66 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { User, AddNewUser, EditUser, EditUserPassword, EditUserPhone } from '../models/user';
+import {
+  User,
+  AddNewUser,
+  EditUser,
+  EditUserPassword,
+  EditUserPhone
+} from '../models/user';
 import { tap, catchError } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
-import { IUser } from '../models/dto/iuser';
+import { throwError } from 'rxjs';
+import { AlertsService } from '../modules/alerts/alerts.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private aletsService: AlertsService) {}
 
   getAll() {
-    return this.http.get<User[]>(`/users`);
+    return this.http
+      .get<User[]>(`/users`)
+      .pipe(catchError(error => this.handleError(error)));
   }
 
   getById(id: number) {
-    return this.http.get<User>(`/users/${id}`);
+    return this.http
+      .get<User>(`/users/${id}`)
+      .pipe(catchError(error => this.handleError(error)));
   }
 
   getUserName() {
     console.log('getUserName');
     const url = 'storefrontapi/account';
-    return this.http.get<any>(url);
+    return this.http
+      .get<any>(url)
+      .pipe(catchError(error => this.handleError(error)));
   }
 
   updateUser(user: EditUser) {
     const url = 'storefrontapi/account';
-    return this.http.post(url, user);
+    return this.http
+      .post(url, user)
+      .pipe(catchError(error => this.handleError(error)));
   }
 
   updatePhoneNumber(phoneNumber: EditUserPhone) {
     const url = 'storefrontapi/account/phonenumber';
-    return this.http.post(url, phoneNumber);
+    return this.http
+      .post(url, phoneNumber)
+      .pipe(catchError(error => this.handleError(error)));
   }
 
   changeUserPassword(password: EditUserPassword) {
     const url = 'storefrontapi/account/password';
-    return this.http.post(url, password);
+    return this.http
+      .post(url, password)
+      .pipe(catchError(error => this.handleError(error)));
   }
 
   deleteUser(userName: string) {
-    return this.http.delete('storefrontapi/account/' + userName);
+    return this.http
+      .delete('storefrontapi/account/' + userName)
+      .pipe(catchError(error => this.handleError(error)));
   }
 
   getCurrentUser() {
@@ -49,26 +69,28 @@ export class UserService {
       tap(user => {
         this.log(`fetched user:` + user);
       }),
-      catchError(this.handleError('user', []))
+      catchError(error => this.handleError(error))
     );
   }
 
   registerNewUser(user: AddNewUser) {
     const url = 'storefrontapi/account/user';
-    return this.http.post(url, user);
+    return this.http
+      .post(url, user)
+      .pipe(catchError(error => this.handleError(error)));
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
+  private handleError(error: any) {
+    if (error.status === 500) {
+      this.aletsService.error(
+        `An error occurred with code ${error.status} while trying to execute a request to the server`, { dismissTimeout: 0 }
+      );
+    } else if (error.status === 400) {
+      this.aletsService.warn(
+        `An error occurred with code ${error.status} while trying to execute a request to the server`, { dismissTimeout: 0 }
+      );
+    }
+    return throwError(error);
   }
 
   private log(message: string) {
