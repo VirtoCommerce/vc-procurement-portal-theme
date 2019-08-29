@@ -6,33 +6,28 @@
     </p>
     <div class="row">
       <div class="col-md-6">
-        <textarea class="bulk-order__copy-field"></textarea>
+        <textarea class="bulk-order__copy-field" [(ngModel)]="csvText" (change)="setItemsAsInvalidated()"></textarea>
       </div>
       <div class="col-md-6">
         <div class="bulk-order__copy-errors">
-          <p>Error in line 1: Product is not recognized</p>
-          <p>Error in line 12: Product is not recognized</p>
-          <p>Error in line 12: Product is not recognized</p>
-          <p>Error in line 12: Product is not recognized</p>
-          <p>Error in line 12: Product is not recognized</p>
-          <p>Error in line 12: Product is not recognized</p>
-          <p>Error in line 12: Product is not recognized</p>
-          <p>Error in line 12: Product is not recognized</p>
-          <a class="all-errors" href="#">Show all Errors</a>
+          <!-- <p>Error in line 1: Product is not recognized</p> -->
+          <p *ngFor="let error of errors" >{{error}}</p>
+
+          <!-- <a class="all-errors" href="#">Show all Errors</a> -->
         </div>
       </div>
     </div>
     <div class="row mt-3">
       <div class="col">
-        <a href="#" class="btn btn--blue">Validate</a>
+        <a (click)="validateItems()" class="btn btn--blue">Validate</a>
       </div>
     </div>
   </div>
 
 
 <div class="bulk-order__add-order">
-  <button
-    class="btn btn--green ml-auto"
+  <button class="btn btn--green ml-auto"
+    [disabled]="itemsIsValid"
     (click)="addItemsToCart()"
   >
     Add to Order
