@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
 import Workflow from 'src/assets/workflow/workflow.json';
 import { OrderStateTransitionResult } from '../models/order-state-transition-result';
+
 @Injectable({
   providedIn: 'root'
 })
 export class OrderWorkflowService {
+  private _workflow: any;
 
   constructor() {
+    this._workflow = Object.assign({}, Workflow);
   }
 
   public getRoleTransitions(currentState: string, currentRole: string): OrderStateTransitionResult {
     let result = null;
-    const obj = Object.assign({}, Workflow);
 
-    const targetState = obj.States.find(state => state.Name === currentState);
+    const targetState = this._workflow.States.find(state => state.Name === currentState);
     if (targetState != null && targetState.PermittedTransitions != null) {
       result = targetState.PermittedTransitions.filter(transition =>
         this.isRoleExistsInRoles(currentRole, transition.Roles));
@@ -28,14 +30,26 @@ export class OrderWorkflowService {
     return result;
   }
 
+  public getStatesByRoles(roles: string[]): string[] {
+    const set = new Set<string>();
+    roles.forEach(iteratedRole => {
+      const statesQuery = this._workflow.States
+        .filter(state => state.PermittedTransitions && state.PermittedTransitions
+          .some(transition => transition.Roles && transition.Roles
+            .some(role => role === iteratedRole)));
+
+      // iterate and add to result set
+      statesQuery.forEach(state => set.add(state.Name));
+    });
+    return Array.from(set);
+  }
+
   public getRoles(): string[] {
-    const obj = Object.assign({}, Workflow);
-    return this.findRolesInStates(obj.States);
+    return this.findRolesInStates(this._workflow.States);
   }
 
   public getRolesByState(currentState: string): string[] {
-    const obj = Object.assign({}, Workflow);
-    const states = obj.States.filter(state => state.Name === currentState);
+    const states = this._workflow.States.filter(state => state.Name === currentState);
     return this.findRolesInStates(states);
   }
 

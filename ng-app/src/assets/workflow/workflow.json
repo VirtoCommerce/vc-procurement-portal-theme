@@ -37,8 +37,7 @@
           "Trigger": "Reject",
           "Roles": [
             "Owner",
-            "Admin",
-            "Superman"
+            "Admin"
           ]
         }
       ]
