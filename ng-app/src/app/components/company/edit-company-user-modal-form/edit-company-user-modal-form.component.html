@@ -45,8 +45,8 @@ class="alert alert-danger">
     <label for="selectRole">Role</label>
     <select id="selectRole" name="selectRole" class="custom-select" required aria-describedby="selectRoleHelpBlock"  [ngClass]="{ 'is-invalid': role.invalid && (role.dirty || role.touched) }" required [(ngModel)]="user.role" #role="ngModel">
       <option value="" style="display:none">Please select role</option>
-      <option value="pp-admin">Administrator</option>
-      <option value="pp-agent">Agent</option>
+      <option value="store-admin">Administrator</option>
+      <option value="store-manager">Manager</option>
     </select>
     <div *ngIf="role.invalid && (role.dirty || role.touched)"
 class="alert alert-danger">

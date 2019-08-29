@@ -32,6 +32,6 @@ export class AccountComponent implements OnInit {
     const newPhoneNumber = this.userConverter.toEditCurrentAccountPhoneNumber(this.user);
     this.userService.updateUser(updatedUser)
     .pipe(concatMap(() => this.userService.updatePhoneNumber(newPhoneNumber)))
-    .subscribe(() => this.aletsService.success('Account data is update successfuly!'));
+    .subscribe(() => this.aletsService.success('Account data is updated successfuly!'));
   }
 }
