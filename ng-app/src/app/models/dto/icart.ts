@@ -108,7 +108,11 @@ export class ChangeCartItemQty {
     public quantity: number) {}
 }
 
-
+export class AddCartItem {
+   constructor(
+     public id: string,
+     public quantity: number ) {}
+}
 
 
 
