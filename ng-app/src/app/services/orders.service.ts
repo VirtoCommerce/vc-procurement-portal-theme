@@ -19,7 +19,8 @@ export class OrdersService {
     pageSize: number = 10,
     startDate: Date = null,
     endDate: Date = null,
-    status: string = ''
+    status: string = '',
+    statuses?: string[]
   ) {
     const searchCriteria = new OrderSearchCriteria();
     searchCriteria.pageNumber = pageNumber;
@@ -31,6 +32,11 @@ export class OrdersService {
     } else {
       searchCriteria.Status = status;
     }
+
+    if (statuses != null) {
+      searchCriteria.Statuses = statuses;
+    }
+
     return this.http.post(this.ordersUrl, searchCriteria).pipe(
       tap(orders => {
         this.log(`fetched ordersUrl:` + orders);
