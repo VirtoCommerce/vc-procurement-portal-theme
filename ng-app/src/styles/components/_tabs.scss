@@ -26,7 +26,7 @@
 		cursor: pointer;
 		margin: 0;
 		padding: .625rem 0;
-		position: relative;
+    position: relative;
 
 		&::after
 		{
@@ -44,7 +44,12 @@
 		& ~ .tabs__item
 		{
 			margin-left: 1.875rem;
-		}
+    }
+
+    & .mobile-name
+    {
+      display: none;
+    }
 	}
 
 	&__content
@@ -68,11 +73,12 @@
 
 		&__item
 		{
-			font-size: 0;
+      font-size: 0;
 
 			.mobile-name
 			{
-				font-size: .875rem;
+        font-size: .875rem;
+        display: block
 			}
 		}
 	}
