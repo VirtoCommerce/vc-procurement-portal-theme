@@ -3,13 +3,13 @@
       <div class="row">
           <div class="col-md-6">
               <input type="text" class="form-control"
-              formControlName="sku">
+              formControlName="sku" placeholder="SKU">
           </div>
           <div class="col-md-6">
               <input type="text" class="form-control"
               formControlName="productName"  [ngbTypeahead]="searchProductsSuggestionsByName"
               [resultFormatter]="suggestedProductsFormatter"
-              (selectItem)="suggestedProductSelected($event)">
+              (selectItem)="suggestedProductSelected($event)" placeholder="Product name">
           </div>
       </div>
   </div>
@@ -44,6 +44,11 @@
         SKU value must be unique.
       </div>
     </div>
+    <div class="col-md" *ngIf="sku.errors.outOfStock">
+        <div class="form-error">
+          Item is out of stock
+        </div>
+    </div>
 </div>
 <!-- <div  *ngIf="!!id && id.invalid && (sku.dirty || sku.touched)"
         class="row">
@@ -70,7 +75,7 @@
     </div>
     <div class="col-md" *ngIf="qty.errors.max">
       <div class="form-error">
-        Quantity is more than maximum.
+        There is no such quantity in stock
       </div>
     </div>
 </div>

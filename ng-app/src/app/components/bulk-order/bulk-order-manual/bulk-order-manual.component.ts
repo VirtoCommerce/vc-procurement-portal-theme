@@ -13,13 +13,12 @@ import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./bulk-order-manual.component.scss']
 })
 export class BulkOrderManualComponent implements OnInit, OnDestroy {
-  newItemForm: FormGroup;
   itemsForm: FormGroup;
 
   sugesstedProducts: IProduct[];
 
   // itemsForms: FormGroup[] = [];
-  private defaultItemsCount = 0;
+  private defaultItemsCount = 4;
   private unsubscribe = new Subject();
 
   get items() {
@@ -35,14 +34,6 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
     private catalogService: CatalogService,
     private activeOrderService: ActiveOrderService
   ) {
-    this.newItemForm = this.formBuilder.group(
-      {
-        sku: [''],
-        productName: [''],
-        qty: [1, [Validators.min(1)]]
-      }
-    );
-
     const itemsForms: FormGroup[] = [];
     for (let i = 0; i < this.defaultItemsCount; i++) {
       const newItemForm = this.createItemForm();
@@ -65,11 +56,7 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
   }
 
   addItem() {
-    const itemForm = this.createItemForm(
-      this.newItemForm.get('sku').value,
-      this.newItemForm.get('productName').value,
-      this.newItemForm.get('qty').value
-    );
+    const itemForm = this.createItemForm();
     this.items.push(itemForm);
     this.validateAllFormFields(this.itemsForm);
   }
@@ -98,16 +85,6 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
        )
     )
   )
-
-  suggestedProductSelected(event: NgbTypeaheadSelectItemEvent) {
-    event.preventDefault();
-    if ( !!event.item ) {
-      const product = event.item as IProduct;
-      this.newItemForm.get('sku').setValue(product.sku);
-      this.newItemForm.get('productName').setValue(product.name);
-    }
-  }
-
 
   private itemsEmptyValidator(itemsForms: FormArray) {
     if (itemsForms == null || itemsForms.controls.length < 1) {
@@ -173,13 +150,14 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
         if (p != null) {
           itemForm.get('id').setValue(p.id);
           itemForm.get('productName').setValue(p.name);
+          const skuValidators = [Validators.required];
+          if (p.trackInventory && p.inStock) {
+            skuValidators.push(Validators.min(1), Validators.max(p.availableQuantity));
+          } else {
+            itemForm.get('sku').setErrors({ outOfStock: true });
+          }
           itemForm.get('qty')
-            .setValidators([
-              Validators.required,
-              Validators.min(1),
-              // todo: set to real caonstraint value
-              Validators.max(100)
-            ]);
+            .setValidators(skuValidators);
           itemForm.get('qty').updateValueAndValidity();
 
         } else {
