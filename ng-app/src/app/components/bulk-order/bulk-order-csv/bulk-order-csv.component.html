@@ -6,7 +6,7 @@
     </p>
     <div class="row">
       <div class="col-md-6">
-        <textarea class="bulk-order__copy-field" [(ngModel)]="csvText" (change)="setItemsAsInvalidated()"></textarea>
+        <textarea class="bulk-order__copy-field" [(ngModel)]="csvText" (change)="setItemsAsInvalidated()" placeholder="PRODUCT-SKU,10"></textarea>
       </div>
       <div class="col-md-6">
         <div class="bulk-order__copy-errors">

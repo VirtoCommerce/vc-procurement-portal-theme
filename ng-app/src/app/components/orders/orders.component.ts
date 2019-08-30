@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-// import { Store, select } from '@ngrx/store';
 import { OrdersService } from '../../services/orders.service';
 import { IOrder } from '../../models/dto/iorder';
 import { User } from '../../models/user';
@@ -80,7 +79,7 @@ export class OrdersComponent implements OnInit {
 
   getAllOrders() {
     this.ordersService
-      .getOrders(this.paginationInfo.page, this.paginationInfo.pageSize,this.startDate,this.endDate,this.status)
+      .getOrders(this.paginationInfo.page, this.paginationInfo.pageSize, this.startDate, this.endDate, this.status)
       .subscribe((data: any) => {
         console.log(data);
         this.orders = data.results as IOrder[];
@@ -93,18 +92,3 @@ export class OrdersComponent implements OnInit {
   }
 }
 
-export class OrderError implements OnInit {
-  ngOnInit() {}
-
-  constructor(public payload: any) {
-    console.log(payload);
-  }
-}
-
-export class GetOrdersSuccess implements OnInit {
-  ngOnInit() {}
-
-  constructor(public payload: any) {
-    console.log('GetHeroesSuccess: ' + payload);
-  }
-}
