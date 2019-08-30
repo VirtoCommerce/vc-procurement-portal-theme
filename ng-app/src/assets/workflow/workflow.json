@@ -9,15 +9,15 @@
           "ToState": "1st approved",
           "Trigger": "1st Approve",
           "Roles": [
-            "Store administrator"
+            "Owner"
           ]
         },
         {
           "ToState": "Rejected",
           "Trigger": "Reject",
           "Roles": [
-            "Store administrator",
-            "Store manager"
+            "Owner",
+            "Admin"
           ]
         }
       ]
@@ -29,15 +29,15 @@
           "ToState": "Approved",
           "Trigger": "Approve",
           "Roles": [
-            "Store administrator"
+            "Admin"
           ]
         },
         {
           "ToState": "Rejected",
           "Trigger": "Reject",
           "Roles": [
-            "Store administrator",
-            "Store manager"
+            "Owner",
+            "Admin"
           ]
         }
       ]
