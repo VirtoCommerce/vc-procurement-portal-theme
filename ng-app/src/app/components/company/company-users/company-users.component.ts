@@ -69,7 +69,7 @@ export class CompanyUsersComponent implements OnInit {
       this.userService.deleteUser(user.id).subscribe(() => {
         this.fetchUsers();
         this.aletsService.success(`User ${user.userName} removed successfuly!`);
-      })
+      }), () => { }
     );
   }
 
@@ -84,7 +84,7 @@ export class CompanyUsersComponent implements OnInit {
         this.fetchUsers();
         this.aletsService.success(`User ${user.userName} is created successfuly!`);
       });
-    });
+    }, () => { });
   }
 
   openEditUserModal(user: IUser) {
@@ -100,6 +100,6 @@ export class CompanyUsersComponent implements OnInit {
         this.fetchUsers();
         this.aletsService.success(`User ${user.userName} is updated successfuly!`);
       });
-    });
+    }, () => { });
   }
 }

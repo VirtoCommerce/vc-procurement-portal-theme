@@ -47,7 +47,7 @@ export class ActiveOrderMobileComponent implements OnInit, IToggleable {
     };
     this.confirmService
       .confirm(confirmOptions)
-      .then(() => this.activeOrderService.removeItem(item.id).subscribe());
+      .then(() => this.activeOrderService.removeItem(item.id).subscribe(), () => { });
   }
 
   clear() {
@@ -58,7 +58,7 @@ export class ActiveOrderMobileComponent implements OnInit, IToggleable {
     };
     this.confirmService
       .confirm(confirmOptions)
-      .then(() => this.activeOrderService.clearAllItems().subscribe());
+      .then(() => this.activeOrderService.clearAllItems().subscribe(), () => { });
   }
 
   checkout(cart: ICart) {
@@ -71,6 +71,6 @@ export class ActiveOrderMobileComponent implements OnInit, IToggleable {
     modalRef.componentInstance.cart = cart;
     modalRef.result.then(result => {
       this.activeOrderService.createOrder().subscribe();
-    });
+    }, () => { });
   }
 }

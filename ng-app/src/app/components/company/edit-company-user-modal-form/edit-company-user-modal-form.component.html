@@ -35,7 +35,7 @@ class="alert alert-danger">
   </div>
   <div class="form-group" *ngIf="!editUserMode">
     <label for="userName">User Name</label>
-    <input id="userName" name="userName" placeholder="User Name" type="text" class="form-control" required [ngClass]="{ 'is-invalid': userName.invalid && (userName.dirty || userName.touched) }" required [(ngModel)]="user.userName" #userName="ngModel">
+    <input id="userName" name="userName" placeholder="User Name" type="text" class="form-control" [ngClass]="{ 'is-invalid': userName.invalid && (userName.dirty || userName.touched) }" required [(ngModel)]="user.userName" #userName="ngModel">
     <div *ngIf="userName.invalid && (userName.dirty || userName.touched)"
 class="alert alert-danger">
       <div *ngIf="userName.errors.required">User Name is required.</div>
@@ -43,7 +43,7 @@ class="alert alert-danger">
   </div>
   <div class="form-group">
     <label for="selectRole">Role</label>
-    <select id="selectRole" name="selectRole" class="custom-select" required aria-describedby="selectRoleHelpBlock"  [ngClass]="{ 'is-invalid': role.invalid && (role.dirty || role.touched) }" required [(ngModel)]="user.role" #role="ngModel">
+    <select id="selectRole" name="selectRole" class="custom-select" aria-describedby="selectRoleHelpBlock" [ngClass]="{ 'is-invalid': role.invalid && (role.dirty || role.touched) }" required [(ngModel)]="user.role" #role="ngModel">
       <option value="" style="display:none">Please select role</option>
       <option value="store-admin">Administrator</option>
       <option value="store-manager">Manager</option>
@@ -65,7 +65,7 @@ class="alert alert-danger">
   </div>
   <div class="form-group" *ngIf="!editUserMode">
     <label for="confirmPassword">Confirm Password</label>
-    <input id="confirmPassword" appConfirmEqualValidator="password" name="confirmPassword" placeholder="Confirm Password" type="password" class="form-control" ngModel #confirmPassword="ngModel" pattern="(^[A-Z])\w+" [ngClass]="{ 'is-invalid': confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched) }" required minlength="6">
+    <input id="confirmPassword" appConfirmEqualValidator="password" name="confirmPassword" placeholder="Confirm Password" type="password" class="form-control" ngModel #confirmPassword="ngModel" pattern="(^[A-Z])\w+\S+" [ngClass]="{ 'is-invalid': confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched) }" required minlength="6">
     <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
 class="alert alert-danger">
       <div *ngIf="confirmPassword.errors.required">Password is required</div>

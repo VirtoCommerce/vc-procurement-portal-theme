@@ -37,7 +37,7 @@ export class ActiveOrderComponent implements OnInit {
 
   clear() {
     const confirmOptions = { title: 'Active order cleaning', message: 'Are you sure you want to clear the active order?' };
-    this.confirmService.confirm(confirmOptions).then(() => this.activeOrderService.clearAllItems().subscribe() );
+    this.confirmService.confirm(confirmOptions).then(() => this.activeOrderService.clearAllItems().subscribe(), () => { } );
   }
 
   decrementQuantity(item: ILineItem) {
@@ -73,6 +73,6 @@ export class ActiveOrderComponent implements OnInit {
     modalRef.componentInstance.cart = cart;
     modalRef.result.then(result => {
       this.activeOrderService.createOrder().subscribe(() => this.aletsService.success(`Order is created successfuly!`));
-    });
+    }, () => { });
   }
 }
