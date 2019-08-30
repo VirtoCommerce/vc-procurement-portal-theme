@@ -19,15 +19,14 @@
     </div>
     <div class="row mt-3">
       <div class="col">
-        <a (click)="validateItems()" class="btn btn--blue">Validate</a>
+        <a (click)="validate()" class="btn btn--blue">Validate</a>
       </div>
     </div>
   </div>
 
 
 <div class="bulk-order__add-order">
-  <button class="btn btn--green ml-auto"
-    [disabled]="itemsIsValid"
+  <button *ngIf="itemsIsValid" class="btn btn--green ml-auto"
     (click)="addItemsToCart()"
   >
     Add to Order

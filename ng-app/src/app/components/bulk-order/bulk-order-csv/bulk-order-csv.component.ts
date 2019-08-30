@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogService } from 'src/app/services';
-import { of, Observable } from 'rxjs';
-import { concatAll, concatMap, mergeAll, catchError } from 'rxjs/operators';
+import { of, Observable, forkJoin } from 'rxjs';
+import { concatAll, concatMap, mergeAll, catchError, mergeMap } from 'rxjs/operators';
 import { IProduct } from 'src/app/models/dto/product';
+import { ActiveOrderService } from 'src/app/services/active-order.service';
+import { AlertsService } from 'src/app/modules/alerts/alerts.service';
 
-class BulkOrderItem{
+class BulkOrderItem {
+  productId: string = null;
   constructor(public sku: string, public quantity: number) {}
 }
 interface IItemValidationResult {
@@ -24,9 +27,9 @@ export class BulkOrderCsvComponent implements OnInit {
   itemsIsValid = false;
   csvText = '';
   errors = [];
-  private  validationResults: IItemValidationResult[] = [];
+  private  validationResult: IItemValidationResult[] = [];
 
-  constructor(private catalogService: CatalogService) { }
+  constructor(private catalogService: CatalogService, private activeOrderService: ActiveOrderService, private alertsService: AlertsService) { }
 
   ngOnInit() {
   }
@@ -36,15 +39,17 @@ export class BulkOrderCsvComponent implements OnInit {
     this.itemsIsValid = false;
   }
 
-  validateItems() {
+  /**
+   * on button validate cklicked
+   */
+  async validate() {
     if (!this.csvText.trim()) {
       this.itemsIsValid = false;
       this.errors = ['Your order is empty. You need to fill order items in CSV fromat like showing on placeholder.']
       return;
     }
     // first checks format
-    this.validationResults = this.parseAndValidateCsv();
-
+    this.validationResult = this.parseAndValidateCsv();
     if (this.showErrorsIfInvalid()) {
       return;
     }
@@ -56,36 +61,44 @@ export class BulkOrderCsvComponent implements OnInit {
     }
 
     // for end checks sku existence
-    this.validateItemsBySkuOnExistance();
+    await this.validateItemsWithRealProduct();
     if (this.showErrorsIfInvalid()) {
       return;
     }
 
     this.itemsIsValid = true;
     this.errors = [];
-
+    this.alertsService.success('Bulk order items are successfully validated');
   }
 
-  private showErrorsIfInvalid() {
-    if (this.validationResults.some(x => x.invalid)) {
+  /**
+   * check if exists ivalid item and show errors in that case.
+   * returns True if exist invalid items
+   */
+  private showErrorsIfInvalid(): boolean {
+    if (this.validationResult.some(x => x.invalid)) {
       this.itemsIsValid = false;
-      this.errors = this.validationResults.filter(x => x.invalid).map(x => `Error in line ${x.lineIndex}: ${x.message}`);
+      this.errors = this.validationResult.filter(x => x.invalid).map(x => `Error in line ${x.lineIndex}: ${x.message}`);
       return true;
     }
     return false;
   }
+
+  /**
+   * parse CSV text and validate format. Returns IItemValidationResult[]
+   */
   private parseAndValidateCsv(): IItemValidationResult[] {
     const  csvLines = this.csvText.split(/\r?\n/);
-    const validationResults = [];
+    const validationResult = [];
     if ( csvLines &&  csvLines.length > 0) {
       // tslint:disable-next-line: prefer-for-of
       for (let i = 0; i < csvLines.length; i++) {
         const csvLine = csvLines[i];
         const result = this.parseAndValidateCsvLine(i + 1, csvLine);
-        validationResults.push(result);
+        validationResult.push(result);
       }
     }
-    return validationResults;
+    return validationResult;
   }
 
   private parseAndValidateCsvLine(lineIndex: number, csvLine: string): IItemValidationResult {
@@ -107,15 +120,17 @@ export class BulkOrderCsvComponent implements OnInit {
         bulkOrderItem = new BulkOrderItem(sku, qty);
       }
     }
-    return { lineIndex, invalid, message, bulkOrderItem: new BulkOrderItem('123',  11) };
+    return { lineIndex, invalid, message, bulkOrderItem };
   }
 
-
+  /**
+   * validate parsed items on duplicates by SKU
+   */
   private validateItemsOnDuplicates() {
-    this.validationResults.forEach((r1, i1) => {
-      if (this.validationResults.some((r2, i2) => r2.bulkOrderItem.sku === r1.bulkOrderItem.sku && i2 !== i1) ) {
-        r1.invalid = true;
-        r1.message = 'SKU value is duplicated';
+    this.validationResult.forEach((vr1) => {
+    if (this.validationResult.some((vr2) => vr2.bulkOrderItem.sku === vr1.bulkOrderItem.sku && vr2.lineIndex !== vr1.lineIndex) ) {
+        vr1.invalid = true;
+        vr1.message = 'SKU value is duplicated';
       }
     });
   }
@@ -128,30 +143,45 @@ export class BulkOrderCsvComponent implements OnInit {
     } ));
   }
 
-  private validateItemsBySkuOnExistance() {
-
-    const skuArr = this.validationResults.map(x => x.bulkOrderItem.sku);
-    const requests = skuArr.map(x => this.catalogService.getProductBySku(x));
-    const bySkuResults: IProduct[] = [];
-    of(requests).pipe(concatAll()).subscribe(x => x.subscribe(p => bySkuResults.push(p)));
-    this.validationResults.forEach(r =>  {
-        const products =  bySkuResults.filter(x => x.sku === r.bulkOrderItem.sku );
-        if (products === null || products.length > 1) {
+  /**
+   * validate parsed items on real existence of products with such SKU values
+   */
+  private async validateItemsWithRealProduct() {
+    const skuArr = this.validationResult.map(x => x.bulkOrderItem.sku);
+    const requests = skuArr.map(x => this.getProduct(x));
+    const bySkuResults = await forkJoin(requests).toPromise();
+    this.validationResult.forEach(r =>  {
+        const products =  bySkuResults.filter(x => x && x.sku === r.bulkOrderItem.sku );
+        if (!products || products.length === 0 || products.length > 1) {
           r.invalid = true;
           r.message = 'There is no product with such SKU value';
+        } else {
+          const product = products[0];
+          r.bulkOrderItem.productId = product.id;
+          if (!product.inStock) {
+            r.invalid = true;
+            r.message = 'Product out of shtock!';
+          } else if (r.bulkOrderItem.quantity > product.availableQuantity ) {
+            r.invalid = true;
+            r.message = `The requested quantity of goods ${r.bulkOrderItem.quantity} exceeds the maximum available ${product.availableQuantity}`;
+          }
         }
     });
    }
 
 
   addItemsToCart() {
-    // todo
-    /*
-      сплитим
-      В цикле собираем пакет команд
-      of().pipe(concatAll)
-      сообщение об успешном добавлении
-     */
+    if (!this.itemsIsValid) {
+       return;
+    }
+    const addToCartRequests = this.validationResult.map(x => this.activeOrderService.addItem(x.bulkOrderItem.productId, x.bulkOrderItem.quantity));
+    forkJoin(addToCartRequests)
+    .subscribe(x => {
+      this.itemsIsValid = false;
+      this.alertsService.success(`${this.validationResult.length} items successfully added to the active order.`);
+
+   });
+
   }
 
 }
