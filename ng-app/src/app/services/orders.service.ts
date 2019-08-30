@@ -5,6 +5,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { IOrder, OrderSearchCriteria } from '../models/dto/iorder';
 import { AlertsService } from '../modules/alerts/alerts.service';
 
+
 @Injectable({ providedIn: 'root' })
 export class OrdersService {
   private ordersUrl = 'storefrontapi/orders/search';
@@ -71,11 +72,11 @@ export class OrdersService {
   private handleError(error: any) {
     if (error.status === 500) {
       this.aletsService.error(
-        `An error occurred with code ${error.status} while trying to execute a request to the server`
+        `An error occurred with code ${error.status} while trying to execute a request to the server`, { dismissTimeout: 0 }
       );
     } else if (error.status === 400) {
       this.aletsService.warn(
-        `An error occurred with code ${error.status} while trying to execute a request to the server`
+        `An error occurred with code ${error.status} while trying to execute a request to the server`, { dismissTimeout: 0 }
       );
     }
     return throwError(error);
