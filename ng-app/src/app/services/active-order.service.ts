@@ -1,9 +1,8 @@
-import { Injectable, Output, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { tap, catchError, map, startWith, switchMap } from 'rxjs/operators';
-
+import { tap, catchError } from 'rxjs/operators';
 import { Subject, throwError } from 'rxjs';
-import { ICart, ChangeCartItemQty } from '../models/dto/icart';
+import { ICart, ChangeCartItemQty, AddCartItem } from '../models/dto/icart';
 import { AlertsService } from '../modules/alerts/alerts.service';
 
 @Injectable({ providedIn: 'root' })
@@ -16,7 +15,6 @@ export class ActiveOrderService {
   }
 
   refreshCart() {
-    // todo
     this.getCart();
   }
 
@@ -32,9 +30,8 @@ export class ActiveOrderService {
 
   createOrder() {
     console.log('createOrder');
-    const body = {};
     const url = 'storefrontapi/cart/createorder';
-    return this.http.post<any>(url, body).pipe(
+    return this.http.post<any>(url, {}).pipe(
       tap(x => this.refreshCart()),
       catchError(error => this.handleError(error))
     );
@@ -43,8 +40,7 @@ export class ActiveOrderService {
   clearAllItems() {
     console.log('Clear');
     const url = 'storefrontapi/cart/clear';
-    const body = '{}';
-    return this.http.post<any>(url, body).pipe(
+    return this.http.post<any>(url, {}).pipe(
       tap(x => this.refreshCart()),
       catchError(error => this.handleError(error))
     );
@@ -52,9 +48,9 @@ export class ActiveOrderService {
 
   addItem(productId: string, productQuantity: number = 1) {
     console.log('Add');
-    const body = { id: productId, quantity: productQuantity };
+    const addItemDto =  new AddCartItem(productId, productQuantity); // { id: productId, quantity: productQuantity };
     const url = 'storefrontapi/cart/items';
-    return this.http.post<any>(url, body).pipe(
+    return this.http.post<any>(url, addItemDto).pipe(
       tap(x => this.refreshCart()),
       catchError(error => this.handleError(error))
     );
@@ -71,9 +67,8 @@ export class ActiveOrderService {
 
   changeItemQuantity(lineItemId: string, quantity: number) {
     const url = 'storefrontapi/cart/items';
-    //const body = '{"lineItemId":"' + lineItemId + '","quantity":"' + quantity + '"}';
-    const body = new ChangeCartItemQty(lineItemId, quantity);
-    return this.http.put<any>(url, body).pipe(
+    const changeItemQtyDto = new ChangeCartItemQty(lineItemId, quantity);
+    return this.http.put<any>(url, changeItemQtyDto).pipe(
       tap(x => this.refreshCart()),
       catchError(error => this.handleError(error))
     );
