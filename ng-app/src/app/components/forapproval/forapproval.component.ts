@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PaginationInfo } from 'src/app/models/inner/pagination-info';
-// import { AppConfig } from 'src/app/services/app-config.service';
 import { OrdersService } from 'src/app/services/orders.service';
 import { PageSizeChangedArgs } from '../page-size-selector/page-size-selector.component';
 import { IOrder } from 'src/app/models/dto/iorder';
-import settings_data from 'src/assets/config/config.dev.json';
+import ConfigurationFile from 'src/assets/config/config.dev.json';
 import { IAppConfig } from 'src/app/models/iapp-config';
+import { OrderWorkflowService } from 'src/app/services/order-workflow.service';
+import { AuthorizationService } from 'src/app/services/authorization.service';
 
 @Component({
   selector: 'app-forapproval',
@@ -13,40 +14,46 @@ import { IAppConfig } from 'src/app/models/iapp-config';
   styleUrls: ['./forapproval.component.scss']
 })
 export class ForApprovalComponent implements OnInit {
-  // paginationInfo = new PaginationInfo(AppConfig.settings.defaultPageSize);
-  // pageSizes = AppConfig.settings.pageSizes;
   orders: IOrder[] = [];
-  settings = settings_data as IAppConfig;
-  paginationInfo = new PaginationInfo(this.settings.defaultPageSize);
-  pageSizes = this.settings.pageSizes;
+  configuration = ConfigurationFile as IAppConfig;
+  pagination = new PaginationInfo(this.configuration.defaultPageSize);
+  pageSizes = this.configuration.pageSizes;
   startDate: Date;
   endDate: Date;
-  status: string = 'All';
+  status = 'All';
 
-  constructor(private ordersService: OrdersService) { }
+  constructor(private ordersService: OrdersService,
+    private orderWorkflowService: OrderWorkflowService,
+    private authorizationService: AuthorizationService) { }
 
   ngOnInit() {
-    console.log("forapproval component. getOrders");
     this.getAllOrders();
   }
 
   pageSizeChanged(eventArgs: PageSizeChangedArgs) {
-    this.paginationInfo.pageSize = eventArgs.newPageSize;
+    this.pagination.pageSize = eventArgs.newPageSize;
     this.getAllOrders();
   }
 
   getAllOrders() {
-    this.ordersService
-      .getOrders(this.paginationInfo.page, this.paginationInfo.pageSize,this.startDate,this.endDate,this.status)
-      .subscribe((data: any) => {
-        this.orders = data.results as IOrder[];
-        this.paginationInfo.collectionSize = data.totalCount;
-        console.log('Orders ', this.orders);
-      });
+    const currentUser = this.authorizationService.currentUser;
+    if (currentUser != null) {
+      const currentRoles = currentUser.roles.map((role: any) => role.name);
+      const states = this.orderWorkflowService.getStatesByRoles(currentRoles);
+      if (states.length > 0) {
+        this.ordersService
+          .getOrders(this.pagination.page, this.pagination.pageSize, this.startDate, this.endDate, null, states)
+          .subscribe((data: any) => {
+            this.orders = data.results as IOrder[];
+            this.pagination.collectionSize = data.totalCount;
+          });
+      }
+    } else {
+      throw Error('The current user isn\'t defined');
+    }
   }
 
   pageChanged() {
     this.getAllOrders();
   }
-
 }
