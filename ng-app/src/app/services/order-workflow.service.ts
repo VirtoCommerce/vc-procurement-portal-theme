@@ -53,6 +53,16 @@ export class OrderWorkflowService {
     return this.findRolesInStates(states);
   }
 
+  public getRolesTextByState(state: string): string {
+    const roles = this.getRolesByState(state);
+    if (roles && roles.length > 0) {
+      const result = new Array(roles).join(', ');
+      return result;
+    }
+
+    throw Error(`The predefined roles for \'${state}\' order status aren't been found in the workflow file.`);
+  }
+
   private findRolesInStates(states: any): string[] {
     const roles = new Set<string>();
     states.forEach(state => {

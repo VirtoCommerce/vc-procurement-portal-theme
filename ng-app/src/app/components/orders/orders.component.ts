@@ -73,14 +73,4 @@ export class OrdersComponent implements OnInit {
   pageChanged() {
     this.getAllOrders();
   }
-
-  getWorkflowRolesByOrderStatus(orderStatus: string): string {
-    const roles = this.orderWorkflowService.getRolesByState(orderStatus);
-    if (roles && roles.length > 0) {
-      const result = new Array(roles).join(', ');
-      return result;
-    }
-
-    throw Error(`The predefined roles for \'${orderStatus}\' order status aren't been found in the workflow file.`);
-  }
 }

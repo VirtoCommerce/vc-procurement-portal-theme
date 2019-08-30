@@ -52,7 +52,7 @@
           <td>{{order.createdDate | date: 'EEE, dd/MM '}}</td>
           <td>{{order.items.length}}</td>
           <td>{{order.createdBy}}</td>
-          <td>{{getWorkflowRolesByOrderStatus(order.status)}}</td>
+          <td>{{orderWorkflowService.getRolesTextByState(order.status)}}</td>
           <td>{{order.total.formattedAmount}}</td>
           </tr>
         </tbody>
