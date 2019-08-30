@@ -4,6 +4,8 @@ import { Subject, Subscription, EMPTY } from 'rxjs';
 import { ActiveOrderService } from 'src/app/services/active-order.service';
 import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { MobileViewService } from 'src/app/services/mobile-view.service';
+import { ActiveOrderMobileComponent } from '../active-order-mobile/active-order-mobile.component';
 
 @Component({
   selector: 'app-change-product-quantity-active-order',
@@ -16,11 +18,13 @@ export class ChangeProductQuantityActiveOrderComponent implements OnInit, OnDest
   cart: ICart;
   @Input()
   lineItem: ILineItem;
+  @Input()
+  activeOrderMobileSidebar: ActiveOrderMobileComponent;
 
   productQuantity$ = new Subject<number>();
   private quantitySub: Subscription;
 
-  constructor(private readonly activeOrderService: ActiveOrderService, private confirmService: ConfirmService) {
+  constructor(private readonly activeOrderService: ActiveOrderService, private confirmService: ConfirmService, private mobileSidebarService: MobileViewService) {
    }
 
   ngOnInit() {
@@ -36,6 +40,7 @@ export class ChangeProductQuantityActiveOrderComponent implements OnInit, OnDest
   }
 
   removeItem(item: ILineItem) {
+    if (this.activeOrderMobileSidebar) { this.mobileSidebarService.closeSidebar(this.activeOrderMobileSidebar); }
     const confirmOptions = { title: 'Line item removing', message: 'Are you sure you want to remove this line item from the active order?' };
     this.confirmService.confirm(confirmOptions).then(() => this.activeOrderService.removeItem(item.id).subscribe(), () => { });
   }

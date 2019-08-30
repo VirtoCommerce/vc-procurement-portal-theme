@@ -29,7 +29,7 @@
               <div class="order__item-descr">Description item</div>
               <div class="order__item-other">
                   <div class="order__item-price">{{item.extendedPrice.formattedAmount}}</div>
-                  <app-change-product-quantity-active-order [cart]="cart" [lineItem]="item"></app-change-product-quantity-active-order>
+                  <app-change-product-quantity-active-order [activeOrderMobileSidebar]="this" [cart]="cart" [lineItem]="item"></app-change-product-quantity-active-order>
               </div>
           </div>
           <a [ngClass]="{'disabled': cart.itemsCount === 0}" (click)="checkout(cart)" class="btn btn--lg btn--green btn--block mt-auto">Checkout</a>
