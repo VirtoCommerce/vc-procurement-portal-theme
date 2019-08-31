@@ -22,21 +22,19 @@ export class ForApprovalComponent implements OnInit {
   endDate: Date;
   status = 'All';
 
-  constructor(private ordersService: OrdersService,
-    private orderWorkflowService: OrderWorkflowService,
-    private authorizationService: AuthorizationService) { }
+  constructor(private ordersService: OrdersService, private orderWorkflowService: OrderWorkflowService, private authorizationService: AuthorizationService) { }
 
-  ngOnInit() {
-    this.getAllOrders();
+  async ngOnInit() {
+    await this.getAllOrders();
   }
 
-  pageSizeChanged(eventArgs: PageSizeChangedArgs) {
+  async pageSizeChanged(eventArgs: PageSizeChangedArgs) {
     this.pagination.pageSize = eventArgs.newPageSize;
-    this.getAllOrders();
+    await this.getAllOrders();
   }
 
-  getAllOrders() {
-    const currentUser = this.authorizationService.currentUser;
+  async getAllOrders() {
+    const currentUser = await this.authorizationService.getCurrentUser();
     if (currentUser != null) {
 
       // todo: get roles of the current user (not platform roles)
@@ -56,7 +54,7 @@ export class ForApprovalComponent implements OnInit {
     }
   }
 
-  pageChanged() {
-    this.getAllOrders();
+  async pageChanged() {
+    await this.getAllOrders();
   }
 }

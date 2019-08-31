@@ -11,6 +11,7 @@ import {
 import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { AlertsService } from '../modules/alerts/alerts.service';
+import { IUser } from '../models/dto/iuser';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -65,7 +66,7 @@ export class UserService {
 
   getCurrentUser() {
     console.log('getCurrentUser');
-    return this.http.get<User>('storefrontapi/account?t=').pipe(
+    return this.http.get<IUser>('storefrontapi/account?t=').pipe(
       tap(user => {
         this.log(`fetched user:` + user);
       }),

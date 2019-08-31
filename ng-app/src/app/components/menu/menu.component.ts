@@ -5,6 +5,7 @@ import {
 import { MobileViewService } from 'src/app/services/mobile-view.service';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 import { of, Observable, BehaviorSubject } from 'rxjs';
+import { RoleEnum } from 'src/app/models/role';
 
 @Component({
   selector: 'app-menu',
@@ -13,7 +14,7 @@ import { of, Observable, BehaviorSubject } from 'rxjs';
 })
 export class MenuComponent implements OnInit {
   isOpen = false;
-  isAdmin: Observable<boolean>;
+  isAdmin: Promise<boolean>;
   constructor(
     private router: Router,
     private mobileSidebarService: MobileViewService,
@@ -22,7 +23,7 @@ export class MenuComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.isAdmin = this.authService.isAdmin;
+    this.isAdmin = this.authService.checkPermission(RoleEnum.Admin);
   }
 
   openMobileMenu() {
