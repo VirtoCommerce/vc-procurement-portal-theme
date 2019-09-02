@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { IUser } from '../models/dto/iuser';
 import { RoleEnum } from '../models/role';
-import { enumToStringArray } from '../helpers/enum.helper';
 
 @Injectable({
   providedIn: 'root'
@@ -29,17 +28,16 @@ export class AuthorizationService {
    *
    * @param roles for check permission by roles
    */
-  async checkPermission(roles: RoleEnum): Promise<boolean> {
+  async checkPermission( ...roles: RoleEnum[]): Promise<boolean> {
     const u = await this.getCurrentUser();
-    const stringRoles = enumToStringArray(roles);
-    if (stringRoles.length < 1) {
+    // const stringRoles = enumToStringArray(roles);
+    if (roles.length < 1) {
       return false;
     }
 
-    if (stringRoles.every(r => u.roles.some(x => x.id === r))) {
+    if (roles.every(r => u.roles.some(x => x.id === r))) {
       return true;
     }
-
     return false;
   }
 
