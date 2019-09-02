@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap, catchError, map } from 'rxjs/operators';
-import { Observable, of, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 import { IOrder, OrderSearchCriteria } from '../models/dto/iorder';
 import { AlertsService } from '../modules/alerts/alerts.service';
 
 
 @Injectable({ providedIn: 'root' })
 export class OrdersService {
-  private ordersUrl = 'storefrontapi/orders/search';
-  private approvalWorkflowUrl = 'api/approvalWorkflow';
-  private orderUrl = 'storefrontapi/orders';
+  private baseUrl = 'storefrontapi/orders';
 
-  constructor(private http: HttpClient, private aletsService: AlertsService) {}
+  constructor(private http: HttpClient, private alertsService: AlertsService) { }
 
   getOrders(
     pageNumber: number = 1,
@@ -37,7 +35,8 @@ export class OrdersService {
       searchCriteria.Statuses = statuses;
     }
 
-    return this.http.post(this.ordersUrl, searchCriteria).pipe(
+    const url = this.baseUrl + '/search';
+    return this.http.post(url, searchCriteria).pipe(
       tap(orders => {
         this.log(`fetched ordersUrl:` + orders);
       }),
@@ -46,7 +45,7 @@ export class OrdersService {
   }
 
   getOrder(OrderNumber: string) {
-    return this.http.get(this.orderUrl + `/${OrderNumber}`).pipe(
+    return this.http.get(this.baseUrl + `/${OrderNumber}`).pipe(
       tap(order => {
         this.log(`fetched ordersUrl:` + order);
       }),
@@ -56,26 +55,25 @@ export class OrdersService {
 
   updateOrder(order: IOrder): Observable<IOrder> {
     return this.http
-      .post<IOrder>(this.ordersUrl, order)
+      .post<IOrder>(this.baseUrl, order)
       .pipe(catchError(error => this.handleError(error)));
   }
 
-  getApprovalWorkflow() {
-    return this.http.get(this.approvalWorkflowUrl).pipe(
-      tap(workflow => {
-        this.log(`fetched approvalWorkflowUrl:` + workflow);
-      }),
-      catchError(error => this.handleError(error))
-    );
+  async changeOrderStatus(orderNumber: string, newStatus: string): Promise<IOrder> {
+    const url = this.baseUrl + `/${orderNumber}/status`;
+    const payload = { newStatus };
+    return await this.http.put<any>(url, payload)
+    .pipe(catchError(error => this.handleError(error)))
+    .toPromise();
   }
 
   private handleError(error: any) {
     if (error.status === 500) {
-      this.aletsService.error(
+      this.alertsService.error(
         `An error occurred with code ${error.status} while trying to execute a request to the server`, { dismissTimeout: 0 }
       );
     } else if (error.status === 400) {
-      this.aletsService.warn(
+      this.alertsService.warn(
         `An error occurred with code ${error.status} while trying to execute a request to the server`, { dismissTimeout: 0 }
       );
     }

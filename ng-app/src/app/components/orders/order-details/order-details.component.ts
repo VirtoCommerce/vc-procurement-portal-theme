@@ -62,4 +62,26 @@ export class OrderDetailsComponent implements OnInit {
       this.activeOrderService.addItem(item.productId, item.quantity).subscribe();
     });
   }
+
+  public async onTransitionButtonClick(trigger: string) {
+    const newStatus = trigger;
+    const oldStatus = this.order.status;
+
+    if (this.order.status === trigger) {
+      return;
+    }
+
+    this.orderStateTransitions = this.orderWorkflowService.getRoleTransitions(newStatus, this.currentUser.role.name);
+
+    try {
+      await this.ordersService.changeOrderStatus(this.order.number, newStatus);
+      this.order.status = newStatus;
+
+      // I think this is superfluous thing
+      this.status = this.order.status;
+    } catch (error) {
+      this.order.status = oldStatus;
+      this.orderStateTransitions = this.orderWorkflowService.getRoleTransitions(oldStatus, this.currentUser.role.name);
+    }
+  }
 }

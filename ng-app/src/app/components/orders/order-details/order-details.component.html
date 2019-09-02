@@ -111,13 +111,19 @@
                 </div>
             </div>
         </div>
+
         <div class="order__actions" *ngIf="order">
-            <a (click)="addProductToCart()" class="btn btn--green mr-2">Add to current Order</a>
-            <a class="btn btn--outline mr-2" [routerLink]="['/invoice',order.number]">View Invoice</a>
-            <div *ngFor="let transition of orderStateTransitions">
-                <a class="btn btn--outline mr-2">{{transition.trigger}}</a>
-            </div>
+          <button class="btn btn--green" (click)="addProductToCart()">Add to current Order</button>
+          <button class="btn btn--outline" [routerLink]="['/invoice',order.number]">View Invoice</button>
         </div>
+
+          <div class="order__actions">
+            <div *ngFor="let transition of orderStateTransitions">
+              <button class="btn btn--outline mr-3" style="min-width: 150px;" (click)="onTransitionButtonClick(transition.trigger)">{{transition.trigger}}</button>
+            </div>
+          </div>
+
+
         <app-mobile-cart-summary [activeOrderMobileSidebar]="mobileOrderSidebar"></app-mobile-cart-summary>
     </div>
     <div class="sidebar sidebar--bg-gray d-none d-lg-block">
