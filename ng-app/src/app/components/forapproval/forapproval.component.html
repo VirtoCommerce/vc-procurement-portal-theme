@@ -35,7 +35,7 @@
         </thead>
         <tbody *ngFor="let order of orders">
           <tr>
-            <td>{{order.number}}</td>
+            <td><a [routerLink]="['/order-details',order.number]">{{order.number}}</a></td>
             <td>
               <span class="text--blue">{{order.status}}</span>
             </td>
