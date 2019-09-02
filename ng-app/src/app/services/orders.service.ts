@@ -9,7 +9,6 @@ import { AlertsService } from '../modules/alerts/alerts.service';
 @Injectable({ providedIn: 'root' })
 export class OrdersService {
   private ordersUrl = 'storefrontapi/orders/search';
-  private approvalWorkflowUrl = 'api/approvalWorkflow';
   private orderUrl = 'storefrontapi/orders';
 
   constructor(private http: HttpClient, private aletsService: AlertsService) {}
@@ -58,15 +57,6 @@ export class OrdersService {
     return this.http
       .post<IOrder>(this.ordersUrl, order)
       .pipe(catchError(error => this.handleError(error)));
-  }
-
-  getApprovalWorkflow() {
-    return this.http.get(this.approvalWorkflowUrl).pipe(
-      tap(workflow => {
-        this.log(`fetched approvalWorkflowUrl:` + workflow);
-      }),
-      catchError(error => this.handleError(error))
-    );
   }
 
   private handleError(error: any) {
