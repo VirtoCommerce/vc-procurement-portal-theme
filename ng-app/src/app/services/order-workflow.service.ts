@@ -12,7 +12,7 @@ export class OrderWorkflowService {
     this._workflow = Object.assign({}, Workflow);
   }
 
-  public getRoleTransitions(currentState: string, currentRole: string): OrderStateTransitionResult {
+  public getRoleTransitions(currentState: string, currentRole: string): OrderStateTransitionResult[] {
     let result = null;
 
     const targetState = this._workflow.States.find(state => state.Name === currentState);
