@@ -11,39 +11,121 @@ import { ForApprovalDetailsComponent } from './components/forapproval/forapprova
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { InvoiceComponent } from './components/orders/invoice/invoice.component';
 import { AuthGuard } from './services';
-
+import { RoleEnum } from './models/role';
+import { ForbiddenComponent } from './components/container/forbidden/forbidden.component';
 
 const routes: Routes = [
-
-    // basic routes
-    //{ path: '', redirectTo: 'catalog', pathMatch: 'full', canActivate: [AuthGuard] },
-    //{ path: 'catalog', component: CatalogComponent, canActivate: [AuthGuard] },
-    //{ path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
-    //{ path: 'forapproval', component: ForApprovalComponent, canActivate: [AuthGuard] },
-    //{ path: 'company', component: CompanyComponent, canActivate: [AuthGuard] },
-    //{ path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
-    //{ path: 'login', component: LoginComponent },
-    //{ path: 'activeorder', component: ActiveOrderSummaryComponent, canActivate: [AuthGuard] },
-    //{ path: 'invoice', component: ActiveOrderPostCheckoutComponent, canActivate: [AuthGuard] },
-    //{ path: 'bulkorder', component: BulkOrderComponent, canActivate: [AuthGuard] },
-    //{ path: 'order-details/:id', component: OrderDetailsComponent, canActivate: [AuthGuard] },
-    //{ path: 'forapproval-details/:id', component: ForApprovalDetailsComponent, canActivate: [AuthGuard] }
-
-  { path: '', redirectTo: 'catalog', pathMatch: 'full'},
-  { path: 'catalog', component: CatalogComponent},
-  { path: 'product-details/:id', component: ProductDetailsComponent },
-  { path: 'orders', component: OrdersComponent},
-  { path: 'forapproval', component: ForApprovalComponent},
-  { path: 'company', component: CompanyComponent, canActivate: [AuthGuard]},
-  { path: 'account', component: AccountComponent},
-  { path: 'bulkorder', component: BulkOrderComponent},
-  { path: 'order-details/:id', component: OrderDetailsComponent },
-  { path: 'forapproval-details/:id', component: ForApprovalDetailsComponent},
-  { path: 'invoice/:id', component: InvoiceComponent }
+  { path: '', redirectTo: 'catalog', pathMatch: 'full' },
+  {
+    path: 'catalog',
+    component: CatalogComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permission: {
+        roles: [RoleEnum.Admin, RoleEnum.Manager],
+        redirectTo: 'forbidden'
+      }
+    }
+  },
+  {
+    path: 'product-details/:id',
+    component: ProductDetailsComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permission: {
+        roles: [RoleEnum.Admin, RoleEnum.Manager],
+        redirectTo: 'forbidden'
+      }
+    }
+  },
+  {
+    path: 'orders',
+    component: OrdersComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permission: {
+        roles: [RoleEnum.Admin, RoleEnum.Manager],
+        redirectTo: 'forbidden'
+      }
+    }
+  },
+  {
+    path: 'forapproval',
+    component: ForApprovalComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permission: {
+        roles: [RoleEnum.Admin, RoleEnum.Manager],
+        redirectTo: 'forbidden'
+      }
+    }
+  },
+  {
+    path: 'company',
+    component: CompanyComponent,
+    canActivate: [AuthGuard],
+    data: { permission: { roles: [RoleEnum.Admin], redirectTo: 'forbidden' } }
+  },
+  {
+    path: 'account',
+    component: AccountComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permission: {
+        roles: [RoleEnum.Admin, RoleEnum.Manager],
+        redirectTo: 'forbidden'
+      }
+    }
+  },
+  {
+    path: 'bulkorder',
+    component: BulkOrderComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permission: {
+        roles: [RoleEnum.Admin, RoleEnum.Manager],
+        redirectTo: 'forbidden'
+      }
+    }
+  },
+  {
+    path: 'order-details/:id',
+    component: OrderDetailsComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permission: {
+        roles: [RoleEnum.Admin, RoleEnum.Manager],
+        redirectTo: 'forbidden'
+      }
+    }
+  },
+  {
+    path: 'forapproval-details/:id',
+    component: ForApprovalDetailsComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permission: {
+        roles: [RoleEnum.Admin, RoleEnum.Manager],
+        redirectTo: 'forbidden'
+      }
+    }
+  },
+  {
+    path: 'invoice/:id',
+    component: InvoiceComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permission: {
+        roles: [RoleEnum.Admin, RoleEnum.Manager],
+        redirectTo: 'forbidden'
+      }
+    }
+  },
+  { path: 'forbidden', component: ForbiddenComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

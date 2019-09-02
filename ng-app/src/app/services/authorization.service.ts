@@ -35,7 +35,7 @@ export class AuthorizationService {
       return false;
     }
 
-    if (roles.every(r => u.roles.some(x => x.id === r))) {
+    if (roles.some(r => u.roles.some(x => x.id === r))) {
       return true;
     }
     return false;
