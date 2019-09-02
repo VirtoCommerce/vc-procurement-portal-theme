@@ -60,7 +60,9 @@ export class OrderWorkflowService {
       return result;
     }
 
-    throw Error(`The predefined roles for \'${state}\' order status aren't been found in the workflow file.`);
+    // throw Error(`The predefined roles for \'${state}\' order status aren't been found in the workflow file.`);
+
+    return 'N/A';
   }
 
   private findRolesInStates(states: any): string[] {
