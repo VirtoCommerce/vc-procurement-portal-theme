@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { Subject, Observable, iif, of } from 'rxjs';
+import { Subject, Observable, iif, of, forkJoin } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged, switchMap, exhaust, exhaustMap, every, map, filter, tap, catchError } from 'rxjs/operators';
 import { CatalogService } from 'src/app/services';
 import { IProduct } from 'src/app/models/dto/product';
 import { ActiveOrderService } from 'src/app/services/active-order.service';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { AlertsService } from 'src/app/modules/alerts/alerts.service';
 
 @Component({
   selector: 'app-bulk-order-manual',
@@ -32,7 +33,8 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private catalogService: CatalogService,
-    private activeOrderService: ActiveOrderService
+    private activeOrderService: ActiveOrderService,
+    private alertsService: AlertsService
   ) {
     const itemsForms: FormGroup[] = [];
     for (let i = 0; i < this.defaultItemsCount; i++) {
@@ -67,11 +69,14 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
   }
 
   addItemsToCart() {
-    for (const itemForm of this.items.controls as FormGroup[]) {
+    const addToCartRequests =  (this.items.controls as FormGroup[]).map( itemForm => {
       const productId = itemForm.get('id').value;
       const quantity = itemForm.get('qty').value;
-      this.activeOrderService.addItem(productId, quantity).subscribe();
-    }
+      return this.activeOrderService.addItem(productId, quantity);
+    });
+
+    forkJoin(addToCartRequests)
+    .subscribe(() => this.alertsService.success(`${this.items.controls.length} items successfully added to the active order.`) );
   }
 
   suggestedProductsFormatter = (item: {name: string}) => item.name;
