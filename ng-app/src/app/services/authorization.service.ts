@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { IUser } from '../models/dto/iuser';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { RoleEnum } from '../models/role';
 import { enumToStringArray } from '../helpers/enum.helper';
 

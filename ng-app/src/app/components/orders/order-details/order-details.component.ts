@@ -1,14 +1,13 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { Observable } from 'rxjs';
-//import { Store, select } from '@ngrx/store';
-import { catchError, map, tap, pluck, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { IOrder, IOrderItem, IOrderComment } from '../../../models/dto/iorder';
 import { OrdersService } from '../../../services/orders.service';
 import { ActiveOrderService } from 'src/app/services/active-order.service';
+import { OrderWorkflowService } from 'src/app/services/order-workflow.service';
+import { AuthorizationService } from 'src/app/services/authorization.service';
+import { OrderStateTransitionResult } from 'src/app/models/order-state-transition-result';
+import { IUser } from 'src/app/models/dto/iuser';
 
 @Component({
   selector: 'app-order-details',
@@ -18,7 +17,6 @@ import { ActiveOrderService } from 'src/app/services/active-order.service';
 export class OrderDetailsComponent implements OnInit {
   isForApprove: boolean;
   id: any;
-  private sub: any;
   order: IOrder;
   items: IOrderItem[];
   comments: IOrderComment[];
@@ -27,22 +25,19 @@ export class OrderDetailsComponent implements OnInit {
   total: string;
   createdBy: string;
   status: string;
+  currentUser: IUser;
+  orderStateTransitions: OrderStateTransitionResult[];
 
   constructor(
     private ordersService: OrdersService,
     private route: ActivatedRoute,
-    private readonly activeOrderService: ActiveOrderService
-  ) {}
+    private readonly activeOrderService: ActiveOrderService,
+    private orderWorkflowService: OrderWorkflowService,
+    private authorizationService: AuthorizationService
+  ) { }
 
-  ngOnInit() {
-    // this.ordersService.getOrders().subscribe((data: any) => {
-    //   let orders = data.results as IOrder[];
-    //   orders = orders.filter(order => order.id === this.id);
-    //   this.order = orders[0] as IOrder;
-    //   this.items = orders[0].items as IOrderItem[];
-    //   this.comments = orders[0].comments as IOrderComment[];
-    // });
-    console.log(this.route.params);
+  async ngOnInit() {
+    this.currentUser = await this.authorizationService.getCurrentUser();
     this.route.paramMap
       .pipe(switchMap(params => this.ordersService.getOrder(params.get('id'))))
       .subscribe((data: any) => {
@@ -53,8 +48,8 @@ export class OrderDetailsComponent implements OnInit {
         this.total = this.order.total.formattedAmount;
         this.createdBy = this.order.createdBy;
         this.status = this.order.status;
-        console.log('Order: ', this.order);
-        console.log('Items: ', this.items);
+
+        this.orderStateTransitions = this.orderWorkflowService.getRoleTransitions(this.order.status, this.currentUser.role.name);
       });
   }
 

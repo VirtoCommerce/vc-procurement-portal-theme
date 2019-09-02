@@ -15,7 +15,7 @@ import { IUser } from '../models/dto/iuser';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  constructor(private http: HttpClient, private aletsService: AlertsService) {}
+  constructor(private http: HttpClient, private alertsService: AlertsService) {}
 
   getAll() {
     return this.http
@@ -83,11 +83,11 @@ export class UserService {
 
   private handleError(error: any) {
     if (error.status === 500) {
-      this.aletsService.error(
+      this.alertsService.error(
         `An error occurred with code ${error.status} while trying to execute a request to the server`, { dismissTimeout: 0 }
       );
     } else if (error.status === 400) {
-      this.aletsService.warn(
+      this.alertsService.warn(
         `An error occurred with code ${error.status} while trying to execute a request to the server`, { dismissTimeout: 0 }
       );
     }
