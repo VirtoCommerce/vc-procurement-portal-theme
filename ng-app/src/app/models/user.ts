@@ -11,24 +11,16 @@ export class User {
     organizationId: string;
 }
 
-export class AddNewUser {
-  userName: string;
-  password: string;
-  firstName: string;
-  fullName: string;
-  lastName: string;
-  role: string;
-  email: string;
-  organizationId: string;
-}
-
 export class EditUser {
+  id: string;
+  organizationId: string;
+  email: string;
   firstName: string;
   lastName: string;
-  fullName: string;
-  roles: Array<string>;
-  email: string;
-  id: string;
+  password: string;
+  selectRole: string;
+  selectedWorkflowRole: string;
+  userName: string;
 }
 
 export class EditUserPassword {

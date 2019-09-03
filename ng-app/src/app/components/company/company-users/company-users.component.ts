@@ -5,7 +5,6 @@ import { PaginationInfo } from 'src/app/models/inner/pagination-info';
 import { UserService } from 'src/app/services/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserConverterService } from 'src/app/services/converters/user-converter.service';
-import { OrganizationService } from 'src/app/services/organization.service';
 import { PageSizeChangedArgs } from '../../page-size-selector/page-size-selector.component';
 import { IOrganization } from 'src/app/models/dto/iorganization';
 import settings_data from 'src/assets/config/config.dev.json';
@@ -13,6 +12,8 @@ import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-serv
 import { EditCompanyUserModalFormComponent } from '../edit-company-user-modal-form/edit-company-user-modal-form.component';
 import { AlertsService } from 'src/app/modules/alerts/alerts.service';
 import { GenericSearchResult } from 'src/app/models/dto/common/generic-search-result';
+import { EditUser } from 'src/app/models/user';
+import { WorkflowUserRoleStorageService } from 'src/app/services/workflow-user-role-storage.service';
 
 @Component({
   selector: 'app-company-users',
@@ -32,7 +33,8 @@ export class CompanyUsersComponent implements OnInit {
     private modalService: NgbModal,
     private userConverter: UserConverterService,
     private confirmService: ConfirmService,
-    private aletsService: AlertsService
+    private aletsService: AlertsService,
+    private workflowUserRolesStorage: WorkflowUserRoleStorageService
   ) {}
 
   ngOnInit() {
@@ -78,8 +80,9 @@ export class CompanyUsersComponent implements OnInit {
       centered: true,
       backdrop: 'static'
     });
-    modalRef.result.then(result => {
-      const user = this.userConverter.toAddUser(result, this.organization);
+    modalRef.result.then((result: EditUser) => {
+      result.organizationId = this.organization.id;
+      const user = this.userConverter.toAddUserDto(result);
       this.userService.registerNewUser(user).subscribe(() => {
         this.fetchUsers();
         this.aletsService.success(`User ${user.userName} is created successfuly!`);
@@ -87,16 +90,20 @@ export class CompanyUsersComponent implements OnInit {
     }, () => { });
   }
 
-  openEditUserModal(user: IUser) {
+  openEditUserModal(user: ExtendedUser) {
     const modalRef = this.modalService.open(EditCompanyUserModalFormComponent, {
       centered: true,
       backdrop: 'static'
     });
-    modalRef.componentInstance.user = user;
+    modalRef.componentInstance.user =  this.userConverter.toEditUser(user);
     modalRef.componentInstance.editUserMode = true;
-    modalRef.result.then(result => {
-      const updatedUser = this.userConverter.toEditUser(result, user);
+    modalRef.result.then((result: EditUser) => {
+      result.id = user.id;
+      const updatedUser = this.userConverter.toEditUserDto(result);
       this.userService.updateUser(updatedUser).subscribe(() => {
+        if (result.selectedWorkflowRole) {
+          this.workflowUserRolesStorage.updateUserRoles(user.id, [result.selectedWorkflowRole]);
+        }
         this.fetchUsers();
         this.aletsService.success(`User ${user.userName} is updated successfuly!`);
       });

@@ -1,43 +1,41 @@
 import { Injectable } from '@angular/core';
-import { AddNewUser, EditUser, EditUserPassword, EditUserPhone } from '../../models/user';
-import { IUser, ExtendedUser } from 'src/app/models/dto/iuser';
-import { IOrganization } from 'src/app/models/dto/iorganization';
-import { UserViewAddUserModel, UserViewEditUserModel } from 'src/app/models/form';
+import { IUser, ExtendedUser, AddNewUserDto, EditUserDto } from 'src/app/models/dto/iuser';
+import { EditUser, EditUserPhone } from 'src/app/models/user';
+import { WorkflowUserRoleStorageService } from '../workflow-user-role-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserConverterService {
 
-  constructor() { }
+  constructor(private workflowUserRolesStorage: WorkflowUserRoleStorageService) { }
 
-  toAddUser(userView: UserViewAddUserModel , organization: IOrganization ): AddNewUser {
-    const result = new AddNewUser();
-    result.email = userView.email;
-    result.firstName = userView.firstName;
-    result.lastName = userView.lastName;
-    result.fullName = `${userView.firstName} ${userView.lastName}`;
-    result.organizationId = organization.id;
-    result.password = userView.password;
-    result.role = userView.selectRole;
-    result.userName = userView.userName;
+  toAddUserDto(viewModel: EditUser ): AddNewUserDto {
+    const result = new AddNewUserDto();
+    result.email = viewModel.email;
+    result.firstName = viewModel.firstName;
+    result.lastName = viewModel.lastName;
+    result.fullName = `${viewModel.firstName} ${viewModel.lastName}`;
+    result.organizationId = viewModel.id;
+    result.password = viewModel.password;
+    result.role = viewModel.selectRole;
+    result.userName = viewModel.userName;
     return result;
   }
 
-  toEditUser(userView: UserViewEditUserModel, user: IUser): EditUser {
-    const result = new EditUser();
-    result.roles = [];
-    result.firstName = userView.firstName;
-    result.lastName = userView.lastName;
-    result.fullName = `${userView.firstName} ${userView.lastName}`;
-    result.roles.push(userView.selectRole);
-    result.email = userView.email;
-    result.id = user.id;
+  toEditUserDto(viewModel: EditUser): EditUserDto {
+    const result = new EditUserDto();
+    result.firstName = viewModel.firstName;
+    result.lastName = viewModel.lastName;
+    result.fullName = `${viewModel.firstName} ${viewModel.lastName}`;
+    result.roles = [viewModel.selectRole];
+    result.email = viewModel.email;
+    result.id = viewModel.id;
     return result;
   }
 
-  toEditCurrentAccount(userView: IUser): EditUser {
-    const result = new EditUser();
+  toEditCurrentAccount(userView: IUser): EditUserDto {
+    const result = new EditUserDto();
     result.roles = [];
     result.firstName = userView.firstName;
     result.lastName = userView.lastName;
@@ -51,6 +49,19 @@ export class UserConverterService {
   toEditCurrentAccountPhoneNumber(userView: IUser): EditUserPhone {
     const result = new EditUserPhone();
     result.phoneNumber = userView.phoneNumber;
+    return result;
+  }
+
+  toEditUser(user: ExtendedUser): EditUser {
+    const workRoles = this.workflowUserRolesStorage.getUserRoles(user.id);
+    const result = new EditUser();
+    result.id = user.id;
+    result.userName = user.userName;
+    result.firstName = user.firstName;
+    result.lastName = user.lastName;
+    result.organizationId = user.organizationId;
+    result.selectRole = user.role.id;
+    result.selectedWorkflowRole = workRoles.length > 0 ? workRoles[0] : null;
     return result;
   }
 

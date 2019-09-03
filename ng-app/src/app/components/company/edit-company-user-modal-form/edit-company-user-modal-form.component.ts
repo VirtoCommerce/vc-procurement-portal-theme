@@ -15,6 +15,7 @@ export class EditCompanyUserModalFormComponent implements OnInit {
   @Input() editUserMode: boolean;
   changePassword: boolean;
   workflowRoles: string[];
+  selectedWorkflowRole: string = null;
 
   constructor(public activeModal: NgbActiveModal, private workflowService: OrderWorkflowService) {
     this.workflowRoles = this.workflowService.getRoles();
@@ -26,7 +27,7 @@ export class EditCompanyUserModalFormComponent implements OnInit {
     }
   }
 
-  passBack(userView) {
+  passBack(userView: NgForm) {
     if (userView.form.valid) {
       this.activeModal.close(userView.value);
     }

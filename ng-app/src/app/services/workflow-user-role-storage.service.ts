@@ -41,6 +41,7 @@ export class WorkflowUserRoleStorageService {
     } else {
       this.rolesStrorage.push(new WorkflowUserRolesRecord(userId, roles));
     }
+    localStorage.setItem(ROLES_STORAGE_ITEM_KEY, JSON.stringify(this.rolesStrorage));
   }
 
   getUserRoles(userId: string): string[] {

@@ -2,15 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import {
-  AddNewUser,
-  EditUser,
   EditUserPassword,
   EditUserPhone
 } from '../models/user';
 import { tap, catchError, map } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
 import { AlertsService } from '../modules/alerts/alerts.service';
-import { IUser, OrganisationUsersSearchCriteria, ExtendedUser } from '../models/dto/iuser';
+import { IUser, OrganisationUsersSearchCriteria, ExtendedUser, AddNewUserDto, EditUserDto } from '../models/dto/iuser';
 import { GenericSearchResult } from '../models/dto/common/generic-search-result';
 import { UserConverterService } from './converters/user-converter.service';
 
@@ -32,7 +30,7 @@ export class UserService {
       }), catchError(error => this.handleError(error)));
   }
 
-  updateUser(user: EditUser): Observable<any> {
+  updateUser(user: EditUserDto): Observable<any> {
     const url = 'storefrontapi/account';
     return this.http
       .post(url, user)
@@ -70,7 +68,7 @@ export class UserService {
     );
   }
 
-  registerNewUser(user: AddNewUser): Observable<any> {
+  registerNewUser(user: AddNewUserDto): Observable<any> {
     const url = 'storefrontapi/account/user';
     return this.http
       .post(url, user)

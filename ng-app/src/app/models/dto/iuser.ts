@@ -6,6 +6,27 @@ import { ISecurityAccount } from './common/security-account';
 import { PagedSearchCriteria } from './common/paged-search-criteria';
 
 
+export class AddNewUserDto {
+  userName: string;
+  password: string;
+  firstName: string;
+  fullName: string;
+  lastName: string;
+  role: string;
+  email: string;
+  organizationId: string;
+}
+
+export class EditUserDto {
+  firstName: string;
+  lastName: string;
+  fullName: string;
+  roles: Array<string>;
+  email: string;
+  id: string;
+}
+
+
 export class OrganisationUsersSearchCriteria extends PagedSearchCriteria {
   OrganizationId: string;
   Sort: string;
