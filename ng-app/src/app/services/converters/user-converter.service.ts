@@ -16,7 +16,7 @@ export class UserConverterService {
     result.firstName = viewModel.firstName;
     result.lastName = viewModel.lastName;
     result.fullName = `${viewModel.firstName} ${viewModel.lastName}`;
-    result.organizationId = viewModel.id;
+    result.organizationId = viewModel.organizationId;
     result.password = viewModel.password;
     result.role = viewModel.selectRole;
     result.userName = viewModel.userName;
@@ -41,7 +41,7 @@ export class UserConverterService {
     result.lastName = userView.lastName;
     result.fullName = `${userView.firstName} ${userView.lastName}`;
     result.email = userView.email;
-    result.roles = userView.roles.map(x => x.id) ;
+    result.roles = userView.roles.map(x => x.id);
     result.id = userView.id;
     return result;
   }
@@ -56,6 +56,7 @@ export class UserConverterService {
     const workRoles = this.workflowUserRolesStorage.getUserRoles(user.id);
     const result = new EditUser();
     result.id = user.id;
+    result.email = user.email;
     result.userName = user.userName;
     result.firstName = user.firstName;
     result.lastName = user.lastName;
@@ -66,7 +67,8 @@ export class UserConverterService {
   }
 
   toExtendedUser(user: IUser ): ExtendedUser {
-    return  {...user, workflowRoles: []};
+    const workflowRoles = this.workflowUserRolesStorage.getUserRoles(user.id);
+    return  {...user, workflowRoles};
   }
 }
 
