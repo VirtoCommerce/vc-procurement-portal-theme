@@ -64,7 +64,7 @@
       [ngClass]="{ 'is-invalid': workflowRole.invalid && (workflowRole.dirty || workflowRole.touched) }"
       [(ngModel)]="selectedWorkflowRole" #workflowRole="ngModel">
       <option value="" style="display:none">Please select role</option>
-      <option *ngFor="let wRole of workflowRoles" value="wRole">{{wRole}}</option>
+      <option *ngFor="let wRole of workflowRoles" [value]="wRole">{{wRole}}</option>
     </select>
     <!-- <div *ngIf="role.invalid && (role.dirty || role.touched)" class="alert alert-danger">
       <div *ngIf="role.errors.required">Role is required.</div>
