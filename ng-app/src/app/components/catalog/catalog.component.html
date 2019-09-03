@@ -131,34 +131,39 @@
         </div>
       </div>
     </div>
-    <div class="page-nav">
-      <div class="row align-items-end justify-content-center">
-        <div class="col-auto">
-          <div class="page-nav__total">
-            You've viewed {{ products?.length }} of
-            {{ paginationInfo.collectionSize }} products
+    <ng-container *ngIf="pagination.collectionSize; else searchElseTemplate">
+        <div class="page-nav">
+            <div class="row align-items-end justify-content-center">
+              <div class="col-auto">
+                <div class="page-nav__total">
+                  You've viewed {{ products?.length }} of
+                  {{ pagination.collectionSize }} products
+                </div>
+                <ngb-pagination
+                  [(page)]="pagination.page"
+                  [pageSize]="pagination.pageSize"
+                  [collectionSize]="pagination.collectionSize"
+                  (pageChange)="pageChanged()"
+                ></ngb-pagination>
+              </div>
+              <div class="col-auto ml-sm-auto">
+                Show
+                <app-page-size-selector
+                  [defaultPageSize]="pagination.pageSize"
+                  [pageSizes]="settings.pageSizes"
+                  (pageSizeChanged)="pageSizeChanged($event)"
+                ></app-page-size-selector>
+              </div>
+            </div>
           </div>
-          <ngb-pagination
-            [(page)]="paginationInfo.page"
-            [pageSize]="paginationInfo.pageSize"
-            [collectionSize]="paginationInfo.collectionSize"
-            (pageChange)="pageChanged()"
-          ></ngb-pagination>
-        </div>
-        <div class="col-auto ml-sm-auto">
-          Show
-          <app-page-size-selector
-            [defaultPageSize]="paginationInfo.pageSize"
-            [pageSizes]="pageSizes"
-            (pageSizeChanged)="pageSizeChanged($event)"
-          ></app-page-size-selector>
-        </div>
-      </div>
-    </div>
+    </ng-container>
+    <ng-template #searchElseTemplate>
+      <div class="search__nothing-found-message" *ngIf="pagination.collectionSize === 0">The search returned no results</div>
+    </ng-template>
     <app-mobile-cart-summary [activeOrderMobileSidebar]="mobileOrderSidebar"></app-mobile-cart-summary>
   </div>
 
-  <!-- avtive order -->
+  <!-- active order -->
   <div class="sidebar sidebar--bg-gray d-none d-lg-block">
     <div class="sidebar__inner">
       <app-active-order></app-active-order>
