@@ -4,7 +4,7 @@
 	{
 		width: 100%;
 	}
-	
+
 	.list__item
 	{
 		border-bottom: 1px solid $gray-200;
@@ -130,7 +130,7 @@
 			margin-right: .625rem;
 			width: 3.75rem;
 		}
-		
+
 		.list__name,
 		.list__price
 		{
@@ -187,6 +187,6 @@
 	}
 
 	@include media-breakpoint-up(lg) {
-		margin-bottom: 3.125rem;
+		// margin-bottom: 3.125rem;
 	}
 }
