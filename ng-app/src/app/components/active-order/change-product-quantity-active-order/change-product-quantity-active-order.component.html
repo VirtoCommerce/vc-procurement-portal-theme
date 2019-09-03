@@ -3,7 +3,7 @@
     <span class="btn__ico btn__ico--minus"></span>
   </a>
   <input type="text" OnlyNumber="true" class="input-group__input"
-  [value]="lineItem.quantity" (keyup)="onChangeQuantity($event.target.value)">
+  [value]="lineItem.quantity" (keyup)="onChangeQuantity($event.target)">
   <a class="btn btn--white" (click)="incrementQuantity(lineItem)">
     <span class="btn__ico btn__ico--plus"></span>
   </a>
