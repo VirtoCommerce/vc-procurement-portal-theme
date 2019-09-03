@@ -8,6 +8,7 @@ import { OrderWorkflowService } from 'src/app/services/order-workflow.service';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 import { OrderStateTransitionResult } from 'src/app/models/order-state-transition-result';
 import { IUser } from 'src/app/models/dto/iuser';
+import { AlertsService } from 'src/app/modules/alerts/alerts.service';
 
 @Component({
   selector: 'app-order-details',
@@ -33,7 +34,8 @@ export class OrderDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private readonly activeOrderService: ActiveOrderService,
     private orderWorkflowService: OrderWorkflowService,
-    private authorizationService: AuthorizationService
+    private authorizationService: AuthorizationService,
+    private aletsService: AlertsService
   ) { }
 
   async ngOnInit() {
@@ -59,7 +61,7 @@ export class OrderDetailsComponent implements OnInit {
 
   addProductToCart() {
     this.items.forEach(item => {
-      this.activeOrderService.addItem(item.productId, item.quantity).subscribe();
+      this.activeOrderService.addItem(item.productId, item.quantity).subscribe(() => this.aletsService.success(`Products have been successfully added to the cart`));
     });
   }
 
