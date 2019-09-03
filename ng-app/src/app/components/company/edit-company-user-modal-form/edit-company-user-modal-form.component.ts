@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User} from 'src/app/models/user';
+import { User, EditUser} from 'src/app/models/user';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
 import { OrderWorkflowService } from 'src/app/services/order-workflow.service';
@@ -11,7 +11,7 @@ import { ExtendedUser } from 'src/app/models/dto/iuser';
   styleUrls: ['./edit-company-user-modal-form.component.scss']
 })
 export class EditCompanyUserModalFormComponent implements OnInit {
-  @Input() user: ExtendedUser;
+  @Input() user: EditUser;
   @Input() editUserMode: boolean;
   changePassword: boolean;
   workflowRoles: string[];
@@ -23,7 +23,7 @@ export class EditCompanyUserModalFormComponent implements OnInit {
 
   ngOnInit() {
     if (!this.user) {
-      this.user = {} as ExtendedUser;
+      this.user = new EditUser();
     }
   }
 
