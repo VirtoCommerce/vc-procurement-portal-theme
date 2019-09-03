@@ -2,71 +2,67 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import {
-  User,
   AddNewUser,
   EditUser,
   EditUserPassword,
   EditUserPhone
 } from '../models/user';
-import { tap, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { tap, catchError, map } from 'rxjs/operators';
+import { throwError, Observable } from 'rxjs';
 import { AlertsService } from '../modules/alerts/alerts.service';
-import { IUser } from '../models/dto/iuser';
+import { IUser, OrganisationUsersSearchCriteria, ExtendedUser } from '../models/dto/iuser';
+import { GenericSearchResult } from '../models/dto/common/generic-search-result';
+import { UserConverterService } from './converters/user-converter.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  constructor(private http: HttpClient, private alertsService: AlertsService) {}
+  constructor(private http: HttpClient, private alertsService: AlertsService, private userConverter: UserConverterService) {}
 
-  getAll() {
+
+  getOrganizationUsers(pageNumber: number, pageSize: number): Observable<GenericSearchResult<ExtendedUser>> {
+    const url = 'storefrontapi/account/organization/users/search';
+    const criteria = new OrganisationUsersSearchCriteria();
+    criteria.pageNumber = pageNumber;
+    criteria.pageSize = pageSize;
     return this.http
-      .get<User[]>(`/users`)
-      .pipe(catchError(error => this.handleError(error)));
+      .post<GenericSearchResult<any>>(url, criteria)
+      .pipe(map(x => {
+          x.results = x.results.map(u => this.userConverter.toExtendedUser(u));
+          return x;
+      }), catchError(error => this.handleError(error)));
   }
 
-  getById(id: number) {
-    return this.http
-      .get<User>(`/users/${id}`)
-      .pipe(catchError(error => this.handleError(error)));
-  }
-
-  getUserName() {
-    console.log('getUserName');
-    const url = 'storefrontapi/account';
-    return this.http
-      .get<any>(url)
-      .pipe(catchError(error => this.handleError(error)));
-  }
-
-  updateUser(user: EditUser) {
+  updateUser(user: EditUser): Observable<any> {
     const url = 'storefrontapi/account';
     return this.http
       .post(url, user)
       .pipe(catchError(error => this.handleError(error)));
   }
 
-  updatePhoneNumber(phoneNumber: EditUserPhone) {
+  updatePhoneNumber(phoneNumber: EditUserPhone): Observable<any> {
     const url = 'storefrontapi/account/phonenumber';
     return this.http
       .post(url, phoneNumber)
       .pipe(catchError(error => this.handleError(error)));
   }
 
-  changeUserPassword(password: EditUserPassword) {
+  changeUserPassword(password: EditUserPassword): Observable<any> {
     const url = 'storefrontapi/account/password';
     return this.http
       .post(url, password)
       .pipe(catchError(error => this.handleError(error)));
   }
 
-  deleteUser(userName: string) {
+  deleteUser(userName: string): Observable<any> {
     return this.http
       .delete('storefrontapi/account/' + userName)
       .pipe(catchError(error => this.handleError(error)));
   }
 
-  getCurrentUser() {
+  getCurrentUser(): Observable<ExtendedUser> {
     console.log('getCurrentUser');
     return this.http.get<IUser>('storefrontapi/account?t=').pipe(
+      map(x => this.userConverter.toExtendedUser(x)),
       tap(user => {
         this.log(`fetched user:` + user);
       }),
@@ -74,14 +70,14 @@ export class UserService {
     );
   }
 
-  registerNewUser(user: AddNewUser) {
+  registerNewUser(user: AddNewUser): Observable<any> {
     const url = 'storefrontapi/account/user';
     return this.http
       .post(url, user)
       .pipe(catchError(error => this.handleError(error)));
   }
 
-  private handleError(error: any) {
+  private handleError(error: any): Observable<never> {
     if (error.status === 500) {
       this.alertsService.error(
         `An error occurred with code ${error.status} while trying to execute a request to the server`, { dismissTimeout: 0 }

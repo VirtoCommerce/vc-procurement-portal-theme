@@ -21,18 +21,6 @@ export class OrganizationService {
     );
   }
 
-  getOrganizationUsers(pageNumber: number, pageSize: number) {
-    const url = 'storefrontapi/account/organization/users/search';
-    const body = {
-      pageNumber: pageNumber,
-      start: (pageNumber - 1) * pageSize,
-      pageSize: pageSize
-    };
-    return this.http
-      .post<any>(url, body)
-      .pipe(catchError(error => this.handleError(error)));
-  }
-
   updateOrganization(organization: UpdateOrganization) {
     const url = 'storefrontapi/account/organization';
     return this.http

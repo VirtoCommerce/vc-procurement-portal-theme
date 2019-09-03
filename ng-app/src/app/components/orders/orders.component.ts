@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { OrdersService } from '../../services/orders.service';
 import { IOrder } from '../../models/dto/iorder';
-import { User } from '../../models/user';
 import { PaginationInfo } from 'src/app/models/inner/pagination-info';
 import { PageSizeChangedArgs } from '../page-size-selector/page-size-selector.component';
 import ConfigurationFile from 'src/assets/config/config.dev.json';
@@ -25,7 +24,6 @@ export class OrdersComponent implements OnInit {
   status = 'All';
   validFilterDate = true;
   orders: IOrder[] = [];
-  users: User[] = [];
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
@@ -65,7 +63,7 @@ export class OrdersComponent implements OnInit {
     this.ordersService
       .getOrders(this.pagination.page, this.pagination.pageSize, this.startDate, this.endDate, this.status)
       .subscribe((data: any) => {
-        this.orders = data.results as IOrder[];
+        this.orders = data.results;
         this.pagination.collectionSize = data.totalCount;
       });
   }

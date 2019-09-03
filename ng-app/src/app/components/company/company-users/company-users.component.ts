@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IUser } from 'src/app/models/dto/iuser';
+import { IUser, ExtendedUser } from 'src/app/models/dto/iuser';
 import { IAppConfig } from 'src/app/models/iapp-config';
 import { PaginationInfo } from 'src/app/models/inner/pagination-info';
 import { UserService } from 'src/app/services/user.service';
@@ -12,6 +12,7 @@ import settings_data from 'src/assets/config/config.dev.json';
 import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
 import { EditCompanyUserModalFormComponent } from '../edit-company-user-modal-form/edit-company-user-modal-form.component';
 import { AlertsService } from 'src/app/modules/alerts/alerts.service';
+import { GenericSearchResult } from 'src/app/models/dto/common/generic-search-result';
 
 @Component({
   selector: 'app-company-users',
@@ -20,7 +21,7 @@ import { AlertsService } from 'src/app/modules/alerts/alerts.service';
 })
 export class CompanyUsersComponent implements OnInit {
   @Input() organization: IOrganization;
-  users: IUser[];
+  users: ExtendedUser[];
 
   settings = settings_data as IAppConfig;
   paginationInfo = new PaginationInfo(this.settings.defaultPageSize);
@@ -30,7 +31,6 @@ export class CompanyUsersComponent implements OnInit {
     private userService: UserService,
     private modalService: NgbModal,
     private userConverter: UserConverterService,
-    private organizationService: OrganizationService,
     private confirmService: ConfirmService,
     private aletsService: AlertsService
   ) {}
@@ -49,12 +49,12 @@ export class CompanyUsersComponent implements OnInit {
   }
 
   fetchUsers() {
-    this.organizationService
+    this.userService
       .getOrganizationUsers(
         this.paginationInfo.page,
         this.paginationInfo.pageSize
       )
-      .subscribe((data: any) => {
+      .subscribe((data: GenericSearchResult<ExtendedUser>) => {
         this.users = data.results;
         this.paginationInfo.collectionSize = data.totalCount;
       });

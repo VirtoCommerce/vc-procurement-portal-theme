@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { User, AddNewUser, EditUser, EditUserPassword, EditUserPhone } from '../../models/user';
-import { IUser } from 'src/app/models/dto/iuser';
+import { AddNewUser, EditUser, EditUserPassword, EditUserPhone } from '../../models/user';
+import { IUser, ExtendedUser } from 'src/app/models/dto/iuser';
 import { IOrganization } from 'src/app/models/dto/iorganization';
 import { UserViewAddUserModel, UserViewEditUserModel } from 'src/app/models/form';
 
@@ -52,6 +52,10 @@ export class UserConverterService {
     const result = new EditUserPhone();
     result.phoneNumber = userView.phoneNumber;
     return result;
+  }
+
+  toExtendedUser(user: IUser ): ExtendedUser {
+    return  {...user, workflowRoles: []};
   }
 }
 

@@ -29,7 +29,7 @@
           <td>{{user.userName}}</td>
           <td>{{user.firstName}}</td>
           <td>{{user.lastName}}</td>
-          <td>Тут workflow role</td>
+          <td><span *ngFor="let wRole of user.workflowRoles">{{wRole}} </span></td>
           <td>{{user.role.name}}</td>
           <td>{{user.email}}</td>
           <td>{{user.phoneNumber}}</td>

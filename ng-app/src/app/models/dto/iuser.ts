@@ -3,6 +3,15 @@ import { IAddress } from './common/address';
 import { IContact } from './icontact';
 import { IOrganization } from './iorganization';
 import { ISecurityAccount } from './common/security-account';
+import { PagedSearchCriteria } from './common/paged-search-criteria';
+
+
+export class OrganisationUsersSearchCriteria extends PagedSearchCriteria {
+  OrganizationId: string;
+  Sort: string;
+  SearchPhrase: string;
+}
+
 
 export interface IUser {
   storeId: string;
@@ -46,6 +55,9 @@ export interface IUser {
   phoneNumber: string;
 }
 
+export interface ExtendedUser extends IUser {
+  workflowRoles: string[];
+}
 
 export interface IRole {
         id: string;

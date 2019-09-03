@@ -4,6 +4,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { IOrder, OrderSearchCriteria } from '../models/dto/iorder';
 import { AlertsService } from '../modules/alerts/alerts.service';
+import { GenericSearchResult } from '../models/dto/common/generic-search-result';
 
 
 @Injectable({ providedIn: 'root' })
@@ -19,7 +20,7 @@ export class OrdersService {
     endDate: Date = null,
     status: string = '',
     statuses?: string[]
-  ) {
+  ): Observable<GenericSearchResult<IOrder>> {
     const searchCriteria = new OrderSearchCriteria();
     searchCriteria.pageNumber = pageNumber;
     searchCriteria.pageSize = pageSize;
@@ -36,7 +37,7 @@ export class OrdersService {
     }
 
     const url = this.baseUrl + '/search';
-    return this.http.post(url, searchCriteria).pipe(
+    return this.http.post<GenericSearchResult<IOrder>>(url, searchCriteria).pipe(
       tap(orders => {
         this.log(`fetched ordersUrl:` + orders);
       }),
