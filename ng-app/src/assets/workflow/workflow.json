@@ -1,5 +1,6 @@
 {
   "ImageUrl": "themes/assets/images/workflow2.svg",
+  "OrderCreatorRoles": ["Agent"],
   "States": [
     {
       "Name": "New",

@@ -38,7 +38,7 @@ export class ForApprovalComponent implements OnInit {
     if (currentUser != null) {
 
       // todo: get roles of the current user (not platform roles)
-      const currentRoles = this.orderWorkflowService.getRoles();
+      const currentRoles = this.orderWorkflowService.getWorkflowRoles();
 
       const states = this.orderWorkflowService.getStatesByRoles(currentRoles);
       if (states.length > 0) {

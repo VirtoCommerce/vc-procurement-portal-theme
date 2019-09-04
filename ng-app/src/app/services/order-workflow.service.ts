@@ -44,8 +44,14 @@ export class OrderWorkflowService {
     return Array.from(set);
   }
 
-  public getRoles(): string[] {
+  public getWorkflowRoles(): string[] {
     return this.findRolesInStates(this._workflow.States);
+  }
+
+  public getAllRoles(): string[] {
+    const orderCreatorsRoles = this._workflow.OrderCreatorRoles;
+    const rolesInStates = this.findRolesInStates(this._workflow.States);
+    return [...orderCreatorsRoles, ...rolesInStates];
   }
 
   public getRolesByState(currentState: string): string[] {
