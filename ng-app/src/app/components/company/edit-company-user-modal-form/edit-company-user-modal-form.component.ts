@@ -1,9 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User, EditUser} from 'src/app/models/user';
+import { EditUser} from 'src/app/models/user';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
 import { OrderWorkflowService } from 'src/app/services/order-workflow.service';
-import { ExtendedUser } from 'src/app/models/dto/iuser';
 
 @Component({
   selector: 'app-edit-company-user-modal-form',
@@ -18,7 +17,7 @@ export class EditCompanyUserModalFormComponent implements OnInit {
   selectedWorkflowRole: string = null;
 
   constructor(public activeModal: NgbActiveModal, private workflowService: OrderWorkflowService) {
-    this.workflowRoles = this.workflowService.getRoles();
+    this.workflowRoles = this.workflowService.getWorkflowRoles();
   }
 
   ngOnInit() {
