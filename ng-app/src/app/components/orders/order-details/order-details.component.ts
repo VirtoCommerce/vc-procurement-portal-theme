@@ -56,7 +56,7 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   toggleAccordion(event) {
-    event.target.parentElement.classList.toggle('accordion__item--active');
+    event.target.closest('.accordion__item').classList.toggle('accordion__item--active');
   }
 
   addProductToCart() {

@@ -22,6 +22,10 @@ $sidebar-width: 18.75rem;
     > .content:first-child
     {
         border-left: 1px solid $gray-200;
+
+        @include media-breakpoint-down(xs) {
+          border: none;
+        }
     }
 
     > .order,
