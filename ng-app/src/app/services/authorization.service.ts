@@ -30,8 +30,7 @@ export class AuthorizationService {
    */
   async checkPermission( ...roles: RoleEnum[]): Promise<boolean> {
     const u = await this.getCurrentUser();
-    // const stringRoles = enumToStringArray(roles);
-    if (roles.length < 1) {
+    if (roles.length < 1 || !u.roles || u.roles.length < 1 ) {
       return false;
     }
 
@@ -41,8 +40,8 @@ export class AuthorizationService {
     return false;
   }
 
-   logout() {
+  logout() {
      this.currentUser = null;
-   }
+  }
 
 }
