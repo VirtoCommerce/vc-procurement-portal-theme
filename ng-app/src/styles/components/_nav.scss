@@ -27,12 +27,17 @@
     		display: flex;
     		height: 3.125rem;
     		padding: 0 1.875rem;
-    		position: relative;
+        position: relative;
+
+        &:hover
+          {
+            cursor: pointer;
+          }
 
     		&--active
     		{
-    			color: $blue;
-    			
+          color: $blue;
+
     			&::after
     			{
     				background: $blue;

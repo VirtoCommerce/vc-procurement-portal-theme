@@ -47,7 +47,12 @@
 			right: .9375rem;
 			top: 1.25rem;
 			width: 1rem;
-		}
+    }
+
+    &-remove:hover
+    {
+      cursor: pointer;
+    }
 	}
 
 	&__t
