@@ -116,6 +116,9 @@ export class BulkOrderCsvComponent implements OnInit {
       if (isNaN(qty)) {
         invalid = true;
         message = 'Invalid format of quantity. Quantity must be integer number.';
+      } else if (qty <= 0) {
+        invalid = true;
+        message = 'Invalid format of quantity. Quantity must be positive number.';
       } else {
         bulkOrderItem = new BulkOrderItem(sku, qty);
       }
@@ -158,7 +161,7 @@ export class BulkOrderCsvComponent implements OnInit {
         } else {
           const product = products[0];
           r.bulkOrderItem.productId = product.id;
-          if (!product.inStock) {
+          if (!product.inStock || !product.trackInventory) {
             r.invalid = true;
             r.message = 'Product out of shtock!';
           } else if (r.bulkOrderItem.quantity > product.availableQuantity ) {

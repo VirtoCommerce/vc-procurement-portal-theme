@@ -59,10 +59,12 @@ export class ChangeProductQuantityActiveOrderComponent implements OnInit, OnDest
     this.activeOrderService.changeItemQuantity(lineItem.id, lineItem.quantity).subscribe();
   }
 
-  onChangeQuantity(quantityText: string) {
-    const quantity = +quantityText;
+  onChangeQuantity(inputElement: HTMLInputElement) {
+    const quantity = +inputElement.value;
     if (quantity) {
       this.productQuantity$.next(quantity);
+    } else {
+      inputElement.value = this.lineItem.quantity.toString();
     }
   }
 

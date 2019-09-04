@@ -1,17 +1,24 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthorizationService } from './authorization.service';
-import { BehaviorSubject } from 'rxjs';
-import { RoleEnum } from '../models/role';
 
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
-    constructor(
-        private authService: AuthorizationService
-    ) { }
+  constructor(
+    private authService: AuthorizationService,
+    private router: Router
+  ) {}
 
-    canActivate(): Promise<boolean> {
-      return this.authService.checkPermission(RoleEnum.Admin);
-    }
+  canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
+    const permission = route.data.permission;
+    return this.authService
+      .checkPermission(...permission.roles)
+      .then(result => {
+        if (!result) {
+          this.router.navigate([permission.redirectTo]);
+        }
+        return result;
+      });
+  }
 }

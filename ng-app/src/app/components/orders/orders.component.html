@@ -4,11 +4,11 @@
     <div class="row page__sort">
       <div class="col-md-auto page__sort-date">
         From
-        <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp1" ngbDatepicker #d1="ngbDatepicker" [(ngModel)]="startDate" (ngModelChange)="filterOrdersByDate()" (click)="d1.toggle()">
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dp1" ngbDatepicker #d1="ngbDatepicker"
+          [(ngModel)]="startDate" (ngModelChange)="filterOrdersByDate()" (click)="d1.toggle()">
         To
-        <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp2" ngbDatepicker #d2="ngbDatepicker" [(ngModel)]="endDate" (ngModelChange)="filterOrdersByDate()" (click)="d2.toggle()">
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dp2" ngbDatepicker #d2="ngbDatepicker"
+          [(ngModel)]="endDate" (ngModelChange)="filterOrdersByDate()" (click)="d2.toggle()">
       </div>
       <div class="alert alert-danger col-md-auto m-0" *ngIf="!validFilterDate">Date is not valid</div>
       <div class="col-md-auto page__sort-filter">
@@ -23,58 +23,62 @@
         </div>
       </div>
     </div>
-    <div class="table-responsive">
-      <table class="table">
-        <colgroup>
-          <col class="col-w-160" />
-          <col class="col-w-140" />
-          <col class="col-w-100" />
-          <col class="col-w-80" />
-          <col class="col-w-140" />
-          <col class="col-w-130" />
-          <col class="col-w-130" />
-        </colgroup>
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Status</th>
-            <th>Date</th>
-            <th># Items</th>
-            <th>Created by</th>
-            <th>Assigned to</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let order of orders">
-          <tr>
-          <td><a [routerLink]="['/order-details',order.number]">{{order.number}}</a></td>
-          <td>{{order.status}}</td>
-          <td>{{order.createdDate | date: 'EEE, dd/MM '}}</td>
-          <td>{{order.items.length}}</td>
-          <td>{{order.createdBy}}</td>
-          <td>{{orderWorkflowService.getRolesTextByState(order.status)}}</td>
-          <td>{{order.total.formattedAmount}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
 
-    <div class="page-nav">
+    <ng-container *ngIf="pagination.collectionSize; else elseTemplate">
+      <div class="table-responsive">
+        <table class="table">
+          <colgroup>
+            <col class="col-w-160" />
+            <col class="col-w-140" />
+            <col class="col-w-100" />
+            <col class="col-w-80" />
+            <col class="col-w-140" />
+            <col class="col-w-130" />
+            <col class="col-w-130" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th># Items</th>
+              <th>Created by</th>
+              <th>Assigned to</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let order of orders">
+            <tr>
+              <td><a [routerLink]="['/order-details',order.number]">{{order.number}}</a></td>
+              <td>{{order.status}}</td>
+              <td>{{order.createdDate | date: 'EEE, dd/MM '}}</td>
+              <td>{{order.items.length}}</td>
+              <td>{{order.createdBy}}</td>
+              <td>{{orderWorkflowService.getRolesTextByState(order.status)}}</td>
+              <td>{{order.total.formattedAmount}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="page-nav">
         <div class="row align-items-end justify-content-center">
           <div class="col-auto">
             <div class="page-nav__total">You've viewed {{orders.length}} of {{pagination.collectionSize}} orders</div>
-            <ngb-pagination
-            [(page)]="pagination.page"
-            [pageSize]="pagination.pageSize"
-            [collectionSize]="pagination.collectionSize"
-            (pageChange)="pageChanged()"></ngb-pagination>
+            <ngb-pagination [(page)]="pagination.page" [pageSize]="pagination.pageSize"
+              [collectionSize]="pagination.collectionSize" (pageChange)="pageChanged()"></ngb-pagination>
           </div>
           <div class="col-auto ml-sm-auto">
-              Show
-              <app-page-size-selector [defaultPageSize]="pagination.pageSize" [pageSizes]="pageSizes" (pageSizeChanged)="pageSizeChanged($event)" ></app-page-size-selector>
+            Show
+            <app-page-size-selector [defaultPageSize]="pagination.pageSize" [pageSizes]="pageSizes"
+              (pageSizeChanged)="pageSizeChanged($event)"></app-page-size-selector>
           </div>
         </div>
       </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+      No results
+    </ng-template>
 
   </div>
 </main>

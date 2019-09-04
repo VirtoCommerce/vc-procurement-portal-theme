@@ -34,6 +34,7 @@ import { ForApprovalDetailsComponent } from './components/forapproval/forapprova
 import { PageSizeSelectorComponent } from './components/page-size-selector/page-size-selector.component';
 import { MobileCartSummaryComponent } from './components/catalog/mobile-cart-summary/mobile-cart-summary.component';
 import { ActiveOrderMobileComponent } from './components/active-order/active-order-mobile/active-order-mobile.component';
+import { ForbiddenComponent } from './components/container/forbidden/forbidden.component';
 // services
 
 
@@ -90,6 +91,7 @@ import { EditCompanyUserModalFormComponent } from './components/company/edit-com
     EditCompanyUserModalFormComponent,
     ChangeProductQuantityActiveOrderComponent,
     ActiveOrderMobileComponent,
+    ForbiddenComponent,
     // directives
     RemoveWrapperDirective,
     BulkOrderManualComponent,

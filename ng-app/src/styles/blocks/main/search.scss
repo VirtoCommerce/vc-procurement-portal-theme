@@ -8,5 +8,9 @@
 		background: $gray-100;
 		border-color: $gray-100;
 		color: $gray-300;
-	}
+  }
+
+  &__nothing-found-message {
+    padding: .9375rem 1.875rem;
+    }
 }
