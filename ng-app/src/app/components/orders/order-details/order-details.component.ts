@@ -9,6 +9,7 @@ import { AuthorizationService } from 'src/app/services/authorization.service';
 import { OrderStateTransitionResult } from 'src/app/models/order-state-transition-result';
 import { IUser } from 'src/app/models/dto/iuser';
 import { AlertsService } from 'src/app/modules/alerts/alerts.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-order-details',
@@ -36,7 +37,7 @@ export class OrderDetailsComponent implements OnInit {
     private orderWorkflowService: OrderWorkflowService,
     private authorizationService: AuthorizationService,
     private aletsService: AlertsService
-  ) { }
+  ) {}
 
   async ngOnInit() {
     this.currentUser = await this.authorizationService.getCurrentUser();
@@ -51,18 +52,29 @@ export class OrderDetailsComponent implements OnInit {
         this.createdBy = this.order.createdBy;
         this.status = this.order.status;
 
-        this.orderStateTransitions = this.orderWorkflowService.getRoleTransitions(this.order.status, this.currentUser.role.name);
+        this.orderStateTransitions = this.orderWorkflowService.getRoleTransitions(
+          this.order.status,
+          this.currentUser.role.name
+        );
       });
   }
 
   toggleAccordion(event) {
-    event.target.closest('.accordion__item').classList.toggle('accordion__item--active');
+    event.target
+      .closest('.accordion__item')
+      .classList.toggle('accordion__item--active');
   }
 
   addProductToCart() {
-    this.items.forEach(item => {
-      this.activeOrderService.addItem(item.productId, item.quantity).subscribe(() => this.aletsService.success(`Products have been successfully added to the cart`));
-    });
+    forkJoin(
+      this.items.map(item =>
+        this.activeOrderService.addItem(item.productId, item.quantity)
+      )
+    ).subscribe(() =>
+      this.aletsService.success(
+        `Products have been successfully added to the cart`
+      )
+    );
   }
 
   public async onTransitionButtonClick(trigger: string) {
@@ -73,7 +85,10 @@ export class OrderDetailsComponent implements OnInit {
       return;
     }
 
-    this.orderStateTransitions = this.orderWorkflowService.getRoleTransitions(newStatus, this.currentUser.role.name);
+    this.orderStateTransitions = this.orderWorkflowService.getRoleTransitions(
+      newStatus,
+      this.currentUser.role.name
+    );
 
     try {
       await this.ordersService.changeOrderStatus(this.order.number, newStatus);
@@ -83,7 +98,10 @@ export class OrderDetailsComponent implements OnInit {
       this.status = this.order.status;
     } catch (error) {
       this.order.status = oldStatus;
-      this.orderStateTransitions = this.orderWorkflowService.getRoleTransitions(oldStatus, this.currentUser.role.name);
+      this.orderStateTransitions = this.orderWorkflowService.getRoleTransitions(
+        oldStatus,
+        this.currentUser.role.name
+      );
     }
   }
 }
