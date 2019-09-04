@@ -13,14 +13,14 @@
       <div class="alert alert-danger col-md-auto m-0" *ngIf="!validFilterDate">Date is not valid</div>
       <div class="col-md-auto page__sort-filter">
         Filter by status
-        <div class="dropdown">
-          <div class="dropdown__toggle">{{status}}</div>
-          <div class="dropdown__menu dropdown__menu--up">
-            <a (click)="changeActiveStatus('All')" class="dropdown__menu-item">All</a>
-            <a (click)="changeActiveStatus('New')" class="dropdown__menu-item">New</a>
-            <a (click)="changeActiveStatus('Awaiting approwal')" class="dropdown__menu-item">Awaiting approwal</a>
+
+        <div ngbDropdown >
+          <button class="btn btn-outline-secondary" id="statusFilterDropdown" ngbDropdownToggle>{{this.status}}</button>
+          <div ngbDropdownMenu aria-labelledby="statusFilterDropdown" >
+            <button ngbDropdownItem *ngFor="let status of getStatuses()" (click)="changeActiveStatus(status)">{{status}}</button>
           </div>
         </div>
+
       </div>
     </div>
 

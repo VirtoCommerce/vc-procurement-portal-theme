@@ -65,6 +65,10 @@ export class OrderWorkflowService {
     return 'N/A';
   }
 
+  public getAllStates(): string[] {
+    return this._workflow.States.map((state: any) => state.Name);
+  }
+
   private findRolesInStates(states: any): string[] {
     const roles = new Set<string>();
     states.forEach(state => {

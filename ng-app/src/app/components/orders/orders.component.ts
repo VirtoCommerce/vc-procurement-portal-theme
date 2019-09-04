@@ -42,9 +42,11 @@ export class OrdersComponent implements OnInit {
     this.getAllOrders();
   }
 
-  changeActiveStatus(status: string) {
-    this.status = status;
-    this.getAllOrders();
+  changeActiveStatus(newStatus: string) {
+    if (this.status !== newStatus) {
+      this.status = newStatus;
+      this.getAllOrders();
+    }
   }
 
   pageSizeChanged(eventArgs: PageSizeChangedArgs) {
@@ -72,5 +74,9 @@ export class OrdersComponent implements OnInit {
 
   pageChanged() {
     this.getAllOrders();
+  }
+
+  public getStatuses() {
+    return ['All', ...this.orderWorkflowService.getAllStates()];
   }
 }
