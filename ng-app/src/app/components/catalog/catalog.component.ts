@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject, forkJoin, BehaviorSubject } from 'rxjs';
 import { CatalogService } from '../../services';
 import { ActiveOrderService } from '../../services/active-order.service';
 import { Category } from 'src/app/models/dto/category';
@@ -20,7 +20,8 @@ import { CategoriesComponent } from './categories/categoires.component';
 })
 export class CatalogComponent implements OnInit {
   private searchText = '';
-  products: ProductDetails[];
+  products$: Observable<ProductDetails[]>;
+  private productsSubject = new Subject<ProductDetails[]>();
   categories$: Observable<Category[]>;
   cart$: Observable<ICart>;
   selectedCategory: Category = null;
@@ -35,6 +36,7 @@ export class CatalogComponent implements OnInit {
     private productConverter: ProductConverterService,
     private mobileSidebarService: MobileViewService,
   ) {
+    this.products$ = this.productsSubject.asObservable();
   }
 
   ngOnInit() {
@@ -78,7 +80,7 @@ export class CatalogComponent implements OnInit {
     const searchText = this.searchText;
 
     this.catalogService.getAllProducts(page, pageSize, categoryId, searchText).subscribe((data) => {
-      this.products = data.products.map(product => this.productConverter.toProductDetails(product));
+      this.productsSubject.next(data.products.map(product => this.productConverter.toProductDetails(product)));
       this.pagination.page = data.metaData.pageNumber;
       this.pagination.collectionSize = data.metaData.totalItemCount;
 

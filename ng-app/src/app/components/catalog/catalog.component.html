@@ -1,11 +1,10 @@
 <app-active-order-mobile #mobileOrderSidebar></app-active-order-mobile>
 <main class="main container">
-  <app-categories
-    [categories]="categories$"
+  <app-categories    [categories]="categories$"
     (categoryChanged)="categoryChanged($event)"
     #mobileCategoies
   ></app-categories>
-  <div class="content">
+  <div class="content" >
     <form class="search d-none d-xl-block">
       <app-search-products
         (searchTextChanged)="searchByText($event)"
@@ -108,8 +107,9 @@
         </div>
       </div>
     </div>
+    <ng-container *ngIf="products$ | async as products">
     <div class="list product--list" *ngIf="(cart$ | async) as cart">
-      <div class="list__item" *ngFor="let p of products">
+      <div class="list__item" *ngFor="let p of products" >
         <div class="list__img list__img--placeholder">
           <img
             src="{{ p.primaryImage?.url }}"
@@ -136,7 +136,7 @@
             <div class="row align-items-end justify-content-center align-items-center">
               <div class="col-auto">
                 <div class="page-nav__total">
-                  You've viewed {{ products?.length }} of
+                  You've viewed {{ products.length }} of
                   {{ pagination.collectionSize }} products
                 </div>
                 <ngb-pagination
@@ -161,6 +161,7 @@
       <div class="search__nothing-found-message"><app-no-result-message></app-no-result-message></div>
     </ng-template>
     <app-mobile-cart-summary [activeOrderMobileSidebar]="mobileOrderSidebar"></app-mobile-cart-summary>
+    </ng-container>
   </div>
 
   <!-- active order -->

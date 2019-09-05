@@ -7,6 +7,7 @@ import ConfigurationFile from 'src/assets/config/config.dev.json';
 import { IAppConfig } from 'src/app/models/iapp-config';
 import { OrderWorkflowService } from 'src/app/services/order-workflow.service';
 import { AuthorizationService } from 'src/app/services/authorization.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-forapproval',
@@ -15,6 +16,7 @@ import { AuthorizationService } from 'src/app/services/authorization.service';
 })
 export class ForApprovalComponent implements OnInit {
   orders: IOrder[] = [];
+  ordersLoaded$ = new BehaviorSubject(false);
   configuration = ConfigurationFile as IAppConfig;
   pagination = new PaginationInfo(this.configuration.defaultPageSize);
   pageSizes = this.configuration.pageSizes;
@@ -43,6 +45,7 @@ export class ForApprovalComponent implements OnInit {
           .subscribe((data: any) => {
             this.orders = data.results as IOrder[];
             this.pagination.collectionSize = data.totalCount;
+            this.ordersLoaded$.next(true);
           });
       }
     } else {
