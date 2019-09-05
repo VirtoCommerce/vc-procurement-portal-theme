@@ -41,7 +41,7 @@
               <td>
                 <span class="text--blue">{{order.status}}</span>
               </td>
-              <td>{{order.createdDate | date: 'EEE, dd/MM '}}</td>
+              <td>{{order.createdDate | date: 'EEE, dd/MM/yy '}}</td>
               <td>{{order.items.length}}</td>
               <td>{{order.createdBy}}</td>
               <td>{{orderWorkflowService.getRolesTextByState(order.status)}}</td>
