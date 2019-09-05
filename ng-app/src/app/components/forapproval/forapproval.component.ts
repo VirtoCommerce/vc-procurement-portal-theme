@@ -36,11 +36,7 @@ export class ForApprovalComponent implements OnInit {
   async getAllOrders() {
     const currentUser = await this.authorizationService.getCurrentUser();
     if (currentUser != null) {
-
-      // todo: get roles of the current user (not platform roles)
-      const currentRoles = this.orderWorkflowService.getWorkflowRoles();
-
-      const states = this.orderWorkflowService.getStatesByRoles(currentRoles);
+      const states = this.orderWorkflowService.getStatesByRoles(currentUser.workflowRoles);
       if (states.length > 0) {
         this.ordersService
           .getOrders(this.pagination.page, this.pagination.pageSize, this.startDate, this.endDate, null, states)
