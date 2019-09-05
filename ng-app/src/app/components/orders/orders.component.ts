@@ -7,6 +7,7 @@ import { PageSizeChangedArgs } from '../page-size-selector/page-size-selector.co
 import ConfigurationFile from 'src/assets/config/config.dev.json';
 import { IAppConfig } from 'src/app/models/iapp-config';
 import { OrderWorkflowService } from 'src/app/services/order-workflow.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-orders',
@@ -24,6 +25,7 @@ export class OrdersComponent implements OnInit {
   status = 'All';
   validFilterDate = true;
   orders: IOrder[] = [];
+  ordersLoaded$ = new BehaviorSubject(false);
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
@@ -67,6 +69,7 @@ export class OrdersComponent implements OnInit {
       .subscribe((data: any) => {
         this.orders = data.results;
         this.pagination.collectionSize = data.totalCount;
+        this.ordersLoaded$.next(true);
       });
   }
 
@@ -77,4 +80,6 @@ export class OrdersComponent implements OnInit {
   public getStatuses() {
     return ['All', ...this.orderWorkflowService.getAllStates()];
   }
+
+  getAssignedToRoles = (order: IOrder) => this.orderWorkflowService.getRolesTextByState(order.status);
 }
