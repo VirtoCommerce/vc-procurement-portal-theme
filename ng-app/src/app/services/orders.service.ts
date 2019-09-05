@@ -69,11 +69,11 @@ export class OrdersService {
   }
 
   private handleError(error: any) {
-    if (error.status === 500) {
+    if (error.status >= 500) {
       this.alertsService.error(
         `An error occurred with code ${error.status} while trying to execute a request to the server`, { dismissTimeout: 0 }
       );
-    } else if (error.status === 400) {
+    } else if (error.status >= 400 && error.status < 500) {
       this.alertsService.warn(
         `An error occurred with code ${error.status} while trying to execute a request to the server`, { dismissTimeout: 0 }
       );
