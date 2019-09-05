@@ -30,7 +30,8 @@
 		{
 			align-items: center;
 			display: flex;
-			margin-top: 1rem;
+      margin-top: 1rem;
+      justify-content: space-between;
 
 			.order__item-price
 			{
@@ -64,7 +65,7 @@
 
 		&-link
 		{
-			color: $red;
+			color: $red !important;
 			font-size: .875rem;
 			font-weight: normal;
 			margin-left: auto;

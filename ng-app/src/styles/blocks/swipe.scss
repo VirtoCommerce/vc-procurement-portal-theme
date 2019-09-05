@@ -33,7 +33,7 @@
 
 		&-link
 		{
-			color: $red;
+			color: $red !important;
 			font-size: .875rem;
 			font-weight: normal;
 			margin-left: auto;
@@ -43,6 +43,7 @@
     &-link:hover
     {
       cursor: pointer;
+      color: $blue !important;
     }
 	}
 

@@ -32,11 +32,12 @@
         &:hover
           {
             cursor: pointer;
+            color: $blue !important;
           }
 
     		&--active
     		{
-          color: $blue;
+          color: $blue !important;
 
     			&::after
     			{

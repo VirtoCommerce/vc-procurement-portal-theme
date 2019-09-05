@@ -34,16 +34,16 @@
           <td>{{user.email}}</td>
           <td>{{user.phoneNumber}}</td>
           <td>
-            <a (click)="deleteUser(user)" class="text--red">Remove user</a>
+            <a (click)="deleteUser(user)" class="user__remove">Remove user</a>
             |
-            <a (click)="openEditUserModal(user)" class="text--red">Edit user</a>
+            <a (click)="openEditUserModal(user)" class="user__edit">Edit user</a>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
   <div class="page-nav">
-      <div class="row align-items-end justify-content-center">
+      <div class="row align-items-end justify-content-center align-items-center">
         <div class="col-auto">
           <div class="page-nav__total">You've viewed {{users?.length}} of {{paginationInfo.collectionSize}} orders</div>
           <ngb-pagination

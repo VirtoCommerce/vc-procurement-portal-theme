@@ -84,7 +84,7 @@
 		min-width: 2.5rem;
 		padding: .625rem;
 		text-align: left;
-		vertical-align: top;
+    vertical-align: top;
 	}
 
 	th
@@ -100,5 +100,29 @@
 		{
 			background-color: #f8f8f8;
 		}
-	}
+  }
+
+  td a {
+
+    &.user__remove
+    {
+      color: $red !important;
+
+      &:hover
+      {
+        color: $blue !important;
+        cursor: pointer;
+      }
+    }
+
+    &.user__edit
+    {
+
+      &:hover
+      {
+        color: $blue !important;
+        cursor: pointer;
+      }
+    }
+  }
 }

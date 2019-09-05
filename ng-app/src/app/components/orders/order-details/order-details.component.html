@@ -58,11 +58,11 @@
                 </div>
                 <div class="accordion__content" *ngFor="let item of items">
                     <div class="order__item">
-                        <!-- <a class="order__item-remove" href="#">Remove item</a> -->
                         <div class="order__item-name">{{item.name}}</div>
-                        <div class="order__item-brand">Impression Tray</div>
-                        <div class="order__item-model">Model: 2120 <span class="divider">| </span>SKU: {{item.sku}}</div>
-                        <div class="order__item-descr">Case of 10 Bags with 12 per Bag</div>
+                        <!-- <div class="order__item-brand">Impression Tray</div> -->
+                        <!-- <div class="order__item-model">Model: 2120 <span class="divider">| </span>SKU: {{item.sku}}</div> -->
+                        <div class="order__item-model">SKU: {{item.sku}}</div>
+                        <!-- <div class="order__item-descr">Case of 10 Bags with 12 per Bag</div> -->
                         <div class="order__item-other">
                             <div class="order__item-price">Unit price: {{item.placedPrice.formattedAmount}}</div>
                         </div>
@@ -72,7 +72,7 @@
                     </div>
                 </div>
             </div>
-            <div class="accordion__item">
+            <!-- <div class="accordion__item">
                 <div class="accordion__header" (click)="toggleAccordion($event)">
                     <div class="accordion__t">Order comments</div>
                     <svg class="accordion__ico" width="13px" height="8px" viewBox="0 0 13 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -109,7 +109,7 @@
                     </div>
                     <a href="#" class="btn btn--blue">Add comment</a>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <div class="order__actions ml-4 mr-4 mb-0" *ngIf="order">

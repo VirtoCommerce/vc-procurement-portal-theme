@@ -23,10 +23,11 @@
           </div>
           <div class="order__item" *ngFor="let item of cart.items">
               <a class="order__item-remove" (click)="removeItem(item)">Remove item</a>
-              <div class="order__item-name">{{item.product.name}}</div>
-              <div class="order__item-brand">Brand name</div>
-              <div class="order__item-model">Model: 0000 <span class="divider">|</span>SKU: {{item.product.sku}}</div>
-              <div class="order__item-descr">Description item</div>
+              <div class="order__item-name mr-4 mb-2">{{item.product.name}}</div>
+              <!-- <div class="order__item-brand">Brand name</div> -->
+              <!-- <div class="order__item-model">Model: 0000 <span class="divider">|</span>SKU: {{item.product.sku}}</div> -->
+              <div class="order__item-model">SKU: {{item.product.sku}}</div>
+              <!-- <div class="order__item-descr">Description item</div> -->
               <div class="order__item-other">
                   <div class="order__item-price">{{item.extendedPrice.formattedAmount}}</div>
                   <app-change-product-quantity-active-order [activeOrderMobileSidebar]="this" [cart]="cart" [lineItem]="item"></app-change-product-quantity-active-order>
