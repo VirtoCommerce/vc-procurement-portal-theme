@@ -20,8 +20,7 @@ import { CategoriesComponent } from './categories/categoires.component';
 })
 export class CatalogComponent implements OnInit {
   private searchText = '';
-  products$: Observable<ProductDetails[]>;
-  private productsSubject = new Subject<ProductDetails[]>();
+  products: ProductDetails[];
   categories$: Observable<Category[]>;
   cart$: Observable<ICart>;
   selectedCategory: Category = null;
@@ -36,7 +35,6 @@ export class CatalogComponent implements OnInit {
     private productConverter: ProductConverterService,
     private mobileSidebarService: MobileViewService,
   ) {
-    this.products$ = this.productsSubject.asObservable();
   }
 
   ngOnInit() {
@@ -80,7 +78,7 @@ export class CatalogComponent implements OnInit {
     const searchText = this.searchText;
 
     this.catalogService.getAllProducts(page, pageSize, categoryId, searchText).subscribe((data) => {
-      this.productsSubject.next(data.products.map(product => this.productConverter.toProductDetails(product)));
+      this.products = data.products.map(product => this.productConverter.toProductDetails(product));
       this.pagination.page = data.metaData.pageNumber;
       this.pagination.collectionSize = data.metaData.totalItemCount;
 

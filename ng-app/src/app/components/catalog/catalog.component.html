@@ -1,5 +1,5 @@
 <app-active-order-mobile #mobileOrderSidebar></app-active-order-mobile>
-<main class="main container">
+<main class="main container" *ngIf="(cart$ | async) as cart">
   <app-categories    [categories]="categories$"
     (categoryChanged)="categoryChanged($event)"
     #mobileCategoies
@@ -107,8 +107,8 @@
         </div>
       </div>
     </div>
-    <ng-container *ngIf="products$ | async as products">
-      <div class="list product--list" *ngIf="(cart$ | async) as cart">
+    <ng-container *ngIf="products">
+      <div class="list product--list">
       <div class="list__item" *ngFor="let p of products" >
         <div class="list__img list__img--placeholder">
           <img
