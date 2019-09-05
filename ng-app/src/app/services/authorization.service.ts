@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
-import { IUser } from '../models/dto/iuser';
+import { IUser, ExtendedUser } from '../models/dto/iuser';
 import { RoleEnum } from '../models/role';
 
 @Injectable({
@@ -8,14 +8,14 @@ import { RoleEnum } from '../models/role';
 })
 export class AuthorizationService {
 
-  private currentUser: IUser = null;
+  private currentUser: ExtendedUser = null;
 
   constructor(private userService: UserService) { }
 
   /**
    * getting current user into promise
    */
-  public async getCurrentUser(): Promise<IUser> {
+  public async getCurrentUser(): Promise<ExtendedUser> {
 
     if (this.currentUser == null) {
       const request =  this.userService.getCurrentUser();

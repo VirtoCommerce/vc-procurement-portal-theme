@@ -7,7 +7,7 @@ import { ActiveOrderService } from 'src/app/services/active-order.service';
 import { OrderWorkflowService } from 'src/app/services/order-workflow.service';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 import { OrderStateTransitionResult } from 'src/app/models/order-state-transition-result';
-import { IUser } from 'src/app/models/dto/iuser';
+import { ExtendedUser } from 'src/app/models/dto/iuser';
 import { AlertsService } from 'src/app/modules/alerts/alerts.service';
 import { forkJoin } from 'rxjs';
 
@@ -27,7 +27,7 @@ export class OrderDetailsComponent implements OnInit {
   total: string;
   createdBy: string;
   status: string;
-  currentUser: IUser;
+  currentUser: ExtendedUser;
   orderStateTransitions: OrderStateTransitionResult[];
 
   constructor(
@@ -36,11 +36,11 @@ export class OrderDetailsComponent implements OnInit {
     private readonly activeOrderService: ActiveOrderService,
     private orderWorkflowService: OrderWorkflowService,
     private authorizationService: AuthorizationService,
-    private aletsService: AlertsService
+    private alertsService: AlertsService
   ) {}
 
   async ngOnInit() {
-    this.currentUser = await this.authorizationService.getCurrentUser();
+    this.currentUser = await this.authorizationService.getCurrentUser() as ExtendedUser;
     this.route.paramMap
       .pipe(switchMap(params => this.ordersService.getOrder(params.get('id'))))
       .subscribe((data: any) => {
@@ -51,11 +51,7 @@ export class OrderDetailsComponent implements OnInit {
         this.total = this.order.total.formattedAmount;
         this.createdBy = this.order.createdBy;
         this.status = this.order.status;
-
-        this.orderStateTransitions = this.orderWorkflowService.getRoleTransitions(
-          this.order.status,
-          this.currentUser.role.name
-        );
+        this.orderStateTransitions = this.getRoleTransitions(this.order.status);
       });
   }
 
@@ -71,7 +67,7 @@ export class OrderDetailsComponent implements OnInit {
         this.activeOrderService.addItem(item.productId, item.quantity)
       )
     ).subscribe(() =>
-      this.aletsService.success(
+      this.alertsService.success(
         `Products have been successfully added to the cart`
       )
     );
@@ -85,10 +81,7 @@ export class OrderDetailsComponent implements OnInit {
       return;
     }
 
-    this.orderStateTransitions = this.orderWorkflowService.getRoleTransitions(
-      newStatus,
-      this.currentUser.role.name
-    );
+    this.orderStateTransitions = this.getRoleTransitions(newStatus);
 
     try {
       await this.ordersService.changeOrderStatus(this.order.number, newStatus);
@@ -98,10 +91,17 @@ export class OrderDetailsComponent implements OnInit {
       this.status = this.order.status;
     } catch (error) {
       this.order.status = oldStatus;
-      this.orderStateTransitions = this.orderWorkflowService.getRoleTransitions(
-        oldStatus,
-        this.currentUser.role.name
-      );
+      this.orderStateTransitions = this.getRoleTransitions(oldStatus);
     }
+  }
+
+  private getRoleTransitions(status: string): OrderStateTransitionResult[] {
+    // TODO: now we getting only 1 role. shall we draw buttons for all roles?
+    // check it! if there are contradictions?
+    const role = this.currentUser.workflowRoles[0];
+    return this.orderWorkflowService.getRoleTransitions(
+      status,
+      role
+    );
   }
 }
