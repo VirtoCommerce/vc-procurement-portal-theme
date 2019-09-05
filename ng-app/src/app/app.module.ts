@@ -92,7 +92,6 @@ import { EditCompanyUserModalFormComponent } from './components/company/edit-com
     ChangeProductQuantityActiveOrderComponent,
     ActiveOrderMobileComponent,
     ForbiddenComponent,
-    // directives
     RemoveWrapperDirective,
     BulkOrderManualComponent,
     ConfirmEqualValidatorDirective,
@@ -119,7 +118,9 @@ import { EditCompanyUserModalFormComponent } from './components/company/edit-com
     NgbModule,
     ScrollingModule,
     ConfirmModalModule,
-    AlertsModule,
+    AlertsModule.forRoot({
+      dismissTimeout: 10 * 1000
+    }),
     BlockUIModule.forRoot({
       delayStart: 1000,
       delayStop: 1000
@@ -131,7 +132,6 @@ import { EditCompanyUserModalFormComponent } from './components/company/edit-com
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter},
 
-    // fakeBackendProvider,
     // { provide: APP_INITIALIZER,
     //   useFactory: initializeAppConfig,
     //   deps: [AppConfig], multi: true },
