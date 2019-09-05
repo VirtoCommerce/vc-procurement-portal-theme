@@ -60,6 +60,7 @@ import { BulkOrderCsvComponent } from './components/bulk-order/bulk-order-csv/bu
 import { CheckoutModalComponent } from './components/active-order/checkout-modal/checkout-modal.component';
 import { OnlyNumberDirective } from './directives/only-number.directive';
 import { EditCompanyUserModalFormComponent } from './components/company/edit-company-user-modal-form/edit-company-user-modal-form.component';
+import { NoResultMessageComponent } from './components/common/no-result-message/no-result-message.component';
 // import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
 // import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -101,7 +102,8 @@ import { EditCompanyUserModalFormComponent } from './components/company/edit-com
     RoleManagementComponent,
     BulkOrderCsvComponent,
     CheckoutModalComponent,
-    OnlyNumberDirective
+    OnlyNumberDirective,
+    NoResultMessageComponent
   ],
   imports: [
     BrowserModule,
