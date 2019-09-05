@@ -17,7 +17,7 @@ export class EditCompanyUserModalFormComponent implements OnInit {
   selectedWorkflowRole: string = null;
 
   constructor(public activeModal: NgbActiveModal, private workflowService: OrderWorkflowService) {
-    this.workflowRoles = this.workflowService.getWorkflowRoles();
+    this.workflowRoles = this.workflowService.getAllRoles();
   }
 
   ngOnInit() {
