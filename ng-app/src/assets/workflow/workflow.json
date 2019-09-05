@@ -37,7 +37,6 @@
           "ToState": "Rejected",
           "Trigger": "Reject",
           "Roles": [
-            "First Approver",
             "End Approver"
           ]
         }
