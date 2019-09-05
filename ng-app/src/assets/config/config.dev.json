@@ -1,4 +1,4 @@
 {
   "pageSizes": [5, 10, 20, 30],
-  "defaultPageSize": 5
+  "defaultPageSize": 10
 }

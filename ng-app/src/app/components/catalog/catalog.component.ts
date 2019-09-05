@@ -25,7 +25,7 @@ export class CatalogComponent implements OnInit {
   cart$: Observable<ICart>;
   selectedCategory: Category = null;
   settings = settings_data as IAppConfig;
-  pagination = new PaginationInfo(this.settings.defaultPageSize);
+  pagination = new PaginationInfo( 5 );  // (this.settings.defaultPageSize);
 
   showMobileSearch = false;
 
