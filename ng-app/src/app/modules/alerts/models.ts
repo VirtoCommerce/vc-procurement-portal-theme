@@ -10,7 +10,7 @@ export enum AlertType {
   Warning = 'warning'
 }
 
-export interface IAlertOptions {
+export class IAlertOptions {
   keepAfterRouteChange?: boolean;
   dismissTimeout?: number;
 }

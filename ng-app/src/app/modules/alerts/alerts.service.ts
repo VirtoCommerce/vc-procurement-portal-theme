@@ -8,14 +8,14 @@ import { Alert, IAlertOptions, AlertType } from './models';
 @Injectable( { providedIn: 'root' })
 export class AlertsService {
 
+  static defaultAlertOptions: IAlertOptions = { keepAfterRouteChange: false, dismissTimeout: 5000 };
+
   private  alerts: Alert[] = [];
 
   alerts$: Subject<Alert[]> = new Subject<Alert[]>();
 
-  defaultAlertOptions: IAlertOptions;
 
   constructor(private router: Router) {
-    this.defaultAlertOptions = { keepAfterRouteChange: false, dismissTimeout: 5000 };
     router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.alerts = this.alerts.filter(alert => alert.keepAfterRouteChange );
@@ -48,7 +48,7 @@ export class AlertsService {
    */
   alert(type: AlertType, msg: string, options?: IAlertOptions) {
 
-    const opts = { ...this.defaultAlertOptions, ...options };
+    const opts = { ...AlertsService.defaultAlertOptions, ...options };
     const alert = new Alert(type, msg, opts.keepAfterRouteChange);
     this.alerts.push(alert);
     this.alerts$.next(this.alerts);
