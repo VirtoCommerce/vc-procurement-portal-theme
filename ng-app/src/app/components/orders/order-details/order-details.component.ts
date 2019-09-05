@@ -89,6 +89,7 @@ export class OrderDetailsComponent implements OnInit {
 
       // I think this is superfluous thing
       this.status = this.order.status;
+      this.alertsService.success(`Order status have been successfully updated`);
     } catch (error) {
       this.order.status = oldStatus;
       this.orderStateTransitions = this.getRoleTransitions(oldStatus);
