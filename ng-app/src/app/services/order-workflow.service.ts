@@ -75,6 +75,10 @@ export class OrderWorkflowService {
     return this._workflow.States.map((state: any) => state.Name);
   }
 
+  public getWorkflowImageUrl(): string {
+    return this._workflow.ImageUrl;
+  }
+
   private findRolesInStates(states: any): string[] {
     const roles = new Set<string>();
     states.forEach(state => {
