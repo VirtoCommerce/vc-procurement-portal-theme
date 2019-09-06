@@ -1,5 +1,5 @@
-<app-active-order-mobile #mobileOrderSidebar></app-active-order-mobile>
-<main class="main container">
+<main class="main container" *ngIf="(cart$ | async) as cart">
+    <app-active-order-mobile [cart]="cart" #mobileOrderSidebar></app-active-order-mobile>
   <div class="content" *ngIf="product">
     <div class="row product">
       <div class="col-md-auto product__gallery">
@@ -39,7 +39,7 @@
             <span class="sku">SKU: {{ product.sku }}</span>
           </div>
         </div>
-        <div class="product__other" *ngIf="(cart$ | async) as cart">
+        <div class="product__other">
           <div class="product__price">{{ product.price }}</div>
           <app-change-product-quantity
             [cart]="cart"
@@ -50,11 +50,11 @@
         </div>
       </div>
     </div>
-    <app-mobile-cart-summary [activeOrderMobileSidebar]="mobileOrderSidebar"></app-mobile-cart-summary>
+    <app-mobile-cart-summary [activeOrderMobileSidebar]="mobileOrderSidebar" [cart]="cart"></app-mobile-cart-summary>
   </div>
   <div class="sidebar sidebar--bg-gray d-none d-lg-block">
     <div class="sidebar__inner">
-      <app-active-order></app-active-order>
+      <app-active-order [cart]="cart"></app-active-order>
     </div>
   </div>
 </main>

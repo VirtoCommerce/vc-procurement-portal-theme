@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ICart } from 'src/app/models/dto/icart';
-import { Observable } from 'rxjs';
 import { ActiveOrderService } from 'src/app/services/active-order.service';
 import { ActiveOrderMobileComponent } from '../../active-order/active-order-mobile/active-order-mobile.component';
 import { MobileViewService } from 'src/app/services/mobile-view.service';
@@ -13,7 +12,8 @@ import { MobileViewService } from 'src/app/services/mobile-view.service';
 })
 export class MobileCartSummaryComponent implements OnInit {
   @Input() activeOrderMobileSidebar: ActiveOrderMobileComponent;
-  cart$: Observable<ICart>;
+  @Input()
+  cart: ICart;
 
   openSidebar() {
     this.mobileSidebarService.openSidebar(this.activeOrderMobileSidebar);
@@ -22,8 +22,6 @@ export class MobileCartSummaryComponent implements OnInit {
   constructor(private activeOrderService: ActiveOrderService, private mobileSidebarService: MobileViewService) { }
 
   ngOnInit() {
-    this.cart$ = this.activeOrderService.Cart;
-    this.cart$.subscribe();
   }
 
 }

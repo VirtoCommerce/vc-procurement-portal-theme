@@ -1,7 +1,6 @@
-import { Component, OnInit, HostBinding, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActiveOrderService } from 'src/app/services/active-order.service';
 import { ICart, ILineItem } from 'src/app/models/dto/icart';
-import { Observable } from 'rxjs';
 import { CheckoutModalComponent } from '../checkout-modal/checkout-modal.component';
 import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -14,7 +13,8 @@ import { MobileViewService } from 'src/app/services/mobile-view.service';
   styleUrls: ['./active-order-mobile.component.scss']
 })
 export class ActiveOrderMobileComponent implements OnInit, IToggleable {
-  cart$: Observable<ICart>;
+  @Input()
+  cart: ICart;
   isOpen = false;
 
   constructor(
@@ -25,9 +25,6 @@ export class ActiveOrderMobileComponent implements OnInit, IToggleable {
   ) {}
 
   ngOnInit() {
-    this.cart$ = this.activeOrderService.Cart;
-    this.cart$.subscribe();
-    this.activeOrderService.refreshCart();
   }
 
   toggle() {

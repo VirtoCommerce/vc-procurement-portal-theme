@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActiveOrderService } from '../../services/active-order.service';
-
-import { Observable } from 'rxjs';
 import { ILineItem, ICart } from 'src/app/models/dto/icart';
 import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -14,8 +12,8 @@ import { AlertsService } from 'src/app/modules/alerts/alerts.service';
   styleUrls: ['./active-order.component.scss']
 })
 export class ActiveOrderComponent implements OnInit {
-
-  cart$: Observable<ICart>;
+  @Input()
+  cart: ICart;
 
   constructor(
     private activeOrderService: ActiveOrderService,
@@ -24,10 +22,7 @@ export class ActiveOrderComponent implements OnInit {
     private aletsService: AlertsService
     ) {}
 
-  ngOnInit() {
-    this.cart$ = this.activeOrderService.Cart;
-    this.cart$.subscribe();
-    this.activeOrderService.refreshCart();
+  ngOnInit() {    
   }
 
   removeItem(item: ILineItem) {

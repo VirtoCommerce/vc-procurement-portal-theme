@@ -41,6 +41,7 @@ export class CatalogComponent implements OnInit {
     this.Init();
     this.cart$ = this.activeOrderService.Cart;
     this.cart$.subscribe();
+    this.activeOrderService.refreshCart();
   }
 
   pageChanged() {

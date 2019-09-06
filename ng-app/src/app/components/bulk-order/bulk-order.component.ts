@@ -1,10 +1,7 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { merge, Observable, of as observableOf } from 'rxjs';
-import { catchError, map, startWith, switchMap } from 'rxjs/operators';
-
-
+import { Component, OnInit } from '@angular/core';
+import { Observable, of as observableOf } from 'rxjs';
 import { ActiveOrderService } from '../../services/active-order.service';
-import { toBase64String } from '@angular/compiler/src/output/source_map';
+import { ICart } from 'src/app/models/dto/icart';
 
 type tabs = 'manualy' | 'csv';
 
@@ -14,6 +11,7 @@ type tabs = 'manualy' | 'csv';
   styleUrls: ['./bulk-order.component.scss']
 })
 export class BulkOrderComponent implements OnInit {
+  cart$: Observable<ICart>;
 
   selectedTab: tabs = 'manualy'; // manualy or csv
 
@@ -28,6 +26,9 @@ export class BulkOrderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.cart$ = this.activeOrderService.Cart;
+    this.cart$.subscribe();
+    this.activeOrderService.refreshCart();
   }
 
 }

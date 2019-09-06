@@ -9,7 +9,8 @@ import { AuthorizationService } from 'src/app/services/authorization.service';
 import { OrderStateTransitionResult } from 'src/app/models/order-state-transition-result';
 import { ExtendedUser } from 'src/app/models/dto/iuser';
 import { AlertsService } from 'src/app/modules/alerts/alerts.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
+import { ICart } from 'src/app/models/dto/icart';
 
 @Component({
   selector: 'app-order-details',
@@ -29,6 +30,7 @@ export class OrderDetailsComponent implements OnInit {
   status: string;
   currentUser: ExtendedUser;
   orderStateTransitions: OrderStateTransitionResult[];
+  cart$: Observable<ICart>;
 
   constructor(
     private ordersService: OrdersService,
@@ -40,6 +42,9 @@ export class OrderDetailsComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    this.cart$ = this.activeOrderService.Cart;
+    this.cart$.subscribe();
+    this.activeOrderService.refreshCart();
     this.currentUser = await this.authorizationService.getCurrentUser() as ExtendedUser;
     this.route.paramMap
       .pipe(switchMap(params => this.ordersService.getOrder(params.get('id'))))

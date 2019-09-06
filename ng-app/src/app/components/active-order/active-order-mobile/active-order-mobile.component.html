@@ -1,12 +1,12 @@
 <div class="swipe swipe--order" [ngClass]="{'swipe--opened': isOpen}">
   <div class="swipe__header">
-      <div class="swipe__header-t" *ngIf="(cart$ | async) as cart">
+      <div class="swipe__header-t">
           Your Order
           <a (click)="clear()" *ngIf="cart.itemsCount != 0" class="swipe__header-link">Remove all</a>
       </div>
       <div class="swipe__close" (click)="closeSidebar()"></div>
   </div>
-  <div class="swipe__body" *ngIf="(cart$ | async) as cart">
+  <div class="swipe__body">
       <div class="order">
           <div class="order__info">
               <div class="list list--total">

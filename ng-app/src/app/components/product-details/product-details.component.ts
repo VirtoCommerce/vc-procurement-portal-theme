@@ -34,6 +34,7 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.cart$ = this.activeOrderService.Cart;
+    this.cart$.subscribe();
     this.activeOrderService.refreshCart();
     this.route.paramMap
       .pipe(
