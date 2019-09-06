@@ -8,6 +8,7 @@ import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angu
 import { BlockUIModule } from 'ng-block-ui';
 import { NgbModule, NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import {ConnectionServiceModule} from 'ng-connection-service';
 // custom modules import
 
 import { AppRoutingModule } from './app-routing.module';
@@ -62,6 +63,7 @@ import { OnlyNumberDirective } from './directives/only-number.directive';
 import { EditCompanyUserModalFormComponent } from './components/company/edit-company-user-modal-form/edit-company-user-modal-form.component';
 import { NoResultMessageComponent } from './components/common/no-result-message/no-result-message.component';
 import { ApprovalWorkflowComponent } from './components/company/approval-workflow/approval-workflow.component';
+import { ErrorInterceptor } from './services/interceptors/error-interceptor';
 // import { initializeAppConfig, AppConfig } from './services/app-config.service';
 
 // import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -129,9 +131,11 @@ import { ApprovalWorkflowComponent } from './components/company/approval-workflo
       delayStart: 1000,
       delayStop: 1000
     }),
+    ConnectionServiceModule
     // InMemoryWebApiModule.forRoot(DataService)
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter},
