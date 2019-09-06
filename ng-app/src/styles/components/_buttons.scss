@@ -183,12 +183,13 @@
         min-width: 9rem;
         padding: 0;
         width: auto;
+        flex: 0 1 auto;
 
         &--active
         {
             background-color: $blue;
             border-color: $blue;
-            color: $white;
+            color: $white !important;
         }
     }
 
