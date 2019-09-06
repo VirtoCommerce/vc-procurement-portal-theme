@@ -24,7 +24,7 @@
             <a [routerLink]="['/account']" class="nav__link" routerLinkActive="nav__link--active" (click)="closeMobileMenu()">My account</a>
           </li>
           <li class="nav__item">
-            <a href="/account/logout" class="nav__link">Logout</a>
+            <a href="/account/logout" class="nav__link">Logout {{getLoggedUserName()}}</a>
           </li>
       </ul>
   </div>
@@ -56,7 +56,7 @@
                     <a [routerLink]="['/account']" class="nav__link" routerLinkActive="nav__link--active">My account</a>
                   </li>
                   <li class="nav__item ml-auto" (click)="logout()">
-                      <a href="/account/logout" class="nav__link">Logout</a>
+                      <a href="/account/logout" class="nav__link">Logout {{getLoggedUserName()}}</a>
                   </li>
               </ul>
           </div>

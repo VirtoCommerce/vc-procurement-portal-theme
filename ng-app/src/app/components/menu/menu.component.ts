@@ -6,6 +6,7 @@ import { MobileViewService } from 'src/app/services/mobile-view.service';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 import { of, Observable, BehaviorSubject } from 'rxjs';
 import { RoleEnum } from 'src/app/models/role';
+import { ExtendedUser } from 'src/app/models/dto/iuser';
 
 @Component({
   selector: 'app-menu',
@@ -15,15 +16,17 @@ import { RoleEnum } from 'src/app/models/role';
 export class MenuComponent implements OnInit {
   isOpen = false;
   isAdmin: Promise<boolean>;
+  currentUser: ExtendedUser;
   constructor(
     private router: Router,
     private mobileSidebarService: MobileViewService,
     private authService: AuthorizationService
   ) {
-   }
+  }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.isAdmin = this.authService.checkPermission(RoleEnum.Admin);
+    this.currentUser = await this.authService.getCurrentUser();
   }
 
   openMobileMenu() {
@@ -40,6 +43,17 @@ export class MenuComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  public getLoggedUserName(): string {
+    let result: string;
+    if (this.currentUser != null) {
+      if (this.currentUser.userName != null) {
+        result = `(${this.currentUser.userName})`;
+      }
+    }
+
+    return result;
   }
 
 }
