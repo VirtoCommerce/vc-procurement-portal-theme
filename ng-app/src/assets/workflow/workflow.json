@@ -1,5 +1,5 @@
 {
-  "ImageUrl": "themes/assets/images/workflow2.svg",
+  "ImageUrl": "/assets/images/workflow.svg",
   "OrderCreatorRoles": ["Agent"],
   "States": [
     {
