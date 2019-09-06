@@ -9,7 +9,7 @@ import { AlertsService } from '../modules/alerts/alerts.service';
   providedIn: 'root'
 })
 export class OrganizationService {
-  constructor(private http: HttpClient, private aletsService: AlertsService) {}
+  constructor(private http: HttpClient, private alertsService: AlertsService) {}
 
   getUserOrganization() {
     console.log('getUserOrganization');
@@ -30,11 +30,11 @@ export class OrganizationService {
 
   private handleError(error: any) {
     if (error.status >= 500) {
-      this.aletsService.error(
+      this.alertsService.error(
         `An error occurred with code ${error.status} while trying to execute a request to the server`, { dismissTimeout: 0 }
       );
     } else if (error.status >= 400 && error.status < 500) {
-      this.aletsService.warn(
+      this.alertsService.warn(
         `An error occurred with code ${error.status} while trying to execute a request to the server`, { dismissTimeout: 0 }
       );
     }
