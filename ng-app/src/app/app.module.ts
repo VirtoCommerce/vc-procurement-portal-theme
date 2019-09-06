@@ -8,6 +8,7 @@ import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angu
 import { BlockUIModule } from 'ng-block-ui';
 import { NgbModule, NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import {ConnectionServiceModule} from 'ng-connection-service';
 // custom modules import
 
 import { AppRoutingModule } from './app-routing.module';
@@ -130,6 +131,7 @@ import { ErrorInterceptor } from './services/interceptors/error-interceptor';
       delayStart: 1000,
       delayStop: 1000
     }),
+    ConnectionServiceModule
     // InMemoryWebApiModule.forRoot(DataService)
   ],
   providers: [
