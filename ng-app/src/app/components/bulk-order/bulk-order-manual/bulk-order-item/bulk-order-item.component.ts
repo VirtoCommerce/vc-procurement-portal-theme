@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {  } from 'events';
-import { map, catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { map, catchError, debounceTime, distinctUntilChanged, switchMap, filter } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { IProduct } from 'src/app/models/dto/product';
 import { CatalogService } from 'src/app/services';
@@ -44,11 +44,11 @@ export class BulkOrderItemComponent implements OnInit {
 
   searchProductsSuggestionsByName = (text$: Observable<string>) =>
   text$.pipe(
+    filter(text => text.length > 2),
     debounceTime(300),
     distinctUntilChanged(),
     switchMap(term =>
-      this.getSuggestedProducts(term).pipe(
-       )
+      this.getSuggestedProducts(term)
     )
   )
 
