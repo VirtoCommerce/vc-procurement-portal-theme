@@ -73,17 +73,6 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
       .subscribe(() => this.alertsService.success(`${this.items.controls.length} items successfully added to the active order.`));
   }
 
-  suggestedProductsFormatter = (item: { name: string }) => item.name;
-
-  searchProductsSuggestionsByName = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap(term =>
-        this.getSuggestedProducts(term).pipe()
-      )
-    )
-
   private itemsEmptyValidator(itemsForms: FormArray) {
     if (itemsForms == null || itemsForms.controls.length < 1) {
       return { itemsEmpty: true };
