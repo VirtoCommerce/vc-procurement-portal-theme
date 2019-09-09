@@ -59,7 +59,7 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
 
   addItem() {
     const itemForm = this.createItemForm();
-    this.items.push(itemForm);
+    this.items.insert(0, itemForm);
     this.validateAllFormFields(this.itemsForm);
   }
 
