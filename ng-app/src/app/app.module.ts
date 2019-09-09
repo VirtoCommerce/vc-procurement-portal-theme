@@ -1,16 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-// 3d
+// 3d party libraries
 import { BlockUIModule } from 'ng-block-ui';
 import { NgbModule, NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import {ConnectionServiceModule} from 'ng-connection-service';
-// custom modules import
+import { ConnectionServiceModule } from 'ng-connection-service';
 
+// custom modules import
 import { AppRoutingModule } from './app-routing.module';
 import { ConfirmModalModule } from './modules/confirm-modal/confirm-modal.module';
 import { AlertsModule } from './modules/alerts/alerts.module';
@@ -35,17 +35,10 @@ import { PageSizeSelectorComponent } from './components/page-size-selector/page-
 import { MobileCartSummaryComponent } from './components/catalog/mobile-cart-summary/mobile-cart-summary.component';
 import { ActiveOrderMobileComponent } from './components/active-order/active-order-mobile/active-order-mobile.component';
 import { ForbiddenComponent } from './components/container/forbidden/forbidden.component';
-// services
-
-
-// services modules
-// import { SharedService } from './services/shared-service';
-// import { AuthGuard } from './guards';
 
 // directives
 import { RemoveWrapperDirective } from './directives/remove-wrapper.directive';
 import { ChangeProductQuantityComponent } from './components/catalog/change-product-quantity/change-product-quantity.component';
-import { AuthInterceptor } from './services/interceptors/auth-interceptor';
 import { RequestInterceptor } from './services/interceptors/request-interceptor';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { InvoiceComponent } from './components/orders/invoice/invoice.component';
@@ -63,10 +56,6 @@ import { EditCompanyUserModalFormComponent } from './components/company/edit-com
 import { NoResultMessageComponent } from './components/common/no-result-message/no-result-message.component';
 import { ApprovalWorkflowComponent } from './components/company/approval-workflow/approval-workflow.component';
 import { ErrorInterceptor } from './services/interceptors/error-interceptor';
-// import { initializeAppConfig, AppConfig } from './services/app-config.service';
-
-// import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
-
 
 @NgModule({
   declarations: [
@@ -114,11 +103,6 @@ import { ErrorInterceptor } from './services/interceptors/error-interceptor';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    // HttpClientXsrfModule
-    //     .withOptions({
-    //         cookieName: 'XSRF-TOKEN',
-    //         headerName: 'X-XSRF-TOKEN'
-    //     }),
     NgbModule,
     ScrollingModule,
     ConfirmModalModule,
@@ -130,17 +114,11 @@ import { ErrorInterceptor } from './services/interceptors/error-interceptor';
       delayStop: 1000
     }),
     ConnectionServiceModule
-    // InMemoryWebApiModule.forRoot(DataService)
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter},
-
-    // { provide: APP_INITIALIZER,
-    //   useFactory: initializeAppConfig,
-    //   deps: [AppConfig], multi: true },
   ],
   bootstrap: [AppComponent],
   entryComponents: [EditCompanyUserModalFormComponent, CheckoutModalComponent]
