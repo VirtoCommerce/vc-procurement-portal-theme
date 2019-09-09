@@ -1,5 +1,5 @@
 <div class="tabs__content" appRemoveWrapper>
-  <a (click)="openCreateUserModal()" class="btn btn--green mb-4">Add new User</a>
+  <a (click)="openCreateUserModal()" class="btn btn--green mb-4">Add User</a>
   <div class="table-responsive" *ngIf="users">
     <table class="table">
       <colgroup>
@@ -34,9 +34,9 @@
           <td>{{user.email}}</td>
           <td>{{user.phoneNumber}}</td>
           <td>
-            <a (click)="openEditUserModal(user)" class="user__edit">Edit user</a>
+            <a (click)="openEditUserModal(user)" class="user__edit">Edit</a>
             |
-            <a (click)="deleteUser(user)" class="user__remove">Remove user</a>
+            <a (click)="deleteUser(user)" class="user__remove">Remove</a>
           </td>
         </tr>
       </tbody>
