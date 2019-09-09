@@ -177,12 +177,12 @@
       </div>
     </div>
   </fieldset>
-  <fieldset *ngIf="organizationDetails">
+  <!-- <fieldset *ngIf="organizationDetails">
     <legend>Return Invalid orders to creator</legend>
     <div class="btn-group btn-group--uppercase">
       <a class="btn btn--outline" [ngClass]="{'btn--active': organizationDetails.returnInvalidOrdersToCreator}" (click)="setOrdersProperty(true)">Yes</a>
       <a class="btn btn--outline" [ngClass]="{'btn--active': !organizationDetails.returnInvalidOrdersToCreator}" (click)="setOrdersProperty(false)">No</a>
     </div>
-  </fieldset>
+  </fieldset> -->
   <a class="btn btn--green mt-3" (click)="updateCompany()">Update Company</a>
 </div>
