@@ -31,7 +31,6 @@ import { MenuComponent } from './components/menu/menu.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { OrderDetailsComponent } from './components/orders/order-details/order-details.component';
 import { ForApprovalComponent } from './components/forapproval/forapproval.component';
-import { ForApprovalDetailsComponent } from './components/forapproval/forapproval-details/forapproval-details.component';
 import { PageSizeSelectorComponent } from './components/page-size-selector/page-size-selector.component';
 import { MobileCartSummaryComponent } from './components/catalog/mobile-cart-summary/mobile-cart-summary.component';
 import { ActiveOrderMobileComponent } from './components/active-order/active-order-mobile/active-order-mobile.component';
@@ -86,7 +85,6 @@ import { ErrorInterceptor } from './services/interceptors/error-interceptor';
     OrdersComponent,
     OrderDetailsComponent,
     ForApprovalComponent,
-    ForApprovalDetailsComponent,
     MobileCartSummaryComponent,
     PageSizeSelectorComponent,
     ChangeProductQuantityComponent,
