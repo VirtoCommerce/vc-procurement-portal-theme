@@ -44,7 +44,8 @@
     },
     {
       "Name": "Approved",
-      "IsFinal": true
+      "IsFinal": true,
+      "IsSuccessful": true
     },
     {
       "Name": "Rejected",

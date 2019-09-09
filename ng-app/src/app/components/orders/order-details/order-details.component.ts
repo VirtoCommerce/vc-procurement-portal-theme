@@ -39,7 +39,7 @@ export class OrderDetailsComponent implements OnInit {
     private orderWorkflowService: OrderWorkflowService,
     private authorizationService: AuthorizationService,
     private alertsService: AlertsService
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.cart$ = this.activeOrderService.Cart;
@@ -99,6 +99,10 @@ export class OrderDetailsComponent implements OnInit {
       this.order.status = oldStatus;
       this.orderStateTransitions = this.getRoleTransitions(oldStatus);
     }
+  }
+
+  public isInvoiceButtonVisible(): boolean {
+    return this.orderWorkflowService.isContainsSuccessfulAttribute(this.order.status);
   }
 
   private getRoleTransitions(status: string): OrderStateTransitionResult[] {

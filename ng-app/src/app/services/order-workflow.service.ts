@@ -30,6 +30,14 @@ export class OrderWorkflowService {
     return result;
   }
 
+  public isContainsSuccessfulAttribute(currentState: string) {
+    const targetState = this._workflow.States.find(state => state.Name === currentState);
+
+    if (targetState != null) {
+      return targetState.IsSuccessful != null && targetState.IsSuccessful;
+    }
+  }
+
   public getStatesByRoles(roles: string[]): string[] {
     const set = new Set<string>();
     roles.forEach(iteratedRole => {
