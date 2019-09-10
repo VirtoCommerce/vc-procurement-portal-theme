@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { OrdersComponent } from './components/orders/orders.component';
-import { ForApprovalComponent } from './components/forapproval/forapproval.component';
 import { CompanyComponent } from './components/company/company.component';
 import { AccountComponent } from './components/account/account.component';
 import { BulkOrderComponent } from './components/bulk-order/bulk-order.component';
@@ -50,7 +49,7 @@ const routes: Routes = [
   },
   {
     path: 'forapproval',
-    component: ForApprovalComponent,
+    component: OrdersComponent,
     canActivate: [AuthGuard],
     data: {
       permission: {
