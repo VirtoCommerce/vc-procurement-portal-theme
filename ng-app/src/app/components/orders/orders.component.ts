@@ -8,6 +8,8 @@ import ConfigurationFile from 'src/assets/config/config.dev.json';
 import { IAppConfig } from 'src/app/models/iapp-config';
 import { OrderWorkflowService } from 'src/app/services/order-workflow.service';
 import { BehaviorSubject } from 'rxjs';
+import { AuthorizationService } from 'src/app/services/authorization.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -35,35 +37,54 @@ export class OrdersComponent implements OnInit {
 
   constructor(
     private ordersService: OrdersService,
-    private orderWorkflowService: OrderWorkflowService
-  ) { }
-
-  ngOnInit() {
-    this.getAllOrders();
+    private orderWorkflowService: OrderWorkflowService,
+    private authorizationService: AuthorizationService,
+    private route: ActivatedRoute
+  ) {
   }
 
-  changeActiveStatus(newStatus: string) {
+  async ngOnInit() {
+    this.getOrders();
+  }
+
+  public pageChanged() {
+    this.getOrders();
+  }
+
+  public getStatuses() {
+    return ['All', ...this.orderWorkflowService.getAllStates()];
+  }
+
+  public changeActiveStatus(newStatus: string) {
     if (this.status !== newStatus) {
       this.status = newStatus;
-      this.getAllOrders();
+      this.getOrders();
     }
   }
 
-  pageSizeChanged(eventArgs: PageSizeChangedArgs) {
+  public pageSizeChanged(eventArgs: PageSizeChangedArgs) {
     this.pagination.pageSize = eventArgs.newPageSize;
-    this.getAllOrders();
+    this.getOrders();
   }
 
-  filterOrdersByDate() {
+  public filterOrdersByDate() {
     if (this.startDate > this.endDate) {
       this.validFilterDate = false;
     } else {
       this.validFilterDate = true;
-      this.getAllOrders();
+      this.getOrders();
     }
   }
 
-  getAllOrders() {
+  private getOrders() {
+    if (this.isForApprovalRoute()) {
+      this.getForApprovalOrders();
+    } else {
+      this.getOtherOrders();
+    }
+  }
+
+  private getOtherOrders() {
     this.ordersService
       .getOrders(this.pagination.page, this.pagination.pageSize, this.startDate, this.endDate, this.status)
       .subscribe((data: any) => {
@@ -73,12 +94,26 @@ export class OrdersComponent implements OnInit {
       });
   }
 
-  pageChanged() {
-    this.getAllOrders();
+  private async getForApprovalOrders() {
+    const currentUser = await this.authorizationService.getCurrentUser();
+    if (currentUser != null) {
+      const states = this.orderWorkflowService.getStatesByRoles(currentUser.workflowRoles);
+      if (states.length > 0) {
+        this.ordersService
+          .getOrders(this.pagination.page, this.pagination.pageSize, this.startDate, this.endDate, null, states)
+          .subscribe((data: any) => {
+            this.orders = data.results as IOrder[];
+            this.pagination.collectionSize = data.totalCount;
+            this.ordersLoaded$.next(true);
+          });
+      }
+    } else {
+      throw Error('The current user isn\'t defined');
+    }
   }
 
-  public getStatuses() {
-    return ['All', ...this.orderWorkflowService.getAllStates()];
+  private isForApprovalRoute(): boolean {
+    return this.route.snapshot.routeConfig.path === 'forapproval' ? true : false;
   }
 
   getAssignedToRoles = (order: IOrder) => this.orderWorkflowService.getRolesTextByState(order.status);

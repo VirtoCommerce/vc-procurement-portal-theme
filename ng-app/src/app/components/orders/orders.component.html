@@ -4,48 +4,24 @@
     <div class="row page__sort">
       <div class="col-md-auto page__sort-date">
         From
-        <input
-          class="form-control"
-          placeholder="yyyy-mm-dd"
-          name="dp1"
-          ngbDatepicker
-          #d1="ngbDatepicker"
-          [(ngModel)]="startDate"
-          (ngModelChange)="filterOrdersByDate()"
-          (click)="d1.toggle()"
-        />
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dp1" ngbDatepicker #d1="ngbDatepicker"
+          [(ngModel)]="startDate" (ngModelChange)="filterOrdersByDate()" (click)="d1.toggle()" />
         To
-        <input
-          class="form-control"
-          placeholder="yyyy-mm-dd"
-          name="dp2"
-          ngbDatepicker
-          #d2="ngbDatepicker"
-          [(ngModel)]="endDate"
-          (ngModelChange)="filterOrdersByDate()"
-          (click)="d2.toggle()"
-        />
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dp2" ngbDatepicker #d2="ngbDatepicker"
+          [(ngModel)]="endDate" (ngModelChange)="filterOrdersByDate()" (click)="d2.toggle()" />
       </div>
       <div class="alert alert-danger col-md-auto m-0" *ngIf="!validFilterDate">
         Date is not valid
       </div>
-      <div class="col-md-auto page__sort-filter">
+      <div class="col-md-auto page__sort-filter" *ngIf="!isForApprovalRoute()">
         Filter by status
 
         <div ngbDropdown>
-          <button
-            class="btn btn-outline-secondary"
-            id="statusFilterDropdown"
-            ngbDropdownToggle
-          >
+          <button class="btn btn-outline-secondary" id="statusFilterDropdown" ngbDropdownToggle>
             {{ this.status }}
           </button>
           <div ngbDropdownMenu aria-labelledby="statusFilterDropdown">
-            <button
-              ngbDropdownItem
-              *ngFor="let status of getStatuses()"
-              (click)="changeActiveStatus(status)"
-            >
+            <button ngbDropdownItem *ngFor="let status of getStatuses()" (click)="changeActiveStatus(status)">
               {{ status }}
             </button>
           </div>
@@ -101,20 +77,13 @@
                 You've viewed {{ orders.length }} of
                 {{ pagination.collectionSize }} orders
               </div>
-              <ngb-pagination
-                [(page)]="pagination.page"
-                [pageSize]="pagination.pageSize"
-                [collectionSize]="pagination.collectionSize"
-                (pageChange)="pageChanged()"
-              ></ngb-pagination>
+              <ngb-pagination [(page)]="pagination.page" [pageSize]="pagination.pageSize"
+                [collectionSize]="pagination.collectionSize" (pageChange)="pageChanged()"></ngb-pagination>
             </div>
             <div class="col-auto ml-sm-auto">
               Show
-              <app-page-size-selector
-                [defaultPageSize]="pagination.pageSize"
-                [pageSizes]="pageSizes"
-                (pageSizeChanged)="pageSizeChanged($event)"
-              ></app-page-size-selector>
+              <app-page-size-selector [defaultPageSize]="pagination.pageSize" [pageSizes]="pageSizes"
+                (pageSizeChanged)="pageSizeChanged($event)"></app-page-size-selector>
             </div>
           </div>
         </div>
