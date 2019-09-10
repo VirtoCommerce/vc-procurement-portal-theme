@@ -17,7 +17,7 @@
 </div>
 
 
-<div class="sidebar d-none d-xl-block">
+
   <div class="sidebar__block">
       <a [routerLink]="['/bulkorder']"
        class="btn btn--blue btn--block">Bulk Order</a>
@@ -30,4 +30,4 @@
           <a class="nav__link" [ngClass]="{'nav__link--active': isActive(category)}" (click)="selectCategory(category)" >{{category.name}}</a>
       </li>
   </ul>
-</div>
+
