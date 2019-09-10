@@ -1,6 +1,6 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
-import { Observable, Subject, config } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Alert, IAlertOptions, AlertType } from './models';
 
 
@@ -18,7 +18,11 @@ export class AlertsService {
   constructor(private router: Router) {
     router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
-        this.alerts = this.alerts.filter(alert => alert.keepAfterRouteChange );
+        this.alerts.forEach(alert => {
+          if (!alert.keepAfterRouteChange) {
+            this.dismissAlert(alert);
+          }
+        });
       }
     });
   }
@@ -55,11 +59,6 @@ export class AlertsService {
     if (opts.dismissTimeout) {
       setTimeout(() => this.dismissAlert(alert), opts.dismissTimeout);
     }
-  }
-
-  clear() {
-    this.alerts = [];
-    this.alerts$.next(this.alerts);
   }
 
   dismissAlert(alert: Alert) {
