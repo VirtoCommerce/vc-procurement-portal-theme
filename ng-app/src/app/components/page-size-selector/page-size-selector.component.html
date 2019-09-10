@@ -8,12 +8,18 @@
 
 
     <div ngbDropdown >
-      <div  id="dropdownPageSizes" ngbDropdownToggle>{{pageSize}}</div>
+      <div ngbDropdownToggle id="dropdownPageSizes">{{pageSize}}</div>
+      <div ngbDropdownMenu aria-labelledby="dropdownPageSizes" class="dropdown-menu--up">
+        <a ngbDropdownItem *ngFor="let ps of pageSizes" (click)="onPageSizeClicked(ps)">{{ps}}</a>
+      </div>
+    </div>
+
+    <!-- <div ngbDropdown >
+      <div id="dropdownPageSizes" ngbDropdownToggle>{{pageSize}}</div>
       <div ngbDropdownMenu aria-labelledby="dropdownPageSizes">
         <a  ngbDropdownItem *ngFor="let ps of pageSizes" (click)="onPageSizeClicked(ps)">{{ps}}</a>
       </div>
-
-    </div>
+    </div> -->
   <!-- <div class="dropdown__toggle">30</div>
                                         <div class="dropdown__menu dropdown__menu--up">
                                             <a href="#" class="dropdown__menu-item">10</a>

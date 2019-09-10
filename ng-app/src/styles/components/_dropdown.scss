@@ -1,112 +1,161 @@
-// .dropdown
-// {
-//     position: relative;
-
-//     &__toggle
-//     {
-//         align-items: center;
-//         border: 1px solid $gray-200;
-//         border-radius: $border-radius;
-//         color: $black;
-//         cursor: pointer;
-//         display: flex;
-//         height: 2.5rem;
-//         padding: 0 2.375rem 0 .9375rem;
-//         position: relative;
-
-//         &::after
-//         {
-//             background: url('assets/icons/chevron.svg') no-repeat scroll 0 0;
-//             content: ' ';
-//             height: .5rem;
-//             margin-top: .875rem;
-//             position: absolute;
-//             right: .9375rem;
-//             top: 0;
-//             width: .8125rem;
-//         }
-//     }
-
-//     &__menu
-//     {
-//         background: $white;
-//         display: none;
-//         left: 0;
-//         margin: .625rem 0 0;
-//         position: absolute;
-//         right: 0;
-//         top: 100%;
-
-//         &-item
-//         {
-//             align-items: center;
-//             border: 1px solid $gray-200;
-//             display: flex;
-//             height: 2.5rem;
-//             margin-top: -1px;
-//             justify-content: center;
-
-//             &:hover
-//             {
-//                 background: $blue;
-//                 border-color: $blue;
-//                 color: $white;
-//             }
-
-//             &:first-child
-//             {
-//                 border-top-left-radius: $border-radius;
-//                 border-top-right-radius: $border-radius;
-//             }
-
-//             &:last-child
-//             {
-//                 border-bottom-left-radius: $border-radius;
-//                 border-bottom-right-radius: $border-radius;
-//             }
-//         }
-
-//         &--up
-//         {
-//             bottom: 100%;
-//             margin: 0 0 .625rem;
-//             top: auto;
-//         }
-//     }
-
-//     &--opened
-//     {
-//         .dropdown__toggle::after
-//         {
-//             transform: rotate(180deg);
-//         }
-
-//         .dropdown__menu
-//         {
-//             display: block;
-//         }
-//     }
-// }
-.dropdown-toogle{
-  align-items: center;
-  border: 1px solid $gray-200;
-  border-radius: $border-radius;
-  color: $black;
-  cursor: pointer;
-  display: flex;
-  height: 2.5rem;
-  padding: 0 2.375rem 0 .9375rem;
+.dropdown {
   position: relative;
 
-  &::after
-  {
-      background: url('assets/icons/chevron.svg') no-repeat scroll 0 0;
-      content: ' ';
-      height: .5rem;
-      margin-top: .875rem;
+  &-toggle {
+    align-items: center;
+    border: 1px solid $gray-200;
+    border-radius: $border-radius;
+    color: $black;
+    cursor: pointer;
+    display: flex;
+    height: 2.5rem;
+    padding: 0 2.375rem 0 0.9375rem;
+    position: relative;
+
+    &::after {
+      background: url("assets/icons/chevron.svg") no-repeat scroll 0 0;
+      content: " ";
+      height: 0.5rem;
+      margin-top: 0.875rem;
       position: absolute;
-      right: .9375rem;
+      right: 0.9375rem;
       top: 0;
-      width: .8125rem;
+      width: 0.8125rem;
+    }
+  }
+
+  &-menu {
+    background: $white;
+    display: none;
+    left: 0;
+    margin: 0.625rem 0 0;
+    position: absolute;
+    right: 0;
+    top: 100%;
+
+    .dropdown-item {
+      align-items: center;
+      border: 1px solid $gray-200;
+      display: flex;
+      height: 2.5rem;
+      margin-top: -1px;
+      justify-content: center;
+
+      &:hover {
+        background: $blue;
+        border-color: $blue;
+        color: $white;
+      }
+
+      &:first-child {
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+      }
+
+      &:last-child {
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+      }
+    }
+
+    &--up {
+      bottom: 100% !important;
+      margin: 0 0 0.625rem !important;
+      top: auto !important;
+      transform: none !important;
+      //position: relative !important;
+    }
+  }
+
+  &.show {
+    .dropdown-toggle::after {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      display: block;
+    }
   }
 }
+
+
+// .dropdown {
+//   position: relative;
+// }
+
+// .dropdown-toggle {
+//   align-items: center;
+//   border: 1px solid $gray-200;
+//   border-radius: $border-radius;
+//   color: $black;
+//   cursor: pointer;
+//   display: flex;
+//   height: 2.5rem;
+//   padding: 0 2.375rem 0 0.9375rem;
+//   position: relative;
+// }
+
+// .dropdown-toggle::after {
+//   background: url("assets/icons/chevron.svg") no-repeat scroll 0 0;
+//   content: " ";
+//   height: 0.5rem;
+//   margin-top: 0.875rem;
+//   position: absolute;
+//   right: 0.9375rem;
+//   top: 0;
+//   width: 0.8125rem;
+// }
+
+// .dropdown-menu {
+//   background: $white;
+//   display: none;
+//   left: 0;
+//   margin: 0.625rem 0 0;
+//   position: absolute;
+//   right: 0;
+//   top: 100%;
+// }
+
+// .dropdown-item {
+//   align-items: center;
+//   border: 1px solid $gray-200;
+//   display: flex;
+//   height: 2.5rem;
+//   margin-top: -1px;
+//   justify-content: center;
+// }
+
+// .dropdown-item::hover {
+//   background: $blue;
+//   border-color: $blue;
+//   color: $white;
+// }
+
+// .dropdown-item:first-child {
+//   border-top-left-radius: $border-radius;
+//   border-top-right-radius: $border-radius;
+// }
+
+// .dropdown-item:last-child{
+//   border-bottom-left-radius: $border-radius;
+//   border-bottom-right-radius: $border-radius;
+// }
+
+// .dropdown-menu-up {
+//   bottom: 100%;
+//   margin: 0 0 0.625rem;
+//   top: auto;
+// }
+
+// .dropdown-opened > .dropdown-toggle::after {
+//   transform: rotate(180deg);
+// }
+
+// .dropdown-opened > .dropdown-menu {
+//   display: block;
+// }
+
+
+
+
+
