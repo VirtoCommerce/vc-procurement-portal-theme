@@ -55,6 +55,7 @@ import { EditCompanyUserModalFormComponent } from './components/company/edit-com
 import { NoResultMessageComponent } from './components/common/no-result-message/no-result-message.component';
 import { ApprovalWorkflowComponent } from './components/company/approval-workflow/approval-workflow.component';
 import { ErrorInterceptor } from './services/interceptors/error-interceptor';
+import { ActionPanelComponent } from './components/common/action-panel/action-panel.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { ErrorInterceptor } from './services/interceptors/error-interceptor';
     CheckoutModalComponent,
     OnlyNumberDirective,
     NoResultMessageComponent,
-    ApprovalWorkflowComponent
+    ApprovalWorkflowComponent,
+    ActionPanelComponent
   ],
   imports: [
     BrowserModule,

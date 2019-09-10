@@ -92,14 +92,7 @@
       </div>
     </div>
 
-    <div class="container mt-3">
-      <div class="row">
-        <div class="col-md-3 mr-2" *ngFor="let transition of orderStateTransitions">
-          <button class="btn btn--outline" style="min-width: 150px;"
-            (click)="onTransitionButtonClick(transition.newState)">{{transition.trigger}}</button>
-        </div>
-      </div>
-    </div>
+    <app-action-panel [actions]="orderStatusActions" (actionClick)="onOrderStatusChanged($event)"></app-action-panel>
 
     <app-mobile-cart-summary [activeOrderMobileSidebar]="mobileOrderSidebar" [cart]="cart"></app-mobile-cart-summary>
   </div>

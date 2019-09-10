@@ -11,6 +11,7 @@ import { ExtendedUser } from 'src/app/models/dto/iuser';
 import { AlertsService } from 'src/app/modules/alerts/alerts.service';
 import { forkJoin, Observable } from 'rxjs';
 import { ICart } from 'src/app/models/dto/icart';
+import { IAction } from 'src/app/components/common/action-panel/iaction';
 
 @Component({
   selector: 'app-order-details',
@@ -29,7 +30,7 @@ export class OrderDetailsComponent implements OnInit {
   createdBy: string;
   status: string;
   currentUser: ExtendedUser;
-  orderStateTransitions: OrderStateTransitionResult[];
+  orderStatusActions: IAction[];
   cart$: Observable<ICart>;
 
   constructor(
@@ -56,7 +57,7 @@ export class OrderDetailsComponent implements OnInit {
         this.total = this.order.total.formattedAmount;
         this.createdBy = this.order.createdBy;
         this.status = this.order.status;
-        this.orderStateTransitions = this.getRoleTransitions(this.order.status);
+        this.orderStatusActions = this.getOrderStatusActions(this.order.status);
       });
   }
 
@@ -78,15 +79,14 @@ export class OrderDetailsComponent implements OnInit {
     );
   }
 
-  public async onTransitionButtonClick(trigger: string) {
-    const newStatus = trigger;
+  public async onOrderStatusChanged(newStatus: string) {
     const oldStatus = this.order.status;
 
-    if (this.order.status === trigger) {
+    if (this.order.status === newStatus) {
       return;
     }
 
-    this.orderStateTransitions = this.getRoleTransitions(newStatus);
+    this.orderStatusActions = this.getOrderStatusActions(newStatus);
 
     try {
       await this.ordersService.changeOrderStatus(this.order.number, newStatus);
@@ -97,7 +97,7 @@ export class OrderDetailsComponent implements OnInit {
       this.alertsService.success(`Order status have been successfully updated`);
     } catch (error) {
       this.order.status = oldStatus;
-      this.orderStateTransitions = this.getRoleTransitions(oldStatus);
+      this.orderStatusActions = this.getOrderStatusActions(oldStatus);
     }
   }
 
@@ -105,13 +105,27 @@ export class OrderDetailsComponent implements OnInit {
     return this.orderWorkflowService.isContainsSuccessfulAttribute(this.order.status);
   }
 
-  private getRoleTransitions(status: string): OrderStateTransitionResult[] {
+  private getOrderStatusActions(status: string): IAction[] {
     // TODO: now we getting only 1 role. shall we draw buttons for all roles?
     // check it! if there are contradictions?
     const role = this.currentUser.workflowRoles[0];
-    return this.orderWorkflowService.getRoleTransitions(
+    const transitions = this.orderWorkflowService.getRoleTransitions(
       status,
       role
     );
+    if (transitions == null) {
+      return [];
+    }
+
+    return transitions.map((stateTransition: OrderStateTransitionResult) => {
+      if (stateTransition == null) {
+        return;
+      }
+      return {
+        id: stateTransition.newState,
+        title: stateTransition.trigger,
+        disabled: false
+      } as IAction;
+    });
   }
 }
