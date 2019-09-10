@@ -1,6 +1,6 @@
 <main class="main container" *ngIf="(cart$ | async) as cart">
   <app-active-order-mobile [cart]="cart" #mobileOrderSidebar></app-active-order-mobile>
-  <app-categories    [categories]="categories$"
+  <app-categories class="sidebar d-none d-xl-block" [categories]="categories$"
     (categoryChanged)="categoryChanged($event)"
     #mobileCategoies
   ></app-categories>
