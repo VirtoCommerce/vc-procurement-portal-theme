@@ -92,11 +92,11 @@ export class CatalogService {
   private handleError(error: any) {
     if (error.status >= 500) {
       this.aletsService.error(
-        `An error occurred with code ${error.status} while trying to execute a request to the server`, { dismissTimeout: 0 }
+        `An error occurred with code ${error.status} while trying to execute a request to the server`, { keepAfterRouteChange: true, dismissTimeout: 0 }
       );
     } else if (error.status >= 400 && error.status < 500) {
       this.aletsService.warn(
-        `An error occurred with code ${error.status} while trying to execute a request to the server`, { dismissTimeout: 0 }
+        `An error occurred with code ${error.status} while trying to execute a request to the server`, { keepAfterRouteChange: true, dismissTimeout: 0 }
       );
     }
     return throwError(error);
