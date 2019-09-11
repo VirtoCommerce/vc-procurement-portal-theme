@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderWorkflowService } from 'src/app/services/order-workflow.service';
+import { OrderWorkflowService } from '@services/order-workflow.service';
 
 @Component({
   selector: 'app-approval-workflow',

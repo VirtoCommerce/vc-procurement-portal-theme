@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { OrganizationService } from '@api/organization.service';
-import { IOrganization } from 'src/app/models/dto/iorganization';
-import { OrganizationConverterService } from 'src/app/services/converters/organization-converter.service';
-import { OrganizationDetails } from 'src/app/models/organization';
+import { IOrganization } from '@models/dto/iorganization';
+import { OrganizationConverterService } from '@services/converters/organization-converter.service';
+import { OrganizationDetails } from '@models/organization';
 
 
 @Component({

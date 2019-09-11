@@ -1,19 +1,19 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IUser, ExtendedUser } from 'src/app/models/dto/iuser';
-import { IAppConfig } from 'src/app/models/iapp-config';
-import { PaginationInfo } from 'src/app/models/inner/pagination-info';
+import { ExtendedUser, IUser, } from '@models/dto/iuser';
+import { IAppConfig } from '@models/iapp-config';
+import { PaginationInfo } from '@models/inner/pagination-info';
 import { UserService } from '@api/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UserConverterService } from 'src/app/services/converters/user-converter.service';
-import { PageSizeChangedArgs } from '../../page-size-selector/page-size-selector.component';
-import { IOrganization } from 'src/app/models/dto/iorganization';
+import { UserConverterService } from '@services/converters/user-converter.service';
+import { PageSizeChangedArgs } from '@components/page-size-selector/page-size-selector.component';
+import { IOrganization } from '@models/dto/iorganization';
 import settings_data from 'src/assets/config/config.dev.json';
-import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
-import { EditCompanyUserModalFormComponent } from '../edit-company-user-modal-form/edit-company-user-modal-form.component';
-import { AlertsService } from 'src/app/modules/alerts/alerts.service';
-import { GenericSearchResult } from 'src/app/models/dto/common/generic-search-result';
-import { EditUser } from 'src/app/models/user';
-import { WorkflowUserRoleStorageService } from 'src/app/services/workflow-user-role-storage.service';
+import { ConfirmService } from '@modules/confirm-modal/confirm-modal-service';
+import { EditCompanyUserModalFormComponent } from '@components/company/edit-company-user-modal-form/edit-company-user-modal-form.component';
+import { AlertsService } from '@modules/alerts/alerts.service';
+import { GenericSearchResult } from '@models/dto/common/generic-search-result';
+import { EditUser } from '@models/user';
+import { WorkflowUserRoleStorageService } from '@services/workflow-user-role-storage.service';
 
 @Component({
   selector: 'app-company-users',
@@ -33,8 +33,8 @@ export class CompanyUsersComponent implements OnInit {
     private modalService: NgbModal,
     private userConverter: UserConverterService,
     private confirmService: ConfirmService,
-    private aletsService: AlertsService,
-    private workflowUserRolesStorage: WorkflowUserRoleStorageService
+    private alertsService: AlertsService,
+    private workflowUserRolesStorage: WorkflowUserRoleStorageService,
   ) {}
 
   ngOnInit() {
@@ -70,7 +70,7 @@ export class CompanyUsersComponent implements OnInit {
     this.confirmService.confirm(confirmOptions).then(() =>
       this.userService.deleteUser(user.id).subscribe(() => {
         this.fetchUsers();
-        this.aletsService.success(`User ${user.userName} removed successfuly!`);
+        this.alertsService.success(`User ${user.userName} removed successfuly!`);
       }), () => { }
     );
   }
@@ -85,7 +85,7 @@ export class CompanyUsersComponent implements OnInit {
       const user = this.userConverter.toAddUserDto(result);
       this.userService.registerNewUser(user).subscribe(() => {
         this.fetchUsers();
-        this.aletsService.success(`User ${user.userName} is created successfuly!`);
+        this.alertsService.success(`User ${user.userName} is created successfuly!`);
       });
     }, () => { });
   }
@@ -105,7 +105,7 @@ export class CompanyUsersComponent implements OnInit {
           this.workflowUserRolesStorage.updateUserRoles(user.id, [result.selectedWorkflowRole]);
         }
         this.fetchUsers();
-        this.aletsService.success(`User ${user.userName} is updated successfuly!`);
+        this.alertsService.success(`User ${user.userName} is updated successfuly!`);
       });
     }, () => { });
   }

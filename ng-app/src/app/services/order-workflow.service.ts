@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import Workflow from 'src/assets/workflow/workflow.json';
-import { OrderStateTransitionResult } from '../models/order-state-transition-result';
+import { OrderStateTransitionResult } from '@models/order-state-transition-result';
 
 @Injectable({
   providedIn: 'root'

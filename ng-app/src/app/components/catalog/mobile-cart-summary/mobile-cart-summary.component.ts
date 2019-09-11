@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ICart } from 'src/app/models/dto/icart';
+import { ICart } from '@models/dto/icart';
 import { ActiveOrderService } from '@api/active-order.service';
-import { ActiveOrderMobileComponent } from '../../active-order/active-order-mobile/active-order-mobile.component';
-import { MobileViewService } from 'src/app/services/mobile-view.service';
+import { ActiveOrderMobileComponent } from '@components/active-order/active-order-mobile/active-order-mobile.component';
+import { MobileViewService } from '@services/mobile-view.service';
 
 
 @Component({

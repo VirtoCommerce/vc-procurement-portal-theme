@@ -10,7 +10,7 @@ import {
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { AuthorizationService } from '../authorization.service';
+import { AuthorizationService } from '@services/authorization.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

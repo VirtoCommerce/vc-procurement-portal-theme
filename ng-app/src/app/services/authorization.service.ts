@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { UserService } from './api/user.service';
-import { ExtendedUser } from '../models/dto/iuser';
-import { RoleEnum } from '../models/role';
+import { UserService } from '@api/user.service';
+import { ExtendedUser } from '@models/dto/iuser';
+import { RoleEnum } from '@models/role';
 
 @Injectable({
   providedIn: 'root'

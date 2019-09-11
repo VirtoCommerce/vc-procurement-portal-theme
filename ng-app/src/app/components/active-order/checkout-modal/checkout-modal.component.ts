@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ICart } from 'src/app/models/dto/icart';
+import { ICart } from '@models/dto/icart';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

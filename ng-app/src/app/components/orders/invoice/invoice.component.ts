@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { OrdersService } from '@api/orders.service';
-import { IOrder, IOrderItem } from 'src/app/models/dto/iorder';
+import { IOrder, IOrderItem } from '@models/dto/iorder';
 
 @Component({
   selector: 'app-invoice',

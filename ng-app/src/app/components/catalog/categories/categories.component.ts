@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Category } from '../../../models/dto/category';
+import { Category } from '@models/dto/category';
 import { Observable } from 'rxjs';
-import { MobileViewService } from 'src/app/services/mobile-view.service';
-import { IToggleable } from 'src/app/models/itoggleable';
+import { MobileViewService } from '@services/mobile-view.service';
+import { IToggleable } from '@models/itoggleable';
 
 @Component({
   selector: 'app-categories',

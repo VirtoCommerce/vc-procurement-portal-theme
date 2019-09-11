@@ -1,14 +1,14 @@
-import { PagedSearchCriteria } from './common/paged-search-criteria';
-import { INumericRange } from './common/numeric-range';
-import { ILanguage } from './common/language';
-import { ICurrency } from './common/currency';
-import { ITerm } from './common/term';
-import { IPageMetaData } from './common/page-meta-data';
-import { IImage } from './common/image';
-import { ISeoInfo } from './common/seo-info';
-import { IProductPrice } from './common/price';
-import { IMoney } from './common/money';
-import { ILocalizedString } from './common/display-name';
+import { PagedSearchCriteria } from '@models/dto/common/paged-search-criteria';
+import { INumericRange } from '@models/dto/common/numeric-range';
+import { ILanguage } from '@models/dto/common/language';
+import { ICurrency } from '@models/dto/common/currency';
+import { ITerm } from '@models/dto/common/term';
+import { IPageMetaData } from '@models/dto/common/page-meta-data';
+import { IImage } from '@models/dto/common/image';
+import { ISeoInfo } from '@models/dto/common/seo-info';
+import { IProductPrice } from '@models/dto/common/price';
+import { IMoney } from '@models/dto/common/money';
+import { ILocalizedString } from '@models/dto/common/display-name';
 
 
 export interface SearchProductsResult {

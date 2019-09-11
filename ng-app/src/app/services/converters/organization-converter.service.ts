@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { IOrganization } from 'src/app/models/dto/iorganization';
-import { OrganizationDetails, UpdateOrganization } from 'src/app/models/organization';
+import { IOrganization } from '@models/dto/iorganization';
+import { OrganizationDetails, UpdateOrganization } from '@models/organization';
 
 @Injectable({
   providedIn: 'root'

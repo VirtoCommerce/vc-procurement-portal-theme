@@ -1,9 +1,9 @@
-import { IDynamicProperty } from './common/dynamic-property';
-import { IAddress } from './common/address';
-import { IContact } from './icontact';
-import { IOrganization } from './iorganization';
-import { ISecurityAccount } from './common/security-account';
-import { PagedSearchCriteria } from './common/paged-search-criteria';
+import { IDynamicProperty } from '@models/dto/common/dynamic-property';
+import { IAddress } from '@models/dto/common/address';
+import { IContact } from '@models/dto/icontact';
+import { IOrganization } from '@models/dto/iorganization';
+import { ISecurityAccount } from '@models/dto/common/security-account';
+import { PagedSearchCriteria } from '@models/dto/common/paged-search-criteria';
 
 
 export class AddNewUserDto {

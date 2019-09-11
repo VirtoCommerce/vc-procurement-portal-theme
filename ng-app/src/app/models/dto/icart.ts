@@ -1,8 +1,8 @@
-import { ILanguage } from './common/language';
-import { ICurrency } from './common/currency';
-import { IMoney } from './common/money';
-import { IProduct } from './product';
-import { IUser } from './iuser';
+import { ILanguage } from '@models/dto/common/language';
+import { ICurrency } from '@models/dto/common/currency';
+import { IMoney } from '@models/dto/common/money';
+import { IProduct } from '@models/dto/product';
+import { IUser } from '@models/dto/iuser';
 
 export interface ICart {
   name: string;

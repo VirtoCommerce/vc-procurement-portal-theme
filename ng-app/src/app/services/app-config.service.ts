@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IAppConfig } from '../models/iapp-config';
+import { IAppConfig } from '@models/iapp-config';
 
 export function initializeAppConfig(appConfig: AppConfig) {
   return () => appConfig.load();

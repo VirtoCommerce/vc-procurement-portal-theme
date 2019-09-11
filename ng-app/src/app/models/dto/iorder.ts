@@ -1,7 +1,7 @@
-import { PagedSearchCriteria } from './common/paged-search-criteria';
-import { IMoney } from './common/money';
-import { ICurrency } from './common/currency';
-import { IAddress } from './common/address';
+import { PagedSearchCriteria } from '@models/dto/common/paged-search-criteria';
+import { IMoney } from '@models/dto/common/money';
+import { ICurrency } from '@models/dto/common/currency';
+import { IAddress } from '@models/dto/common/address';
 
 export class OrderSearchCriteria extends PagedSearchCriteria {
   CustomerId: string;

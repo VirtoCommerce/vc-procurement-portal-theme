@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CatalogComponent } from './components/catalog/catalog.component';
-import { OrdersComponent } from './components/orders/orders.component';
-import { CompanyComponent } from './components/company/company.component';
-import { AccountComponent } from './components/account/account.component';
-import { BulkOrderComponent } from './components/bulk-order/bulk-order.component';
-import { OrderDetailsComponent } from './components/orders/order-details/order-details.component';
-import { ProductDetailsComponent } from './components/product-details/product-details.component';
-import { InvoiceComponent } from './components/orders/invoice/invoice.component';
+import { CatalogComponent } from '@components/catalog/catalog.component';
+import { OrdersComponent } from '@components/orders/orders.component';
+import { CompanyComponent } from '@components/company/company.component';
+import { AccountComponent } from '@components/account/account.component';
+import { BulkOrderComponent } from '@components/bulk-order/bulk-order.component';
+import { OrderDetailsComponent } from '@components/orders/order-details/order-details.component';
+import { ProductDetailsComponent } from '@components/product-details/product-details.component';
+import { InvoiceComponent } from '@components/orders/invoice/invoice.component';
 import { AuthGuard } from './services';
-import { RoleEnum } from './models/role';
-import { ForbiddenComponent } from './components/container/forbidden/forbidden.component';
+import { RoleEnum } from '@models/role';
+import { ForbiddenComponent } from '@components/container/forbidden/forbidden.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'catalog', pathMatch: 'full' },

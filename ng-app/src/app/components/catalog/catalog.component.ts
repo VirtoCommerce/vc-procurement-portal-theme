@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CatalogService } from '@api/catalog.service';
 import { ActiveOrderService } from '@api/active-order.service';
-import { Category } from 'src/app/models/dto/category';
-import { PaginationInfo } from 'src/app/models/inner/pagination-info';
-import { PageSizeChangedArgs } from '../page-size-selector/page-size-selector.component';
+import { Category } from '@models/dto/category';
+import { PaginationInfo } from '@models/inner/pagination-info';
+import { PageSizeChangedArgs } from '@components/page-size-selector/page-size-selector.component';
 import settings_data from 'src/assets/config/config.dev.json';
-import { IAppConfig } from 'src/app/models/iapp-config';
-import { ICart } from 'src/app/models/dto/icart';
-import { ProductConverterService } from 'src/app/services/converters/product-converter.service';
-import { ProductDetails } from 'src/app/models/product';
-import { MobileViewService } from 'src/app/services/mobile-view.service';
-import { CategoriesComponent } from './categories/categoires.component';
+import { IAppConfig } from '@models/iapp-config';
+import { ICart } from '@models/dto/icart';
+import { ProductConverterService } from '@services/converters/product-converter.service';
+import { ProductDetails } from '@models/product';
+import { MobileViewService } from '@services/mobile-view.service';
+import { CategoriesComponent } from '@components/catalog/categories/categories.component';
 
 @Component({
   selector: 'app-catalog',

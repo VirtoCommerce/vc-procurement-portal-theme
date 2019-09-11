@@ -3,9 +3,9 @@ import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@ang
 import { Subject, Observable, of, forkJoin } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged, switchMap, map, catchError } from 'rxjs/operators';
 import { CatalogService } from '@api/catalog.service';
-import { IProduct } from 'src/app/models/dto/product';
+import { IProduct } from '@models/dto/product';
 import { ActiveOrderService } from '@api/active-order.service';
-import { AlertsService } from 'src/app/modules/alerts/alerts.service';
+import { AlertsService } from '@modules/alerts/alerts.service';
 
 @Component({
   selector: 'app-bulk-order-manual',

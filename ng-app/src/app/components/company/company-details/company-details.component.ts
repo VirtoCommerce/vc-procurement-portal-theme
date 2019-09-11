@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OrganizationService } from '@api/organization.service';
-import { OrganizationDetails } from 'src/app/models/organization';
-import { OrganizationConverterService } from 'src/app/services/converters/organization-converter.service';
-import { IOrganization } from 'src/app/models/dto/iorganization';
-import { AlertsService } from 'src/app/modules/alerts/alerts.service';
+import { OrganizationDetails } from '@models/organization';
+import { OrganizationConverterService } from '@services/converters/organization-converter.service';
+import { IOrganization } from '@models/dto/iorganization';
+import { AlertsService } from '@modules/alerts/alerts.service';
 
 @Component({
   selector: 'app-company-details',

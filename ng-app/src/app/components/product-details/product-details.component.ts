@@ -3,11 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { CatalogService } from '@api/catalog.service';
 import { Observable } from 'rxjs';
-import { ICart } from 'src/app/models/dto/icart';
+import { ICart } from '@models/dto/icart';
 import { ActiveOrderService } from '@api/active-order.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
-import { ProductDetails } from 'src/app/models/product';
+import { ProductDetails } from '@models/product';
 
 @Component({
   selector: 'app-product-details',

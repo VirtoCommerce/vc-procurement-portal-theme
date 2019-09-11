@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CatalogService } from '@api/catalog.service';
 import { of, Observable, forkJoin } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { IProduct } from 'src/app/models/dto/product';
+import { IProduct } from '@models/dto/product';
 import { ActiveOrderService } from '@api/active-order.service';
-import { AlertsService } from 'src/app/modules/alerts/alerts.service';
+import { AlertsService } from '@modules/alerts/alerts.service';
 
 class BulkOrderItem {
   productId: string = null;
