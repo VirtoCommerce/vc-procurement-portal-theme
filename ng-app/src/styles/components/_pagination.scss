@@ -24,7 +24,7 @@
 
     .page-link[aria-label="Next"],
     .page-link[aria-label="Previous"] {
-      width: 4rem;
+      width: 3.0rem;
     }
 
     &:first-child {
@@ -56,9 +56,9 @@
     }
   }
 
-  // @include media-breakpoint-down(sm) {
-  //   margin-bottom: 1.5rem;
-  // }
+  @include media-breakpoint-down(sm) {
+    margin-bottom: 1.5rem;
+  }
 }
 
 .sr-only {

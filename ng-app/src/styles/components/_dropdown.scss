@@ -45,6 +45,7 @@
         background: $blue;
         border-color: $blue;
         color: $white;
+        cursor: pointer;
       }
 
       &:first-child {
@@ -63,7 +64,13 @@
       margin: 0 0 0.625rem !important;
       top: auto !important;
       transform: none !important;
-      //position: relative !important;
+    }
+
+    &--down {
+      top: 100% !important;
+      margin: 0 0 0.625rem !important;
+      bottom: auto !important;
+      transform: none !important;
     }
   }
 
