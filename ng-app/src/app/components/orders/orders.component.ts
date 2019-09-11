@@ -76,6 +76,8 @@ export class OrdersComponent implements OnInit {
     }
   }
 
+  public getAssignedToRoles = (order: IOrder) => this.orderWorkflowService.getRolesTextByState(order.status);
+
   private getOrders() {
     if (this.isForApprovalRoute()) {
       this.getForApprovalOrders();
@@ -115,6 +117,4 @@ export class OrdersComponent implements OnInit {
   private isForApprovalRoute(): boolean {
     return this.route.snapshot.routeConfig.path === 'forapproval' ? true : false;
   }
-
-  getAssignedToRoles = (order: IOrder) => this.orderWorkflowService.getRolesTextByState(order.status);
 }
