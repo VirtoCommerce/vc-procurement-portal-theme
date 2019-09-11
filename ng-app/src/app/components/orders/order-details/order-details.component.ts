@@ -105,6 +105,8 @@ export class OrderDetailsComponent implements OnInit {
     return this.orderWorkflowService.isContainsSuccessfulAttribute(this.order.status);
   }
 
+  public getAssignedToRoles = () => this.orderWorkflowService.getRolesTextByState(this.order.status);
+
   private getOrderStatusActions(status: string): IAction[] {
     // TODO: now we getting only 1 role. shall we draw buttons for all roles?
     // check it! if there are contradictions?
