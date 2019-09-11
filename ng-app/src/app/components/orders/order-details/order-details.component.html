@@ -97,8 +97,6 @@
     <app-mobile-cart-summary [activeOrderMobileSidebar]="mobileOrderSidebar" [cart]="cart"></app-mobile-cart-summary>
   </div>
   <div class="sidebar sidebar--bg-gray d-none d-lg-block">
-    <div class="sidebar__inner">
-      <app-active-order [cart]="cart"></app-active-order>
-    </div>
+      <app-active-order class="sidebar__inner" [cart]="cart"></app-active-order>
   </div>
 </main>
