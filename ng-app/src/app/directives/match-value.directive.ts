@@ -2,8 +2,6 @@ import { Directive, Input } from '@angular/core';
 import {
   NG_VALIDATORS,
   Validator,
-  FormGroup,
-  ValidationErrors,
   AbstractControl
 } from '@angular/forms';
 

@@ -4,7 +4,6 @@ import {
 } from '@angular/router';
 import { MobileViewService } from 'src/app/services/mobile-view.service';
 import { AuthorizationService } from 'src/app/services/authorization.service';
-import { of, Observable, BehaviorSubject } from 'rxjs';
 import { RoleEnum } from 'src/app/models/role';
 import { ExtendedUser } from 'src/app/models/dto/iuser';
 

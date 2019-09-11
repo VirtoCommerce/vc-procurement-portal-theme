@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { tap, catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import {
   SearchCategoriesResult,
   Category,
@@ -17,8 +17,6 @@ import {
 import { ProductConverterService } from '../converters/product-converter.service';
 import { ProductDetails } from '../../models/product';
 import { AlertsService } from '../../modules/alerts/alerts.service';
-
-// import { IProductSearch, ICatalogSearch } from '../models/ProductSearch';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
