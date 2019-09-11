@@ -1,14 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { OrdersService } from '../../services/orders.service';
-import { IOrder } from '../../models/dto/iorder';
-import { PaginationInfo } from 'src/app/models/inner/pagination-info';
-import { PageSizeChangedArgs } from '../page-size-selector/page-size-selector.component';
+import { OrdersService } from '@api/orders.service';
+import { IOrder } from '@models/dto/iorder';
+import { PaginationInfo } from '@models/inner/pagination-info';
+import { PageSizeChangedArgs } from '@components/page-size-selector/page-size-selector.component';
 import ConfigurationFile from 'src/assets/config/config.dev.json';
-import { IAppConfig } from 'src/app/models/iapp-config';
-import { OrderWorkflowService } from 'src/app/services/order-workflow.service';
+import { IAppConfig } from '@models/iapp-config';
+import { OrderWorkflowService } from '@services/order-workflow.service';
 import { BehaviorSubject } from 'rxjs';
-import { AuthorizationService } from 'src/app/services/authorization.service';
+import { AuthorizationService } from '@services/authorization.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -76,6 +76,8 @@ export class OrdersComponent implements OnInit {
     }
   }
 
+  public getAssignedToRoles = (order: IOrder) => this.orderWorkflowService.getRolesTextByState(order.status);
+
   private getOrders() {
     if (this.isForApprovalRoute()) {
       this.getForApprovalOrders();
@@ -115,6 +117,4 @@ export class OrdersComponent implements OnInit {
   private isForApprovalRoute(): boolean {
     return this.route.snapshot.routeConfig.path === 'forapproval' ? true : false;
   }
-
-  getAssignedToRoles = (order: IOrder) => this.orderWorkflowService.getRolesTextByState(order.status);
 }

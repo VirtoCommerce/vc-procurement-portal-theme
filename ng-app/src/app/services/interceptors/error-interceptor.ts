@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import {
     HttpRequest,
     HttpHandler,
@@ -10,7 +9,7 @@ import {
 import { Observable } from 'rxjs';
 import { catchError, tap, retry } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { AlertsService } from 'src/app/modules/alerts/alerts.service';
+import { AlertsService } from '@modules/alerts/alerts.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {

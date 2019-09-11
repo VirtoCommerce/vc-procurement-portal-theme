@@ -1,5 +1,5 @@
-import { IAddress } from './dto/common/address';
-import { IDynamicProperty } from './dto/common/dynamic-property';
+import { IAddress } from '@models/dto/common/address';
+import { IDynamicProperty } from '@models/dto/common/dynamic-property';
 
 export class OrganizationDetails {
   id: string;

@@ -1,6 +1,6 @@
 
-import { IDynamicProperty } from './common/dynamic-property';
-import { IAddress } from './common/address';
+import { IDynamicProperty } from '@models/dto/common/dynamic-property';
+import { IAddress } from '@models/dto/common/address';
 
 export interface IOrganization {
   phoneNumbers: any[];

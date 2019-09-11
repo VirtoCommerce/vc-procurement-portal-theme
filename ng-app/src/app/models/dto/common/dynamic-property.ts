@@ -1,4 +1,4 @@
-import { ILocalizedString } from './display-name';
+import { ILocalizedString } from '@models/dto/common/display-name';
 
 export interface IDynamicProperty {
   name: string;

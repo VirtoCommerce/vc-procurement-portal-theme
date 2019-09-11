@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { EditUser} from 'src/app/models/user';
+import { EditUser} from '@models/user';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
-import { OrderWorkflowService } from 'src/app/services/order-workflow.service';
+import { OrderWorkflowService } from '@services/order-workflow.service';
 
 @Component({
   selector: 'app-edit-company-user-modal-form',

@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {
   Router
 } from '@angular/router';
-import { MobileViewService } from 'src/app/services/mobile-view.service';
-import { AuthorizationService } from 'src/app/services/authorization.service';
-import { of, Observable, BehaviorSubject } from 'rxjs';
-import { RoleEnum } from 'src/app/models/role';
-import { ExtendedUser } from 'src/app/models/dto/iuser';
+import { MobileViewService } from '@services/mobile-view.service';
+import { AuthorizationService } from '@services/authorization.service';
+import { RoleEnum } from '@models/role';
+import { ExtendedUser } from '@models/dto/iuser';
 
 @Component({
   selector: 'app-menu',

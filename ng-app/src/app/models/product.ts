@@ -1,5 +1,4 @@
-import { IProductPrice } from './dto/common/price';
-import { IImage } from './dto/common/image';
+import { IImage } from '@models/dto/common/image';
 
 export class ProductDetails {
   id: string;

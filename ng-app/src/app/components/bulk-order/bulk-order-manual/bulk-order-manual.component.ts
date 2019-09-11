@@ -2,10 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { Subject, Observable, of, forkJoin } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged, switchMap, map, catchError } from 'rxjs/operators';
-import { CatalogService } from 'src/app/services';
-import { IProduct } from 'src/app/models/dto/product';
-import { ActiveOrderService } from 'src/app/services/active-order.service';
-import { AlertsService } from 'src/app/modules/alerts/alerts.service';
+import { CatalogService } from '@api/catalog.service';
+import { IProduct } from '@models/dto/product';
+import { ActiveOrderService } from '@api/active-order.service';
+import { AlertsService } from '@modules/alerts/alerts.service';
 
 @Component({
   selector: 'app-bulk-order-manual',

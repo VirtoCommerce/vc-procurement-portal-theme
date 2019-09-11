@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActiveOrderService } from 'src/app/services/active-order.service';
-import { ICart, ILineItem } from 'src/app/models/dto/icart';
-import { CheckoutModalComponent } from '../checkout-modal/checkout-modal.component';
+import { ActiveOrderService } from '@api/active-order.service';
+import { ICart, ILineItem } from '@models/dto/icart';
+import { CheckoutModalComponent } from '@components/active-order/checkout-modal/checkout-modal.component';
 import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { IToggleable } from 'src/app/models/itoggleable';
-import { MobileViewService } from 'src/app/services/mobile-view.service';
+import { IToggleable } from '@models/itoggleable';
+import { MobileViewService } from '@services/mobile-view.service';
 
 @Component({
   selector: 'app-active-order-mobile',

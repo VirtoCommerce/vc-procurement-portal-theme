@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
-import { IUser } from 'src/app/models/dto/iuser';
-import { UserConverterService } from 'src/app/services/converters/user-converter.service';
-import { of } from 'rxjs';
-import { concatAll, concatMap } from 'rxjs/operators';
-import { AlertsService } from 'src/app/modules/alerts/alerts.service';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '@api/user.service';
+import { IUser } from '@models/dto/iuser';
+import { UserConverterService } from '@services/converters/user-converter.service';
+import { concatMap } from 'rxjs/operators';
+import { AlertsService } from '@modules/alerts/alerts.service';
 
 @Component({
   selector: 'app-account',
@@ -17,7 +16,7 @@ export class AccountComponent implements OnInit {
   constructor(
     private userService: UserService,
     private userConverter: UserConverterService,
-    private aletsService: AlertsService
+    private alertsService: AlertsService
   ) {}
 
   ngOnInit() {
@@ -32,6 +31,6 @@ export class AccountComponent implements OnInit {
     const newPhoneNumber = this.userConverter.toEditCurrentAccountPhoneNumber(this.user);
     this.userService.updateUser(updatedUser)
     .pipe(concatMap(() => this.userService.updatePhoneNumber(newPhoneNumber)))
-    .subscribe(() => this.aletsService.success('Account data is updated successfuly!'));
+    .subscribe(() => this.alertsService.success('Account data is updated successfully!'));
   }
 }

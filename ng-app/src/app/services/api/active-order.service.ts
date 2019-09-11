@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import { Subject, throwError } from 'rxjs';
-import { ICart, ChangeCartItemQty, AddCartItem } from '../models/dto/icart';
-import { AlertsService } from '../modules/alerts/alerts.service';
+import { ICart, ChangeCartItemQty, AddCartItem } from '@models/dto/icart';
+import { AlertsService } from '@modules/alerts/alerts.service';
 
 @Injectable({ providedIn: 'root' })
 export class ActiveOrderService {
   headers: HttpHeaders;
   Cart = new Subject<ICart>();
 
-  constructor(private http: HttpClient, private aletsService: AlertsService) {
+  constructor(private http: HttpClient, private alertsService: AlertsService) {
     this.refreshCart();
   }
 
@@ -48,7 +48,7 @@ export class ActiveOrderService {
 
   addItem(productId: string, productQuantity: number = 1) {
     console.log('Add');
-    const addItemDto =  new AddCartItem(productId, productQuantity); // { id: productId, quantity: productQuantity };
+    const addItemDto =  new AddCartItem(productId, productQuantity);
     const url = 'storefrontapi/cart/items';
     return this.http.post<any>(url, addItemDto).pipe(
       tap(x => this.refreshCart()),
@@ -76,12 +76,12 @@ export class ActiveOrderService {
 
   private handleError(error: any) {
     if (error.status >= 500) {
-      this.aletsService.error(
+      this.alertsService.error(
         `An error occurred with code ${error.status} while trying to execute a request to the server`,
         { keepAfterRouteChange: true, dismissTimeout: 0 }
       );
     } else if (error.status >= 400 && error.status < 500) {
-      this.aletsService.warn(
+      this.alertsService.warn(
         `An error occurred with code ${error.status} while trying to execute a request to the server`,
         { keepAfterRouteChange: true, dismissTimeout: 0 }
       );

@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { IOrder, IOrderItem, IOrderComment } from '../../../models/dto/iorder';
-import { OrdersService } from '../../../services/orders.service';
-import { ActiveOrderService } from 'src/app/services/active-order.service';
-import { OrderWorkflowService } from 'src/app/services/order-workflow.service';
-import { AuthorizationService } from 'src/app/services/authorization.service';
-import { OrderStateTransitionResult } from 'src/app/models/order-state-transition-result';
-import { ExtendedUser } from 'src/app/models/dto/iuser';
-import { AlertsService } from 'src/app/modules/alerts/alerts.service';
+import { IOrder, IOrderItem, IOrderComment } from '@models/dto/iorder';
+import { OrdersService } from '@api/orders.service';
+import { ActiveOrderService } from '@api/active-order.service';
+import { OrderWorkflowService } from '@services/order-workflow.service';
+import { AuthorizationService } from '@services/authorization.service';
+import { OrderStateTransitionResult } from '@models/order-state-transition-result';
+import { ExtendedUser } from '@models/dto/iuser';
+import { AlertsService } from '@modules/alerts/alerts.service';
 import { forkJoin, Observable } from 'rxjs';
-import { ICart } from 'src/app/models/dto/icart';
-import { IAction } from 'src/app/components/common/action-panel/iaction';
+import { ICart } from '@models/dto/icart';
+import { IAction } from '@components/common/action-panel/iaction';
 
 @Component({
   selector: 'app-order-details',
@@ -104,6 +104,8 @@ export class OrderDetailsComponent implements OnInit {
   public isInvoiceButtonVisible(): boolean {
     return this.orderWorkflowService.isContainsSuccessfulAttribute(this.order.status);
   }
+
+  public getAssignedToRoles = () => this.orderWorkflowService.getRolesTextByState(this.order.status);
 
   private getOrderStatusActions(status: string): IAction[] {
     // TODO: now we getting only 1 role. shall we draw buttons for all roles?

@@ -1,7 +1,7 @@
-import { IAddress } from './common/address';
-import { IOrganization } from './iorganization';
-import { ISecurityAccount } from './common/security-account';
-import { IDynamicProperty } from './common/dynamic-property';
+import { IAddress } from '@models/dto/common/address';
+import { IOrganization } from '@models/dto/iorganization';
+import { ISecurityAccount } from '@models/dto/common/security-account';
+import { IDynamicProperty } from '@models/dto/common/dynamic-property';
 
 export interface IContact {
   fullName: string;

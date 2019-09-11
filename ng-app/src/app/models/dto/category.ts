@@ -1,8 +1,8 @@
-import { PagedSearchCriteria } from './common/paged-search-criteria';
-import { ILanguage } from './common/language';
-import { IImage } from './common/image';
-import { IPageMetaData } from './common/page-meta-data';
-import { ISeoInfo } from './common/seo-info';
+import { PagedSearchCriteria } from '@models/dto/common/paged-search-criteria';
+import { ILanguage } from '@models/dto/common/language';
+import { IImage } from '@models/dto/common/image';
+import { IPageMetaData } from '@models/dto/common/page-meta-data';
+import { ISeoInfo } from '@models/dto/common/seo-info';
 
 export interface SearchCategoriesResult {
   categories: Category[];

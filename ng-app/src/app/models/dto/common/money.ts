@@ -1,4 +1,4 @@
-import { ICurrency } from './currency';
+import { ICurrency } from '@models/dto/common/currency';
 
 export interface IMoney {
   amount: number;

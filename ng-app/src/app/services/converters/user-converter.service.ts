@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { IUser, ExtendedUser, AddNewUserDto, EditUserDto } from 'src/app/models/dto/iuser';
-import { EditUser, EditUserPhone } from 'src/app/models/user';
-import { WorkflowUserRoleStorageService } from '../workflow-user-role-storage.service';
+import { IUser, ExtendedUser, AddNewUserDto, EditUserDto } from '@models/dto/iuser';
+import { EditUser, EditUserPhone } from '@models/user';
+import { WorkflowUserRoleStorageService } from '@services/workflow-user-role-storage.service';
 
 @Injectable({
   providedIn: 'root'

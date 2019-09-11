@@ -1,5 +1,5 @@
-import { ICurrency } from "./currency";
-import { IMoney } from './money';
+import { ICurrency } from "@models/dto/common/currency";
+import { IMoney } from '@models/dto/common/money';
 
 export interface IProductPrice {
   pricelistId: string;

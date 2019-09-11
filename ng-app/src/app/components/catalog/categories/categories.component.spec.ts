@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CategoriesComponent } from './categoires.component';
+import { CategoriesComponent } from './categories.component';
 
 describe('CaruselComponent', () => {
   let component: CategoriesComponent;

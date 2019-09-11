@@ -1,5 +1,5 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
-import { IToggleable } from '../models/itoggleable';
+import { IToggleable } from '@models/itoggleable';
 
 @Injectable({
   providedIn: 'root'

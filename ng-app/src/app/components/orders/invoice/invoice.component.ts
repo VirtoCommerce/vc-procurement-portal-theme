@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { switchMap } from "rxjs/operators";
-import { OrdersService } from "src/app/services/orders.service";
-import { IOrder, IOrderItem } from 'src/app/models/dto/iorder';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { OrdersService } from '@api/orders.service';
+import { IOrder, IOrderItem } from '@models/dto/iorder';
 
 @Component({
-  selector: "app-invoice",
-  templateUrl: "./invoice.component.html",
-  styleUrls: ["./invoice.component.scss"]
+  selector: 'app-invoice',
+  templateUrl: './invoice.component.html',
+  styleUrls: ['./invoice.component.scss']
 })
 export class InvoiceComponent implements OnInit {
   order: IOrder;
