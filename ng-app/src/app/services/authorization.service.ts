@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserService } from './api/user.service';
-import { IUser, ExtendedUser } from '../models/dto/iuser';
+import { ExtendedUser } from '../models/dto/iuser';
 import { RoleEnum } from '../models/role';
 
 @Injectable({

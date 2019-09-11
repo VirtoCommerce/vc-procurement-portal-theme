@@ -15,15 +15,15 @@ const ROLES_STORAGE_ITEM_KEY = 'vc_procurement_portal_user_roles_storage';
 export class WorkflowUserRoleStorageService {
 
 
-  private rolesStrorage: WorkflowUserRolesRecord[];
+  private rolesStorage: WorkflowUserRolesRecord[];
 
   constructor() {
     const lcItem = localStorage.getItem(ROLES_STORAGE_ITEM_KEY);
     if (lcItem) {
-      this.rolesStrorage = JSON.parse(lcItem) as WorkflowUserRolesRecord[];
+      this.rolesStorage = JSON.parse(lcItem) as WorkflowUserRolesRecord[];
     }
-    if (!this.rolesStrorage) {
-      this.rolesStrorage = [];
+    if (!this.rolesStorage) {
+      this.rolesStorage = [];
     }
   }
 
@@ -35,17 +35,17 @@ export class WorkflowUserRoleStorageService {
     if (!roles) {
       throw new Error('roles cannot be null or undefined.');
     }
-    const record =  this.rolesStrorage.find(x => x.userId === userId);
+    const record =  this.rolesStorage.find(x => x.userId === userId);
     if (record) {
       record.roles = roles;
     } else {
-      this.rolesStrorage.push(new WorkflowUserRolesRecord(userId, roles));
+      this.rolesStorage.push(new WorkflowUserRolesRecord(userId, roles));
     }
-    localStorage.setItem(ROLES_STORAGE_ITEM_KEY, JSON.stringify(this.rolesStrorage));
+    localStorage.setItem(ROLES_STORAGE_ITEM_KEY, JSON.stringify(this.rolesStorage));
   }
 
   getUserRoles(userId: string): string[] {
-    const record = this.rolesStrorage.find(x => x.userId === userId);
+    const record = this.rolesStorage.find(x => x.userId === userId);
     return (record || {roles: []}).roles;
   }
 

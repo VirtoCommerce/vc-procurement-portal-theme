@@ -27,7 +27,7 @@ export class EditUserDto {
 }
 
 
-export class OrganisationUsersSearchCriteria extends PagedSearchCriteria {
+export class OrganizationUsersSearchCriteria extends PagedSearchCriteria {
   OrganizationId: string;
   Sort: string;
   SearchPhrase: string;
