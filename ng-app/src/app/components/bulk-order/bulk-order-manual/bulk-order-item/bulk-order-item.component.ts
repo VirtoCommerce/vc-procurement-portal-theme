@@ -4,7 +4,7 @@ import {  } from 'events';
 import { map, catchError, debounceTime, distinctUntilChanged, switchMap, filter } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { IProduct } from 'src/app/models/dto/product';
-import { CatalogService } from 'src/app/services';
+import { CatalogService } from '@api/catalog.service';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

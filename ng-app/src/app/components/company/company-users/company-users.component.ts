@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { IUser, ExtendedUser } from 'src/app/models/dto/iuser';
 import { IAppConfig } from 'src/app/models/iapp-config';
 import { PaginationInfo } from 'src/app/models/inner/pagination-info';
-import { UserService } from 'src/app/services/api/user.service';
+import { UserService } from '@api/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserConverterService } from 'src/app/services/converters/user-converter.service';
 import { PageSizeChangedArgs } from '../../page-size-selector/page-size-selector.component';

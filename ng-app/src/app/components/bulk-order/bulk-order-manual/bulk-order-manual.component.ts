@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { Subject, Observable, of, forkJoin } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged, switchMap, map, catchError } from 'rxjs/operators';
-import { CatalogService } from 'src/app/services';
+import { CatalogService } from '@api/catalog.service';
 import { IProduct } from 'src/app/models/dto/product';
-import { ActiveOrderService } from 'src/app/services/api/active-order.service';
+import { ActiveOrderService } from '@api/active-order.service';
 import { AlertsService } from 'src/app/modules/alerts/alerts.service';
 
 @Component({

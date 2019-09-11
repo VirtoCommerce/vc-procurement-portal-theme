@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OrganizationService } from 'src/app/services/api/organization.service';
+import { OrganizationService } from '@api/organization.service';
 import { IOrganization } from 'src/app/models/dto/iorganization';
 import { OrganizationConverterService } from 'src/app/services/converters/organization-converter.service';
 import { OrganizationDetails } from 'src/app/models/organization';

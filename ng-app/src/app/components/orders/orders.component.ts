@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { OrdersService } from 'src/app/services/api/orders.service';
+import { OrdersService } from '@api/orders.service';
 import { IOrder } from '../../models/dto/iorder';
 import { PaginationInfo } from 'src/app/models/inner/pagination-info';
 import { PageSizeChangedArgs } from '../page-size-selector/page-size-selector.component';

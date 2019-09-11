@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { OrdersService } from 'src/app/services/api/orders.service';
+import { OrdersService } from '@api/orders.service';
 import { IOrder, IOrderItem } from 'src/app/models/dto/iorder';
 
 @Component({
