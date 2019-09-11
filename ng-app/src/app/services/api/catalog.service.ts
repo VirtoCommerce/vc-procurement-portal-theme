@@ -7,16 +7,16 @@ import {
   Category,
   CategorySearchCriteria,
   CategoryResponseGroup
-} from '../models/dto/category';
+} from '../../models/dto/category';
 import {
   ProductSearchCriteria,
   IProduct,
   SearchProductsResult,
   ItemResponseGroup
-} from '../models/dto/product';
-import { ProductConverterService } from './converters/product-converter.service';
-import { ProductDetails } from '../models/product';
-import { AlertsService } from '../modules/alerts/alerts.service';
+} from '../../models/dto/product';
+import { ProductConverterService } from '../converters/product-converter.service';
+import { ProductDetails } from '../../models/product';
+import { AlertsService } from '../../modules/alerts/alerts.service';
 
 // import { IProductSearch, ICatalogSearch } from '../models/ProductSearch';
 

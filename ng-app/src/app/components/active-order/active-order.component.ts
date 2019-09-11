@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActiveOrderService } from '../../services/active-order.service';
+import { ActiveOrderService } from 'src/app/services/api/active-order.service';
 import { ILineItem, ICart } from 'src/app/models/dto/icart';
 import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -22,7 +22,7 @@ export class ActiveOrderComponent implements OnInit {
     private aletsService: AlertsService
     ) {}
 
-  ngOnInit() {    
+  ngOnInit() {
   }
 
   removeItem(item: ILineItem) {

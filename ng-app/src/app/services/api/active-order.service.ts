@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import { Subject, throwError } from 'rxjs';
-import { ICart, ChangeCartItemQty, AddCartItem } from '../models/dto/icart';
-import { AlertsService } from '../modules/alerts/alerts.service';
+import { ICart, ChangeCartItemQty, AddCartItem } from '../../models/dto/icart';
+import { AlertsService } from '../../modules/alerts/alerts.service';
 
 @Injectable({ providedIn: 'root' })
 export class ActiveOrderService {

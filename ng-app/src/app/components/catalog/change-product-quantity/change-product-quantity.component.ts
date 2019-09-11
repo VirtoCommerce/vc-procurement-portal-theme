@@ -1,11 +1,9 @@
-import { Component, OnInit, Input, OnDestroy, ElementRef } from '@angular/core';
-import { ActiveOrderService } from 'src/app/services/active-order.service';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { ActiveOrderService } from 'src/app/services/api/active-order.service';
 import { ICart, ILineItem } from 'src/app/models/dto/icart';
 import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
 import { Subject, Subscription, EMPTY } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { element } from 'protractor';
-
 
 @Component({
   selector: 'app-change-product-quantity',

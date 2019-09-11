@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { ActiveOrderService } from '../../services/active-order.service';
+import { Observable } from 'rxjs';
+import { ActiveOrderService } from 'src/app/services/api/active-order.service';
 import { ICart } from 'src/app/models/dto/icart';
 
 type tabs = 'manualy' | 'csv';

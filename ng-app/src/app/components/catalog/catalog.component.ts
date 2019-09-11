@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject, forkJoin, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CatalogService } from '../../services';
-import { ActiveOrderService } from '../../services/active-order.service';
+import { ActiveOrderService } from 'src/app/services/api/active-order.service';
 import { Category } from 'src/app/models/dto/category';
 import { PaginationInfo } from 'src/app/models/inner/pagination-info';
 import { PageSizeChangedArgs } from '../page-size-selector/page-size-selector.component';

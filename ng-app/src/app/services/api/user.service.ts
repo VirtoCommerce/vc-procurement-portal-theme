@@ -4,13 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import {
   EditUserPassword,
   EditUserPhone
-} from '../models/user';
+} from '../../models/user';
 import { tap, catchError, map } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
-import { AlertsService } from '../modules/alerts/alerts.service';
-import { IUser, OrganisationUsersSearchCriteria, ExtendedUser, AddNewUserDto, EditUserDto } from '../models/dto/iuser';
-import { GenericSearchResult } from '../models/dto/common/generic-search-result';
-import { UserConverterService } from './converters/user-converter.service';
+import { AlertsService } from '../../modules/alerts/alerts.service';
+import { IUser, OrganisationUsersSearchCriteria, ExtendedUser, AddNewUserDto, EditUserDto } from '../../models/dto/iuser';
+import { GenericSearchResult } from '../../models/dto/common/generic-search-result';
+import { UserConverterService } from '../converters/user-converter.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {

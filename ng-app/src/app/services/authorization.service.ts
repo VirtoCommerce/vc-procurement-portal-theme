@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserService } from './user.service';
+import { UserService } from './api/user.service';
 import { IUser, ExtendedUser } from '../models/dto/iuser';
 import { RoleEnum } from '../models/role';
 

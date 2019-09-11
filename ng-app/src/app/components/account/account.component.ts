@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/api/user.service';
 import { IUser } from 'src/app/models/dto/iuser';
 import { UserConverterService } from 'src/app/services/converters/user-converter.service';
-import { of } from 'rxjs';
-import { concatAll, concatMap } from 'rxjs/operators';
+import { concatMap } from 'rxjs/operators';
 import { AlertsService } from 'src/app/modules/alerts/alerts.service';
 
 @Component({

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogService } from 'src/app/services';
 import { of, Observable, forkJoin } from 'rxjs';
-import { concatAll, concatMap, mergeAll, catchError, mergeMap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { IProduct } from 'src/app/models/dto/product';
-import { ActiveOrderService } from 'src/app/services/active-order.service';
+import { ActiveOrderService } from 'src/app/services/api/active-order.service';
 import { AlertsService } from 'src/app/modules/alerts/alerts.service';
 
 class BulkOrderItem {

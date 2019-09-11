@@ -8,7 +8,7 @@ import {
     HttpErrorResponse
     } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { AuthorizationService } from '../authorization.service';
 

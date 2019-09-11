@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { CatalogService } from 'src/app/services';
 import { Observable } from 'rxjs';
 import { ICart } from 'src/app/models/dto/icart';
-import { ActiveOrderService } from 'src/app/services/active-order.service';
+import { ActiveOrderService } from 'src/app/services/api/active-order.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ProductDetails } from 'src/app/models/product';
