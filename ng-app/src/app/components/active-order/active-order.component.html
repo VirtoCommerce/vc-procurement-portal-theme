@@ -40,9 +40,9 @@
       <app-change-product-quantity-active-order [cart]="cart" [lineItem]="item"></app-change-product-quantity-active-order>
     </div>
   </div>
-  <div class="sidebar__footer">
-    <a class="btn btn--green btn--block" [ngClass]="{'disabled': cart.itemsCount === 0}"(click)="checkout(cart)">Checkout</a>
-  </div>
+</div>
+<div class="sidebar__footer">
+  <a class="btn btn--green btn--block" [ngClass]="{'disabled': cart.itemsCount === 0}"(click)="checkout(cart)">Checkout</a>
 </div>
 
 
