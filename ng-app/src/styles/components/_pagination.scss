@@ -1,54 +1,73 @@
-.pagination
-{
-	display: flex;
+.pagination {
+  display: flex;
+  list-style: none;
 
-	&__item
-	{
-		margin-left: -1px;
+  .page-item {
+    margin-left: -1px;
 
-		&--prev,
-		&--next
-		{
-			.pagination__link
-			{
-				width: 5rem;
-			}
-		}
+    &.active {
+      .page-link {
+        background: $blue;
+        border-color: $blue;
+        color: $white;
+      }
+    }
 
-		&:first-child
-		{
-			.pagination__link
-			{
-				border-top-left-radius: $border-radius;
-				border-bottom-left-radius: $border-radius;
-			}
-		}
+    &:not(.disabled) {
+      .page-link:hover {
+        background: $blue;
+        border-color: $blue;
+        color: $white;
+        cursor: pointer;
+      }
+    }
 
-		&:last-child
-		{
-			.pagination__link
-			{
-				border-top-right-radius: $border-radius;
-				border-bottom-right-radius: $border-radius;
-			}
-		}
-	}
+    .page-link[aria-label="Next"],
+    .page-link[aria-label="Previous"] {
+      width: 4rem;
+    }
 
-	&__link
-	{
-		align-items: center;
-		border: 1px solid $gray-200;
-		color: inherit;
-		display: flex;
-		height: 2.5rem;
-		justify-content: center;
-		width: 2.5rem;
+    &:first-child {
+      .page-link {
+        border-top-left-radius: $border-radius;
+        border-bottom-left-radius: $border-radius;
+      }
+    }
 
-		&:hover
-		{
-			background: $blue;
-			border-color: $blue;
-			color: $white;
-		}
-	}
+    &:last-child {
+      .page-link {
+        border-top-right-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+      }
+    }
+  }
+
+  .page-link {
+    align-items: center;
+    border: 1px solid $gray-200;
+    color: inherit;
+    display: flex;
+    height: 2.5rem;
+    justify-content: center;
+    width: 2.5rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  // @include media-breakpoint-down(sm) {
+  //   margin-bottom: 1.5rem;
+  // }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

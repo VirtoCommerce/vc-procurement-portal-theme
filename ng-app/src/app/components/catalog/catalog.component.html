@@ -133,9 +133,9 @@
       </div>
       <ng-container *ngIf="products.length > 0; else searchElseTemplate">
         <div class="page-nav">
-            <div class="row align-items-end justify-content-center align-items-center">
+            <div class="row align-items-end">
               <div class="col-auto">
-                <div class="page-nav__total">
+                <div class="page-nav__total pb-2">
                   You've viewed {{ products.length }} of
                   {{ pagination.collectionSize }} products
                 </div>
@@ -143,16 +143,21 @@
                   [(page)]="pagination.page"
                   [pageSize]="pagination.pageSize"
                   [collectionSize]="pagination.collectionSize"
+                  [maxSize]="5"
                   (pageChange)="pageChanged()"
-                ></ngb-pagination>
+                >
+                <ng-template ngbPaginationPrevious>Prev</ng-template>
+                <ng-template ngbPaginationNext>Next</ng-template>
+              </ngb-pagination>
               </div>
-              <div class="col-auto ml-sm-auto">
-                Show
+              <div class="col-auto ml-sm-auto align-items-center d-flex justify-content-around">
+                <span class="pr-3">Show</span>
                 <app-page-size-selector
                   [defaultPageSize]="pagination.pageSize"
                   [pageSizes]="settings.pageSizes"
                   (pageSizeChanged)="pageSizeChanged($event)"
                 ></app-page-size-selector>
+                <span class="pl-3 d-none d-sm-block">entries</span>
               </div>
             </div>
           </div>
