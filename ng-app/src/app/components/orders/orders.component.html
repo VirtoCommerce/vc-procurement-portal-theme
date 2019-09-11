@@ -17,15 +17,16 @@
         Filter by status
 
         <div ngbDropdown>
-          <button class="btn btn-outline-secondary" id="statusFilterDropdown" ngbDropdownToggle>
+          <div id="statusFilterDropdown" ngbDropdownToggle>
             {{ this.status }}
-          </button>
-          <div ngbDropdownMenu aria-labelledby="statusFilterDropdown">
-            <button ngbDropdownItem *ngFor="let status of getStatuses()" (click)="changeActiveStatus(status)">
+          </div>
+          <div ngbDropdownMenu aria-labelledby="statusFilterDropdown" class="dropdown-menu--down">
+            <a ngbDropdownItem *ngFor="let status of getStatuses()" (click)="changeActiveStatus(status)">
               {{ status }}
-            </button>
+            </a>
           </div>
         </div>
+
       </div>
     </div>
     <ng-container *ngIf="ordersLoaded$ | async">
@@ -71,22 +72,35 @@
         </div>
 
         <div class="page-nav">
-          <div class="row align-items-end justify-content-center align-items-center">
+          <div class="row align-items-md-end align-items-lg-end align-items-xl-end">
             <div class="col-auto">
-              <div class="page-nav__total">
+              <div class="page-nav__total pb-2">
                 You've viewed {{ orders.length }} of
                 {{ pagination.collectionSize }} orders
               </div>
-              <ngb-pagination [(page)]="pagination.page" [pageSize]="pagination.pageSize"
-                [collectionSize]="pagination.collectionSize" (pageChange)="pageChanged()"></ngb-pagination>
+              <ngb-pagination
+                [(page)]="pagination.page"
+                [pageSize]="pagination.pageSize"
+                [collectionSize]="pagination.collectionSize"
+                [maxSize]="3"
+                (pageChange)="pageChanged()"
+              >
+              <ng-template ngbPaginationPrevious>Prev</ng-template>
+              <ng-template ngbPaginationNext>Next</ng-template>
+            </ngb-pagination>
             </div>
-            <div class="col-auto ml-sm-auto">
-              Show
-              <app-page-size-selector [defaultPageSize]="pagination.pageSize" [pageSizes]="pageSizes"
-                (pageSizeChanged)="pageSizeChanged($event)"></app-page-size-selector>
+            <div class="col-auto ml-sm-auto align-items-center d-flex">
+              <span class="pr-3">Show</span>
+              <app-page-size-selector
+                [defaultPageSize]="pagination.pageSize"
+                [pageSizes]="pageSizes"
+                (pageSizeChanged)="pageSizeChanged($event)"
+              ></app-page-size-selector>
+              <span class="pl-3 d-none d-sm-block">entries</span>
             </div>
           </div>
         </div>
+
       </ng-container>
       <ng-template #elseTemplate>
         <app-no-result-message></app-no-result-message>
@@ -94,3 +108,5 @@
     </ng-container>
   </div>
 </main>
+
+
