@@ -1,13 +1,16 @@
-  <div class="sidebar__block">
-      <a [routerLink]="['/bulkorder']"
-       class="btn btn--blue btn--block">Bulk Order</a>
+<div class="swipe swipe--category" [ngClass]="{'swipe--opened': isOpen}">
+  <div class="swipe__header">
+      <div class="swipe__header-t">Category</div>
+      <div class="swipe__close" (click)="closeSidebar()"></div>
   </div>
-  <ul class="nav nav--category">
-      <li class="nav__item">
+  <div class="swipe__body">
+      <ul class="nav nav--category">
+        <li class="nav__item">
           <a class="nav__link" [ngClass]="{'nav__link--active': selectedCategory === null}" (click)="selectAllProducts()" >All Products</a>
       </li>
       <li class="nav__item" *ngFor="let category of categories | async" >
           <a class="nav__link" [ngClass]="{'nav__link--active': isActive(category)}" (click)="selectCategory(category)" >{{category.name}}</a>
       </li>
-  </ul>
-
+      </ul>
+  </div>
+</div>

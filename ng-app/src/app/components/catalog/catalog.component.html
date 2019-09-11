@@ -1,8 +1,8 @@
 <main class="main container" *ngIf="(cart$ | async) as cart">
   <app-active-order-mobile [cart]="cart" #mobileOrderSidebar></app-active-order-mobile>
+  <app-categories-mobile #mobileCategoies [categories]="categories$" (categoryChanged)="categoryChanged($event)"></app-categories-mobile>
   <app-categories class="sidebar d-none d-xl-block" [categories]="categories$"
     (categoryChanged)="categoryChanged($event)"
-    #mobileCategoies
   ></app-categories>
   <div class="content" >
     <form class="search d-none d-xl-block">
@@ -133,7 +133,7 @@
       </div>
       <ng-container *ngIf="products.length > 0; else searchElseTemplate">
         <div class="page-nav">
-            <div class="row align-items-end">
+            <div class="row align-items-md-end align-items-lg-end align-items-xl-end">
               <div class="col-auto">
                 <div class="page-nav__total pb-2">
                   You've viewed {{ products.length }} of
@@ -150,7 +150,7 @@
                 <ng-template ngbPaginationNext>Next</ng-template>
               </ngb-pagination>
               </div>
-              <div class="col-auto ml-sm-auto align-items-center d-flex justify-content-around">
+              <div class="col-auto ml-sm-auto align-items-center d-flex">
                 <span class="pr-3">Show</span>
                 <app-page-size-selector
                   [defaultPageSize]="pagination.pageSize"

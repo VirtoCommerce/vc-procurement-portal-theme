@@ -11,7 +11,7 @@ import { ICart } from '@models/dto/icart';
 import { ProductConverterService } from '@services/converters/product-converter.service';
 import { ProductDetails } from '@models/product';
 import { MobileViewService } from '@services/mobile-view.service';
-import { CategoriesComponent } from '@components/catalog/categories/categories.component';
+import { CategoriesMobileComponent } from './categories-mobile/categories-mobile.component';
 
 @Component({
   selector: 'app-catalog',
@@ -48,7 +48,7 @@ export class CatalogComponent implements OnInit {
     this.getProducts();
   }
 
-  openMobileCategories(mobileCategories: CategoriesComponent) {
+  openMobileCategories(mobileCategories: CategoriesMobileComponent) {
     this.mobileSidebarService.openSidebar(mobileCategories);
   }
 
