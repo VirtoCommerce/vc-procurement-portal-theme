@@ -17,7 +17,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
-  @Input() isForApprove = false;
   @Input() role: string;
 
   date = new FormControl(new Date());
