@@ -1,0 +1,74 @@
+{
+  "ImageUrl": "/assets/images/workflow3.svg",
+  "OrderCreatorRoles": ["Agent"],
+  "States": [
+    {
+      "Name": "New",
+      "IsInitial": true,
+      "PermittedTransitions": [
+        {
+          "ToState": "1st approved",
+          "Trigger": "1st Approve",
+          "Roles": [
+            "First Approver"
+          ]
+        },
+        {
+          "ToState": "Rejected",
+          "Trigger": "Reject",
+          "Roles": [
+            "First Approver",
+            "End Approver"
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "1st approved",
+      "PermittedTransitions": [
+        {
+          "ToState": "2nd approved",
+          "Trigger": "2nd Approve",
+          "Roles": [
+            "End Approver"
+          ]
+        },
+        {
+          "ToState": "Rejected",
+          "Trigger": "Reject",
+          "Roles": [
+            "End Approver"
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "2nd approved",
+      "PermittedTransitions": [
+        {
+          "ToState": "Approved",
+          "Trigger": "Approve",
+          "Roles": [
+            "End Approver"
+          ]
+        },
+        {
+          "ToState": "Rejected",
+          "Trigger": "Reject",
+          "Roles": [
+            "End Approver"
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Approved",
+      "IsFinal": true,
+      "IsSuccessful": true
+    },
+    {
+      "Name": "Rejected",
+      "IsFinal": true
+    }
+  ]
+}
