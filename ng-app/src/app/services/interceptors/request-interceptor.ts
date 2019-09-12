@@ -1,27 +1,28 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
   HttpInterceptor
-} from "@angular/common/http";
-import { Observable } from "rxjs";
-import { finalize } from "rxjs/operators";
-import { NgBlockUI, BlockUI } from "ng-block-ui";
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+import { FullScreenSpinnerService } from '@services/full-screen-spinner.service';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
-  @BlockUI() blockUI: NgBlockUI;
-  activeRequests: number = 0;
+  //@BlockUI() blockUI: NgBlockUI;
 
-  constructor() {}
+  activeRequests = 0;
+
+  constructor(private fullScreenSpinner: FullScreenSpinnerService) {}
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     if (this.activeRequests === 0) {
-      this.blockUI.start();
+      this.fullScreenSpinner.start();
     }
 
     this.activeRequests++;
@@ -29,7 +30,7 @@ export class RequestInterceptor implements HttpInterceptor {
       finalize(() => {
         this.activeRequests--;
         if (this.activeRequests === 0) {
-          this.blockUI.stop();
+          this.fullScreenSpinner.stop();
         }
       })
     );
