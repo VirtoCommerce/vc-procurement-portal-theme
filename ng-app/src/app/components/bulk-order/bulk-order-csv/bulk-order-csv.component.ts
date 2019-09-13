@@ -40,28 +40,20 @@ export class BulkOrderCsvComponent implements OnInit {
   }
 
   /**
-   * on button validate cklicked
+   * on button validate clicked
    */
   async validate() {
     if (!this.csvText.trim()) {
       this.itemsIsValid = false;
-      this.errors = ['Your order is empty. You need to fill order items in CSV fromat like showing on placeholder.']
+      this.errors = ['Your order is empty. You need to fill order items in CSV format like showing on placeholder.']
       return;
     }
     // first checks format
     this.validationResult = this.parseAndValidateCsv();
-    if (this.showErrorsIfInvalid()) {
-      return;
-    }
-
     // secondly checks duplicates
     this.validateItemsOnDuplicates();
-    if (this.showErrorsIfInvalid()) {
-      return;
-    }
-
     // for end checks sku existence
-    await this.validateItemsWithRealProduct();
+    //  await this.validateItemsWithRealProduct();
     if (this.showErrorsIfInvalid()) {
       return;
     }
@@ -72,7 +64,7 @@ export class BulkOrderCsvComponent implements OnInit {
   }
 
   /**
-   * check if exists ivalid item and show errors in that case.
+   * check if exists invalid item and show errors in that case.
    * returns True if exist invalid items
    */
   private showErrorsIfInvalid(): boolean {
@@ -102,7 +94,7 @@ export class BulkOrderCsvComponent implements OnInit {
   }
 
   private parseAndValidateCsvLine(lineIndex: number, csvLine: string): IItemValidationResult {
-    //const regex = /(\s*'[^']+'|\s*[^,]+)(?=,|$)/g;
+    // const regex = /(\s*'[^']+'|\s*[^,]+)(?=,|$)/g;
     const splitted =  csvLine.split(/[,;\.\s]/);
     let invalid = false;
     let message = '';
@@ -115,10 +107,10 @@ export class BulkOrderCsvComponent implements OnInit {
       const qty = parseInt(qtyText, 10);
       if (isNaN(qty)) {
         invalid = true;
-        message = 'Invalid format of quantity. Quantity must be integer number.';
+        message = 'Invalid format of quantity. Quantity must be integer number. ';
       } else if (qty <= 0) {
         invalid = true;
-        message = 'Invalid format of quantity. Quantity must be positive number.';
+        message = 'Invalid format of quantity. Quantity must be positive number. ';
       } else {
         bulkOrderItem = new BulkOrderItem(sku, qty);
       }
@@ -133,7 +125,7 @@ export class BulkOrderCsvComponent implements OnInit {
     this.validationResult.forEach((vr1) => {
     if (this.validationResult.some((vr2) => vr2.bulkOrderItem.sku === vr1.bulkOrderItem.sku && vr2.lineIndex !== vr1.lineIndex) ) {
         vr1.invalid = true;
-        vr1.message = 'SKU value is duplicated';
+        vr1.message += 'SKU value is duplicated. ';
       }
     });
   }
@@ -163,7 +155,7 @@ export class BulkOrderCsvComponent implements OnInit {
           r.bulkOrderItem.productId = product.id;
           if (!product.inStock || !product.trackInventory) {
             r.invalid = true;
-            r.message = 'Product out of shtock!';
+            r.message = 'Product out of stock!';
           } else if (r.bulkOrderItem.quantity > product.availableQuantity ) {
             r.invalid = true;
             r.message = `The requested quantity of goods ${r.bulkOrderItem.quantity} exceeds the maximum available ${product.availableQuantity}`;
