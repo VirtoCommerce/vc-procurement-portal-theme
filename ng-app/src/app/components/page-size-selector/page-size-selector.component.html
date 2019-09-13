@@ -7,10 +7,22 @@
 </div> -->
 
 
-    <div ngbDropdown class="d-inline-block">
-      <button class="btn btn-outline-secondary" id="dropdownPageSizes" ngbDropdownToggle>{{pageSize}}</button>
-      <div ngbDropdownMenu aria-labelledby="dropdownPageSizes">
-        <button ngbDropdownItem *ngFor="let ps of pageSizes" (click)="onPageSizeClicked(ps)">{{ps}}</button>
+    <div ngbDropdown >
+      <div ngbDropdownToggle id="dropdownPageSizes">{{pageSize}}</div>
+      <div ngbDropdownMenu aria-labelledby="dropdownPageSizes" class="dropdown-menu--up">
+        <a ngbDropdownItem *ngFor="let ps of pageSizes" (click)="onPageSizeClicked(ps)">{{ps}}</a>
       </div>
     </div>
 
+    <!-- <div ngbDropdown >
+      <div id="dropdownPageSizes" ngbDropdownToggle>{{pageSize}}</div>
+      <div ngbDropdownMenu aria-labelledby="dropdownPageSizes">
+        <a  ngbDropdownItem *ngFor="let ps of pageSizes" (click)="onPageSizeClicked(ps)">{{ps}}</a>
+      </div>
+    </div> -->
+  <!-- <div class="dropdown__toggle">30</div>
+                                        <div class="dropdown__menu dropdown__menu--up">
+                                            <a href="#" class="dropdown__menu-item">10</a>
+                                            <a href="#" class="dropdown__menu-item">20</a>
+                                            <a href="#" class="dropdown__menu-item">30</a>
+                                        </div> -->

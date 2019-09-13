@@ -56,6 +56,7 @@ import { NoResultMessageComponent } from '@components/common/no-result-message/n
 import { ApprovalWorkflowComponent } from '@components/company/approval-workflow/approval-workflow.component';
 import { ErrorInterceptor } from '@services/interceptors/error-interceptor';
 import { ActionPanelComponent } from '@components/common/action-panel/action-panel.component';
+import { CategoriesMobileComponent } from './components/catalog/categories-mobile/categories-mobile.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { ActionPanelComponent } from '@components/common/action-panel/action-pan
     OnlyNumberDirective,
     NoResultMessageComponent,
     ApprovalWorkflowComponent,
-    ActionPanelComponent
+    ActionPanelComponent,
+    CategoriesMobileComponent
   ],
   imports: [
     BrowserModule,

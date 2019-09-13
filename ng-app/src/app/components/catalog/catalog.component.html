@@ -1,9 +1,11 @@
 <main class="main container" *ngIf="(cart$ | async) as cart">
   <app-active-order-mobile [cart]="cart" #mobileOrderSidebar></app-active-order-mobile>
-  <app-categories class="sidebar d-none d-xl-block" [categories]="categories$"
-    (categoryChanged)="categoryChanged($event)"
-    #mobileCategoies
-  ></app-categories>
+  <app-categories-mobile #mobileCategoies [categories]="categories$" (categoryChanged)="categoryChanged($event)"></app-categories-mobile>
+  <div class="sidebar d-none d-xl-block">
+    <app-categories  [categories]="categories$"
+      (categoryChanged)="categoryChanged($event)"
+    ></app-categories>
+  </div>
   <div class="content" >
     <form class="search d-none d-xl-block">
       <app-search-products
@@ -133,9 +135,9 @@
       </div>
       <ng-container *ngIf="products.length > 0; else searchElseTemplate">
         <div class="page-nav">
-            <div class="row align-items-end justify-content-center align-items-center">
+            <div class="row align-items-md-end align-items-lg-end align-items-xl-end">
               <div class="col-auto">
-                <div class="page-nav__total">
+                <div class="page-nav__total pb-2">
                   You've viewed {{ products.length }} of
                   {{ pagination.collectionSize }} products
                 </div>
@@ -143,16 +145,21 @@
                   [(page)]="pagination.page"
                   [pageSize]="pagination.pageSize"
                   [collectionSize]="pagination.collectionSize"
+                  [maxSize]="3"
                   (pageChange)="pageChanged()"
-                ></ngb-pagination>
+                >
+                <ng-template ngbPaginationPrevious>Prev</ng-template>
+                <ng-template ngbPaginationNext>Next</ng-template>
+              </ngb-pagination>
               </div>
-              <div class="col-auto ml-sm-auto">
-                Show
+              <div class="col-auto ml-sm-auto align-items-center d-flex">
+                <span class="pr-3">Show</span>
                 <app-page-size-selector
                   [defaultPageSize]="pagination.pageSize"
                   [pageSizes]="settings.pageSizes"
                   (pageSizeChanged)="pageSizeChanged($event)"
                 ></app-page-size-selector>
+                <span class="pl-3 d-none d-sm-block">entries</span>
               </div>
             </div>
           </div>
@@ -166,8 +173,6 @@
 
   <!-- active order -->
   <div class="sidebar sidebar--bg-gray d-none d-lg-block">
-    <div class="sidebar__inner">
-      <app-active-order [cart]="cart"></app-active-order>
-    </div>
+      <app-active-order class="sidebar__inner" [cart]="cart"></app-active-order>
   </div>
 </main>
