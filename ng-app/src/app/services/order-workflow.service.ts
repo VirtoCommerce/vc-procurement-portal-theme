@@ -1,18 +1,16 @@
+import { WorkflowStorageService } from '@services/workflow-storage.service';
 import { Injectable } from '@angular/core';
-import Workflow from 'src/assets/workflow/workflow.json';
 import { OrderStateTransitionResult } from '@models/order-state-transition-result';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderWorkflowService {
-  private _workflow: any;
   get workflow(): any {
-    return this._workflow.Workflows[0].Workflow;
+    return this.workflowStorageService.getActiveWorkflow();
   }
 
-  constructor() {
-    this._workflow = Object.assign({}, Workflow);
+  constructor(private workflowStorageService: WorkflowStorageService) {
   }
 
   public getRoleTransitions(currentState: string, currentRole: string): OrderStateTransitionResult[] {
@@ -88,6 +86,14 @@ export class OrderWorkflowService {
 
   public getWorkflowImageUrl(): string {
     return this.workflow.ImageUrl;
+  }
+
+  public getWorkflowItems() {
+    return this.workflowStorageService.getWorkflowItems();
+  }
+
+  public changeWorkflow(name: string, by: string, isActive: boolean) {
+    this.workflowStorageService.changeWorkflow(name, by, isActive);
   }
 
   private findRolesInStates(states: any): string[] {

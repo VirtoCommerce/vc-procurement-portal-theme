@@ -1,4 +1,29 @@
 <div class="tabs__content" appRemoveWrapper>
-  <img src="/themes/assets/static/bundle{{imageUrl}}" width="840" height="680"/>
-</div>
+  <div *ngIf="currentWorkflow">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Activated At</th>
+          <th>Activated By</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of workflowItems">
+          <td scope="row">{{item.Name}}</td>
+          <td>{{item.IsActive ? 'Active' : 'Inactive'}}</td>
+          <td>{{item.ActivatedBy}}</td>
+          <td>{{item.ActivatedAt | date :'medium'}}</td>
+          <td style="width: 5%"><input type="checkbox" checked data-toggle="toggle" [checked]="item.IsActive"
+              (change)="onChange($event, item.Name)"></td>
+        </tr>
+      </tbody>
+    </table>
 
+    <!-- <img src="/themes/assets/static/bundle{{imageUrl}}" width="840" height="680" /> -->
+    <img src="{{getCurrentWorkflowImageUrl()}}" width="840" height="680" />
+
+  </div>
+</div>
