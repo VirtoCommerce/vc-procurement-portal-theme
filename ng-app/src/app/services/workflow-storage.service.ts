@@ -61,7 +61,17 @@ export class WorkflowStorageService {
   }
 
   private getStorage(): any {
-    return JSON.parse(localStorage.getItem(WORKFLOWS_STORAGE_KEY));
+    const storage = localStorage.getItem(WORKFLOWS_STORAGE_KEY);
+    if (storage == null) {
+      this.deployStorageIfNotExists();
+    }
+    // TODO: fix the bug here
+    const parsed = JSON.parse(storage);
+    if (parsed.Workflows != null) {
+      return parsed.Workflows;
+    } else {
+      return parsed;
+    }
   }
 
   private deployStorageIfNotExists() {

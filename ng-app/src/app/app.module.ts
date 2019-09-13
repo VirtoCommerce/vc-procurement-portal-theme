@@ -9,6 +9,7 @@ import { BlockUIModule } from 'ng-block-ui';
 import { NgbModule, NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ConnectionServiceModule } from 'ng-connection-service';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 // custom modules import
 import { AppRoutingModule } from './app-routing.module';
@@ -115,7 +116,16 @@ import { CategoriesMobileComponent } from './components/catalog/categories-mobil
       delayStart: 1000,
       delayStop: 1000
     }),
-    ConnectionServiceModule
+    ConnectionServiceModule,
+    UiSwitchModule.forRoot({
+      size: 'small',
+      // color: 'rgb(0, 189, 99)',
+      // switchColor: '#80FFA2',
+      // defaultBgColor: '#00ACFF',
+      // defaultBoColor : '#476EFF',
+      checkedLabel: 'on',
+      uncheckedLabel: 'off'
+    })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

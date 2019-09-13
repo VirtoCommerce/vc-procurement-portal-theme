@@ -92,7 +92,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary mb-4" (click)="closeModal()">Cancel</button>
+    <button type="button" class="btn btn-secondary mb-4" (click)="closeModal()">Cancel</button>
     <button name="submit" type="submit" class="btn btn--green mb-4" *ngIf="!editUserMode" [disabled]="myform.invalid">Add</button>
     <button name="submit" type="submit" class="btn btn--green mb-4" *ngIf="editUserMode" [disabled]="myform.invalid">Update user</button>
   </div>
