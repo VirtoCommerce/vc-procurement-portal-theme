@@ -53,7 +53,7 @@ export class BulkOrderCsvComponent implements OnInit {
     // secondly checks duplicates
     this.validateItemsOnDuplicates();
     // for end checks sku existence
-    //  await this.validateItemsWithRealProduct();
+    await this.validateItemsWithRealProduct();
     if (this.showErrorsIfInvalid()) {
       return;
     }
@@ -145,20 +145,20 @@ export class BulkOrderCsvComponent implements OnInit {
     const skuArr = this.validationResult.map(x => x.bulkOrderItem.sku);
     const requests = skuArr.map(x => this.getProduct(x));
     const bySkuResults = await forkJoin(requests).toPromise();
-    this.validationResult.forEach(r =>  {
+    this.validationResult.filter(r => !r.invalid ).forEach(r =>  {
         const products =  bySkuResults.filter(x => x && x.sku === r.bulkOrderItem.sku );
         if (!products || products.length === 0 || products.length > 1) {
           r.invalid = true;
-          r.message = 'There is no product with such SKU value';
+          r.message += 'There is no product with such SKU value. ';
         } else {
           const product = products[0];
           r.bulkOrderItem.productId = product.id;
           if (!product.inStock || !product.trackInventory) {
             r.invalid = true;
-            r.message = 'Product out of stock!';
+            r.message += 'Product out of stock! ';
           } else if (r.bulkOrderItem.quantity > product.availableQuantity ) {
             r.invalid = true;
-            r.message = `The requested quantity of goods ${r.bulkOrderItem.quantity} exceeds the maximum available ${product.availableQuantity}`;
+            r.message += `The requested quantity of goods ${r.bulkOrderItem.quantity} exceeds the maximum available ${product.availableQuantity}. `;
           }
         }
     });
