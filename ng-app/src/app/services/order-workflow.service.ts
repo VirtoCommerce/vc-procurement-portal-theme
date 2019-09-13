@@ -7,6 +7,9 @@ import { OrderStateTransitionResult } from '@models/order-state-transition-resul
 })
 export class OrderWorkflowService {
   private _workflow: any;
+  get workflow(): any {
+    return this._workflow.Workflows[0].Workflow;
+  }
 
   constructor() {
     this._workflow = Object.assign({}, Workflow);
@@ -15,7 +18,7 @@ export class OrderWorkflowService {
   public getRoleTransitions(currentState: string, currentRole: string): OrderStateTransitionResult[] {
     let result = null;
 
-    const targetState = this._workflow.States.find(state => state.Name === currentState);
+    const targetState = this.workflow.States.find(state => state.Name === currentState);
     if (targetState != null && targetState.PermittedTransitions != null) {
       result = targetState.PermittedTransitions.filter(transition =>
         this.isRoleExistsInRoles(currentRole, transition.Roles));
@@ -31,7 +34,7 @@ export class OrderWorkflowService {
   }
 
   public isContainsSuccessfulAttribute(currentState: string) {
-    const targetState = this._workflow.States.find(state => state.Name === currentState);
+    const targetState = this.workflow.States.find(state => state.Name === currentState);
 
     if (targetState != null) {
       return targetState.IsSuccessful != null && targetState.IsSuccessful;
@@ -41,7 +44,7 @@ export class OrderWorkflowService {
   public getStatesByRoles(roles: string[]): string[] {
     const set = new Set<string>();
     roles.forEach(iteratedRole => {
-      const statesQuery = this._workflow.States
+      const statesQuery = this.workflow.States
         .filter(state => state.PermittedTransitions && state.PermittedTransitions
           .some(transition => transition.Roles && transition.Roles
             .some(role => role === iteratedRole)));
@@ -53,17 +56,17 @@ export class OrderWorkflowService {
   }
 
   public getWorkflowRoles(): string[] {
-    return this.findRolesInStates(this._workflow.States);
+    return this.findRolesInStates(this.workflow.States);
   }
 
   public getAllRoles(): string[] {
-    const orderCreatorsRoles = this._workflow.OrderCreatorRoles;
-    const rolesInStates = this.findRolesInStates(this._workflow.States);
+    const orderCreatorsRoles = this.workflow.OrderCreatorRoles;
+    const rolesInStates = this.findRolesInStates(this.workflow.States);
     return [...orderCreatorsRoles, ...rolesInStates];
   }
 
   public getRolesByState(currentState: string): string[] {
-    const states = this._workflow.States.filter(state => state.Name === currentState);
+    const states = this.workflow.States.filter(state => state.Name === currentState);
     return this.findRolesInStates(states);
   }
 
@@ -80,11 +83,11 @@ export class OrderWorkflowService {
   }
 
   public getAllStates(): string[] {
-    return this._workflow.States.map((state: any) => state.Name);
+    return this.workflow.States.map((state: any) => state.Name);
   }
 
   public getWorkflowImageUrl(): string {
-    return this._workflow.ImageUrl;
+    return this.workflow.ImageUrl;
   }
 
   private findRolesInStates(states: any): string[] {

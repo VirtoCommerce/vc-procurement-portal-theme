@@ -1,6 +1,7 @@
 <main class="main container">
   <div class="order">
-    <h1>Orders</h1>
+    <h1 *ngIf="!isForApproval; else aprovalHeader">Orders</h1>
+    <ng-template #aprovalHeader><h1>Awaiting Approval</h1></ng-template>
     <div class="row page__sort">
       <div class="col-md-auto page__sort-date">
         From
@@ -13,7 +14,7 @@
       <div class="alert alert-danger col-md-auto m-0" *ngIf="!validFilterDate">
         Date is not valid
       </div>
-      <div class="col-md-auto page__sort-filter" *ngIf="!isForApprovalRoute()">
+      <div class="col-md-auto page__sort-filter" *ngIf="!isForApproval">
         Filter by status
 
         <div ngbDropdown>

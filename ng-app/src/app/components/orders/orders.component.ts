@@ -34,6 +34,8 @@ export class OrdersComponent implements OnInit {
   configuration = ConfigurationFile as IAppConfig;
   pagination = new PaginationInfo(this.configuration.defaultPageSize);
   pageSizes = this.configuration.pageSizes;
+  // tslint:disable-next-line:variable-name
+  private _isForApproval: boolean;
 
   constructor(
     private ordersService: OrdersService,
@@ -41,6 +43,7 @@ export class OrdersComponent implements OnInit {
     private authorizationService: AuthorizationService,
     private route: ActivatedRoute
   ) {
+     this._isForApproval = this.route.snapshot.routeConfig.path === 'forapproval' ? true : false;
   }
 
   async ngOnInit() {
@@ -79,7 +82,7 @@ export class OrdersComponent implements OnInit {
   public getAssignedToRoles = (order: IOrder) => this.orderWorkflowService.getRolesTextByState(order.status);
 
   private getOrders() {
-    if (this.isForApprovalRoute()) {
+    if (this.isForApproval) {
       this.getForApprovalOrders();
     } else {
       this.getOtherOrders();
@@ -114,7 +117,7 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-  private isForApprovalRoute(): boolean {
-    return this.route.snapshot.routeConfig.path === 'forapproval' ? true : false;
+  private get isForApproval(): boolean {
+    return this._isForApproval;
   }
 }

@@ -1,9 +1,11 @@
 <main class="main container" *ngIf="(cart$ | async) as cart">
   <app-active-order-mobile [cart]="cart" #mobileOrderSidebar></app-active-order-mobile>
   <app-categories-mobile #mobileCategoies [categories]="categories$" (categoryChanged)="categoryChanged($event)"></app-categories-mobile>
-  <app-categories class="sidebar d-none d-xl-block" [categories]="categories$"
-    (categoryChanged)="categoryChanged($event)"
-  ></app-categories>
+  <div class="sidebar d-none d-xl-block">
+    <app-categories  [categories]="categories$"
+      (categoryChanged)="categoryChanged($event)"
+    ></app-categories>
+  </div>
   <div class="content" >
     <form class="search d-none d-xl-block">
       <app-search-products
