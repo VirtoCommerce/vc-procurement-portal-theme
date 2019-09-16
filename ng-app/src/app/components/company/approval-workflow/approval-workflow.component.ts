@@ -51,11 +51,13 @@ export class ApprovalWorkflowComponent implements OnInit {
   }
 
   public getCurrentWorkflowImageUrl(): string {
-    if (isDevMode()) {
-      return this.currentWorkflow.ImageUrl;
-    } else {
-      return `/themes/assets/static/bundle${this.currentWorkflow.ImageUrl}`;
-    }
+    // TODO: fix this error. there are different URLs in dev and prod environment
+    // if (isDevMode()) {
+    //   return this.currentWorkflow.ImageUrl;
+    // } else {
+    //   return `/themes/assets/static/bundle${this.currentWorkflow.ImageUrl}`;
+    // }
+    return `/themes/assets/static/bundle${this.currentWorkflow.ImageUrl}`;
   }
 
   private initWorkflow() {
