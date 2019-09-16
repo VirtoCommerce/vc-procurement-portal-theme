@@ -1,7 +1,9 @@
+<div class="sidebar__inner" appRemoveWrapper>
   <div class="sidebar__block">
       <a [routerLink]="['/bulkorder']"
        class="btn btn--blue btn--block">Bulk Order</a>
   </div>
+  <div class="sidebar__body">
   <ul class="nav nav--category">
       <li class="nav__item">
           <a class="nav__link" [ngClass]="{'nav__link--active': selectedCategory === null}" (click)="selectAllProducts()" >All Products</a>
@@ -10,4 +12,5 @@
           <a class="nav__link" [ngClass]="{'nav__link--active': isActive(category)}" (click)="selectCategory(category)" >{{category.name}}</a>
       </li>
   </ul>
-
+</div>
+</div>

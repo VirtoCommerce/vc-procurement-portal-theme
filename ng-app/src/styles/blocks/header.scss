@@ -6,7 +6,11 @@ $header-nav-link-hover: rgba(255,255,255,.25);
 	background: $black;
 	border-bottom: 1px solid $gray-200;
 	height: $header-height;
-	flex: 0 0 $header-height;
+  flex: 0 0 $header-height;
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 500;
 
 	.row
 	{
@@ -18,11 +22,7 @@ $header-nav-link-hover: rgba(255,255,255,.25);
 		color: $white;
 		font-size: 1.5rem;
 		font-weight: bold;
-		margin-left: 1.875rem;
 
-		@include media-breakpoint-down(sm) {
-			margin-left: 0;
-		}
 	}
 
 	&-nav-mobile

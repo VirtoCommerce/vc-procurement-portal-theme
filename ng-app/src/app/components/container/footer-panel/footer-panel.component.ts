@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-footer-panel',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer-panel.component.scss']
 })
 export class FooterPanelComponent implements OnInit {
+  @Input() footerBgBlack = false;
 
   constructor() { }
 

@@ -1,4 +1,4 @@
-<main class="main container">
+<main class="main container-fluid">
   <div class="order">
     <h1 *ngIf="!isForApproval; else aprovalHeader">Orders</h1>
     <ng-template #aprovalHeader><h1>Awaiting Approval</h1></ng-template>
@@ -109,5 +109,5 @@
     </ng-container>
   </div>
 </main>
-
+<app-footer-panel [footerBgBlack]="true"></app-footer-panel>
 
