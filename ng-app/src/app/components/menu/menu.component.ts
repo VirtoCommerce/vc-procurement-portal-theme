@@ -1,7 +1,5 @@
+import { OrderWorkflowService } from '@services/order-workflow.service';
 import { Component, OnInit } from '@angular/core';
-import {
-  Router
-} from '@angular/router';
 import { MobileViewService } from '@services/mobile-view.service';
 import { AuthorizationService } from '@services/authorization.service';
 import { RoleEnum } from '@models/role';
@@ -16,16 +14,18 @@ export class MenuComponent implements OnInit {
   isOpen = false;
   isAdmin: Promise<boolean>;
   currentUser: ExtendedUser;
+  isOrdersApprovalEnabled = true;
   constructor(
-    private router: Router,
     private mobileSidebarService: MobileViewService,
-    private authService: AuthorizationService
+    private authService: AuthorizationService,
+    private ordersWorkflowService: OrderWorkflowService
   ) {
   }
 
   async ngOnInit() {
     this.isAdmin = this.authService.checkPermission(RoleEnum.Admin);
     this.currentUser = await this.authService.getCurrentUser();
+    this.isOrdersApprovalEnabled = this.isOrdersApprovalEnabledForUser(this.currentUser);
   }
 
   openMobileMenu() {
@@ -55,4 +55,15 @@ export class MenuComponent implements OnInit {
     return result;
   }
 
+  private isOrdersApprovalEnabledForUser(currentUser: ExtendedUser): boolean {
+    let result = true;
+    const orderCreatorRoles = this.ordersWorkflowService.getOrderCreatorRoles();
+    currentUser.workflowRoles.forEach(role => {
+      if (result) {
+        result = !orderCreatorRoles.some(creatorRole => creatorRole === role);
+      }
+    });
+
+    return result;
+  }
 }
