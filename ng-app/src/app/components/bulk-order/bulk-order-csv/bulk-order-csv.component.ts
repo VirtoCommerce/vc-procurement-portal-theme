@@ -122,8 +122,8 @@ export class BulkOrderCsvComponent implements OnInit {
    * validate parsed items on duplicates by SKU
    */
   private validateItemsOnDuplicates() {
-    this.validationResult.forEach((vr1) => {
-    if (this.validationResult.some((vr2) => vr2.bulkOrderItem.sku === vr1.bulkOrderItem.sku && vr2.lineIndex !== vr1.lineIndex) ) {
+    this.validationResult.filter(x => !x.invalid).forEach((vr1) => {
+      if (this.validationResult.filter(x => !x.invalid).some((vr2) => vr2.bulkOrderItem.sku === vr1.bulkOrderItem.sku && vr2.lineIndex !== vr1.lineIndex) ) {
         vr1.invalid = true;
         vr1.message += 'SKU value is duplicated. ';
       }
@@ -142,7 +142,7 @@ export class BulkOrderCsvComponent implements OnInit {
    * validate parsed items on real existence of products with such SKU values
    */
   private async validateItemsWithRealProduct() {
-    const skuArr = this.validationResult.map(x => x.bulkOrderItem.sku);
+    const skuArr = this.validationResult.filter(x => !x.invalid).map(x => x.bulkOrderItem.sku);
     const requests = skuArr.map(x => this.getProduct(x));
     const bySkuResults = await forkJoin(requests).toPromise();
     this.validationResult.filter(r => !r.invalid ).forEach(r =>  {
