@@ -8,11 +8,11 @@ const WORKFLOWS_STORAGE_KEY = 'vc_procurement_portal_workflows_metadata';
 export class WorkflowStorageService {
 
   constructor() {
-    this.deployStorageIfNotExists();
+    this.setStorageIfNotNotExists();
   }
 
   public getWorkflowItems(): any {
-    const result = this.getStorage().map(workflow => {
+    const result = this.get().map(workflow => {
       return {
         Name: workflow.Name,
         ActivatedBy: workflow.ActivatedBy,
@@ -26,7 +26,7 @@ export class WorkflowStorageService {
   }
 
   public getActiveWorkflow(): any {
-    const result = this.getStorage().find(workflow => workflow.IsActive === true);
+    const result = this.get().find(workflow => workflow.IsActive === true);
     const errorMessage = 'Can\'t find active workflow';
 
     if (result == null) {
@@ -40,8 +40,8 @@ export class WorkflowStorageService {
     return result.Workflow;
   }
 
-  public changeWorkflow(name: string, by: string, isActive: boolean) {
-    const storage = this.getStorage();
+  public changeWorkflow(name: string, by: string, isActive: boolean): void {
+    const storage = this.get();
 
     storage.forEach(workflow => {
       if (workflow.Name === name) {
@@ -53,31 +53,25 @@ export class WorkflowStorageService {
       }
     });
 
-    this.updateStorage(storage);
+    this.set(storage);
   }
 
-  private updateStorage(storage: any) {
+  private set(storage: any): void {
     localStorage.setItem(WORKFLOWS_STORAGE_KEY, JSON.stringify(storage));
   }
 
-  private getStorage(): any {
-    const storage = localStorage.getItem(WORKFLOWS_STORAGE_KEY);
-    if (storage == null) {
-      this.deployStorageIfNotExists();
-    }
-    // TODO: fix the bug here
-    const parsed = JSON.parse(storage);
-    if (parsed.Workflows != null) {
-      return parsed.Workflows;
-    } else {
-      return parsed;
+  private get(): any {
+    this.setStorageIfNotNotExists();
+    return JSON.parse(localStorage.getItem(WORKFLOWS_STORAGE_KEY));
+  }
+
+  private setStorageIfNotNotExists(): void {
+    if (!this.isStorageExists()) {
+      this.set(WorkflowFile.Workflows);
     }
   }
 
-  private deployStorageIfNotExists() {
-    const item = localStorage.getItem(WORKFLOWS_STORAGE_KEY);
-    if (item == null) {
-      localStorage.setItem(WORKFLOWS_STORAGE_KEY, JSON.stringify(WorkflowFile));
-    }
+  private isStorageExists(): boolean {
+    return localStorage.getItem(WORKFLOWS_STORAGE_KEY) == null ? false : true;
   }
 }
