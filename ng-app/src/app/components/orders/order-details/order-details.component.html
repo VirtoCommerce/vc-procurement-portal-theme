@@ -91,9 +91,8 @@
         </div>
       </div>
     </div>
-
     <app-action-panel [actions]="orderStatusActions" (actionClick)="onOrderStatusChanged($event)"></app-action-panel>
-
+    <app-footer-panel></app-footer-panel>
     <app-mobile-cart-summary [activeOrderMobileSidebar]="mobileOrderSidebar" [cart]="cart"></app-mobile-cart-summary>
   </div>
   <div class="sidebar sidebar--bg-gray d-none d-lg-block" data-name="right">

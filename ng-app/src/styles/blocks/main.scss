@@ -49,6 +49,7 @@ $sidebar-width: 18.75rem;
   }
 
   > .order--with-info {
+    flex: 1 0 0;
     margin-left: 0;
     margin-right: $sidebar-width;
     width: 100%;
