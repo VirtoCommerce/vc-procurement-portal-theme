@@ -6,8 +6,8 @@
     [total]="total">
 </app-active-order-total>
 <app-active-order-detail [products]="products" ></app-active-order-detail> -->
-
-<div class="sidebar__body order">
+<div class="sidebar__inner">
+<div class="order">
   <div class="order__info">
     <div class="order__t">
       Your Order
@@ -26,6 +26,8 @@
       </div>
     </div>
   </div>
+</div>
+<div class="sidebar__body">
   <div class="order__item" *ngFor="let item of cart.items">
     <a class="order__item-remove" (click)="removeItem(item)" >Remove item</a>
     <div class="order__item-name mr-4 mb-2">{{item.product.name}}</div>
@@ -44,6 +46,4 @@
 <div class="sidebar__footer">
   <a class="btn btn--green btn--block" [ngClass]="{'disabled': cart.itemsCount === 0}"(click)="checkout(cart)">Checkout</a>
 </div>
-
-
-
+</div>

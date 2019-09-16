@@ -1,10 +1,12 @@
-<main class="main container" *ngIf="(cart$ | async) as cart">
+<main class="main container-fluid" *ngIf="(cart$ | async) as cart">
   <app-active-order-mobile [cart]="cart" #mobileOrderSidebar></app-active-order-mobile>
   <app-categories-mobile #mobileCategoies [categories]="categories$" (categoryChanged)="categoryChanged($event)"></app-categories-mobile>
-  <div class="sidebar d-none d-xl-block">
+  <div class="sidebar d-none d-xl-block" data-name="left">
+    <div class="sidebar__inner">
     <app-categories  [categories]="categories$"
       (categoryChanged)="categoryChanged($event)"
     ></app-categories>
+    </div>
   </div>
   <div class="content" >
     <form class="search d-none d-xl-block">
@@ -145,7 +147,9 @@
                   [(page)]="pagination.page"
                   [pageSize]="pagination.pageSize"
                   [collectionSize]="pagination.collectionSize"
-                  [maxSize]="3"
+                  [maxSize]="4"
+                  [rotate]="true"
+                  [ellipses]="false"
                   (pageChange)="pageChanged()"
                 >
                 <ng-template ngbPaginationPrevious>Prev</ng-template>
@@ -163,6 +167,7 @@
               </div>
             </div>
           </div>
+          <app-footer-panel></app-footer-panel>
       </ng-container>
       <ng-template #searchElseTemplate>
         <div class="search__nothing-found-message"><app-no-result-message></app-no-result-message></div>
@@ -172,7 +177,8 @@
   </div>
 
   <!-- active order -->
-  <div class="sidebar sidebar--bg-gray d-none d-lg-block">
-      <app-active-order class="sidebar__inner" [cart]="cart"></app-active-order>
+  <div class="sidebar sidebar--bg-gray d-none d-lg-block" data-name="right">
+      <app-active-order [cart]="cart"></app-active-order>
   </div>
 </main>
+

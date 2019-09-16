@@ -11,7 +11,8 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
   styleUrls: ['./change-product-quantity.component.scss']
 })
 export class ChangeProductQuantityComponent implements OnInit, OnDestroy {
-
+  @Input()
+  isProductPage = false;
   @Input()
   cart: ICart;
   @Input()

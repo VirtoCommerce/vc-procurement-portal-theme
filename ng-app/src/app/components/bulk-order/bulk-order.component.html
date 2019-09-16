@@ -1,4 +1,4 @@
-<main class="main container" *ngIf="(cart$ | async) as cart">
+<main class="main container-fluid" *ngIf="(cart$ | async) as cart">
   <app-active-order-mobile [cart]="cart" #mobileOrderSidebar></app-active-order-mobile>
   <div class="content">
       <!-- <app-bulk-order-manual></app-bulk-order-manual> -->
@@ -26,11 +26,10 @@
         </div>
 
     </div>
+      <app-footer-panel></app-footer-panel>
       <app-mobile-cart-summary [activeOrderMobileSidebar]="mobileOrderSidebar" [cart]="cart"></app-mobile-cart-summary>
   </div>
-  <div class="sidebar sidebar--bg-gray d-none d-lg-block">
-      <div class="sidebar__inner">
+  <div class="sidebar sidebar--bg-gray d-none d-lg-block" data-name="right">
           <app-active-order [cart]="cart"></app-active-order>
-      </div>
   </div>
 </main>

@@ -58,10 +58,9 @@
 
 	.list__other
 	{
-		align-items: center;
+		align-items: flex-end;
 		display: flex;
     flex-direction: column;
-    min-width: 100px;
 	}
 
 	.list__name,

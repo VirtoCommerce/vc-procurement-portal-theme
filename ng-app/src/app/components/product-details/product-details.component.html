@@ -1,7 +1,8 @@
-<main class="main container" *ngIf="(cart$ | async) as cart">
+<main class="main container-fluid" *ngIf="(cart$ | async) as cart">
     <app-active-order-mobile [cart]="cart" #mobileOrderSidebar></app-active-order-mobile>
   <div class="content" *ngIf="product">
-    <div class="row product">
+    <div class="product">
+      <div class="row">
       <div class="col-md-auto product__gallery">
         <div class="product__gallery-img">
           <img src="{{ product.primaryImage.url }}" alt="" width="300" height="300" />
@@ -44,16 +45,19 @@
           <app-change-product-quantity
             [cart]="cart"
             [productId]="product.id"
+            [isProductPage]="true"
           ></app-change-product-quantity>
         </div>
         <div class="product__text" [innerHTML]="product.fullReview">
         </div>
       </div>
     </div>
+    </div>
+    <app-footer-panel></app-footer-panel>
     <app-mobile-cart-summary [activeOrderMobileSidebar]="mobileOrderSidebar" [cart]="cart"></app-mobile-cart-summary>
   </div>
-  <div class="sidebar sidebar--bg-gray d-none d-lg-block">
-      <app-active-order class="sidebar__inner" [cart]="cart"></app-active-order>
+  <div class="sidebar sidebar--bg-gray d-none d-lg-block" data-name="right">
+      <app-active-order [cart]="cart"></app-active-order>
   </div>
 </main>
 

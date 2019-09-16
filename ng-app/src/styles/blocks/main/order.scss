@@ -2,17 +2,20 @@
 {
 	&__info
 	{
-		border-bottom: 1px solid $gray-200;
+		border-bottom: .125rem solid $gray-200;
 		padding: 1.25rem .9375rem 0;
 	}
 
 	&__item
 	{
-		border-bottom: 1px solid $gray-200;
-		border-top: 1px solid $gray-200;
 		font-size: .875rem;
 		padding: 1.25rem .9375rem;
-		position: relative;
+    position: relative;
+
+    & ~ .order__item
+		{
+			border-top: 1px solid $gray-200;
+		}
 
 		&-brand
 		{
@@ -51,7 +54,7 @@
 			width: 1rem;
     }
 
-    &-remove:hover    
+    &-remove:hover
     {
       cursor: pointer;
       background: $blue;
