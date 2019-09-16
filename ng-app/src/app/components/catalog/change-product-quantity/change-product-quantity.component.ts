@@ -81,6 +81,7 @@ export class ChangeProductQuantityComponent implements OnInit, OnDestroy {
 
   updateLineItemQuantity(quantity: number) {
     const lineItem = this.productLineItem;
+
     this.activeOrderService.changeItemQuantity(lineItem.id, quantity).subscribe();
   }
 

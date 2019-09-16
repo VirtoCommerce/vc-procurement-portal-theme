@@ -16,12 +16,13 @@
           <td>{{item.IsActive ? 'Active' : 'Inactive'}}</td>
           <td>{{item.ActivatedBy}}</td>
           <td>{{item.ActivatedAt | date :'medium'}}</td>
-          <td style="width: 5%"><input type="checkbox" checked data-toggle="toggle" [checked]="item.IsActive"
-              (change)="onChange($event, item.Name)"></td>
+          <td style="width: 5%">
+            <ui-switch [beforeChange]="onBeforeChange2(item.Name, item.IsActive)" (change)="onChange($event, item.Name)"
+              [checked]="item.IsActive" [disabled]="item.IsActive"></ui-switch>
+          </td>
         </tr>
       </tbody>
     </table>
-
     <!-- <img src="/themes/assets/static/bundle{{imageUrl}}" width="840" height="680" /> -->
     <img src="{{getCurrentWorkflowImageUrl()}}" width="840" height="680" />
 

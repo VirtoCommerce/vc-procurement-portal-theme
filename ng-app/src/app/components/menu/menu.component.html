@@ -14,7 +14,7 @@
           <li class="nav__item">
               <a [routerLink]="['/orders']" class="nav__link" routerLinkActive="nav__link--active" (click)="closeMobileMenu()">Orders</a>
           </li>
-          <li class="nav__item">
+          <li class="nav__item" *ngIf="isOrdersApprovalEnabled">
               <a [routerLink]="['/forapproval']" class="nav__link" routerLinkActive="nav__link--active" (click)="closeMobileMenu()">Awaiting Approval</a>
           </li>
           <li class="nav__item" *ngIf="isAdmin | async">
@@ -46,7 +46,7 @@
                   <li class="nav__item">
                       <a [routerLink]="['/orders']" class="nav__link" routerLinkActive="nav__link--active">Orders</a>
                   </li>
-                  <li class="nav__item">
+                  <li class="nav__item" *ngIf="isOrdersApprovalEnabled">
                       <a [routerLink]="['/forapproval']" class="nav__link" routerLinkActive="nav__link--active">Awaiting Approval</a>
                   </li>
                   <li class="nav__item" *ngIf="isAdmin | async">

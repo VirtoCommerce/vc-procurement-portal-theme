@@ -63,6 +63,10 @@ export class OrderWorkflowService {
     return [...orderCreatorsRoles, ...rolesInStates];
   }
 
+  public getOrderCreatorRoles(): string[] {
+    return this.workflow.OrderCreatorRoles;
+  }
+
   public getRolesByState(currentState: string): string[] {
     const states = this.workflow.States.filter(state => state.Name === currentState);
     return this.findRolesInStates(states);
