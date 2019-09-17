@@ -67,10 +67,11 @@ On the 'Orders Awaiting Approval' page only orders that should be approved accor
 
 The 'Awaiting Approval' page is visible only to users with the role 'Approver'.
 
+![Awaiting Approval Page](docs/media/screen-awaiting-approval.png)
+
 ### Scenarios
 
-
-
+[Order Approval](/docs/approve-order.md)
 
 ## Company Page
 
