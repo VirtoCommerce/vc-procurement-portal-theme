@@ -50,14 +50,18 @@ export class ApprovalWorkflowComponent implements OnInit {
     }
   }
 
-  public getCurrentWorkflowImageUrl(): string {
+  public convertImageUrl(imageUrl: any): string {
+    if (imageUrl == null) {
+      return '';
+    }
+
     // TODO: fix this error. there are different URLs in dev and prod environment
     // if (isDevMode()) {
-    //   return this.currentWorkflow.ImageUrl;
+    //   return imageUrl;
     // } else {
-    //   return `/themes/assets/static/bundle${this.currentWorkflow.ImageUrl}`;
+    //   return `/themes/assets/static/bundle${imageUrl}`;
     // }
-    return `/themes/assets/static/bundle${this.currentWorkflow.ImageUrl}`;
+    return `/themes/assets/static/bundle${imageUrl}`;
   }
 
   private initWorkflow() {
