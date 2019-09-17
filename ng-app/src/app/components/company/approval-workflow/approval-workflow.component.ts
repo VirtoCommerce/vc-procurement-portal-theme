@@ -23,7 +23,7 @@ export class ApprovalWorkflowComponent implements OnInit {
     this.initWorkflow();
   }
 
-  public onBeforeChange2(workflowName: string, isActive: boolean): Observable<boolean> {
+  public onBeforeChange(workflowName: string, isActive: boolean): Observable<boolean> {
     return new Observable((observer) => {
       if (isActive) {
         observer.next(false);
