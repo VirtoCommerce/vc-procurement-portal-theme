@@ -3,6 +3,7 @@
     <table class="table">
       <thead>
         <tr>
+          <th>Image</th>
           <th>Name</th>
           <th>Status</th>
           <th>Activated At</th>
@@ -12,19 +13,33 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of workflowItems">
-          <td scope="row">{{item.Name}}</td>
+          <td style="width: 3%">
+            <ng-template #popContent>
+              <div class="popup-body">
+                <h3 class="popup-header mt-3">{{item.Name}}</h3>
+                <img class="popup-image ml-3" [src]="convertImageUrl(item.ImageUrl)" />
+              </div>
+            </ng-template>
+            <div class="input-group--qty input-group--sm mt-auto ml-2" [ngbPopover]="popContent" placement="right-top"
+              triggers="mouseenter:mouseleave">
+              <a class="btn btn--white">
+                <span class="btn__ico btn__ico--upload"></span>
+              </a>
+            </div>
+          </td>
+          <td>{{item.Name}}</td>
           <td>{{item.IsActive ? 'Active' : 'Inactive'}}</td>
           <td>{{item.ActivatedBy}}</td>
           <td>{{item.ActivatedAt | date :'medium'}}</td>
           <td style="width: 5%">
-            <ui-switch [beforeChange]="onBeforeChange2(item.Name, item.IsActive)" (change)="onChange($event, item.Name)"
+            <ui-switch [beforeChange]="onBeforeChange(item.Name, item.IsActive)" (change)="onChange($event, item.Name)"
               [checked]="item.IsActive" [disabled]="item.IsActive"></ui-switch>
           </td>
         </tr>
       </tbody>
     </table>
     <!-- <img src="/themes/assets/static/bundle{{imageUrl}}" width="840" height="680" /> -->
-    <img src="{{getCurrentWorkflowImageUrl()}}" width="840" height="680" />
+    <img src="{{convertImageUrl(currentWorkflow.ImageUrl)}}" width="840" height="680" />
 
   </div>
 </div>

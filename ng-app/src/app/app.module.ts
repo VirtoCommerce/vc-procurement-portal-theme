@@ -58,6 +58,7 @@ import { ApprovalWorkflowComponent } from '@components/company/approval-workflow
 import { ErrorInterceptor } from '@services/interceptors/error-interceptor';
 import { ActionPanelComponent } from '@components/common/action-panel/action-panel.component';
 import { CategoriesMobileComponent } from './components/catalog/categories-mobile/categories-mobile.component';
+import { WorkflowActivationAlertComponent } from './components/common/modals/workflow-activation-alert/workflow-activation-alert.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { CategoriesMobileComponent } from './components/catalog/categories-mobil
     NoResultMessageComponent,
     ApprovalWorkflowComponent,
     ActionPanelComponent,
-    CategoriesMobileComponent
+    CategoriesMobileComponent,
+    WorkflowActivationAlertComponent
   ],
   imports: [
     BrowserModule,
@@ -133,6 +135,6 @@ import { CategoriesMobileComponent } from './components/catalog/categories-mobil
     { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter},
   ],
   bootstrap: [AppComponent],
-  entryComponents: [EditCompanyUserModalFormComponent, CheckoutModalComponent]
+  entryComponents: [EditCompanyUserModalFormComponent, CheckoutModalComponent, WorkflowActivationAlertComponent]
 })
 export class AppModule { }

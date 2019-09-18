@@ -6,12 +6,12 @@
       <div class="col-md-auto page__sort-date">
         From
         <input class="form-control" placeholder="yyyy-mm-dd" name="dp1" ngbDatepicker #d1="ngbDatepicker"
-          [(ngModel)]="startDate" (ngModelChange)="filterOrdersByDate()" (click)="d1.toggle()" />
+          [(ngModel)]="startDate" (ngModelChange)="changeDate()" (click)="d1.toggle()" />
         To
         <input class="form-control" placeholder="yyyy-mm-dd" name="dp2" ngbDatepicker #d2="ngbDatepicker"
-          [(ngModel)]="endDate" (ngModelChange)="filterOrdersByDate()" (click)="d2.toggle()" />
+          [(ngModel)]="endDate" (ngModelChange)="changeDate()" (click)="d2.toggle()" />
       </div>
-      <div class="alert alert-danger col-md-auto m-0" *ngIf="!validFilterDate">
+      <div class="alert alert-danger col-md-auto m-0" *ngIf="this.startDate > this.endDate">
         Date is not valid
       </div>
       <div class="col-md-auto page__sort-filter" *ngIf="!isForApproval">
@@ -19,10 +19,10 @@
 
         <div ngbDropdown>
           <div id="statusFilterDropdown" ngbDropdownToggle>
-            {{ this.status }}
+            {{ this.statuses[0] }}
           </div>
           <div ngbDropdownMenu aria-labelledby="statusFilterDropdown" class="dropdown-menu--down">
-            <a ngbDropdownItem *ngFor="let status of getStatuses()" (click)="changeActiveStatus(status)">
+            <a ngbDropdownItem *ngFor="let status of getStatusFilters()" (click)="changeActiveStatus(status)">
               {{ status }}
             </a>
           </div>
@@ -84,7 +84,7 @@
                 [pageSize]="pagination.pageSize"
                 [collectionSize]="pagination.collectionSize"
                 [maxSize]="3"
-                (pageChange)="pageChanged()"
+                (pageChange)="getOrders()"
               >
               <ng-template ngbPaginationPrevious>Prev</ng-template>
               <ng-template ngbPaginationNext>Next</ng-template>
@@ -95,7 +95,7 @@
               <app-page-size-selector
                 [defaultPageSize]="pagination.pageSize"
                 [pageSizes]="pageSizes"
-                (pageSizeChanged)="pageSizeChanged($event)"
+                (pageSizeChanged)="changePageSize($event)"
               ></app-page-size-selector>
               <span class="pl-3 d-none d-sm-block">entries</span>
             </div>
