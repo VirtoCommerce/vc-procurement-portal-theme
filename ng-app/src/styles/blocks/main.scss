@@ -10,11 +10,16 @@ $sidebar-width: 18.75rem;
   height: inherit;
 }
 
+.alerts{
+  padding-top: 3.75rem;
+}
+
 .main {
   display: flex;
   flex: 1 0 0;
   flex-wrap: wrap;
-  padding-top: 3.75rem;
+  //padding-top: 3.75rem;
+
 
   > .content:first-child {
     border-left: 1px solid $gray-200;
