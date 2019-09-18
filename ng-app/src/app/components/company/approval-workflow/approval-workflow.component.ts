@@ -7,7 +7,7 @@ import { AuthorizationService } from '@services/authorization.service';
 import { Component, OnInit, isDevMode } from '@angular/core';
 import { OrderWorkflowService } from '@services/order-workflow.service';
 import { Observable, Subscriber } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, Params } from '@angular/router';
 
 @Component({
   selector: 'app-approval-workflow',
@@ -21,10 +21,10 @@ export class ApprovalWorkflowComponent implements OnInit {
   public workflowItems;
 
   constructor(private orderWorkflowService: OrderWorkflowService,
-              private authService: AuthorizationService,
-              private confirmService: ConfirmService,
-              private ordersService: OrdersService,
-              private router: Router) { }
+    private authService: AuthorizationService,
+    private confirmService: ConfirmService,
+    private ordersService: OrdersService,
+    private router: Router) { }
 
   async ngOnInit() {
     this._currentUser = await this.authService.getCurrentUser();
@@ -84,8 +84,7 @@ export class ApprovalWorkflowComponent implements OnInit {
   }
 
   private async getNotCompletedOrders(): Promise<GenericSearchResult<IOrder>> {
-    const exceptFinalStatuses = true;
-    const states = this.orderWorkflowService.getAllStates(exceptFinalStatuses);
+    const states = this.getNotCompletedOrderStates();
     const orders = await this.ordersService.getOrders(null, null, null, null, null, states).toPromise();
     return orders;
   }
@@ -120,7 +119,11 @@ export class ApprovalWorkflowComponent implements OnInit {
 
         case 'redirect':
           modal.close();
-          this.router.navigate(['/orders']);
+          const states = this.getNotCompletedOrderStates();
+          const params: Params = {
+            statuses: new Array(states).join(','),
+          };
+          this.router.navigate(['/orders'], { queryParams: params });
           break;
 
         default:
@@ -128,5 +131,11 @@ export class ApprovalWorkflowComponent implements OnInit {
           break;
       }
     });
+  }
+
+  private getNotCompletedOrderStates(): string[] {
+    const exceptFinalStatuses = true;
+    const states = this.orderWorkflowService.getAllStates(exceptFinalStatuses);
+    return states;
   }
 }

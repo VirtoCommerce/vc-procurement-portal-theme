@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OrdersService } from '@api/orders.service';
 import { IOrder } from '@models/dto/iorder';
 import { PaginationInfo } from '@models/inner/pagination-info';
@@ -23,8 +23,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
   public startDate: Date;
   public endDate: Date;
-  public statuses: string[] = ['All'];
-  public selectedStatusFilter: string;
+  public selectedStatuses = new Set<string>();
   public orders: IOrder[] = [];
   public ordersLoaded$ = new BehaviorSubject(false);
   public pagination = new PaginationInfo(this.configuration.defaultPageSize);
@@ -41,13 +40,13 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     if (this._isForApproval) {
-      this.statuses = await this.getStatesByUserRoles();
+      this.selectedStatuses = new Set<string>(await this.getStatesByUserRoles());
       this.getOrders();
     } else {
-      this.statuses = this.getStatusFilters();
+      this.selectedStatuses = new Set<string>(this.getAllStatuses());
       this._routeParamsSubscription = this.route.queryParams.subscribe((params: any) => {
         if (params.statuses != null) {
-          this.statuses = params.statuses.split(',');
+          this.selectedStatuses = new Set<string>(params.statuses.split(','));
         }
         this.getOrders();
       });
@@ -61,15 +60,42 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   public getStatusFilters() {
-    return ['All', ...this.orderWorkflowService.getAllStates()];
+    return this.orderWorkflowService.getAllStates().map((state: any) => {
+      return {
+        checked: this.selectedStatuses.has(state),
+        name: state
+      };
+    });
   }
 
-  public changeActiveStatus(newStatus: string) {
-    if (this.selectedStatusFilter !== newStatus) {
-      this.selectedStatusFilter = newStatus;
-      this.statuses = [newStatus];
-      this.getOrders();
+  public getFilterTitle(): string {
+    let result: string;
+
+    if (this.selectedStatuses.size === this.getAllStatuses().length) {
+      return 'All';
     }
+
+    if (this.selectedStatuses.size === 0) {
+      return 'All';
+    }
+
+    if (this.selectedStatuses.size > 1) {
+      result = '...';
+    } else {
+      result = new Array(Array.from(this.selectedStatuses)).join(', ');
+    }
+
+    return result;
+  }
+
+  public changeActiveStatus(control: any, newStatus: string) {
+    if (control.checked) {
+      this.selectedStatuses.add(newStatus);
+    } else {
+      this.selectedStatuses.delete(newStatus);
+    }
+
+    this.getOrders();
   }
 
   public changePageSize(eventArgs: PageSizeChangedArgs) {
@@ -96,22 +122,19 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   private buildOrdersTask(): Observable<GenericSearchResult<IOrder>> {
-    const statuses = this.statuses;
+    let statuses = Array.from(this.selectedStatuses);
+    if (statuses.length === 0) {
+      statuses = [];
+    }
     const page = this.pagination.page;
     const pageSize = this.pagination.pageSize;
     const startDate = this.startDate;
     const endDate = this.endDate;
 
-    if (statuses == null) {
-      return this.ordersService.getOrders(page, pageSize, startDate, endDate, null);
-    }
-
-    if (statuses.length === 1) {
-      return this.ordersService.getOrders(page, pageSize, startDate, endDate, statuses[0]);
-    }
-
-    if (statuses.length > 1) {
+    if (statuses.length >= 1 ) {
       return this.ordersService.getOrders(page, pageSize, startDate, endDate, null, statuses);
+    } else {
+      return this.ordersService.getOrders(page, pageSize, startDate, endDate, null);
     }
   }
 
@@ -123,5 +146,9 @@ export class OrdersComponent implements OnInit, OnDestroy {
     } else {
       throw Error('The current user isn\'t defined');
     }
+  }
+
+  private getAllStatuses() {
+    return this.orderWorkflowService.getAllStates();
   }
 }
