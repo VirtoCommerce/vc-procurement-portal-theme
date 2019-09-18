@@ -84,8 +84,14 @@ export class OrderWorkflowService {
     return 'N/A';
   }
 
-  public getAllStates(): string[] {
-    return this.workflow.States.map((state: any) => state.Name);
+  public getAllStates(exceptFinalStatus?: boolean): string[] {
+    let query;
+    if (exceptFinalStatus === true) {
+      query = this.workflow.States.filter((state: any) => state.IsFinal != null);
+    } else {
+      query = this.workflow.States;
+    }
+    return query.map((state: any) => state.Name);
   }
 
   public getWorkflowImageUrl(): string {
