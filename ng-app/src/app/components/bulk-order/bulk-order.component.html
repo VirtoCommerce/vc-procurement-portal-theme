@@ -1,11 +1,10 @@
 <main class="main container-fluid" *ngIf="(cart$ | async) as cart">
-  <app-active-order-mobile [cart]="cart" #mobileOrderSidebar></app-active-order-mobile>
   <div class="content">
       <!-- <app-bulk-order-manual></app-bulk-order-manual> -->
 
       <div class="bulk-order">
         <h1>Bulk Order Pad</h1>
-        <div class="row bulk-order__actions">
+        <div class="row bulk-order__actions bulk-order__actions__border-top">
             <div class="bulk-order__actions-item col-md-auto">
                 <a href="#" class="btn btn--blue btn--outline">Catalog order</a>
             </div>
@@ -32,4 +31,5 @@
   <div class="sidebar sidebar--bg-gray d-none d-lg-block" data-name="right">
           <app-active-order [cart]="cart"></app-active-order>
   </div>
+  <app-active-order-mobile [cart]="cart" #mobileOrderSidebar></app-active-order-mobile>
 </main>

@@ -10,11 +10,20 @@ $sidebar-width: 18.75rem;
   height: inherit;
 }
 
+.alerts{
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 3.75rem;
+  z-index: 1000;
+}
+
 .main {
   display: flex;
   flex: 1 0 0;
   flex-wrap: wrap;
   padding-top: 3.75rem;
+
 
   > .content:first-child {
     border-left: 1px solid $gray-200;

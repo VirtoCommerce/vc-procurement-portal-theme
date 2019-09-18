@@ -1,5 +1,5 @@
 <div class="tabs__content" appRemoveWrapper>
-  <div *ngIf="currentWorkflow">
+  <div *ngIf="currentWorkflow" class="table-responsive">
     <table class="table">
       <thead>
         <tr>
@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of workflowItems">
+        <tr *ngFor="let item of workflowItems" [ngClass]="{ 'active-workflow': item.IsActive}">
           <td style="width: 3%">
             <ng-template #popContent>
               <div class="popup-body">
@@ -39,7 +39,9 @@
       </tbody>
     </table>
     <!-- <img src="/themes/assets/static/bundle{{imageUrl}}" width="840" height="680" /> -->
-    <img src="{{convertImageUrl(currentWorkflow.ImageUrl)}}" width="840" height="680" />
 
   </div>
+  <div style="text-align: center; margin-top: 15px">
+      <img src="{{convertImageUrl(currentWorkflow.ImageUrl)}}" width="840" style="max-width: 100%" />
+    </div>
 </div>

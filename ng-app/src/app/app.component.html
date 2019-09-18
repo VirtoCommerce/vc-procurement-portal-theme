@@ -2,7 +2,8 @@
 <block-ui name="general-spinner">
   <div id="layout">
     <app-header-panel></app-header-panel>
-    <div *ngIf="!isConnected" style="height: 400px; display:flex; justify-content: center; align-items: center"><h1>No internet connection</h1></div>
+    <div *ngIf="!isConnected" class="disconnected-block"><h1>No internet connection</h1></div>
+    <app-alerts class="alerts"></app-alerts>
     <app-main-panel  *ngIf="isConnected"></app-main-panel>
   </div>
 </block-ui>

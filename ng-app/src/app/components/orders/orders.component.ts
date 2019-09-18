@@ -16,7 +16,7 @@ import { GenericSearchResult } from '@models/dto/common/generic-search-result';
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss']
 })
-export class OrdersComponent implements OnInit, OnDestroy {
+export class OrdersComponent implements OnInit {
   private _isForApproval: boolean;
   private configuration = ConfigurationFile as IAppConfig;
   private _routeParamsSubscription: Subscription;
