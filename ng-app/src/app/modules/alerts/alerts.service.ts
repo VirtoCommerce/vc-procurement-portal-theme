@@ -25,6 +25,8 @@ export class AlertsService {
         });
       }
     });
+
+  // this.info(`Est dolore tempor sint consectetur culpa ut minim consequat id quis nostrud ad dolor eiusmod.`, { dismissTimeout: 0, keepAfterRouteChange: true });
   }
 
   success(message: string, options?: IAlertOptions) {
