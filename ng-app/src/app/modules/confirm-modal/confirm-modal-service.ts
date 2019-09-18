@@ -1,6 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, Injectable, Directive, TemplateRef, NgModule } from '@angular/core';
-import { NgbModal, NgbModalRef, NgbModalOptions, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Injectable, Directive, TemplateRef } from '@angular/core';
+import { NgbModal, NgbModalRef, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 /**
  * Options passed when opening a confirmation modal
@@ -59,6 +58,15 @@ export class ConfirmService {
     this.state.options = options;
     this.state.modal = this.modalService.open(this.state.template);
     return this.state.modal.result;
+  }
+
+  public open(content: any): NgbModalRef {
+    const defaultOptions: NgbModalOptions = {
+      backdrop: 'static',
+      // size: 'lg',
+      // keyboard: true
+    };
+    return this.modalService.open(content, defaultOptions);
   }
 }
 
