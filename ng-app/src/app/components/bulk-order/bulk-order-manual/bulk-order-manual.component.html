@@ -1,14 +1,21 @@
 
-
     <!-- Bulk order tab content -->
-        <div class="row align-items-center bulk-order__actions">
-          <div class="col-md bulk-order__actions-item">
-              <button class="btn btn--blue" (click)="addItem()">
-                  Add new item
-                  <span class="btn__ico btn__ico--plus-white ml-2"></span>
-              </button>
-          </div>
+    <div class="row bulk-order__actions">
+        <div class="bulk-order__actions-item col-md-auto">
+        <button class="btn btn--blue" (click)="addItem()">
+            Add new item
+            <span class="btn__ico btn__ico--plus-white ml-2"></span>
+        </button>
         </div>
+    </div>
+      <!-- <div class="col-md bulk-order__new">
+          <div class="col-md bulk-order__new-item">
+          <button class="btn btn--blue" (click)="addItem()">
+              Add new item
+              <span class="btn__ico btn__ico--plus-white ml-2"></span>
+          </button>
+          </div>
+      </div> -->
         <form class="bulk-order__list" [formGroup]="itemsForm">
           <div class="row align-items-center">
               <h2>Items in order</h2>
@@ -27,8 +34,6 @@
                 </div>
             </div>
         </form>
-
-
 
     <div class="bulk-order__add-order">
         <button class="btn btn--green ml-auto" [disabled]="itemsForm.invalid" (click)="addItemsToCart()">Add to Order</button>

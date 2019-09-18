@@ -4,12 +4,17 @@
 	flex-direction: column;
 	height: 100%;
 
+
 	// Actions
 	&__actions
 	{
-		border-bottom: 1px solid $gray-200;
-		border-top: 1px solid $gray-200;
+
+    border-bottom: 1px solid $gray-200;
 		margin: 0;
+
+    &__border-top {
+      border-top: 1px solid $gray-200;
+    }
 
 		&-item
 		{
@@ -55,25 +60,27 @@
 	// New item
 	&__new
 	{
-		border-bottom: 1px solid $gray-200;
-		padding: 0 .9375rem;
+    border-bottom: 1px solid $gray-200;
 
-		.row
-		{
-			margin-left: 0;
-			margin-right: 0;
+		// border-bottom: 1px solid $gray-200;
+		// padding: 0 .9375rem;
 
-			[class*="col-"]
-			{
-				padding-left: .5rem;
-				padding-right: .5rem;
-			}
+		// .row
+		// {
+		// 	margin-left: 0;
+		// 	margin-right: 0;
 
-			.row [class*="col-"]
-			{
-				padding-bottom: .9375rem;
-			}
-		}
+		// 	[class*="col-"]
+		// 	{
+		// 		padding-left: .5rem;
+		// 		padding-right: .5rem;
+		// 	}
+
+		// 	.row [class*="col-"]
+		// 	{
+		// 		padding-bottom: .9375rem;
+		// 	}
+		// }
 	}
 
 	// List items in orders
@@ -106,10 +113,10 @@
 		.list
 		{
 			border-bottom: 1px solid $gray-200;
-			border-top: 1px solid $gray-200;
 
 			.list__item
 			{
+        border-top: 1px solid $gray-200;
 				padding: .9375rem .9375rem 0;
 
 				& ~ .list__item
@@ -261,7 +268,8 @@
 
 		&--active
 		{
-			display: block;
+      display: flex;
+      flex: 1 0 0;
 		}
 	}
 
