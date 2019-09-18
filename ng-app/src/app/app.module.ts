@@ -110,7 +110,7 @@ import { CategoriesMobileComponent } from './components/catalog/categories-mobil
     ScrollingModule,
     ConfirmModalModule,
     AlertsModule.forRoot({
-      dismissTimeout: 10 * 1000
+      dismissTimeout: 5 * 1000
     }),
     BlockUIModule.forRoot({
       delayStart: 1000,
