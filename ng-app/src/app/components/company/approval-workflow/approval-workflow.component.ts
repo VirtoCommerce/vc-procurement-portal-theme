@@ -1,3 +1,5 @@
+import { IOrder } from '@models/dto/iorder';
+import { GenericSearchResult } from '@models/dto/common/generic-search-result';
 import { WorkflowActivationAlertComponent } from '@components/common/modals/workflow-activation-alert/workflow-activation-alert.component';
 import { OrdersService } from '@services/api/orders.service';
 import { ConfirmService } from '@modules/confirm-modal/confirm-modal-service';
@@ -37,7 +39,7 @@ export class ApprovalWorkflowComponent implements OnInit {
       }
 
       this._workflowChanging = true;
-      this.isAvailableWorkflowChanging().then(result => {
+      this.isWorkflowChangeable().then(result => {
         if (result) {
           this.showConfirmModal(observer, workflowName);
         } else {
@@ -76,10 +78,16 @@ export class ApprovalWorkflowComponent implements OnInit {
     this.currentWorkflow = this.orderWorkflowService.workflow;
   }
 
-  private async isAvailableWorkflowChanging(): Promise<boolean> {
-    const states = this.orderWorkflowService.getStatesByRoles(this._currentUser.workflowRoles);
+  private async isWorkflowChangeable(): Promise<boolean> {
+    const orders = await this.getNotCompletedOrders();
+    return orders.results.length === 0 ? true : false;
+  }
+
+  private async getNotCompletedOrders(): Promise<GenericSearchResult<IOrder>> {
+    const exceptFinalStatuses = true;
+    const states = this.orderWorkflowService.getAllStates(exceptFinalStatuses);
     const orders = await this.ordersService.getOrders(null, null, null, null, null, states).toPromise();
-    return orders.results.length > 0 ? false : true;
+    return orders;
   }
 
   private showConfirmModal(observer: Subscriber<boolean>, workflowName: string) {
@@ -112,7 +120,7 @@ export class ApprovalWorkflowComponent implements OnInit {
 
         case 'redirect':
           modal.close();
-          this.router.navigate(['/forapproval']);
+          this.router.navigate(['/orders']);
           break;
 
         default:
