@@ -34,7 +34,7 @@
     <!-- <img src="/themes/assets/static/bundle{{imageUrl}}" width="840" height="680" /> -->
 
   </div>
-  <div style="text-align: center; margin-top: 15px">
+  <div style="text-align: center; margin-top: 15px" *ngIf="currentWorkflow">
       <img src="{{convertImageUrl(currentWorkflow.ImageUrl)}}" width="840" style="max-width: 100%" />
     </div>
 </div>
