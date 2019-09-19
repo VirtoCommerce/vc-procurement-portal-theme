@@ -1,16 +1,21 @@
 import { WorkflowStorageService } from '@services/workflow-storage.service';
 import { Injectable } from '@angular/core';
 import { OrderStateTransitionResult } from '@models/order-state-transition-result';
+import { Workflow } from '@models/dto/workflow';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderWorkflowService {
-  get workflow(): any {
+  public action;
+
+  get workflow(): Workflow {
     return this.workflowStorageService.getActiveWorkflow();
   }
 
   constructor(private workflowStorageService: WorkflowStorageService) {
+    this.action = new Subject<string>();
   }
 
   public getRoleTransitions(currentState: string, currentRole: string): OrderStateTransitionResult[] {
@@ -31,7 +36,11 @@ export class OrderWorkflowService {
     return result;
   }
 
-  public isContainsSuccessfulAttribute(currentState: string) {
+  public isContainsSuccessfulAttribute(currentState: string): boolean {
+    if (this.workflow.IsSystem) {
+      return true;
+    }
+
     const targetState = this.workflow.States.find(state => state.Name === currentState);
 
     if (targetState != null) {
@@ -54,6 +63,10 @@ export class OrderWorkflowService {
   }
 
   public getWorkflowRoles(): string[] {
+    if (this.workflow.States == null) {
+      return [];
+    }
+
     return this.findRolesInStates(this.workflow.States);
   }
 
@@ -68,6 +81,10 @@ export class OrderWorkflowService {
   }
 
   public getRolesByState(currentState: string): string[] {
+    if (this.workflow.States == null) {
+      return [];
+    }
+
     const states = this.workflow.States.filter(state => state.Name === currentState);
     return this.findRolesInStates(states);
   }
@@ -85,12 +102,17 @@ export class OrderWorkflowService {
   }
 
   public getAllStates(exceptFinalStatus?: boolean): string[] {
+    if (this.workflow.States == null) {
+      return [];
+    }
+
     let query;
     if (exceptFinalStatus === true) {
       query = this.workflow.States.filter((state: any) => state.IsFinal == null);
     } else {
       query = this.workflow.States;
     }
+
     return query.map((state: any) => state.Name);
   }
 
@@ -104,6 +126,12 @@ export class OrderWorkflowService {
 
   public changeWorkflow(name: string, by: string, isActive: boolean) {
     this.workflowStorageService.changeWorkflow(name, by, isActive);
+    this.action.next('workflow_changed');
+  }
+
+  public disableWorkflow(name: string, by: string) {
+    this.workflowStorageService.disableWorkflow(name, by);
+    this.action.next('workflow_changed');
   }
 
   private findRolesInStates(states: any): string[] {

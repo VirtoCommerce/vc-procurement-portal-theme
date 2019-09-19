@@ -60,12 +60,18 @@ export class ConfirmService {
     return this.state.modal.result;
   }
 
-  public open(content: any): NgbModalRef {
-    const defaultOptions: NgbModalOptions = {
-      backdrop: 'static',
-      // size: 'lg',
-      // keyboard: true
-    };
+  public open(content: any, options?: NgbModalOptions): NgbModalRef {
+    let defaultOptions: NgbModalOptions;
+    if (options == null) {
+      defaultOptions = {
+        backdrop: 'static',
+        // size: 'lg',
+        // keyboard: true
+      };
+    } else {
+      defaultOptions = options;
+    }
+
     return this.modalService.open(content, defaultOptions);
   }
 }
