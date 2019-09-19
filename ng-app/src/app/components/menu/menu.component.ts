@@ -4,6 +4,7 @@ import { MobileViewService } from '@services/mobile-view.service';
 import { AuthorizationService } from '@services/authorization.service';
 import { RoleEnum } from '@models/role';
 import { ExtendedUser } from '@models/dto/iuser';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-menu',
@@ -12,9 +13,8 @@ import { ExtendedUser } from '@models/dto/iuser';
 })
 export class MenuComponent implements OnInit {
   isOpen = false;
-  isAdmin: Promise<boolean>;
-  currentUser: ExtendedUser;
-  isOrdersApprovalEnabled = true;
+  currentUser$: Observable<ExtendedUser>;
+
   constructor(
     private mobileSidebarService: MobileViewService,
     private authService: AuthorizationService,
@@ -22,10 +22,8 @@ export class MenuComponent implements OnInit {
   ) {
   }
 
-  async ngOnInit() {
-    this.isAdmin = this.authService.checkPermission(RoleEnum.Admin);
-    this.currentUser = await this.authService.getCurrentUser();
-    this.isOrdersApprovalEnabled = this.isOrdersApprovalEnabledForUser(this.currentUser);
+  ngOnInit() {
+    this.currentUser$ = this.authService.currentUser$;
   }
 
   openMobileMenu() {
@@ -44,18 +42,11 @@ export class MenuComponent implements OnInit {
     this.authService.logout();
   }
 
-  public getLoggedUserName(): string {
-    let result: string;
-    if (this.currentUser != null) {
-      if (this.currentUser.userName != null) {
-        result = `(${this.currentUser.userName})`;
-      }
-    }
-
-    return result;
+  isAdmin(user: ExtendedUser) {
+    return this.authService.checkUserPermission(user, RoleEnum.Admin);
   }
 
-  private isOrdersApprovalEnabledForUser(currentUser: ExtendedUser): boolean {
+  public isOrdersApprovalEnabledForUser(currentUser: ExtendedUser): boolean {
     let result = true;
     const orderCreatorRoles = this.ordersWorkflowService.getOrderCreatorRoles();
     currentUser.workflowRoles.forEach(role => {
