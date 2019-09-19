@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import WorkflowFile from 'src/assets/workflow/workflow.json';
+import { Workflow } from '@models/dto/workflow';
 const WORKFLOWS_STORAGE_KEY = 'vc_procurement_portal_workflows_metadata';
 
 @Injectable({
@@ -12,7 +13,7 @@ export class WorkflowStorageService {
   }
 
   public getWorkflowItems(): any {
-    const result = this.get().map(workflow => {
+    const result = this.get().filter((workflow: any) => workflow.System == null).map(workflow => {
       return {
         Name: workflow.Name,
         ActivatedBy: workflow.ActivatedBy,
@@ -25,16 +26,15 @@ export class WorkflowStorageService {
     return result;
   }
 
-  public getActiveWorkflow(): any {
+  public getActiveWorkflow(): Workflow {
     const result = this.get().find(workflow => workflow.IsActive === true);
-    const errorMessage = 'Can\'t find active workflow';
 
     if (result == null) {
-      throw Error(errorMessage);
+      return new Workflow(true);
     }
 
     if (result.Workflow == null) {
-      throw Error(errorMessage);
+      throw Error('Can\'t find active workflow');
     }
 
     return result.Workflow;
@@ -52,6 +52,21 @@ export class WorkflowStorageService {
         workflow.IsActive = !isActive;
       }
     });
+
+    this.set(storage);
+  }
+
+  public disableWorkflow(name: string, by: string): void {
+    const storage = this.get();
+
+    const workflow = storage.find(wf => wf.Name === name);
+    if (workflow != null) {
+      workflow.ActivatedBy = by;
+      workflow.IsActive = false;
+      workflow.ActivatedAt = new Date();
+    } else {
+      throw Error('System workflow is not found');
+    }
 
     this.set(storage);
   }
