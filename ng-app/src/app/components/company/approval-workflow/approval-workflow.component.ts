@@ -1,3 +1,4 @@
+import { WorkflowPreviewComponent } from './../../common/modals/workflow-preview/workflow-preview.component';
 import { IOrder } from '@models/dto/iorder';
 import { GenericSearchResult } from '@models/dto/common/generic-search-result';
 import { WorkflowActivationAlertComponent } from '@components/common/modals/workflow-activation-alert/workflow-activation-alert.component';
@@ -8,6 +9,7 @@ import { Component, OnInit, isDevMode } from '@angular/core';
 import { OrderWorkflowService } from '@services/order-workflow.service';
 import { Observable, Subscriber } from 'rxjs';
 import { Router, Params } from '@angular/router';
+import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-approval-workflow',
@@ -65,12 +67,28 @@ export class ApprovalWorkflowComponent implements OnInit {
     }
 
     // TODO: fix this error. there are different URLs in dev and prod environment
-    // if (isDevMode()) {
-    //   return imageUrl;
-    // } else {
-    //   return `/themes/assets/static/bundle${imageUrl}`;
-    // }
-    return `/themes/assets/static/bundle${imageUrl}`;
+    const devMode = false; // isDevMode();
+    if (devMode) {
+      return imageUrl;
+    } else {
+      return `/themes/assets/static/bundle${imageUrl}`;
+    }
+  }
+
+  public clickPreviewWorkflowImage(workflow: any) {
+    const options: NgbModalOptions = {
+      backdrop: true,
+      size: 'lg'
+    };
+    const modal = this.confirmService.open(WorkflowPreviewComponent, options);
+    const dialog = modal.componentInstance as WorkflowPreviewComponent;
+    dialog.title = `"${workflow.Name}"`;
+    dialog.workflowImageUrl = this.convertImageUrl(workflow.ImageUrl);
+    dialog.action.subscribe((action: string) => {
+      if (action === 'dismiss') {
+        modal.close();
+      }
+    });
   }
 
   private initWorkflow() {
@@ -108,7 +126,7 @@ export class ApprovalWorkflowComponent implements OnInit {
     const modal = this.confirmService.open(WorkflowActivationAlertComponent);
     const dialog = modal.componentInstance as WorkflowActivationAlertComponent;
     dialog.title = `"${this.currentWorkflow.Name}" activation`;
-    dialog.action.subscribe((action: any) => {
+    dialog.action.subscribe((action: string) => {
 
       switch (action) {
         case 'cancel':
