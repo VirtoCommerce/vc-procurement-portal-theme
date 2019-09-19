@@ -17,7 +17,7 @@
       <div class="row">
           <div class="col-md-auto">
               <div class="input-group input-group--qty">
-                  <input type="number" min="1" class="form-control form-control--qty"
+                  <input type="text"  OnlyNumber="true" class="form-control form-control--qty"
                   formControlName="qty">
                   <a class="btn btn--white" (click)="onRemove()">
                       <span class="btn__ico btn__ico--trash-gray"></span>
@@ -68,9 +68,9 @@
         Quantity is required.
       </div>
     </div>
-    <div class="col-md" *ngIf="qty.errors.min">
+    <div class="col-md" *ngIf="qty.errors.pattern">
       <div class="form-error" >
-        Quantity is less than minimum.
+        Quantity must be positive number.
       </div>
     </div>
     <div class="col-md" *ngIf="qty.errors.max">

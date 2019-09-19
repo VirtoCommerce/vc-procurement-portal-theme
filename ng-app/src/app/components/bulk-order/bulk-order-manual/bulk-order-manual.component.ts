@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl, ValidatorFn } from '@angular/forms';
 import { Subject, Observable, of, forkJoin } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged, switchMap, map, catchError } from 'rxjs/operators';
 import { CatalogService } from '@api/catalog.service';
@@ -65,13 +65,20 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
   public addItemsToCart() {
     const addToCartRequests = (this.items.controls as FormGroup[]).map(itemForm => {
       const productId = itemForm.get('id').value;
-      const quantity = itemForm.get('qty').value;
+      const stringQty = itemForm.get('qty').value;
+      const quantity = parseInt(stringQty, 10);
       return this.activeOrderService.addItem(productId, quantity);
     });
 
     forkJoin(addToCartRequests)
       .subscribe(() => this.alertsService.success(`${this.items.controls.length} items successfully added to the active order.`));
   }
+
+  // isPositiveNumberValidator(control: FormControl): {[s: string]: boolean} {
+  //   control
+  //   if
+  //   return null;
+  // }
 
   private itemsEmptyValidator(itemsForms: FormArray) {
     if (itemsForms == null || itemsForms.controls.length < 1) {
@@ -92,6 +99,18 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
     return null;
   }
 
+  private qtyValidator(max: number): ValidatorFn { return (control: FormControl ): { [s: string]: boolean } => {
+    const stringQty = control.value;
+    const intQty = parseInt(stringQty, 10);
+    if (isNaN(intQty)) {
+      return { isNan: true };
+    } else if ( intQty > max ) {
+      return { max: true };
+    }
+    return null;
+  };
+}
+
   private getProduct(sku: string): Observable<IProduct> {
     return !sku ? of(null) : this.catalogService.getProductBySku(sku)
       .pipe(catchError(() => {
@@ -100,27 +119,18 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
       }));
   }
 
-  private getSuggestedProducts(keyword: string): Observable<IProduct[]> {
-    return this.catalogService.getAllProducts(1, 20, null, keyword)
-      .pipe(map(x => x.products),
-        catchError(() => {
-          console.log('Suggested products loading is failed');
-          return of([]);
-        })
-      );
-  }
 
   private createItemForm(
     sku: string = '',
     productName: string = '',
-    qty: number = 1
+    qty: string = '1'
   ) {
     const itemForm = this.formBuilder.group({
       id: [null, [Validators.required]],
       availableQty: [1],
       sku: [sku, [Validators.required, this.uniqueSkuValidator]],
       productName: [productName],
-      qty: [qty, [Validators.required, Validators.min(1)]]
+      qty: [qty, [Validators.required, Validators.pattern('^[1-9]\d*$' )]]
     });
 
     itemForm.get('sku').valueChanges
@@ -135,14 +145,14 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
         if (p != null) {
           itemForm.get('id').setValue(p.id);
           itemForm.get('productName').setValue(p.name);
-          const skuValidators = [Validators.required];
+          const qtyValidators = [Validators.required, Validators.pattern('^[1-9]\d*$')];
           if (p.trackInventory && p.inStock) {
-            skuValidators.push(Validators.min(1), Validators.max(p.availableQuantity));
+            qtyValidators.push( this.qtyValidator(p.availableQuantity));
           } else {
             itemForm.get('sku').setErrors({ outOfStock: true });
           }
           itemForm.get('qty')
-            .setValidators(skuValidators);
+            .setValidators(qtyValidators);
           itemForm.get('qty').updateValueAndValidity();
 
         } else {
