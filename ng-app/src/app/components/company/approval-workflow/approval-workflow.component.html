@@ -26,7 +26,7 @@
           <td>{{item.ActivatedAt | date :'medium'}}</td>
           <td style="width: 5%">
             <ui-switch [beforeChange]="onBeforeChange(item.Name, item.IsActive)" (change)="onChange($event, item.Name)"
-              [checked]="item.IsActive" [disabled]="item.IsActive"></ui-switch>
+              [checked]="item.IsActive"></ui-switch>
           </td>
         </tr>
       </tbody>
@@ -34,7 +34,7 @@
     <!-- <img src="/themes/assets/static/bundle{{imageUrl}}" width="840" height="680" /> -->
 
   </div>
-  <div style="text-align: center; margin-top: 15px" *ngIf="currentWorkflow">
+  <div style="text-align: center; margin-top: 15px" *ngIf="currentWorkflow && !currentWorkflow.IsSystem">
       <img src="{{convertImageUrl(currentWorkflow.ImageUrl)}}" width="840" style="max-width: 100%" />
     </div>
 </div>
