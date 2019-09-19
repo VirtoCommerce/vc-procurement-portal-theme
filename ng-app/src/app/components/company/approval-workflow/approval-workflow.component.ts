@@ -18,7 +18,6 @@ import { AlertsService } from '@modules/alerts/alerts.service';
   styleUrls: ['./approval-workflow.component.scss']
 })
 export class ApprovalWorkflowComponent implements OnInit {
-  private _currentUser;
   private _workflowChanging = false;
   public currentWorkflow: any;
   public workflowItems;
@@ -30,8 +29,7 @@ export class ApprovalWorkflowComponent implements OnInit {
               private alertService: AlertsService,
               private router: Router) { }
 
-  async ngOnInit() {
-    this._currentUser = await this.authService.getCurrentUser();
+  ngOnInit() {
     this.initWorkflow();
   }
 
@@ -56,11 +54,12 @@ export class ApprovalWorkflowComponent implements OnInit {
   }
 
 
-  public onChange(event: any, workflowName: string) {
+  public async onChange(event: any, workflowName: string) {
+    const currentUser = await this.authService.getCurrentUser();
     if (event === true) {
-      this.orderWorkflowService.changeWorkflow(workflowName, this._currentUser.userName, event);
+      this.orderWorkflowService.changeWorkflow(workflowName, currentUser.userName, event);
     } else {
-      this.orderWorkflowService.disableWorkflow(workflowName, this._currentUser.userName);
+      this.orderWorkflowService.disableWorkflow(workflowName, currentUser.userName);
     }
 
     this.initWorkflow();

@@ -39,6 +39,15 @@ export class AuthorizationService {
     return this.currentUser;
   }
 
+  public async refreshUser(): Promise<ExtendedUser> {
+    const currentUserName = localStorage.getItem(CURRENT_USER_LS_KEY);
+    if (this.currentUser == null || !currentUserName || this.currentUser.userName !== currentUserName ) {
+      return this.getCurrentUser();
+    }
+    this.user$.next(this.currentUser);
+    return this.currentUser;
+  }
+
   /**
    * for check user permissions
    * @param user

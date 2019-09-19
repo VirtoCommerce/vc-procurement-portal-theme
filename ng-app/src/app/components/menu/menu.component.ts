@@ -12,6 +12,7 @@ import { Observable, Subscription } from 'rxjs';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit, OnDestroy {
+
   private _workflowChangingSubscription: Subscription;
 
   isOpen = false;
@@ -27,9 +28,15 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.currentUser$ = this.authService.currentUser$;
-    this.isForApprovalEnabled = this.isForApprovalEnabledForCurrentUser(this.currentUser);
+    // this.isForApprovalEnabled = this.isForApprovalEnabledForCurrentUser(this.currentUser);
+    // this._workflowChangingSubscription = this.subscribeWorkflowChanging();
 
-    this._workflowChangingSubscription = this.subscribeWorkflowChanging();
+    this._workflowChangingSubscription = this.ordersWorkflowService.action.subscribe((action: string) => {
+      if (action === 'workflow_changed') {
+        // this.isForApprovalEnabled = this.isForApprovalEnabledForCurrentUser(this.currentUser);
+        this.authService.refreshUser();
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -66,15 +73,5 @@ export class MenuComponent implements OnInit, OnDestroy {
       const result = currentUser.workflowRoles.some(role => orderCreatorRoles.some(creatorRole => creatorRole === role));
       return !result;
     }
-  }
-
-  private subscribeWorkflowChanging(): Subscription{
-    const subscription = this.ordersWorkflowService.action.subscribe((action: string) => {
-      if (action === 'workflow_changed') {
-        this.isForApprovalEnabled = this.isForApprovalEnabledForCurrentUser(this.currentUser);
-      }
-    });
-
-    return subscription;
   }
 }
