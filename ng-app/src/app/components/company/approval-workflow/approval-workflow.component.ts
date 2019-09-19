@@ -10,6 +10,7 @@ import { OrderWorkflowService } from '@services/order-workflow.service';
 import { Observable, Subscriber } from 'rxjs';
 import { Router, Params } from '@angular/router';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { AlertsService } from '@modules/alerts/alerts.service';
 
 @Component({
   selector: 'app-approval-workflow',
@@ -23,10 +24,11 @@ export class ApprovalWorkflowComponent implements OnInit {
   public workflowItems;
 
   constructor(private orderWorkflowService: OrderWorkflowService,
-    private authService: AuthorizationService,
-    private confirmService: ConfirmService,
-    private ordersService: OrdersService,
-    private router: Router) { }
+              private authService: AuthorizationService,
+              private confirmService: ConfirmService,
+              private ordersService: OrdersService,
+              private alertService: AlertsService,
+              private router: Router) { }
 
   async ngOnInit() {
     this._currentUser = await this.authService.getCurrentUser();
@@ -35,7 +37,7 @@ export class ApprovalWorkflowComponent implements OnInit {
 
   public onBeforeChange(workflowName: string, isActive: boolean): Observable<boolean> {
     return new Observable((observer) => {
-      if (isActive || this._workflowChanging) {
+      if (this._workflowChanging) {
         observer.next(false);
         return;
       }
@@ -43,9 +45,9 @@ export class ApprovalWorkflowComponent implements OnInit {
       this._workflowChanging = true;
       this.isWorkflowChangeable().then(result => {
         if (result) {
-          this.showConfirmModal(observer, workflowName);
+          this.showConfirmModal(observer, workflowName, isActive);
         } else {
-          this.showWorkflowActivationModal(observer);
+          this.showWorkflowActivationModal(observer, workflowName);
         }
       }).then(() => {
         this._workflowChanging = false;
@@ -57,8 +59,11 @@ export class ApprovalWorkflowComponent implements OnInit {
   public onChange(event: any, workflowName: string) {
     if (event === true) {
       this.orderWorkflowService.changeWorkflow(workflowName, this._currentUser.userName, event);
-      this.initWorkflow();
+    } else {
+      this.orderWorkflowService.disableWorkflow(workflowName, this._currentUser.userName);
     }
+
+    this.initWorkflow();
   }
 
   public convertImageUrl(imageUrl: any): string {
@@ -107,25 +112,29 @@ export class ApprovalWorkflowComponent implements OnInit {
     return orders;
   }
 
-  private showConfirmModal(observer: Subscriber<boolean>, workflowName: string) {
+  private showConfirmModal(observer: Subscriber<boolean>, workflowName: string, isActive: boolean) {
+    const activateDeactivateTitle = isActive ? 'Deactivation' : 'Activation';
+    const activateDeactivateWord = isActive ? 'deactivate' : 'activate';
+    const activatedDeactivatedWord = isActive ? 'deactivated' : 'activated';
     const confirmOptions = {
-      title: 'Workflow Activation',
-      message: `Are you sure you want to activate "${workflowName}"?`
+      title: `Workflow ${activateDeactivateTitle}`,
+      message: `Are you sure you want to ${activateDeactivateWord} "${workflowName}"?`
     };
     this.confirmService
       .confirm(confirmOptions)
       .then(() => {
         observer.next(true);
+        this.alertService.info(`Workflow "${workflowName}" has been ${activatedDeactivatedWord} at ${new Date()}`);
       }, () => {
         observer.next(false);
       }).then(() => {
       });
   }
 
-  private showWorkflowActivationModal(observer: Subscriber<boolean>) {
+  private showWorkflowActivationModal(observer: Subscriber<boolean>, workflowName: string) {
     const modal = this.confirmService.open(WorkflowActivationAlertComponent);
     const dialog = modal.componentInstance as WorkflowActivationAlertComponent;
-    dialog.title = `"${this.currentWorkflow.Name}" activation`;
+    dialog.title = `"${workflowName}" activation`;
     dialog.action.subscribe((action: string) => {
 
       switch (action) {
