@@ -87,7 +87,7 @@ export class OrderWorkflowService {
   public getAllStates(exceptFinalStatus?: boolean): string[] {
     let query;
     if (exceptFinalStatus === true) {
-      query = this.workflow.States.filter((state: any) => state.IsFinal != null);
+      query = this.workflow.States.filter((state: any) => state.IsFinal == null);
     } else {
       query = this.workflow.States;
     }

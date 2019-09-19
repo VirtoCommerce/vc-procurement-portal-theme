@@ -28,7 +28,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             errorMessage = `An error occurred with code ${error.status} while trying to execute a request to the server\nMessage: ${error.message}`;
             if (error.status >= 500) {
               this.alertsService.error(errorMessage, { keepAfterRouteChange: true, dismissTimeout: 0 });
-            } else if (error.status >= 400 && error.status < 500) {
+            } else if (error.status > 401 && error.status < 500) {
               this.alertsService.warn(errorMessage, { keepAfterRouteChange: true, dismissTimeout: 0 });
             }
           }

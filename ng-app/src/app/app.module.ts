@@ -59,6 +59,7 @@ import { ErrorInterceptor } from '@services/interceptors/error-interceptor';
 import { ActionPanelComponent } from '@components/common/action-panel/action-panel.component';
 import { CategoriesMobileComponent } from './components/catalog/categories-mobile/categories-mobile.component';
 import { WorkflowActivationAlertComponent } from './components/common/modals/workflow-activation-alert/workflow-activation-alert.component';
+import { AuthInterceptor } from '@services/interceptors/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -131,6 +132,7 @@ import { WorkflowActivationAlertComponent } from './components/common/modals/wor
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter},
   ],

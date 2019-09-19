@@ -1,7 +1,9 @@
 <main class="main container-fluid">
   <div class="order">
     <h1 *ngIf="!isForApproval; else aprovalHeader">Orders</h1>
-    <ng-template #aprovalHeader><h1>Awaiting Approval</h1></ng-template>
+    <ng-template #aprovalHeader>
+      <h1>Awaiting Approval</h1>
+    </ng-template>
     <div class="row page__sort">
       <div class="col-md-auto page__sort-date">
         From
@@ -17,14 +19,25 @@
       <div class="col-md-auto page__sort-filter" *ngIf="!isForApproval">
         Filter by status
 
-        <div ngbDropdown>
+        <div ngbDropdown autoClose="outside">
           <div id="statusFilterDropdown" ngbDropdownToggle>
-            {{ this.statuses[0] }}
+            {{ getFilterTitle() }}
           </div>
-          <div ngbDropdownMenu aria-labelledby="statusFilterDropdown" class="dropdown-menu--down">
-            <a ngbDropdownItem *ngFor="let status of getStatusFilters()" (click)="changeActiveStatus(status)">
-              {{ status }}
-            </a>
+          <div ngbDropdownMenu aria-labelledby="statusFilterDropdown" class="dropdown-menu--down" >
+
+            <div class="container">
+              <div class="row" ngbDropdownItem *ngFor="let status of getStatusFilters()" (click)="changeActiveStatus(dropdown, status.name)">
+                <div class="col-sm-2">
+                  <input ngbDropdownItem type="checkbox" type="checkbox" [checked]="status.checked" #dropdown
+                    >
+                </div>
+                <div class="col-sm-10">
+                  {{ status.name }}
+                </div>
+              </div>
+            </div>
+
+
           </div>
         </div>
 
@@ -79,24 +92,16 @@
                 You've viewed {{ orders.length }} of
                 {{ pagination.collectionSize }} orders
               </div>
-              <ngb-pagination
-                [(page)]="pagination.page"
-                [pageSize]="pagination.pageSize"
-                [collectionSize]="pagination.collectionSize"
-                [maxSize]="3"
-                (pageChange)="getOrders()"
-              >
-              <ng-template ngbPaginationPrevious>Prev</ng-template>
-              <ng-template ngbPaginationNext>Next</ng-template>
-            </ngb-pagination>
+              <ngb-pagination [(page)]="pagination.page" [pageSize]="pagination.pageSize"
+                [collectionSize]="pagination.collectionSize" [maxSize]="3" (pageChange)="getOrders()">
+                <ng-template ngbPaginationPrevious>Prev</ng-template>
+                <ng-template ngbPaginationNext>Next</ng-template>
+              </ngb-pagination>
             </div>
             <div class="col-auto ml-sm-auto align-items-center d-flex">
               <span class="pr-3">Show</span>
-              <app-page-size-selector
-                [defaultPageSize]="pagination.pageSize"
-                [pageSizes]="pageSizes"
-                (pageSizeChanged)="changePageSize($event)"
-              ></app-page-size-selector>
+              <app-page-size-selector [defaultPageSize]="pagination.pageSize" [pageSizes]="pageSizes"
+                (pageSizeChanged)="changePageSize($event)"></app-page-size-selector>
               <span class="pl-3 d-none d-sm-block">entries</span>
             </div>
           </div>
@@ -110,4 +115,3 @@
   </div>
 </main>
 <app-footer-panel [footerBgBlack]="true"></app-footer-panel>
-

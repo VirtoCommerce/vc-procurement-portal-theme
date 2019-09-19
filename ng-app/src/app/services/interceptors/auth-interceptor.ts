@@ -14,14 +14,13 @@ import { AuthorizationService } from '@services/authorization.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    constructor(private readonly router: Router, private authService: AuthorizationService) { }
+    constructor(private authService: AuthorizationService) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         return next.handle(request).pipe(catchError((err: HttpErrorResponse) =>  {
 
-            if (this.router.url !== '/login' && err.status === 401) {
+            if (err.status === 401) {
                     // redirect to the login route
-                    // or show a modal
                     location.replace('/Account/Login');
                     this.authService.logout();
                     //this.router.navigate(["login"]);
