@@ -23,11 +23,11 @@ export class ApprovalWorkflowComponent implements OnInit {
   public workflowItems;
 
   constructor(private orderWorkflowService: OrderWorkflowService,
-              private authService: AuthorizationService,
-              private confirmService: ConfirmService,
-              private ordersService: OrdersService,
-              private alertService: AlertsService,
-              private router: Router) { }
+    private authService: AuthorizationService,
+    private confirmService: ConfirmService,
+    private ordersService: OrdersService,
+    private alertService: AlertsService,
+    private router: Router) { }
 
   ngOnInit() {
     this.initWorkflow();
@@ -111,14 +111,19 @@ export class ApprovalWorkflowComponent implements OnInit {
   }
 
   private async isWorkflowChangeable(): Promise<boolean> {
-    const orders = await this.getNotCompletedOrders();
-    return orders.results.length === 0 ? true : false;
-  }
+    if (this.currentWorkflow.IsSystem) {
+      return true;
+    }
 
-  private async getNotCompletedOrders(): Promise<GenericSearchResult<IOrder>> {
+    let ordersCount = 0;
     const states = this.getNotCompletedOrderStates();
-    const orders = await this.ordersService.getOrders(null, null, null, null, null, states).toPromise();
-    return orders;
+    if (states.length > 0) {
+      const orders = await this.ordersService.getOrders(null, null, null, null, null, states).toPromise();
+      ordersCount = orders.totalCount;
+    } else {
+      ordersCount = 0;
+    }
+    return ordersCount === 0 ? true : false;
   }
 
   private showConfirmModal(observer: Subscriber<boolean>, workflowName: string, isActive: boolean) {
@@ -171,7 +176,8 @@ export class ApprovalWorkflowComponent implements OnInit {
 
   private getNotCompletedOrderStates(): string[] {
     const exceptFinalStatuses = true;
-    const states = this.orderWorkflowService.getAllStates(exceptFinalStatuses);
+    const exceptInitialStatuses = true;
+    const states = this.orderWorkflowService.getAllStates(exceptFinalStatuses, exceptInitialStatuses);
     return states;
   }
 }
