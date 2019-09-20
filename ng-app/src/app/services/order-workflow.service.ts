@@ -101,16 +101,18 @@ export class OrderWorkflowService {
     return 'N/A';
   }
 
-  public getAllStates(exceptFinalStatus?: boolean): string[] {
-    if (this.workflow.States == null) {
+  public getAllStates(exceptFinalStatus?: boolean, exceptInitialStatus?: boolean): string[] {
+    let query = this.workflow.States;
+    if (query == null) {
       return [];
     }
 
-    let query;
     if (exceptFinalStatus === true) {
-      query = this.workflow.States.filter((state: any) => state.IsFinal == null);
-    } else {
-      query = this.workflow.States;
+      query = query.filter((state: any) => state.IsFinal == null);
+    }
+
+    if (exceptInitialStatus === true) {
+      query = query.filter((state: any) => state.IsInitial == null);
     }
 
     return query.map((state: any) => state.Name);
