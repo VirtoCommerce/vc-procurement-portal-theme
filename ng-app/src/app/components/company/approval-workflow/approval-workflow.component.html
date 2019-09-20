@@ -9,6 +9,7 @@
           <th>Activated By</th>
           <th>Activated At</th>
           <th>Actions</th>
+          <th>File</th>
         </tr>
       </thead>
       <tbody>
@@ -24,9 +25,18 @@
           <td>{{item.IsActive ? 'Active' : 'Inactive'}}</td>
           <td>{{item.ActivatedBy}}</td>
           <td>{{item.ActivatedAt | date :'medium'}}</td>
-          <td style="width: 5%">
-            <ui-switch [beforeChange]="onBeforeChange(item.Name, item.IsActive)" (change)="onChange($event, item.Name)"
-              [checked]="item.IsActive"></ui-switch>
+          <td style="width: 4%">
+            <div style="padding-top: 2px;">
+              <ui-switch [beforeChange]="onBeforeChange(item.Name, item.IsActive)"
+                (change)="onChange($event, item.Name)" [checked]="item.IsActive"></ui-switch>
+            </div>
+          </td>
+          <td style="width: 3%">
+            <div class="input-group--qty input-group--sm mt-auto">
+              <a class="btn btn--white" (click)="downloadWorkflowJson(item.Name)">
+                <span class="btn__ico btn__ico--download"></span>
+              </a>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -35,6 +45,6 @@
 
   </div>
   <div style="text-align: center; margin-top: 15px" *ngIf="currentWorkflow && !currentWorkflow.IsSystem">
-      <img src="{{convertImageUrl(currentWorkflow.ImageUrl)}}" width="840" style="max-width: 100%" />
-    </div>
+    <img src="{{convertImageUrl(currentWorkflow.ImageUrl)}}" width="840" style="max-width: 100%" />
+  </div>
 </div>

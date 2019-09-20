@@ -95,6 +95,16 @@ export class ApprovalWorkflowComponent implements OnInit {
     });
   }
 
+  public downloadWorkflowJson(workflowName: string) {
+    const filename = `${workflowName}.json`;
+    const content = JSON.stringify(this.orderWorkflowService.workflow);
+    const element = document.createElement('a');
+    const fileType = 'text/json';
+    element.setAttribute('href', `data:${fileType};charset=utf-8,${encodeURIComponent(content)}`);
+    element.setAttribute('download', filename);
+    element.dispatchEvent(new MouseEvent('click'));
+  }
+
   private initWorkflow() {
     this.workflowItems = this.orderWorkflowService.getWorkflowItems();
     this.currentWorkflow = this.orderWorkflowService.workflow;
