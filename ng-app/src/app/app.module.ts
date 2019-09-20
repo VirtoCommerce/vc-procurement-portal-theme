@@ -118,8 +118,8 @@ import { WorkflowPreviewComponent } from './components/common/modals/workflow-pr
       dismissTimeout: 5 * 1000
     }),
     BlockUIModule.forRoot({
-      delayStart: 500,
-      delayStop: 500
+      delayStart: 250,
+      delayStop: 250
     }),
     ConnectionServiceModule,
     UiSwitchModule.forRoot({
