@@ -3,36 +3,37 @@
 <head>
   <meta charset="utf-8">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="keywords" content="">
-  <meta name="robots" content="index, follow, noodp">
-  <meta name="googlebot" content="index, follow">
-  <meta name="google" content="notranslate">
-  <meta name="format-detection" content="telephone=no">
+  
 
-  <title>Procurement portal</title>
-  <base href="/">
+   <!-- Useful meta tags -->
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <meta name="description" content="">
+   <meta name="keywords" content="">
+   <meta name="robots" content="index, follow, noodp">
+   <meta name="googlebot" content="index, follow">
+   <meta name="google" content="notranslate">
+   <meta name="format-detection" content="telephone=no">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Procurement Portal / Bulk Order Pad</title>
 
-  <!-- Google fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+   <!-- Google fonts -->
+   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
 
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href=" {{ 'bundle/assets/css/bootstrap.min.css' | static_asset_url }}">
-  {{ 'bundle/login-page.css' | static_asset_url | stylesheet_tag }}
+  {{ 'bundle/login-page.css' | static_asset_url | stylesheet_tag }}  -->
+
+   <!-- <link rel="stylesheet" href="../bundle/assets/css/style.min.css"> -->
+
+   <link rel="stylesheet" href="{{ 'bundle/styles.css' | static_asset_url }}"></head>
 
   <script>
       var BASE_URL = '{{ "/" | full_url }}';		
   </script>
 
 </head>
-<body>
-	<main>
+<body>	
   {{ content_for_layout }}
-</main>
- 
-
 </body>
 </html>

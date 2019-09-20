@@ -1,27 +1,33 @@
 {% layout 'login' %}
 
-<form accept-charset="UTF-8" action="{{ '~/account/login' | absolute_url }}" method="post" id="customer_login" name="customer_login">
 
-<div class="window d-flex flex-column align-items-center">
-
-    {% include 'form-errors-custom' %}
-
-    <h3>Log in to the portal</h3>
-
-    <div class="form-group">
-        <input type="text" id="username" name="customer[user_name]" required placeholder="Username" />
+<div id="layout">    
+    <div class="login-page">
+        <!-- <div class="login-page" style="background-image: url('../build/assets/i/login_bg.jpg');"></div> -->
+        <form class="login-form"  accept-charset="UTF-8" action="{{ '~/account/login' | absolute_url }}" method="post" id="customer_login" name="customer_login">
+            {% include 'form-errors-custom' %}
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input id="username" name="customer[user_name]" type="text" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input id="password" name="customer[password]" type="password" class="form-control" required>
+                </div>
+                <div class="form-group d-flex">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="remember">
+                        <label class="custom-control-label" for="remember">Remember me</label>
+                    </div>
+                    <a class="forgot" href="{{ '/account/forgotpassword' | absolute_url }}">Forgot password?</a>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn--blue btn--block">Log in</button>
+                </div>
+            </div>
+            {{ antiforgery }}
+        </form>
     </div>
 
-    <div class="form-group">
-        <input type="password"  id="password" name="customer[password]" required  placeholder="Password" />
-    </div>
-
-    <div class="material-checkbox mt-3">
-        <input id="RememberMe" type="checkbox">
-        <label for="RememberMe">Remember me</label>
-    </div> 
-    <button type="submit" class="btn btn-primary mt-2">Log in</button>
-    <a class="forgot-link align-self-end mt-3" href="{{ '/account/forgotpassword' | absolute_url }}">Forgot the password?</a>
 </div>
-{{ antiforgery }}
-</form>
