@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
 
@@ -28,55 +29,64 @@
       justify-content: center;
       height: 100%;
     }
-    .app-loading .spinner {
-      height: 200px;
-      width: 200px;
-      animation: rotate 2.5s linear infinite;
-      transform-origin: center center;
+
+    .lds-ring {
+      display: inline-block;
+      position: relative;
+      width: 128px;
+      height: 128px;
+    }
+
+    .lds-ring div {
+      box-sizing: border-box;
+      display: block;
       position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin: auto;
+      width: 115px;
+      height: 115px;
+      margin: 6px;
+      border: 6px solid gray;
+      border-radius: 50%;
+      animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      border-color: gray transparent transparent transparent;
     }
-    .app-loading .spinner .path {
-      stroke-dasharray: 10, 200;
-      stroke-dashoffset: 0;
-      animation: dash 2s ease-in-out infinite;
-      stroke-linecap: round;
-      stroke: #fff;
+
+    .lds-ring div:nth-child(1) {
+      animation-delay: -0.45s;
     }
-    @keyframes rotate {
+
+    .lds-ring div:nth-child(2) {
+      animation-delay: -0.3s;
+    }
+
+    .lds-ring div:nth-child(3) {
+      animation-delay: -0.15s;
+    }
+
+    @keyframes lds-ring {
+      0% {
+        transform: rotate(0deg);
+      }
+
       100% {
         transform: rotate(360deg);
-      }
-    }
-    @keyframes dash {
-      0% {
-        stroke-dasharray: 10, 200;
-        stroke-dashoffset: 0;
-      }
-      50% {
-        stroke-dasharray: 89, 200;
-        stroke-dashoffset: -35px;
-      }
-      100% {
-        stroke-dasharray: 89, 200;
-        stroke-dashoffset: -124px;
       }
     }
   </style>
 
 
 </head>
+
 <body>
   <app-root>
     <div class="app-loading">
-      <svg class="spinner" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-      </svg>
+      <div class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
   </app-root>
 </body>
+
 </html>
