@@ -80,8 +80,8 @@
           "IsInitial": true,
           "PermittedTransitions": [
             {
-              "ToState": "1st approved",
-              "Trigger": "1st Approve",
+              "ToState": "Approved",
+              "Trigger": "Approve",
               "Roles": [
                 "First Approver"
               ]
@@ -97,7 +97,7 @@
           ]
         },
         {
-          "Name": "1st approved",
+          "Name": "Approved",
           "IsFinal": true,
           "IsSuccessful": true
         },
