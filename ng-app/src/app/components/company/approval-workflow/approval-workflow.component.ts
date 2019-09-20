@@ -1,4 +1,4 @@
-import { WorkflowPreviewComponent } from './../../common/modals/workflow-preview/workflow-preview.component';
+import { WorkflowPreviewComponent } from '@components/common/modals/workflow-preview/workflow-preview.component';
 import { IOrder } from '@models/dto/iorder';
 import { GenericSearchResult } from '@models/dto/common/generic-search-result';
 import { WorkflowActivationAlertComponent } from '@components/common/modals/workflow-activation-alert/workflow-activation-alert.component';
