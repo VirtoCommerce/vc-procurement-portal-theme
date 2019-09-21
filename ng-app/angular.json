@@ -30,8 +30,7 @@
                { "glob": "bootstrap.min.css", "input": "node_modules/bootstrap/dist/css/", "output": "assets/css"}
             ],
             "styles": [
-              "src/styles.scss",
-              {"input": "src/styles/login/login-page.scss", "bundleName": "login-page", "inject": false}
+              "src/styles.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
