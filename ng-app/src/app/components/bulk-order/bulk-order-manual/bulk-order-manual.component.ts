@@ -130,7 +130,7 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
       availableQty: [1],
       sku: [sku, [Validators.required, this.uniqueSkuValidator]],
       productName: [productName],
-      qty: [qty, [Validators.required, Validators.pattern('^[1-9]\d*$' )]]
+      qty: [qty, [Validators.required, Validators.pattern('^[1-9]\\d*$' )]]
     });
 
     itemForm.get('sku').valueChanges
@@ -145,7 +145,7 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
         if (p != null) {
           itemForm.get('id').setValue(p.id);
           itemForm.get('productName').setValue(p.name);
-          const qtyValidators = [Validators.required, Validators.pattern('^[1-9]\d*$')];
+          const qtyValidators = [Validators.required, Validators.pattern('^[1-9]\\d*$')];
           if (p.trackInventory && p.inStock) {
             qtyValidators.push( this.qtyValidator(p.availableQuantity));
           } else {
