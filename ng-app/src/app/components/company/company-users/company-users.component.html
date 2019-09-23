@@ -21,11 +21,11 @@
           <th>System Role</th>
           <th>Email</th>
           <th>Phone</th>
-          <th>Action</th>
+          <th style="min-width: 80px; width: 5%">Actions</th>
         </tr>
       </thead>
-      <tbody *ngFor="let user of users" >
-        <tr>
+      <tbody>
+        <tr *ngFor="let user of users">
           <td>{{user.userName}}</td>
           <td>{{user.firstName}}</td>
           <td>{{user.lastName}}</td>
@@ -34,21 +34,30 @@
           <td>{{user.email}}</td>
           <td>{{user.phoneNumber}}</td>
           <td>
-            <a (click)="openEditUserModal(user)" class="user__edit">Edit</a>
-            |
-            <a (click)="deleteUser(user)" class="user__remove">Remove</a>
+            <div class="input-group--qty input-group--sm mt-auto">
+              <div class="mr-2">
+                <button class="btn btn--white" (click)="openEditUserModal(user)">
+                  <span class="btn__ico btn__ico--edit"></span>
+                </button>
+              </div>
+              <div>
+                <button class="btn btn--white" (click)="deleteUser(user)">
+                  <span class="btn__ico btn__ico--delete"></span>
+                </button>
+              </div>
+            </div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-    <div class="page-nav">
-      <div class="row align-items-md-end align-items-lg-end align-items-xl-end">
-        <div class="col-auto">
-          <div class="page-nav__total pb-2">
-            You've viewed {{users?.length}} of {{paginationInfo.collectionSize}} users
-          </div>
-          <ngb-pagination
+  <div class="page-nav">
+    <div class="row align-items-md-end align-items-lg-end align-items-xl-end">
+      <div class="col-auto">
+        <div class="page-nav__total pb-2">
+          You've viewed {{users?.length}} of {{paginationInfo.collectionSize}} users
+        </div>
+        <ngb-pagination
             [(page)]="paginationInfo.page"
             [pageSize]="paginationInfo.pageSize"
             [collectionSize]="paginationInfo.collectionSize"
@@ -60,16 +69,16 @@
           <ng-template ngbPaginationPrevious>Prev</ng-template>
           <ng-template ngbPaginationNext>Next</ng-template>
         </ngb-pagination>
-        </div>
-        <div class="col-auto ml-sm-auto align-items-center d-flex">
-          <span class="pr-3">Show</span>
-          <app-page-size-selector
+      </div>
+      <div class="col-auto ml-sm-auto align-items-center d-flex">
+        <span class="pr-3">Show</span>
+        <app-page-size-selector
             [defaultPageSize]="paginationInfo.pageSize"
             [pageSizes]="pageSizes"
             (pageSizeChanged)="pageSizeChanged($event)"
           ></app-page-size-selector>
-          <span class="pl-3 d-none d-sm-block">entries</span>
-        </div>
+        <span class="pl-3 d-none d-sm-block">entries</span>
       </div>
     </div>
+  </div>
 </div>

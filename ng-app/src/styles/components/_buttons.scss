@@ -56,6 +56,18 @@
       height: 1.25rem;
       width: 1rem;
     }
+
+    &--edit {
+      background-image: url("assets/icons/edit.svg");
+      height: 1.25rem;
+      width: 1rem;
+    }
+
+    &--delete {
+      background-image: url("assets/icons/delete.svg");
+      height: 1.25rem;
+      width: 1rem;
+    }
   }
 
   &--white {
