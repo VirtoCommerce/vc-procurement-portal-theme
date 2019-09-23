@@ -3,3 +3,14 @@
   flex-direction: column;
   flex: 1 0 0;
 }
+
+ @mixin invalid-feedback {
+  border: 0.05rem solid red;
+}
+.red-border-class {
+  @include invalid-feedback;
+}
+
+.ng-invalid {
+  @include invalid-feedback;
+}

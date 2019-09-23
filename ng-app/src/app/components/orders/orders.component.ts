@@ -6,10 +6,11 @@ import { PageSizeChangedArgs } from '@components/page-size-selector/page-size-se
 import ConfigurationFile from 'src/assets/config/config.dev.json';
 import { IAppConfig } from '@models/iapp-config';
 import { OrderWorkflowService } from '@services/order-workflow.service';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, Subject } from 'rxjs';
 import { AuthorizationService } from '@services/authorization.service';
 import { ActivatedRoute } from '@angular/router';
 import { GenericSearchResult } from '@models/dto/common/generic-search-result';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-orders',
@@ -29,6 +30,8 @@ export class OrdersComponent implements OnInit, OnDestroy {
   public pagination = new PaginationInfo(this.configuration.defaultPageSize);
   public pageSizes = this.configuration.pageSizes;
 
+  dateChanging = new Subject<any>();
+
   constructor(
     private ordersService: OrdersService,
     private orderWorkflowService: OrderWorkflowService,
@@ -36,6 +39,13 @@ export class OrdersComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) {
     this._isForApproval = this.route.snapshot.routeConfig.path === 'forapproval' ? true : false;
+
+    this.dateChanging.pipe(
+      debounceTime(400),
+      distinctUntilChanged())
+      .subscribe(value => {
+        this.changeDate();
+      });
   }
 
   async ngOnInit() {
@@ -104,9 +114,14 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   public changeDate() {
-    if (this.startDate > this.endDate) {
-    } else {
-      this.getOrders();
+    const isStartDateValid = this.isDateValid(this.startDate);
+    const isEndDateValid = this.isDateValid(this.endDate);
+
+    if (isStartDateValid && isEndDateValid) {
+      if (this.startDate > this.endDate) {
+      } else {
+        this.getOrders();
+      }
     }
   }
 
@@ -131,7 +146,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
     const startDate = this.startDate;
     const endDate = this.endDate;
 
-    if (statuses.length >= 1 ) {
+    if (statuses.length >= 1) {
       return this.ordersService.getOrders(page, pageSize, startDate, endDate, null, statuses);
     } else {
       return this.ordersService.getOrders(page, pageSize, startDate, endDate, null);
@@ -150,5 +165,18 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
   private getAllStatuses() {
     return this.orderWorkflowService.getAllStates();
+  }
+
+  private isDateValid(date: any): boolean {
+    let isDateValid = true;
+    if (date != null) {
+      if (date instanceof Date) {
+        isDateValid = true;
+      } else {
+        isDateValid = false;
+      }
+    }
+
+    return isDateValid;
   }
 }
