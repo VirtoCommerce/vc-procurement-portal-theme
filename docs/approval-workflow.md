@@ -2,9 +2,99 @@
 
 ## Activate Approval Workflow
 
-In order to activate the Approval Workflow in the system, the admin should first upload a valid jason file that contains Approval Workflow rules.
+In order to activate the Approval Workflow in the system, the admin should first upload a valid JSON file that contains Approval Workflow rules.
 
 The admin should create a valid json file that contains the approval workflow needed.
+
+Approval Workflow JSON Example: 
+
+{
+
+"ImageUrl": "themes/assets/images/workflow2.svg", 
+
+"States": [
+
+{
+
+"Name": "New",
+
+"IsInitial": true,
+
+"PermittedTransitions": [
+
+{
+
+"ToState": "1st approved",
+
+"Trigger": "1st Approve",
+
+"Roles": [ "Owner" ]
+
+},
+
+{
+
+"ToState": "Rejected",
+
+"Trigger": "Reject",
+
+"Roles": [ "Owner", "Admin" ]
+
+}
+
+]
+
+},
+
+{
+
+"Name": "1st approved",
+
+"PermittedTransitions": [
+
+{
+
+"ToState": "Approved", 
+
+"Trigger": "Approve", 
+
+"Roles": [ "Admin" ] 
+
+}, 
+
+{ 
+
+"ToState": "Rejected", 
+
+"Trigger": "Reject", 
+
+"Roles": [ "Owner", "Admin" ] 
+
+} 
+
+] 
+
+}, 
+
+{ 
+
+"Name": "Approved", 
+
+"IsFinal": true 
+
+}, 
+
+{ 
+
+"Name": "Rejected", 
+
+"IsFinal": true 
+
+} 
+
+] 
+
+} 
 
 In order to activate the approval workflow the admin should go through the following steps:
 
