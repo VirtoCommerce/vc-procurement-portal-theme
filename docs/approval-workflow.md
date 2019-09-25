@@ -117,27 +117,27 @@ In order to activate the approval workflow the admin should go through the follo
 
 } 
 
-ImageUrl - a local path to SVG image of the workflow.
+**ImageUrl**  - a local path to SVG image of the workflow.
 
-"States" - An array of states which are available for specific roles.
+**"States"** - An array of states which are available for specific roles.
 
-"Name" - A name of the status. Uses for setting the status.
+**"Name"** - A name of the status. Uses for setting the status.
 
-"IsInitial" - This is the first state in our workflow. If our workflow state has been marked as "IsInitial": true then newly created orders will receive this status automatically. Also, if we trying to change or deactivate the current workflow and we already have the orders which are in this state then eventually this orders will be skipped by system.
+**"IsInitial"** - This is the first state in our workflow. If our workflow state has been marked as "IsInitial": true then newly created orders will receive this status automatically. Also, if we trying to change or deactivate the current workflow and we already have the orders which are in this state then eventually this orders will be skipped by system.
 
-"PermittedTransitions" - An array of permitted status transitions shows us the set of transitions among our workflow statuses, also the roles which are used to seeing these transitions.
+**"PermittedTransitions"** - An array of permitted status transitions shows us the set of transitions among our workflow statuses, also the roles which are used to seeing these transitions.
 
-ToState - Here we must set the exact name of the order status which is described for each status in field "Name".
+**ToState** - Here we must set the exact name of the order status which is described for each status in field "Name".
 
-"Trigger" - In this field, we place the name of the button that will be shown for changing order status in order details page.
+**"Trigger"** - In this field, we place the name of the button that will be shown for changing order status in order details page.
 
-"Roles" - An array of roles that are permitted for the current status transition.
+**"Roles"** - An array of roles that are permitted for the current status transition.
 
 We should use unique names for each role name in the whole workflow JSON file.
 
-"IsSuccessful" - This flag shows us the fact that we should show the "Invoice" button on the order details page. If during perform our workflow we reach the status with this flag then the appropriate button will be shown.
+**"IsSuccessful"** - This flag shows us the fact that we should show the "Invoice" button on the order details page. If during perform our workflow we reach the status with this flag then the appropriate button will be shown.
 
-"IsFinal" - As with "IsInitial" the "IsFinal" tells us that this order state (and the order eventually) will be excluded from the validation process during we trying to change or deactivate the current workflow.
+**"IsFinal"** - As with "IsInitial" the "IsFinal" tells us that this order state (and the order eventually) will be excluded from the validation process during we trying to change or deactivate the current workflow.
 
-"OrderCreatorRoles" - An array of roles for order creators. Here we should place the role names which should be used only for the order creation process. If this role assigned to a user then this user will be able to create new orders.
+**"OrderCreatorRoles"** - An array of roles for order creators. Here we should place the role names which should be used only for the order creation process. If this role assigned to a user then this user will be able to create new orders.
 
