@@ -6,7 +6,28 @@ In order to activate the Approval Workflow in the system, the admin should first
 
 The admin should create a valid json file that contains the approval workflow needed.
 
-Approval Workflow JSON Example: 
+
+
+In order to activate the approval workflow the admin should go through the following steps:
+
+1. Open Company page->Approval workflow;
+1. On 'Approval workflow' page the following will be displayed:
+
+    1. A table with the list of approval workflows and possibility to activate and deactivate them;
+    1. Diagram of the current approval workflow.
+1. The admin selects a workflow from the list and activates it using the switch button.
+
+## Deactivate Approval Workflow
+
+1. The admin selects the current active approval workflow from the list and switches the button to 'off';
+1. The system will display a notification and prompt the user to confirm deactivation;
+1. The user confirms the deactivation and the approval workflow will be deactivated. In this case no approval workflow will be required after the checkout.
+
+!**Important** The current workflow can be deactivated only if ALL orders in the system are in new, completed or rejected status. In case there is at least one order, which is still 'in progress', the approval workflow can not be deactivated or changed.
+
+![Approval workflow](media/screen-approva-workflow-page.png)
+
+### Workflow File Structure
 
 {
 
@@ -96,21 +117,27 @@ Approval Workflow JSON Example:
 
 } 
 
-In order to activate the approval workflow the admin should go through the following steps:
+ImageUrl - a local path to SVG image of the workflow.
 
-1. Open Company page->Approval workflow;
-1. On 'Approval workflow' page the following will be displayed:
+"States" - An array of states which are available for specific roles.
 
-    1. A table with the list of approval workflows and possibility to activate and deactivate them;
-    1. Diagram of the current approval workflow.
-1. The admin selects a workflow from the list and activates it using the switch button.
+"Name" - A name of the status. Uses for setting the status.
 
-## Deactivate Approval Workflow
+"IsInitial" - This is the first state in our workflow. If our workflow state has been marked as "IsInitial": true then newly created orders will receive this status automatically. Also, if we trying to change or deactivate the current workflow and we already have the orders which are in this state then eventually this orders will be skipped by system.
 
-1. The admin selects the current active approval workflow from the list and switches the button to 'off';
-1. The system will display a notification and prompt the user to confirm deactivation;
-1. The user confirms the deactivation and the approval workflow will be deactivated. In this case no approval workflow will be required after the checkout.
+"PermittedTransitions" - An array of permitted status transitions shows us the set of transitions among our workflow statuses, also the roles which are used to seeing these transitions.
 
-!**Important** The current workflow can be deactivated only if ALL orders in the system are in new, completed or rejected status. In case there is at least one order, which is still 'in progress', the approval workflow can not be deactivated or changed.
+ToState - Here we must set the exact name of the order status which is described for each status in field "Name".
 
-![Approval workflow](media/screen-approva-workflow-page.png)
+"Trigger" - In this field, we place the name of the button that will be shown for changing order status in order details page.
+
+"Roles" - An array of roles that are permitted for the current status transition.
+
+We should use unique names for each role name in the whole workflow JSON file.
+
+"IsSuccessful" - This flag shows us the fact that we should show the "Invoice" button on the order details page. If during perform our workflow we reach the status with this flag then the appropriate button will be shown.
+
+"IsFinal" - As with "IsInitial" the "IsFinal" tells us that this order state (and the order eventually) will be excluded from the validation process during we trying to change or deactivate the current workflow.
+
+"OrderCreatorRoles" - An array of roles for order creators. Here we should place the role names which should be used only for the order creation process. If this role assigned to a user then this user will be able to create new orders.
+
