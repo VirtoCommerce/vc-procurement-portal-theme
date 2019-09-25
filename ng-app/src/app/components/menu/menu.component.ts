@@ -5,6 +5,7 @@ import { AuthorizationService } from '@services/authorization.service';
 import { RoleEnum } from '@models/role';
 import { ExtendedUser } from '@models/dto/iuser';
 import { Observable, Subscription } from 'rxjs';
+import { LocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-menu',
@@ -20,6 +21,7 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   isForApprovalEnabled = true;
   constructor(
+    private location: LocationStrategy,
     private mobileSidebarService: MobileViewService,
     private authService: AuthorizationService,
     private ordersWorkflowService: OrderWorkflowService
@@ -43,6 +45,12 @@ export class MenuComponent implements OnInit, OnDestroy {
     if (this._workflowChangingSubscription != null) {
       this._workflowChangingSubscription.unsubscribe();
     }
+  }
+
+
+  get logoutPath(): string {
+    const logoutPath = this.location.prepareExternalUrl('/account/logout');
+    return logoutPath;
   }
 
   openMobileMenu() {
