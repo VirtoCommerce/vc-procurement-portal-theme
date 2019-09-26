@@ -29,7 +29,7 @@ export class ActiveOrderService {
   }
 
   createOrder() {
-    console.log('createOrder');
+    console.log('Create order');
     return this.http.createOrder().pipe(
       tap(() => this.refreshCart()),
       catchError(error => this.handleError(error))
@@ -37,7 +37,7 @@ export class ActiveOrderService {
   }
 
   clearAllItems() {
-    console.log('ClearCart');
+    console.log('Clear cart');
     return this.http.clearAllCartItems().pipe(
       tap(() => this.refreshCart()),
       catchError(error => this.handleError(error))
@@ -55,7 +55,7 @@ export class ActiveOrderService {
   }
 
   removeItem(lineItemId: string) {
-    console.log('Remove');
+    console.log('Remove item from cart');
     this.fullScreenSpinner.suspend();
     return this.http.removeItemFromCart(lineItemId).pipe(
       tap(x => this.refreshCart()),
