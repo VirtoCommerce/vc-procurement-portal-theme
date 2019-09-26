@@ -10,6 +10,7 @@ import { IOrganization } from '@models/dto/iorganization';
 import { UpdateOrganization } from '@models/organization';
 import { OrganizationUsersSearchCriteria, IUser, EditUserDto, AddNewUserDto } from '@models/dto/iuser';
 import { EditUserPhone, EditUserPassword } from '@models/user';
+import { ICart, AddCartItem, ChangeCartItemQty } from '@models/dto/icart';
 
 declare var BASE_URL;
 
@@ -141,5 +142,46 @@ export class HttpService {
     return this.http
       .post(url, user);
   }
+
+  // Cart
+  getCart(): Observable<ICart> {
+    let url = 'storefrontapi/cart';
+    url = this.prepareUrl(url);
+    return this.http
+      .get<ICart>(url);
+  }
+
+  createOrder(): Observable<any> {
+    let url = 'storefrontapi/cart/createorder';
+    url = this.prepareUrl(url);
+    return this.http.post<any>(url, {});
+  }
+
+
+  clearAllCartItems(): Observable<any>  {
+    let url = 'storefrontapi/cart/clear';
+    url = this.prepareUrl(url);
+    return this.http.post<any>(url, {});
+  }
+
+  addItemToCart(addItemDto: AddCartItem) {
+    let url = 'storefrontapi/cart/items';
+    url = this.prepareUrl(url);
+    return this.http.post<any>(url, addItemDto);
+  }
+
+  removeItemFromCart(lineItemId: string) {
+    let url = 'storefrontapi/cart/items?lineItemId=' + lineItemId;
+    url = this.prepareUrl(url);
+    return this.http.delete(url);
+  }
+
+
+  changeItemQuantity(changeItemQtyDto: ChangeCartItemQty) {
+    let url = 'storefrontapi/cart/items';
+    url = this.prepareUrl(url);
+    return this.http.put<any>(url, changeItemQtyDto);
+  }
+
 
 }
