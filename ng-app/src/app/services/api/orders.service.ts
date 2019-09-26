@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { IOrder, OrderSearchCriteria } from '@models/dto/iorder';
 import { AlertsService } from '@modules/alerts/alerts.service';
 import { GenericSearchResult } from '@models/dto/common/generic-search-result';
+import { HttpService } from './http.service';
 
 
 @Injectable({ providedIn: 'root' })
 export class OrdersService {
-  private baseUrl = 'storefrontapi/orders';
 
-  constructor(private http: HttpClient, private alertsService: AlertsService) { }
+  constructor(private http: HttpService, private alertsService: AlertsService) { }
 
   getOrders(
     pageNumber: number = 1,
@@ -36,34 +35,30 @@ export class OrdersService {
       searchCriteria.Statuses = statuses;
     }
 
-    const url = this.baseUrl + '/search';
-    return this.http.post<GenericSearchResult<IOrder>>(url, searchCriteria).pipe(
+    return this.http.searchOrders(searchCriteria).pipe(
       tap(orders => {
-        this.log(`fetched ordersUrl:` + orders);
+        this.log(`fetched orders:` + orders);
       }),
       catchError(error => this.handleError(error))
     );
   }
 
-  getOrder(OrderNumber: string) {
-    return this.http.get(this.baseUrl + `/${OrderNumber}`).pipe(
+  getOrder(orderNumber: string) {
+    return this.http.getOrderByNumber(orderNumber).pipe(
       tap(order => {
-        this.log(`fetched ordersUrl:` + order);
+        this.log(`fetched order:` + order);
       }),
       catchError(error => this.handleError(error))
     );
   }
 
   updateOrder(order: IOrder): Observable<IOrder> {
-    return this.http
-      .post<IOrder>(this.baseUrl, order)
+    return this.http.updateOrder(order)
       .pipe(catchError(error => this.handleError(error)));
   }
 
   async changeOrderStatus(orderNumber: string, newStatus: string): Promise<IOrder> {
-    const url = this.baseUrl + `/${orderNumber}/status`;
-    const payload = { newStatus };
-    return await this.http.put<any>(url, payload)
+    return await this.http.changeOrderStatus(orderNumber, newStatus)
     .pipe(catchError(error => this.handleError(error)))
     .toPromise();
   }

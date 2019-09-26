@@ -50,7 +50,7 @@ export class OrderDetailsComponent implements OnInit {
     this.route.paramMap
       .pipe(switchMap(params => this.ordersService.getOrder(params.get('id'))))
       .subscribe((data: any) => {
-        this.order = data as IOrder;
+        this.order = data;
         this.items = data.items;
         this.subTotal = this.order.subTotal.formattedAmount;
         this.shipping = this.order.shippingTotal.formattedAmount;
