@@ -77,7 +77,7 @@
   </style>
 
   <script>
-      var BASE_URL = '{{ "/" | full_url }}';		      
+      var BASE_URL = '{{ "/" | string.append CurrentStore.Id }}';		      
   </script>
 
 </head>

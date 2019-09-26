@@ -137,6 +137,7 @@ declare var BASE_URL;
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: BASE_URL },
+    // { provide: APP_BASE_HREF, useValue: '/B2B-store' },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
