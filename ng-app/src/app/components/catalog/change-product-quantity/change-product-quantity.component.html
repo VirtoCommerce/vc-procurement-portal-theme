@@ -1,17 +1,23 @@
 <div class="input-group input-group--qty mt-auto" appRemoveWrapper [ngClass]="{'input-group--sm': isProductPage}">
-  <a *ngIf="!productLineItem; else quantityChanger" class="btn btn--blue mx-auto" (click)="addProductToCart()">
+  <a *ngIf="!isInCart(product); else quantityChanger" class="btn btn--blue mx-auto" (click)="addProductToCart()">
     <span class="btn__ico btn__ico--plus-white"></span>
   </a>
 
 </div>
 
 <ng-template #quantityChanger>
-<a class="btn" (click)="decrementQuantity(productLineItem)" [ngClass]="{'btn--green': !isProductPage,'btn--white': isProductPage}">
-  <span class="btn__ico btn__ico--minus-white" [ngClass]="{'btn__ico--minus-white': !isProductPage,'btn__ico--minus': isProductPage}"></span>
-</a>
-<input type="text" [OnlyNumber]="true" class="input-group__input" [value]="productLineItem.quantity" (keyup)="onChangeQuantity($event.target)">
-<a class="btn" (click)="incrementQuantity(productLineItem)" [ngClass]="{'btn--green': !isProductPage,'btn--white': isProductPage}">
-  <span class="btn__ico btn__ico--plus-white" [ngClass]="{'btn__ico--plus-white': !isProductPage,'btn__ico--plus': isProductPage}"></span>
-</a>
-<!-- [(ngModel)]="productLineItem.quantity" (ngModelChange)="updateLineItemQuantity()" -->
+  <a class="btn" (click)="changeQuantity(-1, true)"
+    [ngClass]="{'btn--green': !isProductPage,'btn--white': isProductPage}">
+    <span class="btn__ico btn__ico--minus-white"
+      [ngClass]="{'btn__ico--minus-white': !isProductPage,'btn__ico--minus': isProductPage}"></span>
+  </a>
+
+  <input type="text" [OnlyNumber]="true" class="input-group__input" [value]="quantity"
+    [ngClass]="{'invalid': isMoreThanInStock(this.quantity)}" (keyup)="changeQuantity($event.target.value, false)">
+
+  <a class="btn" (click)="changeQuantity(1, true)"
+    [ngClass]="{'btn--green': !isProductPage,'btn--white': isProductPage}">
+    <span class="btn__ico btn__ico--plus-white"
+      [ngClass]="{'btn__ico--plus-white': !isProductPage,'btn__ico--plus': isProductPage}"></span>
+  </a>
 </ng-template>
