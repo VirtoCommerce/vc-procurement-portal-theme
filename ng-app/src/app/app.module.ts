@@ -61,6 +61,9 @@ import { CategoriesMobileComponent } from './components/catalog/categories-mobil
 import { WorkflowActivationAlertComponent } from './components/common/modals/workflow-activation-alert/workflow-activation-alert.component';
 import { AuthInterceptor } from '@services/interceptors/auth-interceptor';
 import { WorkflowPreviewComponent } from './components/common/modals/workflow-preview/workflow-preview.component';
+import { APP_BASE_HREF } from '@angular/common';
+
+declare var BASE_URL;
 
 @NgModule({
   declarations: [
@@ -133,6 +136,8 @@ import { WorkflowPreviewComponent } from './components/common/modals/workflow-pr
     })
   ],
   providers: [
+    { provide: APP_BASE_HREF, useValue: BASE_URL },
+    // { provide: APP_BASE_HREF, useValue: '/B2B-store' },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },

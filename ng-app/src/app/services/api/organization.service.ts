@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { UpdateOrganization } from '@models/organization';
 import { AlertsService } from '@modules/alerts/alerts.service';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrganizationService {
-  constructor(private http: HttpClient, private alertsService: AlertsService) {}
+  constructor(private http: HttpService, private alertsService: AlertsService) {}
 
   getUserOrganization() {
-    console.log('getUserOrganization');
-    return this.http.get('storefrontapi/account/organization/current?t=').pipe(
+    return this.http.getCurrentUserOrganization().pipe(
       tap(organization => {
         this.log(`fetched organization:` + organization);
       }),
@@ -22,9 +21,7 @@ export class OrganizationService {
   }
 
   updateOrganization(organization: UpdateOrganization) {
-    const url = 'storefrontapi/account/organization';
-    return this.http
-      .put<any>(url, organization)
+    return this.http.updateOrganization(organization)
       .pipe(catchError(error => this.handleError(error)));
   }
 

@@ -4,7 +4,9 @@ import { MobileViewService } from '@services/mobile-view.service';
 import { AuthorizationService } from '@services/authorization.service';
 import { RoleEnum } from '@models/role';
 import { ExtendedUser } from '@models/dto/iuser';
-import { Observable, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { LocationStrategy } from '@angular/common';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu',
@@ -13,36 +15,50 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class MenuComponent implements OnInit, OnDestroy {
 
-  private _workflowChangingSubscription: Subscription;
+  isLoaded = false;
+  isOpen = false; // for mobile popup menu
+  isCompanyEnabled = false;
+  isForApprovalEnabled = false;
+  currentUser: ExtendedUser;
+  private unsubscribe$ = new Subject<void>();
 
-  isOpen = false;
-  currentUser$: Observable<ExtendedUser>;
-
-  isForApprovalEnabled = true;
   constructor(
+    private location: LocationStrategy,
     private mobileSidebarService: MobileViewService,
     private authService: AuthorizationService,
     private ordersWorkflowService: OrderWorkflowService
   ) {
   }
 
-  ngOnInit() {
-    this.currentUser$ = this.authService.currentUser$;
-    // this.isForApprovalEnabled = this.isForApprovalEnabledForCurrentUser(this.currentUser);
-    // this._workflowChangingSubscription = this.subscribeWorkflowChanging();
-
-    this._workflowChangingSubscription = this.ordersWorkflowService.action.subscribe((action: string) => {
+  async ngOnInit() {
+    this.currentUser = await this.authService.getCurrentUser();
+    this.refreshEnablers();
+    this.isLoaded = true;
+    this.authService.currentUser$.pipe(takeUntil(this.unsubscribe$)).subscribe(( user ) => {
+      this.currentUser = user;
+      this.refreshEnablers();
+    });
+    this.ordersWorkflowService.action.pipe(takeUntil(this.unsubscribe$)).subscribe((action: string) => {
       if (action === 'workflow_changed') {
-        // this.isForApprovalEnabled = this.isForApprovalEnabledForCurrentUser(this.currentUser);
-        this.authService.refreshUser();
+        this.refreshEnablers();
       }
     });
   }
 
   ngOnDestroy(): void {
-    if (this._workflowChangingSubscription != null) {
-      this._workflowChangingSubscription.unsubscribe();
-    }
+    this.unsubscribe$.next();
+  }
+
+
+  get logoutPath(): string {
+    const logoutPath = this.location.prepareExternalUrl('/account/logout');
+    return logoutPath;
+  }
+
+
+  refreshEnablers() {
+    this.isCompanyEnabled = this.isAdmin(this.currentUser);
+    this.isForApprovalEnabled = this.isOrdersApprovalEnabledForUser(this.currentUser);
   }
 
   openMobileMenu() {
@@ -65,7 +81,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     return this.authService.checkUserPermission(user, RoleEnum.Admin);
   }
 
-  public isOrdersApprovalEnabledForUser(currentUser: ExtendedUser): boolean {
+  private isOrdersApprovalEnabledForUser(currentUser: ExtendedUser): boolean {
     if (this.ordersWorkflowService.workflow.IsSystem) {
       return false;
     } else {

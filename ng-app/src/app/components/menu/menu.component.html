@@ -1,5 +1,5 @@
 <!-- Swipe -->
-<div class="swipe swipe--menu" [ngClass]="{'swipe--opened': isOpen}" *ngIf="currentUser$ | async as currentUser">
+<div class="swipe swipe--menu" [ngClass]="{'swipe--opened': isOpen}" *ngIf="isLoaded">
   <div class="swipe__header">
       <div class="swipe__header-t">{{currentUser.userName}}</div>
       <div class="swipe__close" (click)="closeMobileMenu()"></div>
@@ -12,17 +12,17 @@
           <li class="nav__item">
               <a [routerLink]="['/orders']" class="nav__link" routerLinkActive="nav__link--active" (click)="closeMobileMenu()">Orders</a>
           </li>
-          <li class="nav__item" *ngIf="isOrdersApprovalEnabledForUser(currentUser)">
+          <li class="nav__item" *ngIf="isForApprovalEnabled">
               <a [routerLink]="['/forapproval']" class="nav__link" routerLinkActive="nav__link--active" (click)="closeMobileMenu()">Awaiting Approval</a>
           </li>
-          <li class="nav__item" *ngIf="isAdmin(currentUser)">
+          <li class="nav__item" *ngIf="isCompanyEnabled">
               <a [routerLink]="['/company']" class="nav__link" routerLinkActive="nav__link--active" (click)="closeMobileMenu()">Company</a>
           </li>
           <li class="nav__item">
             <a [routerLink]="['/account']" class="nav__link" routerLinkActive="nav__link--active" (click)="closeMobileMenu()">My account</a>
           </li>
           <li class="nav__item">
-            <a href="/account/logout" class="nav__link">Logout ({{currentUser.userName}})</a>
+            <a href="{{logoutPath}}" class="nav__link">Logout ({{currentUser.userName}})</a>
           </li>
       </ul>
   </div>
@@ -32,7 +32,7 @@
  <!-- Header -->
  <header class="header">
   <div class="header-inner container">
-      <div class="row align-items-center" *ngIf="currentUser$ | async as currentUser">
+      <div class="row align-items-center" *ngIf="isLoaded">
           <div class="col-auto">
               <div class="header-logo">Dentalmed</div>
           </div>
@@ -44,17 +44,17 @@
                   <li class="nav__item">
                       <a [routerLink]="['/orders']" class="nav__link" routerLinkActive="nav__link--active">Orders</a>
                   </li>
-                  <li class="nav__item" *ngIf="isOrdersApprovalEnabledForUser(currentUser)">
+                  <li class="nav__item" *ngIf="isForApprovalEnabled">
                       <a [routerLink]="['/forapproval']" class="nav__link" routerLinkActive="nav__link--active">Awaiting Approval</a>
                   </li>
-                  <li class="nav__item" *ngIf="isAdmin(currentUser)">
+                  <li class="nav__item" *ngIf="isCompanyEnabled">
                       <a [routerLink]="['/company']" class="nav__link" routerLinkActive="nav__link--active">Company</a>
                   </li>
                   <li class="nav__item">
                     <a [routerLink]="['/account']" class="nav__link" routerLinkActive="nav__link--active">My account</a>
                   </li>
                   <li class="nav__item ml-auto" (click)="logout()">
-                      <a href="/account/logout" class="nav__link">Logout ({{currentUser.userName}})</a>
+                      <a href="{{logoutPath}}" class="nav__link">Logout ({{currentUser.userName}})</a>
                   </li>
               </ul>
           </div>

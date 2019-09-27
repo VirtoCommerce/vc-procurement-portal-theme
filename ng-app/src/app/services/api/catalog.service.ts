@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import {
-  SearchCategoriesResult,
   Category,
   CategorySearchCriteria,
   CategoryResponseGroup
@@ -17,18 +16,17 @@ import {
 import { ProductConverterService } from '@services/converters/product-converter.service';
 import { ProductDetails } from '@models/product';
 import { AlertsService } from '@modules/alerts/alerts.service';
+import { HttpService } from './http.service';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 
 @Injectable({ providedIn: 'root' })
 export class CatalogService {
   constructor(
-    private http: HttpClient,
+    private http: HttpService,
     private productConverter: ProductConverterService,
-    private aletsService: AlertsService
-  ) {}
+    private alertsService: AlertsService
+  ) {  }
+
 
   getAllProducts(
     pageNumber: number,
@@ -43,10 +41,7 @@ export class CatalogService {
     searchCriteria.keyword = keyword;
     searchCriteria.outline = categoryId;
     searchCriteria.responseGroup = ItemResponseGroup.ItemLarge;
-    const url = 'storefrontapi/catalog/search';
-    return this.http
-      .post<SearchProductsResult>(url, searchCriteria)
-      .pipe(catchError(error => this.handleError(error)));
+    return this.http.searchProducts(searchCriteria).pipe(catchError(error => this.handleError(error)));
   }
 
   getAllCategories(): Observable<Category[]> {
@@ -54,16 +49,14 @@ export class CatalogService {
     const searchCriteria = new CategorySearchCriteria();
     searchCriteria.pageSize = 1000;
     searchCriteria.responseGroup = CategoryResponseGroup.Info;
-    const url = 'storefrontapi/categories/search';
-    return this.http.post<SearchCategoriesResult>(url, searchCriteria).pipe(
+    return this.http.searchCategories(searchCriteria).pipe(
       map(x => x.categories),
       catchError(error => this.handleError(error))
     );
   }
 
   getProduct(productId: string): Observable<ProductDetails> {
-    const url = 'storefrontapi/products?productIds=' + productId;
-    return this.http.get<IProduct[]>(url).pipe(
+    return this.http.getProducts([productId]).pipe(
       map(x => x.map(p => this.productConverter.toProductDetails(p))),
       map(x => (x.length > 0 ? x[0] : null)),
       catchError(error => this.handleError(error))
@@ -75,8 +68,7 @@ export class CatalogService {
     searchCriteria.keyword = sku;
     searchCriteria.pageSize = 2;
     searchCriteria.responseGroup = ItemResponseGroup.ItemLarge;
-    const url = 'storefrontapi/catalog/search';
-    return this.http.post<SearchProductsResult>(url, searchCriteria).pipe(
+    return this.http.searchProducts(searchCriteria).pipe(
       map(x => {
         if (x.metaData.totalItemCount === 1 && x.products[0].sku === sku) {
           return x.products[0];
@@ -89,11 +81,11 @@ export class CatalogService {
 
   private handleError(error: any) {
     if (error.status >= 500) {
-      this.aletsService.error(
+      this.alertsService.error(
         `An error occurred with code ${error.status} while trying to execute a request to the server`, { keepAfterRouteChange: true, dismissTimeout: 0 }
       );
     } else if (error.status >= 400 && error.status < 500) {
-      this.aletsService.warn(
+      this.alertsService.warn(
         `An error occurred with code ${error.status} while trying to execute a request to the server`, { keepAfterRouteChange: true, dismissTimeout: 0 }
       );
     }
