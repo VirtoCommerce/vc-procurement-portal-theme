@@ -45,6 +45,6 @@
 
   </div>
   <div style="text-align: center; margin-top: 15px" *ngIf="currentWorkflow && !currentWorkflow.IsSystem">
-    <img src="{{convertImageUrl(currentWorkflow.ImageUrl)}}" width="840" style="max-width: 100%" />
+    <img src="{{currentWorkflow.ImageUrl | adjustAssetPath}}" width="840" style="max-width: 100%" />
   </div>
 </div>

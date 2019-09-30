@@ -61,6 +61,7 @@ import { AuthInterceptor } from '@services/interceptors/auth-interceptor';
 import { WorkflowPreviewComponent } from './components/common/modals/workflow-preview/workflow-preview.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { AdjustAssetPathPipe } from './pipes/adjust-asset-path.pipe';
 
 // export declare var BASE_URL;
 
@@ -105,7 +106,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     CategoriesMobileComponent,
     WorkflowActivationAlertComponent,
     WorkflowPreviewComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AdjustAssetPathPipe
   ],
   imports: [
     BrowserModule,
