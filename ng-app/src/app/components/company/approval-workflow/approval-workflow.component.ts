@@ -65,19 +65,6 @@ export class ApprovalWorkflowComponent implements OnInit {
     this.initWorkflow();
   }
 
-  public convertImageUrl(imageUrl: any): string {
-    if (imageUrl == null) {
-      return '';
-    }
-
-    // TODO: fix this error. there are different URLs in dev and prod environment
-    const devMode = false; // isDevMode();
-    if (devMode) {
-      return imageUrl;
-    } else {
-      return `/themes/assets/static/bundle${imageUrl}`;
-    }
-  }
 
   public clickPreviewWorkflowImage(workflow: any) {
     const options: NgbModalOptions = {
@@ -87,7 +74,7 @@ export class ApprovalWorkflowComponent implements OnInit {
     const modal = this.confirmService.open(WorkflowPreviewComponent, options);
     const dialog = modal.componentInstance as WorkflowPreviewComponent;
     dialog.title = `"${workflow.Name}"`;
-    dialog.workflowImageUrl = this.convertImageUrl(workflow.ImageUrl);
+    dialog.workflowImageUrl = workflow.ImageUrl;
     dialog.action.subscribe((action: string) => {
       if (action === 'dismiss') {
         modal.close();

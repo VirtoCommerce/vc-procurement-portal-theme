@@ -8,7 +8,7 @@ export const environment = {
     name: 'dev',
     production: false,
     version,
-    buildTime: '2019-09-30T17:38:00.275Z'
+    buildTime: '2019-09-30T18:01:48.609Z'
 };
 
 /*
