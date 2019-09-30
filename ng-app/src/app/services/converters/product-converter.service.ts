@@ -25,7 +25,7 @@ export class ProductConverterService {
     result.model = (productDto.properties.find(x => x.name === 'Model') || {value: ''}).value;
     result.primaryImage = productDto.primaryImage;
     result.images = productDto.images;
-
+    result.inStock = productDto.availableQuantity;
     return result;
   }
 
