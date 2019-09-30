@@ -7,7 +7,8 @@ import { version } from '../../package.json';
 export const environment = {
     name: 'dev',
     production: false,
-    version
+    version,
+    buildTime: '2019-09-30T10:37:15.718Z'
 };
 
 /*

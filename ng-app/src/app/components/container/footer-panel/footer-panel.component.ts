@@ -10,8 +10,12 @@ import { environment } from 'src/environments/environment';
 export class FooterPanelComponent implements OnInit {
   @Input() footerBgBlack = false;
   version: string;
+  buildTime: Date;
   constructor() {
     this.version = environment.version;
+    if (environment.buildTime) {
+      this.buildTime = new Date(environment.buildTime);
+    }
   }
 
   ngOnInit() {
