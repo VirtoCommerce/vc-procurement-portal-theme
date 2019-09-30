@@ -1,10 +1,6 @@
+import { CartService } from '@services/cart.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { ActiveOrderService } from '@api/active-order.service';
 import { ILineItem, ICart } from '@models/dto/icart';
-import { ConfirmService } from '@modules/confirm-modal/confirm-modal-service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CheckoutModalComponent } from '@components/active-order/checkout-modal/checkout-modal.component';
-import { AlertsService } from '@modules/alerts/alerts.service';
 
 @Component({
   selector: 'app-active-order',
@@ -12,62 +8,24 @@ import { AlertsService } from '@modules/alerts/alerts.service';
   styleUrls: ['./active-order.component.scss']
 })
 export class ActiveOrderComponent implements OnInit {
-  @Input()
-  cart: ICart;
+  @Input() cart: ICart;
 
   constructor(
-    private activeOrderService: ActiveOrderService,
-    private confirmService: ConfirmService,
-    private modalService: NgbModal,
-    private alertsService: AlertsService
-    ) {}
+    private cartService: CartService
+  ) { }
 
   ngOnInit() {
   }
 
-  removeItem(item: ILineItem) {
-    const confirmOptions = { title: 'Line item removing', message: 'Are you sure you want to remove this line item from the active order?' };
-    this.confirmService.confirm(confirmOptions).then(() => this.activeOrderService.removeItem(item.id).subscribe(), () => { });
+  public removeItem(item: ILineItem) {
+    this.cartService.remove(item.id);
   }
 
-  clear() {
-    const confirmOptions = { title: 'Active order cleaning', message: 'Are you sure you want to clear the active order?' };
-    this.confirmService.confirm(confirmOptions).then(() => this.activeOrderService.clearAllItems().subscribe(), () => { } );
+  public removeAll() {
+    this.cartService.removeAll();
   }
 
-  decrementQuantity(item: ILineItem) {
-    if (item.quantity <= 1) {
-      this.removeItem(item);
-      return;
-    }
-    item.quantity--;
-    this.activeOrderService
-      .changeItemQuantity(item.id, item.quantity)
-      .subscribe();
-  }
-
-  incrementQuantity(item: ILineItem) {
-    item.quantity++;
-    this.activeOrderService
-      .changeItemQuantity(item.id, item.quantity)
-      .subscribe();
-  }
-
-  updateLineItemQuantity(lineItem: ILineItem) {
-    this.activeOrderService
-      .changeItemQuantity(lineItem.id, lineItem.quantity)
-      .subscribe();
-  }
-
-  checkout(cart: ICart) {
-    const modalRef = this.modalService.open(CheckoutModalComponent, {
-      centered: true,
-      backdrop: 'static',
-      size: 'lg'
-    });
-    modalRef.componentInstance.cart = cart;
-    modalRef.result.then(result => {
-      this.activeOrderService.createOrder().subscribe(() => this.alertsService.success(`Order is created successfuly!`));
-    }, () => { });
+  public checkout() {
+    this.cartService.checkout();
   }
 }

@@ -1,11 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActiveOrderService } from '@api/active-order.service';
 import { ICart, ILineItem } from '@models/dto/icart';
-import { CheckoutModalComponent } from '@components/active-order/checkout-modal/checkout-modal.component';
-import { ConfirmService } from 'src/app/modules/confirm-modal/confirm-modal-service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IToggleable } from '@models/itoggleable';
 import { MobileViewService } from '@services/mobile-view.service';
+import { CartService } from '@services/cart.service';
 
 @Component({
   selector: 'app-active-order-mobile',
@@ -13,16 +10,13 @@ import { MobileViewService } from '@services/mobile-view.service';
   styleUrls: ['./active-order-mobile.component.scss']
 })
 export class ActiveOrderMobileComponent implements OnInit, IToggleable {
-  @Input()
-  cart: ICart;
+  @Input() cart: ICart;
   isOpen = false;
 
   constructor(
-    private activeOrderService: ActiveOrderService,
-    private modalService: NgbModal,
-    private confirmService: ConfirmService,
-    private mobileSidebarService: MobileViewService
-  ) {}
+    private mobileSidebarService: MobileViewService,
+    private cartService: CartService
+  ) { }
 
   ngOnInit() {
   }
@@ -36,38 +30,14 @@ export class ActiveOrderMobileComponent implements OnInit, IToggleable {
   }
 
   removeItem(item: ILineItem) {
-    this.closeSidebar();
-    const confirmOptions = {
-      title: 'Line item removing',
-      message:
-        'Are you sure you want to remove this line item from the active order?'
-    };
-    this.confirmService
-      .confirm(confirmOptions)
-      .then(() => this.activeOrderService.removeItem(item.id).subscribe(), () => { });
+    this.cartService.remove(item.id);
   }
 
-  clear() {
-    this.closeSidebar();
-    const confirmOptions = {
-      title: 'Active order cleaning',
-      message: 'Are you sure you want to clear the active order?'
-    };
-    this.confirmService
-      .confirm(confirmOptions)
-      .then(() => this.activeOrderService.clearAllItems().subscribe(), () => { });
+  removeAll() {
+    this.cartService.removeAll();
   }
 
-  checkout(cart: ICart) {
-    this.closeSidebar();
-    const modalRef = this.modalService.open(CheckoutModalComponent, {
-      centered: true,
-      backdrop: 'static',
-      size: 'lg'
-    });
-    modalRef.componentInstance.cart = cart;
-    modalRef.result.then(result => {
-      this.activeOrderService.createOrder().subscribe();
-    }, () => { });
+  checkout() {
+    this.cartService.checkout();
   }
 }

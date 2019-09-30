@@ -1,7 +1,6 @@
 import { CartService } from '@services/cart.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ILineItem } from '@models/dto/icart';
-import { ConfirmService } from '@modules/confirm-modal/confirm-modal-service';
 import { MobileViewService } from '@services/mobile-view.service';
 import { ActiveOrderMobileComponent } from '@components/active-order/active-order-mobile/active-order-mobile.component';
 
@@ -15,7 +14,6 @@ export class ChangeProductQuantityActiveOrderComponent implements OnInit {
   @Input() activeOrderMobileSidebar: ActiveOrderMobileComponent;
 
   constructor(private cartService: CartService,
-              private confirmService: ConfirmService,
               private mobileSidebarService: MobileViewService,
               ) {
   }
@@ -27,11 +25,8 @@ export class ChangeProductQuantityActiveOrderComponent implements OnInit {
     if (this.activeOrderMobileSidebar) {
       this.mobileSidebarService.closeSidebar(this.activeOrderMobileSidebar);
     }
-    const confirmOptions = {
-      title: 'Line item removing',
-      message: 'Are you sure you want to remove this line item from the active order?'
-    };
-    this.confirmService.confirm(confirmOptions).then(() => this.cartService.remove(item.id), () => { });
+
+    this.cartService.remove(item.id);
   }
 
   public async changeQuantity(value: number, byStep: boolean) {
