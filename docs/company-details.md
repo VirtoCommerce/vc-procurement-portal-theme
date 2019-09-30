@@ -1,6 +1,6 @@
-# Add/ Update Company Details
+# Edit Company Details
 
-The Company Details window contains the following fields that should be filled out:
+The Company Details tab contains the following fields that should be filled out:
 
 Under legal Information:
 

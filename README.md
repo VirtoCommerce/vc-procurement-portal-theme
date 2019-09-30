@@ -45,9 +45,10 @@ The Orders page displays a table with a list of orders in different statuses and
 1. Order ID- link. By clicking this link the system opens the 'Order Details Information' window;
 1. Status:
 
-    1. New
-    1. Rejected
-    1. Approved
+    1. New;
+    1. Rejected;
+    1. Approved;
+    1. Awaiting Approval- this status depends on the approval workflow.
 1. Date;
 1. Items;
 1. Created by;
@@ -65,7 +66,7 @@ The Orders page contains the following filters:
 
 On the 'Orders Awaiting Approval' page only orders that should be approved according to the Approval workflow, are displayed. The page displays the same table and the same filters as 'Orders' page.
 
-The 'Awaiting Approval' page is visible only to users with the role 'Approver'.
+The 'Awaiting Approval' page is visible only to users with the role 'Approver'. The role 'Approver' depends on the approval workflow and can be 'Approver 1', 'Approver 2', etc.
 
 ![Awaiting Approval Page](docs/media/screen-awaiting-approval.png)
 
@@ -87,7 +88,7 @@ The 'Company Details tab is displayed by default when the user navigates to 'Com
 
 ### Scenarios
 
-[Add/ Update Company Details](/docs/company-details.md)
+[Edit Company Details](/docs/company-details.md)
 
 [User Management](/docs/user-management.md)
 

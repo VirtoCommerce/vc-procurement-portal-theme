@@ -16,10 +16,13 @@ A user with the role 'Approver' can view on 'Awaiting approval' page the orders 
    1. If according to the approval workflow there should be only one approver, the system will generate an invoice and the order will appear on order creator's side as 'Approved';
    1. If according to the approval workflow there should be more than one approver, the system will assign the order to the next approver.
 
+Screen 1
 ![Approve order](media/screen-first-tapprove.png)
 
+Screen 2
 ![Invoice Generated](media/screen-invoice-generated.png)
 
+Screen 3
 ![Invoice](media/screen-invoice.png)
 
 ## Reject Order
