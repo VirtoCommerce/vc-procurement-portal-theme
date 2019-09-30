@@ -1,5 +1,5 @@
 <div class="input-group input-group--qty mt-auto" appRemoveWrapper [ngClass]="{'input-group--sm': isProductPage}">
-  <a *ngIf="!isInCart(product); else quantityChanger" class="btn btn--blue mx-auto" (click)="addProductToCart()">
+  <a *ngIf="!isInCart(); else quantityChanger" class="btn btn--blue mx-auto" (click)="addProductToCart()">
     <span class="btn__ico btn__ico--plus-white"></span>
   </a>
 
@@ -13,7 +13,7 @@
   </a>
 
   <input type="text" [OnlyNumber]="true" class="input-group__input" [value]="quantity"
-    [ngClass]="{'invalid': isMoreThanInStock(this.quantity)}" (keyup)="changeQuantity($event.target.value, false)">
+    [ngClass]="{'invalid': isMoreThanInStock(quantity)}" (keyup)="changeQuantity($event.target.value, false)">
 
   <a class="btn" (click)="changeQuantity(1, true)"
     [ngClass]="{'btn--green': !isProductPage,'btn--white': isProductPage}">
