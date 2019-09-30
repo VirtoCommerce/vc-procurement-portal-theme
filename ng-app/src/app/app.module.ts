@@ -62,7 +62,7 @@ import { WorkflowPreviewComponent } from './components/common/modals/workflow-pr
 import { APP_BASE_HREF } from '@angular/common';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 
-declare var BASE_URL;
+export declare var BASE_URL;
 
 @NgModule({
   declarations: [

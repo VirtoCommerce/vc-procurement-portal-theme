@@ -127,7 +127,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
   public getAssignedToRoles = (order: IOrder) => this.orderWorkflowService.getRolesTextByState(order.status);
 
-  private getOrders() {
+  getOrders() {
     const task = this.buildOrdersTask();
     task.subscribe((data: any) => {
       this.orders = data.results as IOrder[];

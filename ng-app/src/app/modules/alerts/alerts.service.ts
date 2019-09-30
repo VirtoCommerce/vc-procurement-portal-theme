@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Alert, IAlertOptions, AlertType } from './models';
@@ -15,7 +15,10 @@ export class AlertsService {
   alerts$: Subject<Alert[]> = new Subject<Alert[]>();
 
 
-  constructor(private router: Router) {
+  constructor(private router: Router, @Optional() options: IAlertOptions ) {
+    if (options) {
+      AlertsService.defaultAlertOptions = {...AlertsService.defaultAlertOptions, ...options};
+    }
     router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.alerts.forEach(alert => {

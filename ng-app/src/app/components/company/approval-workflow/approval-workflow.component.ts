@@ -23,11 +23,11 @@ export class ApprovalWorkflowComponent implements OnInit {
   public workflowItems;
 
   constructor(private orderWorkflowService: OrderWorkflowService,
-    private authService: AuthorizationService,
-    private confirmService: ConfirmService,
-    private ordersService: OrdersService,
-    private alertService: AlertsService,
-    private router: Router) { }
+              private authService: AuthorizationService,
+              private confirmService: ConfirmService,
+              private ordersService: OrdersService,
+              private alertService: AlertsService,
+              private router: Router) { }
 
   ngOnInit() {
     this.initWorkflow();

@@ -27,11 +27,11 @@ export class AlertsModule {
   }
 
   static forRoot( options?: IAlertOptions ) {
-    AlertsService.defaultAlertOptions = {...AlertsService.defaultAlertOptions, ...options};
+    // AlertsService.defaultAlertOptions = {...AlertsService.defaultAlertOptions, ...options};
     return {
       ngModule: AlertsModule,
       providers: [
-        // { provide: IAlertOptions, useValue: options }
+        { provide: IAlertOptions, useValue: options }
       ]
     };
   }
