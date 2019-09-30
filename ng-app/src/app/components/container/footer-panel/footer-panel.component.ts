@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-footer-panel',
@@ -7,8 +9,10 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FooterPanelComponent implements OnInit {
   @Input() footerBgBlack = false;
-
-  constructor() { }
+  version: string;
+  constructor() {
+    this.version = environment.version;
+  }
 
   ngOnInit() {
   }
