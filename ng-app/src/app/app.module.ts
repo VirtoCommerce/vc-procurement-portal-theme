@@ -16,11 +16,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { ConfirmModalModule } from './modules/confirm-modal/confirm-modal.module';
 import { AlertsModule } from './modules/alerts/alerts.module';
 
+// other
 import { HeaderPanelComponent } from '@components/container/header-panel/header-panel.component';
 import { MainPanelComponent } from '@components/container/main-panel/main-panel.component';
 import { FooterPanelComponent } from '@components/container/footer-panel/footer-panel.component';
 import { AppComponent } from './app.component';
-
 import { AccountComponent } from '@components/account/account.component';
 import { ActiveOrderComponent } from '@components/active-order/active-order.component';
 import { BulkOrderComponent } from '@components/bulk-order/bulk-order.component';
@@ -34,9 +34,7 @@ import { OrderDetailsComponent } from '@components/orders/order-details/order-de
 import { PageSizeSelectorComponent } from '@components/page-size-selector/page-size-selector.component';
 import { MobileCartSummaryComponent } from '@components/catalog/mobile-cart-summary/mobile-cart-summary.component';
 import { ActiveOrderMobileComponent } from '@components/active-order/active-order-mobile/active-order-mobile.component';
-import { ForbiddenComponent } from '@components/container/forbidden/forbidden.component';
-
-// directives
+import { ForbiddenComponent } from '@components/forbidden/forbidden.component';
 import { RemoveWrapperDirective } from './directives/remove-wrapper.directive';
 import { ChangeProductQuantityComponent } from '@components/catalog/change-product-quantity/change-product-quantity.component';
 import { RequestInterceptor } from '@services/interceptors/request-interceptor';
@@ -62,6 +60,7 @@ import { WorkflowActivationAlertComponent } from './components/common/modals/wor
 import { AuthInterceptor } from '@services/interceptors/auth-interceptor';
 import { WorkflowPreviewComponent } from './components/common/modals/workflow-preview/workflow-preview.component';
 import { APP_BASE_HREF } from '@angular/common';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 declare var BASE_URL;
 
@@ -105,7 +104,8 @@ declare var BASE_URL;
     ActionPanelComponent,
     CategoriesMobileComponent,
     WorkflowActivationAlertComponent,
-    WorkflowPreviewComponent
+    WorkflowPreviewComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

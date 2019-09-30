@@ -10,7 +10,8 @@ import { ProductDetailsComponent } from '@components/product-details/product-det
 import { InvoiceComponent } from '@components/orders/invoice/invoice.component';
 import { AuthGuard } from './services';
 import { RoleEnum } from '@models/role';
-import { ForbiddenComponent } from '@components/container/forbidden/forbidden.component';
+import { ForbiddenComponent } from '@components/forbidden/forbidden.component';
+import { NotFoundComponent } from '@components/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'catalog', pathMatch: 'full' },
@@ -108,7 +109,9 @@ const routes: Routes = [
       }
     }
   },
-  { path: 'forbidden', component: ForbiddenComponent }
+  { path: 'forbidden', component: ForbiddenComponent },
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '404' }
 ];
 
 @NgModule({
