@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -62,7 +62,7 @@ import { WorkflowPreviewComponent } from './components/common/modals/workflow-pr
 import { APP_BASE_HREF } from '@angular/common';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 
-// export declare var BASE_URL;
+declare var BASE_URL;
 
 @NgModule({
   declarations: [
@@ -136,7 +136,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     })
   ],
   providers: [
-     { provide: APP_BASE_HREF, useValue: getBaseUrl },
+     { provide: APP_BASE_HREF, useValue: BASE_URL },
     // { provide: APP_BASE_HREF, useValue: '/B2B-store' },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
@@ -153,6 +153,7 @@ export class AppModule {
 }
 
 
-export function getBaseUrl() {
-  return document.getElementsByTagName('base')[0].href;
-}
+// export function getBaseUrl() {
+//    const result = document.getElementsByTagName('base')[0].href;
+//    return result;
+// }
