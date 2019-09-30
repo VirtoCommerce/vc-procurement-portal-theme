@@ -13,7 +13,7 @@
   </a>
 
   <input type="text" [OnlyNumber]="true" class="input-group__input" [value]="quantity"
-    [ngClass]="{'invalid': isMoreThanInStock(quantity)}" (keyup)="changeQuantity($event.target.value, false)">
+    [ngClass]="{'invalid': isMoreThanInStock()}" (keyup)="changeQuantity($event.target.value, false)">
 
   <a class="btn" (click)="changeQuantity(1, true)"
     [ngClass]="{'btn--green': !isProductPage,'btn--white': isProductPage}">
