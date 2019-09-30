@@ -30,7 +30,7 @@
                   <app-change-product-quantity-active-order [activeOrderMobileSidebar]="this" [lineItem]="item"></app-change-product-quantity-active-order>
               </div>
           </div>
-          <a [ngClass]="{'disabled': cart.itemsCount === 0}" (click)="checkout(cart)" class="btn btn--lg btn--green btn--block mt-auto">Checkout</a>
+          <a [ngClass]="{'disabled': cart.itemsCount === 0}" (click)="checkout()" class="btn btn--lg btn--green btn--block mt-auto">Checkout</a>
       </div>
   </div>
 </div>

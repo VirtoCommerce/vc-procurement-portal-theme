@@ -31,6 +31,7 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
     private activeOrderService: ActiveOrderService,
     private alertsService: AlertsService
   ) {
+    // this.items.errors.itemsEmpty
     const itemsForms: FormGroup[] = [];
     for (let i = 0; i < this.defaultItemsCount; i++) {
       const newItemForm = this.createItemForm();

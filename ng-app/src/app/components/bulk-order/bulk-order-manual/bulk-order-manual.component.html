@@ -24,9 +24,9 @@
             <div class="list"
              formArrayName="items">
                 <app-bulk-order-item [itemForm]="itemForm" [index]="i" (removeClicked)="removeItem($event)"
-                 *ngFor="let itemForm of itemsForm.controls['items'].controls; let i = index"></app-bulk-order-item>
+                 *ngFor="let itemForm of items.controls; let i = index"></app-bulk-order-item>
             </div>
-            <div class="row" *ngIf="itemsForm.controls['items'].errors?.itemsEmpty">
+            <div class="row" *ngIf="items.errors?.itemsEmpty">
                 <div class="col-md">
                   <div class="alert alert-info">
                     Orders items list is empty.

@@ -18,10 +18,10 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit, OnDestroy {
-  private _isForApproval: boolean;
   private configuration = ConfigurationFile as IAppConfig;
   private _routeParamsSubscription: Subscription;
 
+  isForApproval: boolean;
   public startDate: Date;
   public endDate: Date;
   public selectedStatuses = new Set<string>();
@@ -38,7 +38,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
     private authorizationService: AuthorizationService,
     private route: ActivatedRoute
   ) {
-    this._isForApproval = this.route.snapshot.routeConfig.path === 'forapproval' ? true : false;
+    this.isForApproval = this.route.snapshot.routeConfig.path === 'forapproval' ? true : false;
 
     this.dateChanging.pipe(
       debounceTime(400),
@@ -49,7 +49,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    if (this._isForApproval) {
+    if (this.isForApproval) {
       this.selectedStatuses = new Set<string>(await this.getStatesByUserRoles());
       this.getOrders();
     } else {
