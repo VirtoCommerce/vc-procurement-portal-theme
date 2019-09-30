@@ -43,9 +43,9 @@
         <div class="product__other">
           <div class="product__price">{{ product.price }}</div>
           <app-change-product-quantity
-            [cart]="cart"
             [productId]="product.id"
             [isProductPage]="true"
+            [inStock]="product.inStock"
           ></app-change-product-quantity>
         </div>
         <div class="product__text" [innerHTML]="product.fullReview">

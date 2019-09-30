@@ -2,7 +2,7 @@
   <div class="swipe__header">
       <div class="swipe__header-t">
           Your Order
-          <a (click)="clear()" *ngIf="cart.itemsCount != 0" class="swipe__header-link">Remove all</a>
+          <a (click)="removeAll()" *ngIf="cart.itemsCount != 0" class="swipe__header-link">Remove all</a>
       </div>
       <div class="swipe__close" (click)="closeSidebar()"></div>
   </div>
@@ -24,13 +24,10 @@
           <div class="order__item" *ngFor="let item of cart.items">
               <a class="order__item-remove" (click)="removeItem(item)">Remove item</a>
               <div class="order__item-name mr-4 mb-2">{{item.product.name}}</div>
-              <!-- <div class="order__item-brand">Brand name</div> -->
-              <!-- <div class="order__item-model">Model: 0000 <span class="divider">|</span>SKU: {{item.product.sku}}</div> -->
               <div class="order__item-model">SKU: {{item.product.sku}}</div>
-              <!-- <div class="order__item-descr">Description item</div> -->
               <div class="order__item-other">
                   <div class="order__item-price">{{item.extendedPrice.formattedAmount}}</div>
-                  <app-change-product-quantity-active-order [activeOrderMobileSidebar]="this" [cart]="cart" [lineItem]="item"></app-change-product-quantity-active-order>
+                  <app-change-product-quantity-active-order [activeOrderMobileSidebar]="this" [lineItem]="item"></app-change-product-quantity-active-order>
               </div>
           </div>
           <a [ngClass]="{'disabled': cart.itemsCount === 0}" (click)="checkout(cart)" class="btn btn--lg btn--green btn--block mt-auto">Checkout</a>

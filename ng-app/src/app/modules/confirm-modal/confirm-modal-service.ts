@@ -56,7 +56,7 @@ export class ConfirmService {
    */
   confirm(options: ConfirmOptions): Promise<any> {
     this.state.options = options;
-    this.state.modal = this.modalService.open(this.state.template);
+    this.state.modal = this.modalService.open(this.state.template, options as NgbModalOptions);
     return this.state.modal.result;
   }
 

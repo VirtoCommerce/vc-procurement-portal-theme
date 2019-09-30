@@ -1,4 +1,4 @@
-# User Management tab
+# User Management 
 
 On User Management tab the admin can add/edit and remove users. Also the admin can assign a role with specific set of permissions to each company user.
 
@@ -35,4 +35,4 @@ The system will prompt the admin to confirm user deletion
 
 The admin confirms the user deletion and the user will be deleted from the list of users.
 
-## Approval Workflow
+

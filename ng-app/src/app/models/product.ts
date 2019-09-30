@@ -12,4 +12,5 @@ export class ProductDetails {
   fullReview: string;
   primaryImage: IImage;
   images: IImage[];
+  inStock: number;
 }
