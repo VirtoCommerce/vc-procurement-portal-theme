@@ -27,6 +27,7 @@
   &-menu {
     background: $white;
     display: none;
+    z-index: $zindex-dropdown;
     left: 0;
     margin: 0.625rem 0 0;
     position: absolute;
@@ -40,6 +41,7 @@
       height: 2.5rem;
       margin-top: -1px;
       justify-content: center;
+      background-color: $white;
 
       &:hover {
         background: $blue;
@@ -72,9 +74,15 @@
       bottom: auto !important;
       transform: none !important;
     }
+
+    &.show {
+      display: block;
+     }
+
   }
 
   &.show {
+
     .dropdown-toggle::after {
       transform: rotate(180deg);
     }
