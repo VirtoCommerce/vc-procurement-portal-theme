@@ -8,7 +8,7 @@
   </div>
   <div class="form-group mt-3">
     <label for="email">Email</label>
-    <input id="useremail" name="email" placeholder="Email" required class="form-control"
+    <input id="useremail" name="email" placeholder="Required" required class="form-control"
       [(ngModel)]="user.email" #email="ngModel"
       [ngClass]="{ 'is-invalid': email.invalid && (email.dirty || email.touched) }" email>
     <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
@@ -18,7 +18,7 @@
   </div>
   <div class="form-group">
     <label for="firstName">First Name</label>
-    <input id="firstName" name="firstName" placeholder="First Name" type="text" class="form-control" pattern="[A-Za-z ]+"
+    <input id="firstName" name="firstName" placeholder="Required" type="text" class="form-control" pattern="[A-Za-z ]+"
       [ngClass]="{ 'is-invalid': firstName.invalid && (firstName.dirty || firstName.touched) }" required
       [(ngModel)]="user.firstName" #firstName="ngModel">
     <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger">
@@ -28,7 +28,7 @@
   </div>
   <div class="form-group">
     <label for="lastName">Last Name</label>
-    <input id="lastName" name="lastName" placeholder="Last Name" type="text" class="form-control" pattern="[A-Za-z -]+"
+    <input id="lastName" name="lastName" placeholder="Required" type="text" class="form-control" pattern="[A-Za-z -]+"
       [ngClass]="{ 'is-invalid': lastName.invalid && (lastName.dirty || lastName.touched) }" required
       [(ngModel)]="user.lastName" #lastName="ngModel">
     <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger">
@@ -38,7 +38,7 @@
   </div>
   <div class="form-group" *ngIf="!editUserMode">
     <label for="userName">User Name</label>
-    <input id="userName" name="userName" placeholder="User Name" type="text" class="form-control"
+    <input id="userName" name="userName" placeholder="Required" type="text" class="form-control"
       [ngClass]="{ 'is-invalid': userName.invalid && (userName.dirty || userName.touched) }" required
       [(ngModel)]="user.userName" #userName="ngModel">
     <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="alert alert-danger">
@@ -72,7 +72,7 @@
   </div>
   <div class="form-group" *ngIf="!editUserMode">
     <label for="Password">Password</label>
-    <input id="password" name="password" (change)="checkValid(myform)" placeholder="Password" type="password" class="form-control"
+    <input id="password" name="password" (change)="checkValid(myform)" placeholder="Required" type="password" class="form-control"
       [(ngModel)]="user.password" #password="ngModel" pattern="(^[A-Z])\w+\S+"
       [ngClass]="{ 'is-invalid': password.invalid && (password.dirty || password.touched) }" required minlength="6">
     <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
@@ -83,7 +83,7 @@
   </div>
   <div class="form-group" *ngIf="!editUserMode">
     <label for="confirmPassword">Confirm Password</label>
-    <input id="confirmPassword" appConfirmEqualValidator="password" name="confirmPassword" placeholder="Confirm Password" type="password" class="form-control"
+    <input id="confirmPassword" appConfirmEqualValidator="password" name="confirmPassword" placeholder="Required" type="password" class="form-control"
       ngModel #confirmPassword="ngModel" pattern="(^[A-Z])\w+\S+"
       [ngClass]="{ 'is-invalid': confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched) }" required minlength="6">
     <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)" class="alert alert-danger">
@@ -93,8 +93,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary mb-4" (click)="closeModal()">Cancel</button>
-    <button name="submit" type="submit" class="btn btn--green mb-4" *ngIf="!editUserMode" [disabled]="myform.invalid">Add</button>
-    <button name="submit" type="submit" class="btn btn--green mb-4" *ngIf="editUserMode" [disabled]="myform.invalid">Update user</button>
+    <button name="submit" type="submit" class="btn btn--green mb-4" [disabled]="myform.invalid"> <span *ngIf="!editUserMode">Add</span> <span *ngIf="editUserMode">Update user</span> </button>
   </div>
 </form>
 

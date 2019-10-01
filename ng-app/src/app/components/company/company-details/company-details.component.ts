@@ -4,6 +4,7 @@ import { OrganizationDetails } from '@models/organization';
 import { OrganizationConverterService } from '@services/converters/organization-converter.service';
 import { IOrganization } from '@models/dto/iorganization';
 import { AlertsService } from '@modules/alerts/alerts.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-company-details',
@@ -14,16 +15,18 @@ export class CompanyDetailsComponent implements OnInit {
   @Input() organization: IOrganization;
   @Input() organizationDetails: OrganizationDetails;
 
+
   constructor(
     private organizationService: OrganizationService,
     private orgConverter: OrganizationConverterService,
     private aletsService: AlertsService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
   }
 
-  updateCompany() {
+  updateCompany(userView: NgForm) {
     const updatedOrg = this.orgConverter.toUpdateOrganization(this.organizationDetails, this.organization);
     this.organizationService
       .updateOrganization(updatedOrg)

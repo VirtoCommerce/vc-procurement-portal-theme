@@ -1,112 +1,168 @@
-<div class="tabs__content" appRemoveWrapper >
-  <fieldset *ngIf="organizationDetails">
+<div class="tabs__content" appRemoveWrapper>
+  <form #companyForm='ngForm' (ngSubmit)='updateCompany(companyForm)' *ngIf="organizationDetails">
+  <fieldset>
     <legend>Legal information</legend>
     <div class="form-row form-group">
       <div class="col-md">
         <label for="name">Company Name</label>
-        <input type="text" class="form-control" id="name" [(ngModel)]="organizationDetails.name"/>
+        <input type="text" class="form-control" name="name" #name='ngModel' placeholder="Required" [ngClass]="{ 'is-invalid': name.invalid && (name.dirty || name.touched) }" required [(ngModel)]="organizationDetails.name"/>
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+            <div *ngIf="name.errors.required">Company Name is required.</div>
+        </div>
       </div>
       <div class="col-md">
-        <label for="number">Tax Number</label>
-        <input type="text" class="form-control" id="number" [(ngModel)]="organizationDetails.taxNumber"/>
+        <label for="taxNumber">Tax Number</label>
+        <input type="text" class="form-control" name="taxNumber" #taxNumber='ngModel' placeholder="Required" [ngClass]="{ 'is-invalid': taxNumber.invalid && (taxNumber.dirty || taxNumber.touched) }" required [(ngModel)]="organizationDetails.taxNumber"/>
+        <div *ngIf="taxNumber.invalid && (taxNumber.dirty || taxNumber.touched)" class="alert alert-danger">
+            <div *ngIf="taxNumber.errors.required">Tax Number is required.</div>
+        </div>
       </div>
       <div class="col-md">
-        <label for="reg-number">Company Registration Number</label>
-        <input type="text" class="form-control" id="reg-number" [(ngModel)]="organizationDetails.companyRegistrationNumber"/>
+        <label for="companyRegistrationNumber">Company Registration Number</label>
+        <input type="text" class="form-control" name="companyRegistrationNumber" #companyRegistrationNumber='ngModel' placeholder="Required" [ngClass]="{ 'is-invalid': companyRegistrationNumber.invalid && (companyRegistrationNumber.dirty || companyRegistrationNumber.touched) }" required [(ngModel)]="organizationDetails.companyRegistrationNumber"/>
+        <div *ngIf="companyRegistrationNumber.invalid && (companyRegistrationNumber.dirty || companyRegistrationNumber.touched)" class="alert alert-danger">
+            <div *ngIf="companyRegistrationNumber.errors.required">Company Registration Number is required.</div>
+        </div>
       </div>
     </div>
   </fieldset>
-  <fieldset *ngIf="organizationDetails">
+  <fieldset>
     <legend>Procurements service contact</legend>
     <div class="form-row form-group">
       <div class="col-md">
-        <label for="phone">Phone</label>
+        <label for="phoneNumber">Phone</label>
         <input
-          placeholder="Enter phone"
+          placeholder="Required"
+          [ngClass]="{ 'is-invalid': phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched) }"
           type="text"
           class="form-control"
-          id="phone"
+          name="phoneNumber"
+          #phoneNumber='ngModel'
+          pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$"
           [(ngModel)]="organizationDetails.phoneNumber"
+          required
         />
+        <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)" class="alert alert-danger">
+            <div *ngIf="phoneNumber.errors.required">Phone is required</div>
+            <div *ngIf="phoneNumber.errors.pattern">Phone is invalid</div>
+          </div>
       </div>
       <div class="col-md">
         <label for="email">Email</label>
         <input
-          placeholder="Enter email"
+          placeholder="Required"
           type="text"
           class="form-control"
-          id="email"
+          name="email"
+          #email='ngModel'
           [(ngModel)]="organizationDetails.email"
+          [ngClass]="{ 'is-invalid': email.invalid && (email.dirty || email.touched) }"
+          required
+          email
         />
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+            <div *ngIf="email.errors.required">Email is required.</div>
+            <div *ngIf="email.errors.email">Email must be a valid email address</div>
+        </div>
       </div>
       <div class="col-md">
-        <label for="person">Contact Person</label>
+        <label for="contactPerson">Contact Person</label>
         <input
-          placeholder="Enter name"
+          placeholder="Required"
           type="text"
           class="form-control"
-          id="person"
+          name="contactPerson"
           [(ngModel)]="organizationDetails.contactPerson"
+          required
+          #contactPerson='ngModel'
+          [ngClass]="{ 'is-invalid': contactPerson.invalid && (contactPerson.dirty || contactPerson.touched) }"
         />
+        <div *ngIf="contactPerson.invalid && (contactPerson.dirty || contactPerson.touched)" class="alert alert-danger">
+            <div *ngIf="contactPerson.errors.required">Contact Person is required.</div>
+        </div>
       </div>
     </div>
   </fieldset>
-  <fieldset *ngIf="organizationDetails">
+  <fieldset>
     <legend>Billing address</legend>
     <div class="form-row form-group">
       <div class="col-md-6">
         <div class="form-row">
           <div class="col-md">
-            <label for="billing-country">Country</label>
+            <label for="billingCountry">Country</label>
             <input
-              placeholder="Enter country"
+              placeholder="Required"
               type="text"
               class="form-control"
-              id="billing-country"
+              name="billingCountry"
               [(ngModel)]="organizationDetails.billingAddress.countryName"
+              required
+              #billingCountry='ngModel'
+              [ngClass]="{ 'is-invalid': billingCountry.invalid && (billingCountry.dirty || billingCountry.touched) }"
             />
+            <div *ngIf="billingCountry.invalid && (billingCountry.dirty || billingCountry.touched)" class="alert alert-danger">
+                <div *ngIf="billingCountry.errors.required">Country is required.</div>
+            </div>
           </div>
           <div class="col-md">
-            <label for="billing-city">City</label>
+            <label for="billingCity">City</label>
             <input
-              placeholder="Enter city"
+              placeholder="Required"
               type="text"
               class="form-control"
-              id="billing-city"
+              name="billingCity"
+              #billingCity='ngModel'
+              required
               [(ngModel)]="organizationDetails.billingAddress.city"
+              [ngClass]="{ 'is-invalid': billingCity.invalid && (billingCity.dirty || billingCity.touched) }"
             />
+            <div *ngIf="billingCity.invalid && (billingCity.dirty || billingCity.touched)" class="alert alert-danger">
+                <div *ngIf="billingCity.errors.required">City is required.</div>
+            </div>
           </div>
           <div class="col-md-auto">
-            <label for="billing-code">Postal Code</label>
+            <label for="billingCode">Postal Code</label>
             <input
-              placeholder="Code..."
+              placeholder="Required"
               type="text"
               class="form-control form-control--code"
-              id="billing-code"
+              name="billingCode"
+              required
+              #billingCode='ngModel'
+              [ngClass]="{ 'is-invalid': billingCode.invalid && (billingCode.dirty || billingCode.touched) }"
               [(ngModel)]="organizationDetails.billingAddress.postalCode"
             />
+            <div *ngIf="billingCode.invalid && (billingCode.dirty || billingCode.touched)" class="alert alert-danger">
+                <div *ngIf="billingCode.errors.required">Postal Code is required.</div>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-row">
           <div class="col-md">
-            <label for="billing-address">Address 1</label>
+            <label for="billingAddress">Address 1</label>
             <input
-              placeholder="Enter name"
+              placeholder="Required"
               type="text"
               class="form-control"
-              id="billing-address"
+              name="billingAddress"
               [(ngModel)]="organizationDetails.billingAddress.line1"
+              required
+              #billingAddress='ngModel'
+              [ngClass]="{ 'is-invalid': billingAddress.invalid && (billingAddress.dirty || billingAddress.touched) }"
             />
+            <div *ngIf="billingAddress.invalid && (billingAddress.dirty || billingAddress.touched)" class="alert alert-danger">
+                <div *ngIf="billingAddress.errors.required">Address is required.</div>
+            </div>
           </div>
           <div class="col-md">
-            <label for="billing-address-2">Address 2</label>
+            <label for="billingAddress2">Address 2</label>
             <input
-              placeholder="Enter name"
               type="text"
               class="form-control"
-              id="billing-address-2"
+              name="billingAddress2"
+              #billingAddress2='ngModel'
               [(ngModel)]="organizationDetails.billingAddress.line2"
             />
           </div>
@@ -114,62 +170,86 @@
       </div>
     </div>
   </fieldset>
-  <fieldset *ngIf="organizationDetails">
+  <fieldset>
     <legend>Shipping address</legend>
     <div class="form-row form-group">
       <div class="col-md-6">
         <div class="form-row">
           <div class="col-md">
-            <label for="shipping-country">Country</label>
+            <label for="shippingCountry">Country</label>
             <input
-              placeholder="Enter country"
+              placeholder="Required"
               type="text"
               class="form-control"
-              id="shipping-country"
+              name="shippingCountry"
+              #shippingCountry='ngModel'
+              required
+              [ngClass]="{ 'is-invalid': shippingCountry.invalid && (shippingCountry.dirty || shippingCountry.touched) }"
               [(ngModel)]="organizationDetails.shippingAddress.countryName"
             />
+            <div *ngIf="shippingCountry.invalid && (shippingCountry.dirty || shippingCountry.touched)" class="alert alert-danger">
+                <div *ngIf="shippingCountry.errors.required">Country is required.</div>
+            </div>
           </div>
           <div class="col-md">
-            <label for="shipping-city">City</label>
+            <label for="shippingCity">City</label>
             <input
-              placeholder="Enter city"
+              placeholder="Required"
               type="text"
               class="form-control"
-              id="shipping-city"
+              name="shippingCity"
+              #shippingCity='ngModel'
+              required
+              [ngClass]="{ 'is-invalid': shippingCity.invalid && (shippingCity.dirty || shippingCity.touched) }"
               [(ngModel)]="organizationDetails.shippingAddress.city"
             />
+            <div *ngIf="shippingCity.invalid && (shippingCity.dirty || shippingCity.touched)" class="alert alert-danger">
+                <div *ngIf="shippingCity.errors.required">City is required.</div>
+            </div>
           </div>
           <div class="col-md-auto">
-            <label for="shipping-code">Postal Code</label>
+            <label for="shippingCode">Postal Code</label>
             <input
-              placeholder="Code..."
+              placeholder="Required"
               type="text"
               class="form-control form-control--code"
-              id="shipping-code"
+              name="shippingCode"
+              required
+              #shippingCode='ngModel'
+              [ngClass]="{ 'is-invalid': shippingCode.invalid && (shippingCode.dirty || shippingCode.touched) }"
               [(ngModel)]="organizationDetails.shippingAddress.postalCode"
             />
+            <div *ngIf="shippingCode.invalid && (shippingCode.dirty || shippingCode.touched)" class="alert alert-danger">
+                <div *ngIf="shippingCode.errors.required">Postal Code is required.</div>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-row">
           <div class="col-md">
-            <label for="shipping-address">Address 1</label>
+            <label for="shippingAddress">Address 1</label>
             <input
-              placeholder="Enter name"
+              placeholder="Required"
               type="text"
               class="form-control"
-              id="shipping-address"
+              name="shippingAddress"
+              required
+              #shippingAddress='ngModel'
+              [ngClass]="{ 'is-invalid': shippingAddress.invalid && (shippingAddress.dirty || shippingAddress.touched) }"
               [(ngModel)]="organizationDetails.shippingAddress.line1"
             />
+            <div *ngIf="shippingAddress.invalid && (shippingAddress.dirty || shippingAddress.touched)" class="alert alert-danger">
+                <div *ngIf="shippingAddress.errors.required">Address is required.</div>
+            </div>
           </div>
           <div class="col-md">
-            <label for="shipping-address-2">Address 2</label>
+            <label for="shippingAddress2">Address 2</label>
             <input
-              placeholder="Enter name"
               type="text"
               class="form-control"
-              id="shipping-address-2"
+              name="shippingAddress2"
+              #shippingAddress2='ngModel'
               [(ngModel)]="organizationDetails.shippingAddress.line2"
             />
           </div>
@@ -177,12 +257,6 @@
       </div>
     </div>
   </fieldset>
-  <!-- <fieldset *ngIf="organizationDetails">
-    <legend>Return Invalid orders to creator</legend>
-    <div class="btn-group btn-group--uppercase">
-      <a class="btn btn--outline" [ngClass]="{'btn--active': organizationDetails.returnInvalidOrdersToCreator}" (click)="setOrdersProperty(true)">Yes</a>
-      <a class="btn btn--outline" [ngClass]="{'btn--active': !organizationDetails.returnInvalidOrdersToCreator}" (click)="setOrdersProperty(false)">No</a>
-    </div>
-  </fieldset> -->
-  <a class="btn btn--green mt-3" (click)="updateCompany()">Update Company</a>
+  <button class="btn btn--green mt-3" type="submit" [disabled]="companyForm.invalid">Update Company</button>
+</form>
 </div>
