@@ -34,9 +34,16 @@ export class UserService {
   }
 
   updatePhoneNumber(phoneNumber: EditUserPhone): Observable<any> {
-    return this.http
+    if (phoneNumber.phoneNumber !== '') {
+      return this.http
       .updateCurrentUserPhoneNumber(phoneNumber)
       .pipe(catchError(error => this.handleError(error)));
+    } else {
+      return this.http
+      .removeCurrentUserPhoneNumber()
+      .pipe(catchError(error => this.handleError(error)));
+    }
+
   }
 
   changeUserPassword(password: EditUserPassword): Observable<any> {

@@ -115,6 +115,13 @@ export class HttpService {
       .post(url, phoneNumber);
   }
 
+  removeCurrentUserPhoneNumber(): Observable<any> {
+    let url = 'storefrontapi/account/phonenumber';
+    url = this.prepareUrl(url);
+    return this.http
+      .delete(url);
+  }
+
   changeCurrentUserPassword(password: EditUserPassword): Observable<any> {
     let url = 'storefrontapi/account/password';
     url = this.prepareUrl(url);
