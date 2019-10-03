@@ -9,32 +9,35 @@
       <div class="col-md-auto page__sort-date">
         From
         <input class="form-control" placeholder="yyyy-mm-dd" name="dp1" ngbDatepicker #d1="ngbDatepicker"
-          [(ngModel)]="startDate" (ngModelChange)="this.dateChanging.next($event)" [ngClass]="{'red-border-class': this.startDate > this.endDate}" />
+          [(ngModel)]="startDate" (ngModelChange)="this.dateChanging.next($event)" (click)="d1.toggle()" [ngClass]="{'red-border-class': this.startDate > this.endDate}" />
         To
         <input class="form-control" placeholder="yyyy-mm-dd" name="dp2" ngbDatepicker #d2="ngbDatepicker"
-          [(ngModel)]="endDate" (ngModelChange)="this.dateChanging.next($event)" [ngClass]="{'red-border-class': this.startDate > this.endDate}" />
+          [(ngModel)]="endDate" (ngModelChange)="this.dateChanging.next($event)" (click)="d2.toggle()" [ngClass]="{'red-border-class': this.startDate > this.endDate}" />
       </div>
 
       <div class="col-md-auto page__sort-filter" *ngIf="!isForApproval">
-        Statuses
-        <div ngbDropdown autoClose="outside" >
+        Filter by status
+        <div ngbDropdown autoClose="outside">
           <div id="statusFilterDropdown" ngbDropdownToggle>
             {{ getFilterTitle() }}
           </div>
           <div ngbDropdownMenu aria-labelledby="statusFilterDropdown" class="dropdown-menu--down" >
-              <div ngbDropdownItem *ngFor="let status of getStatusFilters()"
-                (click)="changeActiveStatus(dropdown, status.name)">
-                <div class="col" style="max-width: 20px">
-                  <input ngbDropdownItem type="checkbox" type="checkbox" [checked]="status.checked" #dropdown class="mr-3">
+
+              <div ngbDropdownItem *ngFor="let status of getStatusFilters()" (click)="changeActiveStatus(dropdown, status.name)">
+                <div class="col-2">
+                  <input  type="checkbox" type="checkbox" [checked]="status.checked" #dropdown>
                 </div>
-                <div class="col">
+                <div class="col-10">
                   {{ status.name }}
                 </div>
-              </div>
+            </div>
+
+
           </div>
         </div>
       </div>
     </div>
+
     <ng-container *ngIf="ordersLoaded$ | async">
       <ng-container *ngIf="pagination.collectionSize; else elseTemplate">
         <div class="table-responsive">
@@ -52,7 +55,7 @@
               <tr>
                 <th>Order ID</th>
                 <th>Status</th>
-                <th>Creation date</th>
+                <th>Date</th>
                 <th># Items</th>
                 <th>Created by</th>
                 <th>Assigned to</th>
