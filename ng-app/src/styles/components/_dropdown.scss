@@ -43,7 +43,7 @@
       justify-content: center;
       background-color: $white;
       width: 100%;
-
+      &.active,
       &:hover {
         background: $blue;
         border-color: $blue;
@@ -76,10 +76,6 @@
       transform: none !important;
     }
 
-    &.show {
-      display: block !important;
-     }
-
   }
 
   &.show {
@@ -94,6 +90,14 @@
   }
 }
 
+
+.dropdown-menu
+{
+    &.show
+    {
+        display: block;
+    }
+}
 
 // .dropdown {
 //   position: relative;

@@ -6,8 +6,11 @@
 
 // Components
 @import "components/_accordion";
+@import "components/_alerts";
+@import "components/autocompleate";
 @import "components/_breadcrumb";
 @import "components/_buttons";
+@import "components/_datepicker";
 @import "components/_dropdown";
 @import "components/_forms";
 @import "components/_navbar";
@@ -15,6 +18,6 @@
 @import "components/_pagination";
 @import "components/_tabs";
 @import "components/_table";
-@import "components/_alerts";
+
 // Extensions
 @import "components/_forms_extension";

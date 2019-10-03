@@ -10,12 +10,6 @@
 		{
 			align-items: center;
 			display: flex;
-
-			.dropdown,
-			.form-control
-			{
-        margin: 0 .9375rem;
-			}
 		}
 
 		&-date
@@ -23,11 +17,6 @@
 			.form-control
 			{
 				width: 8rem;
-
-				&:last-child
-				{
-					margin-right: 0;
-				}
 			}
 		}
 
@@ -36,8 +25,28 @@
 			.dropdown
 			{
 				margin-right: 0;
-				width: 9.2rem;
+				width: 12.5rem;
 			}
+		}
+
+		&-col
+		{
+			align-items: center;
+			display: flex;
+			flex: 1 0 0;
+
+			&:first-child
+			{
+				.page__sort-name
+				{
+					margin-left: 0;
+				}
+			}
+		}
+
+		&-name
+		{
+			margin: 0 .625rem;
 		}
 
 		@include media-breakpoint-down(md) {
@@ -45,7 +54,7 @@
 			{
 				.dropdown
 				{
-          width: 9.2rem;
+					width: 9rem;
 				}
 			}
 		}
@@ -54,44 +63,72 @@
 			&-date,
 			&-filter
 			{
-				height: 3.75rem;
-
-				.form-control,
-				.dropdown
-				{
-					margin: 0 .625rem;
-					width: calc(50% - 2.5rem);
-				}
+				padding-bottom: .625rem;
+				padding-top: .625rem;
 			}
 
 			&-date
 			{
-				.form-control:last-child
+				border-bottom: 1px solid $gray-200;
+				border-top: 1px solid $gray-200;
+
+				.page__sort-col
 				{
-					margin-right: 0;
+					&:first-child
+					{
+						margin-right: .5rem;
+					}
+
+					&:last-child
+					{
+						margin-left: .5rem;
+					}
 				}
 			}
 
 			&-filter
 			{
-				.dropdown
+				border-bottom: 1px solid $gray-200;
+			}
+
+			&-col
+			{
+				flex-wrap: wrap;
+
+				.dropdown,
+				.form-control
 				{
-					margin-right: 0;
-					width: calc(100% - 4.15rem);
+					width: 100%;
 				}
+			}
+
+			&-name
+			{
+				margin: 0 0 .625rem;
 			}
 		}
 
 		@include media-breakpoint-down(xs) {
 			&-date
 			{
-				border-bottom: 1px solid $gray-200;
-				border-top: 1px solid $gray-200;
-			}
+				align-items: flex-start;
+				flex-direction: column;
 
-			&-filter
-			{
-				border-bottom: 1px solid $gray-200;
+				.page__sort-col
+				{
+					width: 100%;
+					
+					&:first-child
+					{
+						margin-right: 0;
+					}
+
+					&:last-child
+					{
+						margin-left: 0;
+						margin-top: .625rem;
+					}
+				}
 			}
 		}
 	}

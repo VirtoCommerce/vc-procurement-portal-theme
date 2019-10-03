@@ -1,0 +1,44 @@
+.ngb-dp-header {
+  padding-bottom: .25rem;
+}
+
+.ngb-dp-header,
+.ngb-dp-weekdays {
+  background-color: #eee !important;
+}
+
+.ngb-dp-arrow {
+  height: auto !important;
+}
+
+.ngb-dp-navigation-select>.custom-select {
+  margin: 0 .25rem;
+}
+
+.ngb-dp-month {
+  width: 100%;
+}
+
+.ngb-dp-day, .ngb-dp-week-number, .ngb-dp-weekday {
+  flex-grow: 1;
+  text-align: center;
+  height: auto !important;
+  padding: .25rem;
+}
+
+.ngb-dp-week {
+  background-color: #f9f9f9;
+}
+
+.ngb-dp-weekday {
+  font-weight: bold;
+}
+
+ngb-datepicker.dropdown-menu {
+  min-width: 20rem;
+  right: auto;
+
+  @media (max-width: 26.25rem){
+    width: 100%;
+  }
+}

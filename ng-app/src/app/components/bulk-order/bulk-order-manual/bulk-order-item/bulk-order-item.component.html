@@ -6,10 +6,12 @@
               formControlName="sku" placeholder="SKU">
           </div>
           <div class="col-md-6">
-              <input type="text" class="form-control"
-              formControlName="productName"  [ngbTypeahead]="searchProductsSuggestionsByName"
-              [resultFormatter]="suggestedProductsFormatter"
-              (selectItem)="suggestedProductSelected($event)" placeholder="Product name">
+              <div class="dropdown">
+                <input type="text" class="form-control"
+                formControlName="productName"  [ngbTypeahead]="searchProductsSuggestionsByName"
+                [resultFormatter]="suggestedProductsFormatter"
+                (selectItem)="suggestedProductSelected($event)" placeholder="Product name">
+              </div>
           </div>
       </div>
   </div>
