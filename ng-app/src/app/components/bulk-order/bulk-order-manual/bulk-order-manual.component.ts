@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl, ValidatorFn } from '@angular/forms';
 import { Subject, Observable, of, forkJoin } from 'rxjs';
-import { takeUntil, debounceTime, distinctUntilChanged, switchMap, map, catchError } from 'rxjs/operators';
+import { takeUntil, debounceTime, distinctUntilChanged, switchMap, map, catchError, finalize } from 'rxjs/operators';
 import { CatalogService } from '@api/catalog.service';
 import { IProduct } from '@models/dto/product';
 import { ActiveOrderService } from '@api/active-order.service';
 import { AlertsService } from '@modules/alerts/alerts.service';
+import { FullScreenSpinnerService } from '@services/full-screen-spinner.service';
 
 @Component({
   selector: 'app-bulk-order-manual',
@@ -29,7 +30,8 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private catalogService: CatalogService,
     private activeOrderService: ActiveOrderService,
-    private alertsService: AlertsService
+    private alertsService: AlertsService,
+    private fullScreenSpinner: FullScreenSpinnerService
   ) {
     // this.items.errors.itemsEmpty
     const itemsForms: FormGroup[] = [];
@@ -113,11 +115,13 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
 }
 
   private getProduct(sku: string): Observable<IProduct> {
+    this.fullScreenSpinner.suspend();
     return !sku ? of(null) : this.catalogService.getProductBySku(sku)
       .pipe(catchError(() => {
         console.log('Finding product by sku is failed');
         return of(null);
-      }));
+      }),
+      finalize(() => this.fullScreenSpinner.proceed()));
   }
 
 
