@@ -67,12 +67,13 @@ export class OrderDetailsComponent implements OnInit {
       .classList.toggle('accordion__item--active');
   }
 
-  addProductToCart() {
-    forkJoin(
-      this.items.map(item =>
-        this.activeOrderService.addItem(item.productId, item.quantity)
-      )
-    ).subscribe(() =>
+  addProductsToCart() {
+    const items = this.items.map(item =>
+      ({ productId:  item.productId, productQuantity: item.quantity })
+    );
+
+    this.activeOrderService.addItems(items)
+    .subscribe(() =>
       this.alertsService.success(
         `Products have been successfully added to the cart`
       )

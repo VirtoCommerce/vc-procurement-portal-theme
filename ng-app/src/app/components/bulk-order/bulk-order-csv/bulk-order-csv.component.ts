@@ -169,8 +169,8 @@ export class BulkOrderCsvComponent implements OnInit {
     if (!this.itemsIsValid) {
        return;
     }
-    const addToCartRequests = this.validationResult.map(x => this.activeOrderService.addItem(x.bulkOrderItem.productId, x.bulkOrderItem.quantity));
-    forkJoin(addToCartRequests)
+    const addToCartItems = this.validationResult.map(x => ({ productId: x.bulkOrderItem.productId, productQuantity: x.bulkOrderItem.quantity }) );
+    this.activeOrderService.addItems(addToCartItems)
     .subscribe(x => {
       this.itemsIsValid = false;
       this.alertsService.success(`${this.validationResult.length} items successfully added to the active order.`);
