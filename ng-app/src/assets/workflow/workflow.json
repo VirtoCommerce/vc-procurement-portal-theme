@@ -33,8 +33,8 @@
             "Name": "1st approved",
             "PermittedTransitions": [
               {
-                "ToState": "Approved",
-                "Trigger": "Approve",
+                "ToState": "Completed",
+                "Trigger": "Approve checkout",
                 "Roles": [
                   "End Approver"
                 ]
@@ -49,7 +49,7 @@
             ]
           },
           {
-            "Name": "Approved",
+            "Name": "Completed",
             "IsFinal": true,
             "IsSuccessful": true
           },
@@ -80,24 +80,23 @@
           "IsInitial": true,
           "PermittedTransitions": [
             {
-              "ToState": "Approved",
-              "Trigger": "Approve",
+              "ToState": "Completed",
+              "Trigger": "Approve checkout",
               "Roles": [
-                "First Approver"
+                "End Approver"
               ]
             },
             {
               "ToState": "Rejected",
               "Trigger": "Reject",
               "Roles": [
-                "First Approver",
                 "End Approver"
               ]
             }
           ]
         },
         {
-          "Name": "Approved",
+          "Name": "Completed",
           "IsFinal": true,
           "IsSuccessful": true
         },
@@ -148,13 +147,14 @@
               "ToState": "2nd approved",
               "Trigger": "2nd Approve",
               "Roles": [
-                "End Approver"
+                "Second Approver"
               ]
             },
             {
               "ToState": "Rejected",
               "Trigger": "Reject",
               "Roles": [
+                "Second Approver",
                 "End Approver"
               ]
             }
@@ -164,8 +164,8 @@
           "Name": "2nd approved",
           "PermittedTransitions": [
             {
-              "ToState": "Approved",
-              "Trigger": "Approve",
+              "ToState": "Completed",
+              "Trigger": "Approve checkout",
               "Roles": [
                 "End Approver"
               ]
@@ -180,7 +180,7 @@
           ]
         },
         {
-          "Name": "Approved",
+          "Name": "Completed",
           "IsFinal": true,
           "IsSuccessful": true
         },

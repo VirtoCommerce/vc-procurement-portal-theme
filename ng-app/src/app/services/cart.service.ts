@@ -7,6 +7,8 @@ import { Subject } from 'rxjs';
 import { ILineItem, ICart } from '@models/dto/icart';
 import { shareReplay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CheckoutModalComponent } from '@components/active-order/checkout-modal/checkout-modal.component';
+import { WorkflowStorageService } from './workflow-storage.service';
+import { OrdersService } from '@api/orders.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,9 @@ export class CartService {
   constructor(private readonly activeOrderService: ActiveOrderService,
               private confirmService: ConfirmService,
               private alertsService: AlertsService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private workflowService: WorkflowStorageService,
+              private orderService: OrdersService) {
 
     this.productQuantityChanging$.pipe(
       shareReplay(),
@@ -118,7 +122,13 @@ export class CartService {
     });
     modalRef.componentInstance.cart = this.cart;
     await modalRef.result.then(() => {
-      this.activeOrderService.createOrder().subscribe(() => this.alertsService.success(`Order is created successfully!`));
+      this.activeOrderService.createOrder().subscribe(async (orderInfo) => {
+        const activeWorkflow = this.workflowService.getActiveWorkflow();
+        if (activeWorkflow.IsSystem) {
+          await this.orderService.changeOrderStatus(orderInfo.order.number, 'Completed');
+        }
+        this.alertsService.success(`Order is created successfully!`);
+      });
     }, () => { });
   }
 
