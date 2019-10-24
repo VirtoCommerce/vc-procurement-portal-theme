@@ -10,7 +10,7 @@ export class ChangeProductQuantityComponent implements OnInit {
   @Input() isProductPage = false;
   @Input() productId: string;
   @Input() inStock: number;
-  public quantity = 0;
+  quantity = 0;
 
   constructor(private cartService: CartService) {
   }
@@ -18,15 +18,29 @@ export class ChangeProductQuantityComponent implements OnInit {
   ngOnInit() {
   }
 
-  public addProductToCart() {
+  addProductToCart() {
     this.cartService.addProductToCart(this.productId);
   }
 
-  public async changeQuantity(value: number, byStep: boolean) {
-    await this.cartService.changeQuantity(this.productId, value, byStep, this.inStock);
+  async textChanged(textValue: string) {
+    const value = parseInt(textValue, 10);
+    if (!isNaN(value)) {
+      await this.cartService.changeQuantity(this.productId, value, false, this.inStock);
+    }
   }
 
-  public isInCart() {
+  async increment() {
+    await this.cartService.changeQuantity(this.productId, 1, true, this.inStock);
+  }
+  async decrement() {
+    await this.cartService.changeQuantity(this.productId, -1, true, this.inStock);
+  }
+
+  // private async changeQuantity(value: number, byStep: boolean) {
+  //     await this.cartService.changeQuantity(this.productId, value, byStep, this.inStock);
+  // }
+
+  isInCart() {
     const isInCart = this.cartService.isInCart(this.productId);
     if (isInCart) {
       this.initQuantity();
@@ -35,12 +49,12 @@ export class ChangeProductQuantityComponent implements OnInit {
     return isInCart;
   }
 
-  public isMoreThanInStock(): boolean {
+  isMoreThanInStock(): boolean {
     return this.cartService.isMoreThanInStock(this.quantity, this.inStock);
   }
 
   private initQuantity() {
-    this.quantity = this.cartService.inCartQuantity(this.productId);
+    this.quantity = this.cartService.getCartProductQuantity(this.productId);
   }
 
 }

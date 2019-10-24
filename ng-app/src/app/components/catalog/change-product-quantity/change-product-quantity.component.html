@@ -6,16 +6,16 @@
 </div>
 
 <ng-template #quantityChanger>
-  <a class="btn" (click)="changeQuantity(-1, true)"
+  <a class="btn" (click)="decrement()"
     [ngClass]="{'btn--green': !isProductPage,'btn--white': isProductPage}">
     <span class="btn__ico btn__ico--minus-white"
       [ngClass]="{'btn__ico--minus-white': !isProductPage,'btn__ico--minus': isProductPage}"></span>
   </a>
 
   <input type="text" [OnlyNumber]="true" class="input-group__input" [value]="quantity"
-    [ngClass]="{'invalid': isMoreThanInStock()}" (keyup)="changeQuantity($event.target.value, false)">
+    [ngClass]="{'invalid': isMoreThanInStock()}" (keyup)="textChanged($event.target.value)">
 
-  <a class="btn" (click)="changeQuantity(1, true)"
+  <a class="btn" (click)="increment()"
     [ngClass]="{'btn--green': !isProductPage,'btn--white': isProductPage}">
     <span class="btn__ico btn__ico--plus-white"
       [ngClass]="{'btn__ico--plus-white': !isProductPage,'btn__ico--plus': isProductPage}"></span>

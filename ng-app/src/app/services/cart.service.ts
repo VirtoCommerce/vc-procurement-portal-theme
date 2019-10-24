@@ -38,83 +38,77 @@ export class CartService {
     });
   }
 
-  public isInCart(productId: string): boolean {
+  isInCart(productId: string): boolean {
     if (this.cart == null) {
       return false;
     }
 
-    const product = this.findProductInCart(this.cart, productId);
-    return product != null ? true : false;
+    const item = this.findItemInCart(this.cart, productId);
+    return item != null ? true : false;
   }
 
-  public inCartQuantity(productId?: string): number {
-    if (productId != null) {
-      if (this.isInCart(productId)) {
-        return this.findProductInCart(this.cart, productId).quantity;
-      }
+  getCartProductQuantity(productId?: string): number {
+    const item = this.findItemInCart(this.cart, productId);
+    if (item != null) {
+        return item.quantity;
     } else {
-      return this.cart.itemsCount;
+      return 0;
     }
-
-    return 0;
   }
 
-  public addProductToCart(productId: string) {
+  addProductToCart(productId: string) {
     if (!this.isInCart(productId) && !this._blockAddingToCart) {
       this._blockAddingToCart = true;
       this.activeOrderService.addItem(productId).subscribe(() => this._blockAddingToCart = false);
     }
   }
 
-  public isMoreThanInStock(newQuantity: number, inStock: number) {
+  isMoreThanInStock(newQuantity: number, inStock: number) {
     return newQuantity > inStock;
   }
 
-  public async changeQuantity(productId: string,
-                              value: number,
-                              byStep: boolean,
-                              inStock: number) {
-    const product = this.findProductInCart(this.cart, productId);
-    if (this.isInCart(productId)) {
+  async changeQuantity(productId: string, value: number, byStep: boolean, inStock: number) {
+    const lineItem = this.findItemInCart(this.cart, productId);
+    if (!!lineItem) {
       if (byStep) {
-        product.quantity += value;
+        lineItem.quantity += value;
       } else {
-        product.quantity = +value;
+        lineItem.quantity = value;
       }
     }
 
-    if (product.quantity < 1) {
+    if (lineItem.quantity < 1) {
       // by default = 1
-      product.quantity = 1;
+      lineItem.quantity = 1;
       const dialogResult = await this.showRemoveConfirmation();
       if (dialogResult === true) {
-        this.activeOrderService.removeItem(product.id).subscribe();
+        this.activeOrderService.removeItem(lineItem.id).subscribe();
         return;
       }
     }
 
-    if (this.isMoreThanInStock(product.quantity, inStock)) {
-      this.alertsService.warn(`\"${product.name}\" is not in stock in the requested quantity ${product.quantity}. Available: ${inStock}`);
+    if (this.isMoreThanInStock(lineItem.quantity, inStock)) {
+      this.alertsService.warn(`\"${lineItem.name}\" is not in stock in the requested quantity ${lineItem.quantity}. Available: ${inStock}`);
       this.cart.isValid = false;
     } else {
       this.cart.isValid = true;
-      this.productQuantityChanging$.next(product);
+      this.productQuantityChanging$.next(lineItem);
     }
   }
 
-  public async remove(lineItemId: string) {
+  async remove(lineItemId: string) {
     if (await this.showRemoveConfirmation()) {
       this.activeOrderService.removeItem(lineItemId).subscribe();
     }
   }
 
-  public async removeAll() {
+  async removeAll() {
     if (await this.showRemoveAllConfirmation()) {
       this.activeOrderService.clearAllItems().subscribe();
     }
   }
 
-  public async checkout() {
+  async checkout() {
     const modalRef = this.modalService.open(CheckoutModalComponent, {
       centered: true,
       backdrop: 'static',
@@ -152,7 +146,7 @@ export class CartService {
     return this.confirmService.confirm(confirmOptions).then(() => true, () => false);
   }
 
-  private findProductInCart(cart: ICart, productId: string): ILineItem {
+  private findItemInCart(cart: ICart, productId: string): ILineItem {
     return cart.items.find(x => x.productId === productId);
   }
 }
