@@ -11,6 +11,7 @@ import { Observable, Subscriber } from 'rxjs';
 import { Router, Params } from '@angular/router';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { AlertsService } from '@modules/alerts/alerts.service';
+import { ExtendedUser } from '@models/dto/iuser';
 
 @Component({
   selector: 'app-approval-workflow',
@@ -29,7 +30,7 @@ export class ApprovalWorkflowComponent implements OnInit {
               private alertService: AlertsService,
               private router: Router) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.initWorkflow();
   }
 
@@ -105,7 +106,8 @@ export class ApprovalWorkflowComponent implements OnInit {
     let ordersCount = 0;
     const states = this.getNotCompletedOrderStates();
     if (states.length > 0) {
-      const orders = await this.ordersService.getOrders(null, null, null, null, null, states).toPromise();
+      const currentUser = await this.authService.getCurrentUser();
+      const orders = await this.ordersService.getOrders(null, null, null, null, currentUser.storeId, null, states).toPromise();
       ordersCount = orders.totalCount;
     } else {
       ordersCount = 0;
