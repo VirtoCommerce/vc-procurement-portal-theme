@@ -124,7 +124,7 @@ export class CartService {
     await modalRef.result.then(() => {
       this.activeOrderService.createOrder().subscribe(async (orderInfo) => {
         const activeWorkflow = this.workflowService.getActiveWorkflow();
-        if (!activeWorkflow) {
+        if (activeWorkflow.IsSystem) {
           await this.orderService.changeOrderStatus(orderInfo.order.number, 'Completed');
         }
         this.alertsService.success(`Order is created successfully!`);
