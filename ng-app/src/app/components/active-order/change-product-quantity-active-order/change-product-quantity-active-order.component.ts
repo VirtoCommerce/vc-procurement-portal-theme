@@ -21,12 +21,12 @@ export class ChangeProductQuantityActiveOrderComponent implements OnInit {
   ngOnInit() {
   }
 
-  removeItem(item: ILineItem) {
-    if (this.activeOrderMobileSidebar) {
-      this.mobileSidebarService.closeSidebar(this.activeOrderMobileSidebar);
-    }
-    this.cartService.remove(item.id);
-  }
+  // removeItem(item: ILineItem) {
+  //   if (this.activeOrderMobileSidebar) {
+  //     this.mobileSidebarService.closeSidebar(this.activeOrderMobileSidebar);
+  //   }
+  //   this.cartService.remove(item.id);
+  // }
 
 
   async textChanged(textValue: string) {

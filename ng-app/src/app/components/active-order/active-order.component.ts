@@ -18,7 +18,7 @@ export class ActiveOrderComponent implements OnInit {
   }
 
   public removeItem(item: ILineItem) {
-    this.cartService.remove(item.id);
+    this.cartService.remove(item);
   }
 
   public removeAll() {

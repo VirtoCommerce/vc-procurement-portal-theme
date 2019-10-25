@@ -5,10 +5,11 @@ import { AlertsService } from '@modules/alerts/alerts.service';
 import { ConfirmService } from '@modules/confirm-modal/confirm-modal-service';
 import { Subject } from 'rxjs';
 import { ILineItem, ICart } from '@models/dto/icart';
-import { shareReplay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { shareReplay, debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { CheckoutModalComponent } from '@components/active-order/checkout-modal/checkout-modal.component';
 import { WorkflowStorageService } from './workflow-storage.service';
 import { OrdersService } from '@api/orders.service';
+import { BlockUIService } from 'ng-block-ui';
 
 @Injectable({
   providedIn: 'root'
@@ -23,14 +24,20 @@ export class CartService {
               private alertsService: AlertsService,
               private modalService: NgbModal,
               private workflowService: WorkflowStorageService,
-              private orderService: OrdersService) {
+              private orderService: OrdersService,
+              private blockUiService: BlockUIService) {
 
     this.productQuantityChanging$.pipe(
       shareReplay(),
       debounceTime(300),
       distinctUntilChanged())
-      .subscribe(async (product: ILineItem) => {
-        this.activeOrderService.changeItemQuantity(product.id, product.quantity).subscribe();
+      .subscribe(async (lineItem: ILineItem) => {
+        this.blockUiService.start('cart-spinner');
+        this.blockUiService.start(`product-spinner-${lineItem.productId}`);
+        this.activeOrderService.changeItemQuantity(lineItem.id, lineItem.quantity).pipe(finalize(() =>{
+          this.blockUiService.stop('cart-spinner');
+          this.blockUiService.stop(`product-spinner-${lineItem.productId}`);
+        })).subscribe();
       });
 
     this.activeOrderService.Cart.subscribe((cart: ICart) => {
@@ -59,7 +66,12 @@ export class CartService {
   addProductToCart(productId: string) {
     if (!this.isInCart(productId) && !this._blockAddingToCart) {
       this._blockAddingToCart = true;
-      this.activeOrderService.addItem(productId).subscribe(() => this._blockAddingToCart = false);
+      this.blockUiService.start('cart-spinner');
+      this.blockUiService.start(`product-spinner-${productId}`);
+      this.activeOrderService.addItem(productId).pipe(finalize(() => {
+        this.blockUiService.stop('cart-spinner');
+        this.blockUiService.stop(`product-spinner-${productId}`);
+      })).subscribe(() => this._blockAddingToCart = false );
     }
   }
 
@@ -69,12 +81,14 @@ export class CartService {
 
   async changeQuantity(productId: string, value: number, byStep: boolean, inStock: number) {
     const lineItem = this.findItemInCart(this.cart, productId);
-    if (!!lineItem) {
-      if (byStep) {
-        lineItem.quantity += value;
-      } else {
-        lineItem.quantity = value;
-      }
+    if (!lineItem) {
+      return;
+    }
+    const origValue = lineItem.quantity;
+    if (byStep) {
+      lineItem.quantity += value;
+    } else {
+      lineItem.quantity = value;
     }
 
     if (lineItem.quantity < 1) {
@@ -82,9 +96,13 @@ export class CartService {
       lineItem.quantity = 1;
       const dialogResult = await this.showRemoveConfirmation();
       if (dialogResult === true) {
-        this.activeOrderService.removeItem(lineItem.id).subscribe();
+        await this.removeItem(lineItem);
         return;
       }
+    }
+
+    if (origValue === lineItem.quantity) {
+      return;
     }
 
     if (this.isMoreThanInStock(lineItem.quantity, inStock)) {
@@ -96,15 +114,25 @@ export class CartService {
     }
   }
 
-  async remove(lineItemId: string) {
+  async remove(lineItem: ILineItem) {
     if (await this.showRemoveConfirmation()) {
-      this.activeOrderService.removeItem(lineItemId).subscribe();
+      this.removeItem(lineItem);
     }
+  }
+
+  async removeItem(lineItem: ILineItem) {
+    this.blockUiService.start('cart-spinner');
+    this.blockUiService.start(`product-spinner-${lineItem.productId}`);
+    this.activeOrderService.removeItem(lineItem.id).pipe(finalize(() => {
+      this.blockUiService.stop('cart-spinner');
+      this.blockUiService.stop(`product-spinner-${lineItem.productId}`);
+    })).subscribe();
   }
 
   async removeAll() {
     if (await this.showRemoveAllConfirmation()) {
-      this.activeOrderService.clearAllItems().subscribe();
+      // this.blockUiService.start('cart-spinner');
+      this.activeOrderService.clearAllItems().pipe(finalize(() => this.blockUiService.stop('cart-spinner') )).subscribe();
     }
   }
 

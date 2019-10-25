@@ -46,7 +46,8 @@ export class ActiveOrderService {
 
 
   addItems(items: {productId: string, productQuantity: number}[]) {
-    this.fullScreenSpinner.suspend();
+    console.log(`Add ${items.length} items to cart`);
+    // this.fullScreenSpinner.suspend(); // need full spinner
     const requests = items.map(x => this.http.addItemToCart(new AddCartItem(x.productId, x.productQuantity)));
     return forkJoin(requests).pipe(
       finalize(() => this.refreshCart()),
