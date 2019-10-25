@@ -16,22 +16,26 @@ export class ActiveOrderService {
   }
 
   refreshCart() {
-    this.getCart();
+    this.loadCart()
+    .subscribe(x => this.Cart.next(x));
   }
 
-  getCart() {
-    this.http
+  loadCart() {
+    return this.http
       .getCart()
-      .pipe(finalize(() => this.fullScreenSpinner.proceed()))
-      .subscribe(x => this.Cart.next(x),
+      .pipe(
+        // finalize(() => this.fullScreenSpinner.proceed()),
         catchError(error => this.handleError(error))
-      );
+        );
+  }
+
+  setCart( cart: ICart) {
+    this.Cart.next(cart);
   }
 
   createOrder() {
     console.log('Create order');
     return this.http.createOrder().pipe(
-      finalize(() => this.refreshCart()),
       catchError(error => this.handleError(error))
     );
   }
@@ -39,7 +43,6 @@ export class ActiveOrderService {
   clearAllItems() {
     console.log('Clear cart');
     return this.http.clearAllCartItems().pipe(
-      finalize(() => this.refreshCart()),
       catchError(error => this.handleError(error))
     );
   }
@@ -47,7 +50,6 @@ export class ActiveOrderService {
 
   addItems(items: {productId: string, productQuantity: number}[]) {
     console.log(`Add ${items.length} items to cart`);
-    // this.fullScreenSpinner.suspend(); // need full spinner
     const requests = items.map(x => this.http.addItemToCart(new AddCartItem(x.productId, x.productQuantity)));
     return forkJoin(requests).pipe(
       finalize(() => this.refreshCart()),
@@ -57,29 +59,23 @@ export class ActiveOrderService {
 
   addItem(productId: string, productQuantity: number = 1) {
     console.log('Add item to cart');
-    this.fullScreenSpinner.suspend();
     const addItemDto =  new AddCartItem(productId, productQuantity);
     return this.http.addItemToCart(addItemDto).pipe(
-      finalize(() => this.refreshCart()),
       catchError(error => this.handleError(error))
     );
   }
 
   removeItem(lineItemId: string) {
     console.log('Remove item from cart');
-    this.fullScreenSpinner.suspend();
     return this.http.removeItemFromCart(lineItemId).pipe(
-      finalize(() => this.refreshCart()),
       catchError(error => this.handleError(error))
     );
   }
 
   changeItemQuantity(lineItemId: string, quantity: number) {
     console.log('Item qty changing ');
-    this.fullScreenSpinner.suspend();
     const changeItemQtyDto = new ChangeCartItemQty(lineItemId, quantity);
     return this.http.changeItemQuantity(changeItemQtyDto).pipe(
-      finalize(() => this.refreshCart()),
       catchError(error => this.handleError(error))
     );
   }

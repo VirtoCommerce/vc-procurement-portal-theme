@@ -5,11 +5,12 @@ import { AlertsService } from '@modules/alerts/alerts.service';
 import { ConfirmService } from '@modules/confirm-modal/confirm-modal-service';
 import { Subject } from 'rxjs';
 import { ILineItem, ICart } from '@models/dto/icart';
-import { shareReplay, debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { shareReplay, debounceTime, distinctUntilChanged, finalize, switchMap } from 'rxjs/operators';
 import { CheckoutModalComponent } from '@components/active-order/checkout-modal/checkout-modal.component';
 import { WorkflowStorageService } from './workflow-storage.service';
 import { OrdersService } from '@api/orders.service';
 import { BlockUIService } from 'ng-block-ui';
+import { FullScreenSpinnerService } from './full-screen-spinner.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,19 +26,24 @@ export class CartService {
               private modalService: NgbModal,
               private workflowService: WorkflowStorageService,
               private orderService: OrdersService,
-              private blockUiService: BlockUIService) {
+              private blockUiService: BlockUIService,
+              private fullScreenSpinner: FullScreenSpinnerService) {
 
     this.productQuantityChanging$.pipe(
       shareReplay(),
       debounceTime(300),
       distinctUntilChanged())
       .subscribe(async (lineItem: ILineItem) => {
+        this.fullScreenSpinner.suspend();
         this.blockUiService.start('cart-spinner');
         this.blockUiService.start(`product-spinner-${lineItem.productId}`);
-        this.activeOrderService.changeItemQuantity(lineItem.id, lineItem.quantity).pipe(finalize(() =>{
+        this.activeOrderService.changeItemQuantity(lineItem.id, lineItem.quantity).pipe(
+          switchMap(() => this.activeOrderService.loadCart() ),
+          finalize(() => {
           this.blockUiService.stop('cart-spinner');
           this.blockUiService.stop(`product-spinner-${lineItem.productId}`);
-        })).subscribe();
+          this.fullScreenSpinner.proceed();
+        })).subscribe((x) => this.activeOrderService.setCart(x));
       });
 
     this.activeOrderService.Cart.subscribe((cart: ICart) => {
@@ -66,14 +72,23 @@ export class CartService {
   addProductToCart(productId: string) {
     if (!this.isInCart(productId) && !this._blockAddingToCart) {
       this._blockAddingToCart = true;
+      this.fullScreenSpinner.suspend();
       this.blockUiService.start('cart-spinner');
       this.blockUiService.start(`product-spinner-${productId}`);
-      this.activeOrderService.addItem(productId).pipe(finalize(() => {
+      this.activeOrderService.addItem(productId).pipe(
+        switchMap(() => this.activeOrderService.loadCart() ),
+        finalize(() => {
         this.blockUiService.stop('cart-spinner');
         this.blockUiService.stop(`product-spinner-${productId}`);
-      })).subscribe(() => this._blockAddingToCart = false );
+        this.fullScreenSpinner.proceed();
+      })).subscribe((x) => {
+        this.activeOrderService.setCart(x);
+        this._blockAddingToCart = false;
+      });
     }
   }
+
+
 
   isMoreThanInStock(newQuantity: number, inStock: number) {
     return newQuantity > inStock;
@@ -121,20 +136,33 @@ export class CartService {
   }
 
   async removeItem(lineItem: ILineItem) {
+    this.fullScreenSpinner.suspend();
     this.blockUiService.start('cart-spinner');
     this.blockUiService.start(`product-spinner-${lineItem.productId}`);
-    this.activeOrderService.removeItem(lineItem.id).pipe(finalize(() => {
+    this.activeOrderService.removeItem(lineItem.id).pipe(
+      switchMap(() => this.activeOrderService.loadCart() ),
+      finalize(() => {
       this.blockUiService.stop('cart-spinner');
       this.blockUiService.stop(`product-spinner-${lineItem.productId}`);
-    })).subscribe();
+      this.fullScreenSpinner.proceed();
+    })).subscribe((x) => this.activeOrderService.setCart(x) );
   }
 
   async removeAll() {
     if (await this.showRemoveAllConfirmation()) {
       // this.blockUiService.start('cart-spinner');
-      this.activeOrderService.clearAllItems().pipe(finalize(() => this.blockUiService.stop('cart-spinner') )).subscribe();
+      this.activeOrderService.clearAllItems().pipe(
+        // finalize(() => this.blockUiService.stop('cart-spinner') )
+        switchMap(() => this.activeOrderService.loadCart()),
+        ).subscribe((x) => this.activeOrderService.setCart(x));
     }
   }
+
+   addProductsToCart(items: {productId: string, productQuantity: number}[]) {
+     this.activeOrderService.addItems(items).pipe(
+      switchMap(() => this.activeOrderService.loadCart()),
+      ).subscribe((x) => this.activeOrderService.setCart(x));
+   }
 
   async checkout() {
     const modalRef = this.modalService.open(CheckoutModalComponent, {
