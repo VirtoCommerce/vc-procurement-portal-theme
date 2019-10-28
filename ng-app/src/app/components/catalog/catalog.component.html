@@ -114,7 +114,7 @@
     <ng-container *ngIf="products">
       <div class="list product--list">
         <ng-container *ngFor="let p of products">
-      <div class="list__item"  *blockUI="'product-spinner-'+p.id">
+      <div class="list__item" >
         <div class="list__img list__img--placeholder">
           <img
             src="{{ p.primaryImage?.url }}"
@@ -131,7 +131,7 @@
           <div class="list__descr" [innerHTML]="p.quickReview"></div>
         </div>
         <div class="list__other">
-          <div class="list__price">{{ p.price }}</div>
+          <div class="list__price" *blockUI="'product-spinner-'+p.id; template: disabledBlockTemplate">{{ p.price }}</div>
             <app-change-product-quantity [productId]="p.id" [inStock]="p.inStock">
             </app-change-product-quantity>
         </div>

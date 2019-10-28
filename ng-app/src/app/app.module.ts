@@ -62,6 +62,7 @@ import { WorkflowPreviewComponent } from './components/common/modals/workflow-pr
 import { APP_BASE_HREF } from '@angular/common';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AdjustAssetPathPipe } from './pipes/adjust-asset-path.pipe';
+import { DisabledBlockComponent } from './components/blockUI/disabled-block/disabled-block.component';
 
 declare var BASE_URL;
 
@@ -107,7 +108,8 @@ declare var BASE_URL;
     WorkflowActivationAlertComponent,
     WorkflowPreviewComponent,
     NotFoundComponent,
-    AdjustAssetPathPipe
+    AdjustAssetPathPipe,
+    DisabledBlockComponent
   ],
   imports: [
     BrowserModule,
