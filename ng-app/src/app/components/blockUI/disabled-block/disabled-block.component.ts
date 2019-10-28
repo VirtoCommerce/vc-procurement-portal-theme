@@ -6,11 +6,7 @@ import { Component, OnInit } from '@angular/core';
   <div class="block-ui-template">
    <div>loading</div>
   </div>`,
-  styles: [
-    `:host {
-      cursor: progress;
-    }`
-  ]
+  styleUrls: [ 'disabled-block.component.scss']
 })
 export class DisabledBlockComponent  {
 }

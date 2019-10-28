@@ -2,3 +2,26 @@
 @import 'styles/main.scss';
 //@import '../node_modules/bootstrap/scss/bootstrap.scss'
 @import '~ngx-ui-switch/ui-switch.component.scss';
+
+
+/****************************/
+/* BLOCK UI OVERRIDE STYLES */
+/****************************/
+
+/* Block UI Wrapper (Backdrop) */
+div.block-ui-wrapper {
+  background-color: rgba(256, 256, 256, 0.7);
+}
+
+
+/* Spinner */
+// div.block-ui-wrapper .loader {
+//   border-color: grey; /* Circle color */
+//   border-left-color: white; /* Spinning section in circle color */
+// }
+
+/* Message */
+// div.block-ui-spinner .message {
+//   color: grey; /* Loading text color */
+// }
+

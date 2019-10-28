@@ -130,8 +130,8 @@
           </div>
           <div class="list__descr" [innerHTML]="p.quickReview"></div>
         </div>
-        <div class="list__other">
-          <div class="list__price" *blockUI="'product-spinner-'+p.id; template: disabledBlockTemplate">{{ p.price }}</div>
+        <div class="list__other" *blockUI="'product-spinner-'+p.id; template: disabledBlockTemplate">
+          <div class="list__price">{{ p.price }}</div>
             <app-change-product-quantity [productId]="p.id" [inStock]="p.inStock">
             </app-change-product-quantity>
         </div>

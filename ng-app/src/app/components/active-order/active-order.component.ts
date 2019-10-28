@@ -1,6 +1,7 @@
 import { CartService } from '@services/cart.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ILineItem, ICart } from '@models/dto/icart';
+import { CustomSpinnerComponent } from '@components/blockUI/custom-spinner/custom-spinner.component';
 
 @Component({
   selector: 'app-active-order',
@@ -9,7 +10,7 @@ import { ILineItem, ICart } from '@models/dto/icart';
 })
 export class ActiveOrderComponent implements OnInit {
   @Input() cart: ICart;
-
+  customSpinner = CustomSpinnerComponent;
   constructor(
     private cartService: CartService
   ) { }

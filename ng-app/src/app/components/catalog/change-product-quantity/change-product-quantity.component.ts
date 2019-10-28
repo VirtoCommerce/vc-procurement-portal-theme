@@ -22,6 +22,8 @@ export class ChangeProductQuantityComponent implements OnInit {
     this.cartService.addProductToCart(this.productId);
   }
 
+
+
   async textChanged(textValue: string) {
     const value = parseInt(textValue, 10);
     if (!isNaN(value)) {
