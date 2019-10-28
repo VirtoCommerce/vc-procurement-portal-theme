@@ -28,6 +28,11 @@ export class ChangeProductQuantityActiveOrderComponent implements OnInit {
   //   this.cartService.remove(item.id);
   // }
 
+  onKeydown(event: any) {
+    if (event.key === 'Enter') {
+      this.textChanged(event.target.value);
+    }
+  }
 
   async textChanged(textValue: string) {
     const value = parseInt(textValue, 10);
