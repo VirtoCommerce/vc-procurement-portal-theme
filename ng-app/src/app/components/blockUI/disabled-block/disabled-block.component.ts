@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-disabled-block',
   template: `
   <div class="block-ui-template">
-   <div>loading</div>
   </div>`,
   styleUrls: [ 'disabled-block.component.scss']
 })
