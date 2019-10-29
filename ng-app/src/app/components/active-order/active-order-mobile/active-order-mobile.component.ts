@@ -30,7 +30,7 @@ export class ActiveOrderMobileComponent implements OnInit, IToggleable {
   }
 
   removeItem(item: ILineItem) {
-    this.cartService.remove(item.id);
+    this.cartService.remove(item);
   }
 
   removeAll() {

@@ -5,8 +5,12 @@ import { AlertsService } from '@modules/alerts/alerts.service';
 import { ConfirmService } from '@modules/confirm-modal/confirm-modal-service';
 import { Subject } from 'rxjs';
 import { ILineItem, ICart } from '@models/dto/icart';
-import { shareReplay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { shareReplay, debounceTime, distinctUntilChanged, finalize, switchMap } from 'rxjs/operators';
 import { CheckoutModalComponent } from '@components/active-order/checkout-modal/checkout-modal.component';
+import { WorkflowStorageService } from './workflow-storage.service';
+import { OrdersService } from '@api/orders.service';
+import { BlockUIService } from 'ng-block-ui';
+import { FullScreenSpinnerService } from './full-screen-spinner.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,14 +23,27 @@ export class CartService {
   constructor(private readonly activeOrderService: ActiveOrderService,
               private confirmService: ConfirmService,
               private alertsService: AlertsService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private workflowService: WorkflowStorageService,
+              private orderService: OrdersService,
+              private blockUiService: BlockUIService,
+              private fullScreenSpinner: FullScreenSpinnerService) {
 
     this.productQuantityChanging$.pipe(
       shareReplay(),
       debounceTime(300),
       distinctUntilChanged())
-      .subscribe(async (product: ILineItem) => {
-        this.activeOrderService.changeItemQuantity(product.id, product.quantity).subscribe();
+      .subscribe(async (lineItem: ILineItem) => {
+        this.fullScreenSpinner.suspend();
+        this.blockUiService.start('cart-spinner');
+        this.blockUiService.start(`product-spinner-${lineItem.productId}`);
+        this.activeOrderService.changeItemQuantity(lineItem.id, lineItem.quantity).pipe(
+          switchMap(() => this.activeOrderService.loadCart() ),
+          finalize(() => {
+          this.blockUiService.stop('cart-spinner');
+          this.blockUiService.stop(`product-spinner-${lineItem.productId}`);
+          this.fullScreenSpinner.proceed();
+        })).subscribe((x) => this.activeOrderService.setCart(x));
       });
 
     this.activeOrderService.Cart.subscribe((cart: ICart) => {
@@ -34,83 +51,120 @@ export class CartService {
     });
   }
 
-  public isInCart(productId: string): boolean {
+  isInCart(productId: string): boolean {
     if (this.cart == null) {
       return false;
     }
 
-    const product = this.findProductInCart(this.cart, productId);
-    return product != null ? true : false;
+    const item = this.findItemInCart(this.cart, productId);
+    return item != null ? true : false;
   }
 
-  public inCartQuantity(productId?: string): number {
-    if (productId != null) {
-      if (this.isInCart(productId)) {
-        return this.findProductInCart(this.cart, productId).quantity;
-      }
+  getCartProductQuantity(productId?: string): number {
+    const item = this.findItemInCart(this.cart, productId);
+    if (item != null) {
+        return item.quantity;
     } else {
-      return this.cart.itemsCount;
+      return 0;
     }
-
-    return 0;
   }
 
-  public addProductToCart(productId: string) {
+  addProductToCart(productId: string) {
     if (!this.isInCart(productId) && !this._blockAddingToCart) {
       this._blockAddingToCart = true;
-      this.activeOrderService.addItem(productId).subscribe(() => this._blockAddingToCart = false);
+      this.fullScreenSpinner.suspend();
+      this.blockUiService.start('cart-spinner');
+      this.blockUiService.start(`product-spinner-${productId}`);
+      this.activeOrderService.addItem(productId).pipe(
+        switchMap(() => this.activeOrderService.loadCart() ),
+        finalize(() => {
+        this.blockUiService.stop('cart-spinner');
+        this.blockUiService.stop(`product-spinner-${productId}`);
+        this.fullScreenSpinner.proceed();
+      })).subscribe((x) => {
+        this.activeOrderService.setCart(x);
+        this._blockAddingToCart = false;
+      });
     }
   }
 
-  public isMoreThanInStock(newQuantity: number, inStock: number) {
+
+
+  isMoreThanInStock(newQuantity: number, inStock: number) {
     return newQuantity > inStock;
   }
 
-  public async changeQuantity(productId: string,
-                              value: number,
-                              byStep: boolean,
-                              inStock: number) {
-    const product = this.findProductInCart(this.cart, productId);
-    if (this.isInCart(productId)) {
-      if (byStep) {
-        product.quantity += value;
-      } else {
-        product.quantity = +value;
-      }
+  async changeQuantity(productId: string, value: number, byStep: boolean, inStock: number) {
+    const lineItem = this.findItemInCart(this.cart, productId);
+    if (!lineItem) {
+      return;
+    }
+    const origValue = lineItem.quantity;
+    if (byStep) {
+      lineItem.quantity += value;
+    } else {
+      lineItem.quantity = value;
     }
 
-    if (product.quantity < 1) {
+    if (lineItem.quantity < 1) {
       // by default = 1
-      product.quantity = 1;
+      lineItem.quantity = 1;
       const dialogResult = await this.showRemoveConfirmation();
       if (dialogResult === true) {
-        this.activeOrderService.removeItem(product.id).subscribe();
+        await this.removeItem(lineItem);
         return;
       }
     }
 
-    if (this.isMoreThanInStock(product.quantity, inStock)) {
-      this.alertsService.warn(`\"${product.name}\" is not in stock in the requested quantity ${product.quantity}. Available: ${inStock}`);
+    if (origValue === lineItem.quantity) {
+      return;
+    }
+
+    if (this.isMoreThanInStock(lineItem.quantity, inStock)) {
+      this.alertsService.warn(`\"${lineItem.name}\" is not in stock in the requested quantity ${lineItem.quantity}. Available: ${inStock}`);
       this.cart.isValid = false;
     } else {
       this.cart.isValid = true;
-      this.productQuantityChanging$.next(product);
+      this.productQuantityChanging$.next(lineItem);
     }
   }
 
-  public async remove(lineItemId: string) {
+  async remove(lineItem: ILineItem) {
     if (await this.showRemoveConfirmation()) {
-      this.activeOrderService.removeItem(lineItemId).subscribe();
+      this.removeItem(lineItem);
     }
   }
 
-  public async removeAll() {
+  async removeItem(lineItem: ILineItem) {
+    this.fullScreenSpinner.suspend();
+    this.blockUiService.start('cart-spinner');
+    this.blockUiService.start(`product-spinner-${lineItem.productId}`);
+    this.activeOrderService.removeItem(lineItem.id).pipe(
+      switchMap(() => this.activeOrderService.loadCart() ),
+      finalize(() => {
+      this.blockUiService.stop('cart-spinner');
+      this.blockUiService.stop(`product-spinner-${lineItem.productId}`);
+      this.fullScreenSpinner.proceed();
+    })).subscribe((x) => this.activeOrderService.setCart(x) );
+  }
+
+  async removeAll() {
     if (await this.showRemoveAllConfirmation()) {
-      this.activeOrderService.clearAllItems().subscribe();
+      // this.blockUiService.start('cart-spinner');
+      this.activeOrderService.clearAllItems().pipe(
+        // finalize(() => this.blockUiService.stop('cart-spinner') )
+        switchMap(() => this.activeOrderService.loadCart()),
+        ).subscribe((x) => this.activeOrderService.setCart(x));
     }
   }
 
-  public async checkout() {
+   addProductsToCart(items: {productId: string, productQuantity: number}[]) {
+     this.activeOrderService.addItems(items).pipe(
+      switchMap(() => this.activeOrderService.loadCart()),
+      ).subscribe((x) => this.activeOrderService.setCart(x));
+   }
+
+  async checkout() {
     const modalRef = this.modalService.open(CheckoutModalComponent, {
       centered: true,
       backdrop: 'static',
@@ -118,7 +172,13 @@ export class CartService {
     });
     modalRef.componentInstance.cart = this.cart;
     await modalRef.result.then(() => {
-      this.activeOrderService.createOrder().subscribe(() => this.alertsService.success(`Order is created successfully!`));
+      this.activeOrderService.createOrder().subscribe(async (orderInfo) => {
+        const activeWorkflow = this.workflowService.getActiveWorkflow();
+        if (activeWorkflow.IsSystem) {
+          await this.orderService.changeOrderStatus(orderInfo.order.number, 'Completed');
+        }
+        this.alertsService.success(`Order is created successfully!`);
+      });
     }, () => { });
   }
 
@@ -142,7 +202,7 @@ export class CartService {
     return this.confirmService.confirm(confirmOptions).then(() => true, () => false);
   }
 
-  private findProductInCart(cart: ICart, productId: string): ILineItem {
+  private findItemInCart(cart: ICart, productId: string): ILineItem {
     return cart.items.find(x => x.productId === productId);
   }
 }

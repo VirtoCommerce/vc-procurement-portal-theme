@@ -12,6 +12,7 @@ import { ProductConverterService } from '@services/converters/product-converter.
 import { ProductDetails } from '@models/product';
 import { MobileViewService } from '@services/mobile-view.service';
 import { CategoriesMobileComponent } from './categories-mobile/categories-mobile.component';
+import { DisabledBlockComponent } from '@components/blockUI/disabled-block/disabled-block.component';
 
 @Component({
   selector: 'app-catalog',
@@ -19,6 +20,7 @@ import { CategoriesMobileComponent } from './categories-mobile/categories-mobile
   styleUrls: ['./catalog.component.scss']
 })
 export class CatalogComponent implements OnInit {
+  disabledBlockTemplate = DisabledBlockComponent;
   private searchText = '';
   products: ProductDetails[];
   categories$: Observable<Category[]>;

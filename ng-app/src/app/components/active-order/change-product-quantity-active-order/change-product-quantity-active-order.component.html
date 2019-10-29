@@ -1,10 +1,10 @@
 <div class="input-group--qty input-group--sm mt-auto" appRemoveWrapper>
-  <a class="btn btn--white" (click)="changeQuantity(-1, true)">
+  <a class="btn btn--white" (click)="decrement()">
     <span class="btn__ico btn__ico--minus"></span>
   </a>
   <input type="text" OnlyNumber="true" class="input-group__input" [value]="lineItem.quantity"
-    [ngClass]="{'invalid': isMoreThanInStock()}" (keyup)="changeQuantity($event.target.value, false)">
-  <a class="btn btn--white" (click)="changeQuantity(1, true)">
+    [ngClass]="{'invalid': isMoreThanInStock()}" (blur)="textChanged($event.target.value)" (keydown)="onKeydown($event)">
+  <a class="btn btn--white" (click)="increment()">
     <span class="btn__ico btn__ico--plus"></span>
   </a>
 </div>

@@ -66,14 +66,14 @@ export class BulkOrderManualComponent implements OnInit, OnDestroy {
   }
 
   public addItemsToCart() {
-    const addToCartRequests = (this.items.controls as FormGroup[]).map(itemForm => {
+    const addToCartItems = (this.items.controls as FormGroup[]).map(itemForm => {
       const productId = itemForm.get('id').value;
       const stringQty = itemForm.get('qty').value;
-      const quantity = parseInt(stringQty, 10);
-      return this.activeOrderService.addItem(productId, quantity);
+      const productQuantity = parseInt(stringQty, 10);
+      return { productId, productQuantity };
     });
 
-    forkJoin(addToCartRequests)
+    this.activeOrderService.addItems(addToCartItems)
       .subscribe(() => this.alertsService.success(`${this.items.controls.length} items successfully added to the active order.`));
   }
 

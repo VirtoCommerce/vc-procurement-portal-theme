@@ -62,6 +62,9 @@ import { WorkflowPreviewComponent } from './components/common/modals/workflow-pr
 import { APP_BASE_HREF } from '@angular/common';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AdjustAssetPathPipe } from './pipes/adjust-asset-path.pipe';
+import { DisabledBlockComponent } from './components/blockUI/disabled-block/disabled-block.component';
+import { CustomSpinnerComponent } from './components/blockUI/custom-spinner/custom-spinner.component';
+import { FullscreenSpinnerComponent } from './components/blockUI/fullscreen-spinner/fullscreen-spinner.component';
 
 declare var BASE_URL;
 
@@ -107,7 +110,10 @@ declare var BASE_URL;
     WorkflowActivationAlertComponent,
     WorkflowPreviewComponent,
     NotFoundComponent,
-    AdjustAssetPathPipe
+    AdjustAssetPathPipe,
+    DisabledBlockComponent,
+    CustomSpinnerComponent,
+    FullscreenSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -124,7 +130,8 @@ declare var BASE_URL;
     }),
     BlockUIModule.forRoot({
       delayStart: 250,
-      delayStop: 250
+      delayStop: 250,
+      template: FullscreenSpinnerComponent
     }),
     ConnectionServiceModule,
     UiSwitchModule.forRoot({
@@ -149,7 +156,11 @@ declare var BASE_URL;
   entryComponents: [EditCompanyUserModalFormComponent,
     CheckoutModalComponent,
     WorkflowActivationAlertComponent,
-    WorkflowPreviewComponent]
+    WorkflowPreviewComponent,
+    FullscreenSpinnerComponent,
+    CustomSpinnerComponent,
+    DisabledBlockComponent
+  ]
 })
 export class AppModule {
 }

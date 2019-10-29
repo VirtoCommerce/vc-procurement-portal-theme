@@ -127,16 +127,8 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
   public getAssignedToRoles = (order: IOrder) => this.orderWorkflowService.getRolesTextByState(order.status);
 
-  getOrders() {
-    const task = this.buildOrdersTask();
-    task.subscribe((data: any) => {
-      this.orders = data.results as IOrder[];
-      this.pagination.collectionSize = data.totalCount;
-      this.ordersLoaded$.next(true);
-    });
-  }
-
-  private buildOrdersTask(): Observable<GenericSearchResult<IOrder>> {
+  async getOrders() {
+    //const task = this.buildOrdersTask();
     let statuses = Array.from(this.selectedStatuses);
     if (statuses.length === 0) {
       statuses = [];
@@ -145,13 +137,28 @@ export class OrdersComponent implements OnInit, OnDestroy {
     const pageSize = this.pagination.pageSize;
     const startDate = this.startDate;
     const endDate = this.endDate;
-
-    if (statuses.length >= 1) {
-      return this.ordersService.getOrders(page, pageSize, startDate, endDate, null, statuses);
-    } else {
-      return this.ordersService.getOrders(page, pageSize, startDate, endDate, null);
+    const currentUser = await this.authorizationService.getCurrentUser();
+    if (!currentUser) {
+      throw Error('The current user isn\'t defined');
     }
+    const statusesParam = statuses.length >= 1 ? statuses : null;
+    this.ordersService.getOrders(page, pageSize, startDate, endDate, currentUser.storeId, null, statusesParam)
+    //task
+    .subscribe((data: any) => {
+      this.orders = data.results as IOrder[];
+      this.pagination.collectionSize = data.totalCount;
+      this.ordersLoaded$.next(true);
+    });
   }
+
+  // private async  buildOrdersTask(): Observable<GenericSearchResult<IOrder>> {
+
+  //   if (statuses.length >= 1) {
+  //     return ;
+  //   } else {
+  //     return this.ordersService.getOrders(page, pageSize, startDate, endDate, currentUser.storeId, null);
+  //   }
+  // }
 
   private async getStatesByUserRoles(): Promise<string[]> {
     const currentUser = await this.authorizationService.getCurrentUser();

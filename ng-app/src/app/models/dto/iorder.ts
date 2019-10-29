@@ -8,6 +8,7 @@ export class OrderSearchCriteria extends PagedSearchCriteria {
   Sort: string;
   StartDate: Date;
   EndDate: Date;
+  StoreIds: string[];
   Status: string;
   Statuses: string[];
 }

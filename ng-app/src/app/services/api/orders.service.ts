@@ -17,6 +17,7 @@ export class OrdersService {
     pageSize: number = 10,
     startDate: Date = null,
     endDate: Date = null,
+    storeId: string,
     status: string = '',
     statuses?: string[]
   ): Observable<GenericSearchResult<IOrder>> {
@@ -25,6 +26,7 @@ export class OrdersService {
     searchCriteria.pageSize = pageSize;
     searchCriteria.StartDate = startDate;
     searchCriteria.EndDate = endDate;
+    searchCriteria.StoreIds = [storeId];
     if (status === 'All') {
       searchCriteria.Status = '';
     } else {

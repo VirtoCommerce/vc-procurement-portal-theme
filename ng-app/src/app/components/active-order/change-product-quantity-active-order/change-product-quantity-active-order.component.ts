@@ -21,19 +21,38 @@ export class ChangeProductQuantityActiveOrderComponent implements OnInit {
   ngOnInit() {
   }
 
-  removeItem(item: ILineItem) {
-    if (this.activeOrderMobileSidebar) {
-      this.mobileSidebarService.closeSidebar(this.activeOrderMobileSidebar);
+  // removeItem(item: ILineItem) {
+  //   if (this.activeOrderMobileSidebar) {
+  //     this.mobileSidebarService.closeSidebar(this.activeOrderMobileSidebar);
+  //   }
+  //   this.cartService.remove(item.id);
+  // }
+
+  onKeydown(event: any) {
+    if (event.key === 'Enter') {
+      this.textChanged(event.target.value);
     }
-
-    this.cartService.remove(item.id);
   }
 
-  public async changeQuantity(value: number, byStep: boolean) {
-    await this.cartService.changeQuantity(this.lineItem.productId, value, byStep, this.lineItem.inStockQuantity);
+  async textChanged(textValue: string) {
+    const value = parseInt(textValue, 10);
+    if (!isNaN(value)) {
+      await this.cartService.changeQuantity(this.lineItem.productId, value, false, this.lineItem.inStockQuantity);
+    }
   }
 
-  public isMoreThanInStock(): boolean {
+  async increment() {
+    await this.cartService.changeQuantity(this.lineItem.productId, 1, true, this.lineItem.inStockQuantity);
+  }
+  async decrement() {
+    await this.cartService.changeQuantity(this.lineItem.productId, -1, true, this.lineItem.inStockQuantity);
+  }
+
+  // public async changeQuantity(value: number, byStep: boolean) {
+  //   await this.cartService.changeQuantity(this.lineItem.productId, value, byStep, this.lineItem.inStockQuantity);
+  // }
+
+  isMoreThanInStock(): boolean {
     return this.cartService.isMoreThanInStock(this.lineItem.quantity, this.lineItem.inStockQuantity);
   }
 }
