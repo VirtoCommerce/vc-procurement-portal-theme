@@ -22,7 +22,11 @@ export class ChangeProductQuantityComponent implements OnInit {
     this.cartService.addProductToCart(this.productId);
   }
 
-
+  onKeydown(event: any) {
+    if (event.key === 'Enter') {
+      this.textChanged(event.target.value);
+    }
+  }
 
   async textChanged(textValue: string) {
     const value = parseInt(textValue, 10);
