@@ -1,5 +1,7 @@
 # Procurement Portal Theme
 
+Status: pre-release, not recommended for production yet
+
 ## Overview
 
 Procurement Portal Theme is a Demo version of a Product that will demonstrate to potential Customers the capabilities of using Virto Commerce for creating dedicated stores for their clients that are supposed to be used as mono-supplier eProcurement Systems.
