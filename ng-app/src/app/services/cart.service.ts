@@ -164,22 +164,24 @@ export class CartService {
       ).subscribe((x) => this.activeOrderService.setCart(x));
    }
 
-  async checkout() {
+  async checkout(): Promise<boolean | void> {
     const modalRef = this.modalService.open(CheckoutModalComponent, {
       centered: true,
       backdrop: 'static',
       size: 'lg'
     });
     modalRef.componentInstance.cart = this.cart;
-    await modalRef.result.then(() => {
+    const result = await modalRef.result.then(() => {
       this.activeOrderService.createOrder().subscribe(async (orderInfo) => {
         const activeWorkflow = this.workflowService.getActiveWorkflow();
         if (activeWorkflow.IsSystem) {
           await this.orderService.changeOrderStatus(orderInfo.order.number, 'Completed');
         }
         this.alertsService.success(`Order is created successfully!`);
+        return true;
       });
-    }, () => { });
+    }, () =>  false );
+    return result;
   }
 
   private showRemoveConfirmation(): Promise<boolean> {

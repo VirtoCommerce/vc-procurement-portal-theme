@@ -44,6 +44,6 @@ export class ActiveOrderMobileComponent implements OnInit, IToggleable {
   }
 
   checkout() {
-    this.cartService.checkout();
+    this.cartService.checkout().then(() => this.closeSidebar());
   }
 }
