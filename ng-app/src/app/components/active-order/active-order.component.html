@@ -33,7 +33,7 @@
     </div>
   </div>
   <div class="sidebar__footer">
-      <button type="button" class="btn btn--green btn--block" [ngClass]="{'disabled': !cart.isValid}"
-        [disabled]="!cart.isValid" (click)="checkout()">Checkout</button>
+      <button type="button" class="btn btn--green btn--block" [ngClass]="{'disabled': !canCheckout}"
+        [disabled]="!canCheckout" (click)="checkout()">Checkout</button>
   </div>
 </div>

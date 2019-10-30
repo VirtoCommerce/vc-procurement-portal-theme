@@ -20,6 +20,10 @@ export class ActiveOrderMobileComponent implements OnInit, IToggleable {
     private cartService: CartService
   ) { }
 
+  get canCheckout() {
+    return this.cart.isValid && this.cart.itemsCount > 0;
+  }
+
   ngOnInit() {
   }
 

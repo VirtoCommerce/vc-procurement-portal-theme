@@ -18,6 +18,10 @@ export class ActiveOrderComponent implements OnInit {
   ngOnInit() {
   }
 
+  get canCheckout() {
+    return this.cart.isValid && this.cart.itemsCount > 0;
+  }
+
   public removeItem(item: ILineItem) {
     this.cartService.remove(item);
   }
