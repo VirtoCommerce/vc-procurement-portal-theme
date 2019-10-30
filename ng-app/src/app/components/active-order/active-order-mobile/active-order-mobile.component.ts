@@ -3,6 +3,7 @@ import { ICart, ILineItem } from '@models/dto/icart';
 import { IToggleable } from '@models/itoggleable';
 import { MobileViewService } from '@services/mobile-view.service';
 import { CartService } from '@services/cart.service';
+import { CustomSpinnerComponent } from '@components/blockUI/custom-spinner/custom-spinner.component';
 
 @Component({
   selector: 'app-active-order-mobile',
@@ -12,6 +13,7 @@ import { CartService } from '@services/cart.service';
 export class ActiveOrderMobileComponent implements OnInit, IToggleable {
   @Input() cart: ICart;
   isOpen = false;
+  customSpinner = CustomSpinnerComponent;
 
   constructor(
     private mobileSidebarService: MobileViewService,
