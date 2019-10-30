@@ -101,6 +101,11 @@ export class OrderWorkflowService {
     return 'N/A';
   }
 
+  // todo: remove hard code.
+  getAllStatuses() {
+    return ['New', '1st approved', '2nd approved', 'Completed', 'Rejected'];
+  }
+
   public getAllStates(exceptFinalStatus?: boolean, exceptInitialStatus?: boolean): string[] {
     let query = this.workflow.States;
     if (query == null) {

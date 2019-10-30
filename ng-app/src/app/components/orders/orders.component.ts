@@ -70,7 +70,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   public getStatusFilters() {
-    return this.orderWorkflowService.getAllStates().map((state: any) => {
+    return this.orderWorkflowService.getAllStatuses().map((state: any) => {
       return {
         checked: this.selectedStatuses.has(state),
         name: state
@@ -171,7 +171,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   private getAllStatuses() {
-    return this.orderWorkflowService.getAllStates();
+    return this.orderWorkflowService.getAllStatuses();
   }
 
   private isDateValid(date: any): boolean {
