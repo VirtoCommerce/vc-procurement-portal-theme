@@ -158,11 +158,11 @@ export class CartService {
     }
   }
 
-   addProductsToCart(items: {productId: string, productQuantity: number}[]) {
-     this.activeOrderService.addItems(items).pipe(
-      switchMap(() => this.activeOrderService.loadCart()),
-      ).subscribe((x) => this.activeOrderService.setCart(x));
-   }
+  //  addProductsToCart(items: {productId: string, productQuantity: number}[]) {
+  //    this.activeOrderService.addItems(items).pipe(
+  //     switchMap(() => this.activeOrderService.loadCart()),
+  //     ).subscribe((x) => this.activeOrderService.setCart(x));
+  //  }
 
   async checkout(): Promise<boolean | void> {
     const modalRef = this.modalService.open(CheckoutModalComponent, {
@@ -177,6 +177,7 @@ export class CartService {
         if (activeWorkflow.IsSystem) {
           await this.orderService.changeOrderStatus(orderInfo.order.number, 'Completed');
         }
+        this.activeOrderService.refreshCart();
         this.alertsService.success(`Order is created successfully!`);
         return true;
       });
