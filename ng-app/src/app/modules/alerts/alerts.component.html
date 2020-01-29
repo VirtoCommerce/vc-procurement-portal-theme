@@ -1,3 +1,0 @@
-<div  *ngFor="let alert of alerts$ | async as alerts">
-  <ngb-alert [type]="alert.type" [dismissible]="dismissible" (close)="onClosed(alert)">{{ alert.msg }}</ngb-alert>
-</div>

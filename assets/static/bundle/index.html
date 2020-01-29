@@ -15,24 +15,15 @@
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Google fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
-
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href=" {{ 'bundle/assets/css/bootstrap.min.css' | static_asset_url }}">
-  {{ 'bundle/login-page.css' | static_asset_url | stylesheet_tag }}
 
-  <script>
-      var BASE_URL = '{{ "/" | full_url }}';		
-  </script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 
-</head>
+
+
+<link rel="stylesheet" href="styles.css"></head>
 <body>
-	<main>
-  {{ content_for_layout }}
-</main>
- 
-
-</body>
+  <app-root></app-root>
+<script src="runtime.js"></script><script src="polyfills-es5.js" nomodule></script><script src="polyfills.js"></script><script src="scripts.js"></script><script src="vendor.js"></script><script src="main.js"></script></body>
 </html>

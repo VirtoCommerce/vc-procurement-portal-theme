@@ -1,23 +1,20 @@
-{% unless form.errors.empty? %}
-  <div class="form-error mb-2">
-      <p>Sorry, looks like something went wrong. Please correct the following and submit again</p>
-
-    <ul class="reset disc mb-0">
-      {% assign message = 'contact.form.message' | t %}
-      {% for field in form.errors %}
-
-        {% if field == 'form' %}
-          <li>
-            {{ form.errors.messages[field] }}
-          </li>
-        {% else %}
-          <li>
-            {% assign field_name = field | replace: 'body', message %}
-            {{ 'general.forms.post_field_error_html' | t: field_name, error: form.errors.messages[field] }}
-          </li>
+{% if form.errors.size > 0 %}
+<div class="note form-error">
+  <p>{{ 'general.forms.post_error' | t }}</p>
+  <ul class="disc">
+    {% for form_error in form.errors %}
+      {% assign form_error_message = form_error.message %}
+      {% if form_error.code %}
+        {% capture form_error_message_key -%}error.{{ form_error.code }}{% endcapture %}
+        {% assign form_error_message = form_error_message_key | t %}
+        {% if form_error_message == form_error_message_key %}
+          {% assign form_error_message = form_error.message %}
         {% endif %}
-
-      {% endfor %}
-     </ul>
-  </div>
-{% endunless %}
+      {% endif %}
+      <li>
+        {{ form_error_message }}
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}

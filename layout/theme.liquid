@@ -12,7 +12,7 @@
   <meta name="format-detection" content="telephone=no">
 
   <title>Procurement portal</title>
-  <base href='{{ "/" | absolute_url }}'>
+  <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -20,77 +20,19 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <!-- <link rel="stylesheet" href=" {{ 'bundle/assets/css/bootstrap.min.css' | static_asset_url }}"> -->
-  <link rel="stylesheet" href="{{ 'bundle/styles.css' | static_asset_url }}"></head>
- <!-- spinner styles -->
-  <style type="text/css">
-    .app-loading {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-    }
-
-    .lds-ring {
-      display: inline-block;
-      position: relative;
-      width: 128px;
-      height: 128px;
-    }
-
-    .lds-ring div {
-      box-sizing: border-box;
-      display: block;
-      position: absolute;
-      width: 115px;
-      height: 115px;
-      margin: 6px;
-      border: 6px solid gray;
-      border-radius: 50%;
-      animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-      border-color: gray transparent transparent transparent;
-    }
-
-    .lds-ring div:nth-child(1) {
-      animation-delay: -0.45s;
-    }
-
-    .lds-ring div:nth-child(2) {
-      animation-delay: -0.3s;
-    }
-
-    .lds-ring div:nth-child(3) {
-      animation-delay: -0.15s;
-    }
-
-    @keyframes lds-ring {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-  </style> 
+  <link rel="stylesheet" href=" {{ 'bundle/assets/css/bootstrap.min.css' | static_asset_url }}">
+  <link rel="stylesheet" href="{{ 'styles.css' | static_asset_url }}"></head>
 
   <script>
-    var BASE_URL = '{{ "/" | absolute_url }}';
+      window.BASE_URL = '{{ "/" | full_url }}';		
   </script>
 
 </head>
 <body>
-	
+  {{ content_for_header }}
+
   {{ content_for_layout }}
-
-<script src="{{ 'bundle/runtime.js' | static_asset_url }}"></script>
-<script src="{{ 'bundle/polyfills-es5.js' | static_asset_url }}" nomodule></script>
-<script src="{{ 'bundle/polyfills.js' | static_asset_url }}"></script>
-<script src="{{ 'bundle/scripts.js' | static_asset_url }}"></script>
-<script src="{{ 'bundle/vendor.js' | static_asset_url }}"></script>
-<script src="{{ 'bundle/main.js' | static_asset_url }}"></script>
-
+  
+<script src="{{ 'bundle/dist/js/chunk-vendors.js' | static_asset_url | append_version }}"></script>
 </body>
 </html>

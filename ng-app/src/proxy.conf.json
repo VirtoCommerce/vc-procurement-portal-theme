@@ -1,6 +1,0 @@
-{
-  "/storefrontapi": {
-    "target": "http://localhost:2083",
-    "secure": false
-  }
-}
