@@ -1,3 +1,10 @@
+## Deprecation warning ⚠️
+The theme is no longer being maintained by Virto Commerce. Developers are encouraged to check out [Vue B2B Theme](https://github.com/VirtoCommerce/vc-theme-b2b-vue) .
+
+You can continue to use the theme with Virto Commerce Platform 3.x and Storefront 5.x; however, this repo will not be kept up-to-date.
+
+---
+
 # Procurement Portal Theme
 
 Status: pre-release, not recommended for production yet
